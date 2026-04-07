@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { @apply border-gray-200; }
+  body { @apply bg-gray-50 text-gray-900; }
+
+  /* Smooth scrolling */
+  html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+
+  /* Prevent text selection on buttons for mobile */
+  button, a { -webkit-touch-callout: none; }
+
+  /* Minimum touch target size (44px) */
+  button, a, input[type="checkbox"], input[type="radio"] {
+    min-height: 44px;
+  }
+
+  /* Fix input zoom on iOS (font-size < 16px causes zoom) */
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+
+  @screen sm {
+    input, textarea, select {
+      font-size: inherit !important;
+    }
+  }
+
+  /* Better scrolling on mobile */
+  .overflow-y-auto, .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
