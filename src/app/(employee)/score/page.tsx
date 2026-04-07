@@ -3,10 +3,10 @@ import { getAuthEmployee } from "@/lib/supabase/middleware";
 
 export default async function MyScorePage() {
   const supabase = createServerSupabaseClient();
-  const employee = await getAuthEmployee();
-  if (!employee) return null;
+  const employee: any = await getAuthEmployee();
+if (!employee) return null;
 
-  const { data: score } = await supabase
+const { data: score }: any = await supabase
     .from("employee_global_score")
     .select("*")
     .eq("employee_id", employee.id)
