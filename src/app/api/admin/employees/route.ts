@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { requireManager } from "@/lib/supabase/middleware";
+import { requireManager, requirePatron } from "@/lib/supabase/middleware";
 
 export async function GET() {
   await requireManager();
@@ -16,7 +16,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    await requireManager();
+await requirePatron();
     const body = await req.json();
     const { action, employeeId } = body;
 
