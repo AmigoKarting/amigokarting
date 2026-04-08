@@ -1,5 +1,6 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
+import { PendingAccounts } from "@/components/admin/PendingAccounts";
 
 export default async function AdminDashboard() {
   const supabase = createServerSupabaseClient();
@@ -14,11 +15,19 @@ export default async function AdminDashboard() {
     .select("*")
     .eq("has_missing_info", true);
 
+  const { count: pendingCount } = await supabase
+    .from("employees")
+    .select("*", { count: "exact", head: true })
+    .eq("is_active", false);
+
   return (
     <div className="space-y-6">
       <AnnouncementPopup />
 
       <h1 className="text-2xl font-bold">Tableau de bord</h1>
+
+      {/* Comptes en attente */}
+      <PendingAccounts />
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-xl bg-white p-6 shadow-sm">
@@ -30,9 +39,8 @@ export default async function AdminDashboard() {
           <p className="mt-1 text-3xl font-bold text-red-600">{missingInfo?.length || 0}</p>
         </div>
         <div className="rounded-xl bg-white p-6 shadow-sm">
-          <p className="text-sm text-gray-500">En formation</p>
-          <p className="mt-1 text-3xl font-bold text-brand-600">—</p>
-          <p className="text-xs text-gray-400">Temps réel via Supabase Realtime</p>
+          <p className="text-sm text-gray-500">En attente</p>
+          <p className="mt-1 text-3xl font-bold text-orange-600">{pendingCount || 0}</p>
         </div>
         <div className="rounded-xl bg-white p-6 shadow-sm">
           <p className="text-sm text-gray-500">Note moyenne conversations</p>

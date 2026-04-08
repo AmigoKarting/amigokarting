@@ -35,14 +35,19 @@ export async function POST(req: NextRequest) {
       .select("id, first_name, last_name, phone_last4, role, is_active, auth_user_id")
       .ilike("first_name", normalizedName)
       .eq("phone_last4", pin)
-      .eq("is_active", true)
       .single();
 
     if (lookupError || !employee) {
-      // Message volontairement vague pour la sécurité
       return NextResponse.json(
         { error: "Identifiant ou code incorrect." },
         { status: 401 }
+      );
+    }
+
+    if (!employee.is_active) {
+      return NextResponse.json(
+        { error: "Ton compte est en attente d'approbation par ton gestionnaire." },
+        { status: 403 }
       );
     }
 

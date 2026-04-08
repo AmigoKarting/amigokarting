@@ -55,6 +55,7 @@ export async function POST(req: NextRequest) {
         phone: phone.trim(),
         phone_last4: phoneLast4,
         role: "employee",
+        is_active: false,
       })
       .select("id, first_name, last_name")
       .single();

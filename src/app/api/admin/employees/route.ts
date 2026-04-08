@@ -11,7 +11,7 @@ export async function GET() {
     .eq("is_active", true)
     .order("last_name");
 
-  return NextResponse.json({ employees: data });
+  return NextResponse.json({ employees: data || [] });
 }
 
 export async function POST(req: NextRequest) {
