@@ -33,7 +33,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
 
   const isPatron = employee?.role === "patron" || employee?.role === "developpeur";
   const navItems = isPatron ? [...baseNav, ...patronNav] : baseNav;
-  const roleLabel = isPatron ? "patron" : "manager";
+ const roleLabel = employee?.role === "developpeur" ? "developpeur" : isPatron ? "patron" : "manager";
 
   return (
     <div className="flex min-h-screen">
