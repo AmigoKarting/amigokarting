@@ -13,6 +13,6 @@ export default async function Home() {
     .eq("auth_user_id", user.id)
     .single();
 
-  if (employee?.role === "manager" || employee?.role === "patron") redirect("/admin");
+  if (employee?.role === "manager" || employee?.role === "patron" || employee?.role === "developpeur") redirect("/admin");
   redirect("/dashboard");
 }

@@ -41,7 +41,7 @@ export function Sidebar({ items, userName, role, onLogout }: SidebarProps) {
       <div className="border-b border-gray-200 p-6">
         <h2 className="text-lg font-bold text-orange-600">Amigo Karting</h2>
         <p className="mt-1 text-sm text-gray-500">
-          {userName} {role === "patron" && "· Patron"}{role === "manager" && "· Gérant"}
+          {userName} {role === "patron" && "· Patron"}{role === "developpeur" && "· Dev"}{role === "manager" && "· Gérant"}
         </p>
       </div>
 

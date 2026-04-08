@@ -219,7 +219,7 @@ export default function LoginPage() {
 
         // Rediriger après un court délai pour l'animation
         setTimeout(() => {
-          const destination = (data.employee.role === "manager" || data.employee.role === "patron") ? "/admin" : "/dashboard";
+          const destination = (data.employee.role === "manager" || data.employee.role === "patron" || data.employee.role === "developpeur") ? "/admin" : "/dashboard";
           router.push(destination);
           router.refresh();
         }, 1200);

@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
       .eq("auth_user_id", user.id)
       .single();
 
-    if (employee?.role !== "manager" && employee?.role !== "patron") {
+    if (employee?.role !== "manager" && employee?.role !== "patron" && employee?.role !== "developpeur") {
       return NextResponse.redirect(new URL("/dashboard", request.url));
     }
   }

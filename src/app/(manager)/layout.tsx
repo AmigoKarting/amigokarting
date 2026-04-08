@@ -31,7 +31,7 @@ export default function ManagerLayout({ children }: { children: React.ReactNode 
 
   if (isLoading) return <Spinner fullScreen />;
 
-  const isPatron = employee?.role === "patron";
+  const isPatron = employee?.role === "patron" || employee?.role === "developpeur";
   const navItems = isPatron ? [...baseNav, ...patronNav] : baseNav;
   const roleLabel = isPatron ? "patron" : "manager";
 
