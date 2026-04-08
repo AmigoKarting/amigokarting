@@ -94,14 +94,14 @@ export function EmployeeTable({ employees, missingInfo }: Props) {
                   <Link href={`/admin/employees/${emp.id}`} className="font-medium text-orange-600 hover:underline">
                     {emp.first_name} {emp.last_name}
                   </Link>
-                  <p className="text-xs text-gray-400">Code : {emp.phone_last4}</p>
+                  <p className="text-xs text-gray-400">Code : {emp.role === "patron" ? "****" : emp.phone_last4}</p>
                 </td>
 
                 {/* Rôle avec bouton toggle */}
                 <td className="px-4 py-3">
-                  {emp.role === "patron" ? (
-                    <span className="rounded-full bg-yellow-100 px-2.5 py-1 text-xs font-medium text-yellow-700">
-                      👑 Patron
+                {emp.role === "patron" || emp.role === "developpeur" ? (
+                    <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${emp.role === "patron" ? "bg-yellow-100 text-yellow-700" : "bg-cyan-100 text-cyan-700"}`}>
+                      {emp.role === "patron" ? "👑 Patron" : "💻 Dev"}
                     </span>
                   ) : (
                     <button

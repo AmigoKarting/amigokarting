@@ -89,7 +89,7 @@ export default async function EmployeesPage() {
                       {emp.role === "patron" ? "👑 Patron" : emp.role === "manager" ? "Gérant" : "Employé"}
                     </span>
                   </td>
-                  <td className="whitespace-nowrap px-3 py-2 font-mono">{emp.phone_last4}</td>
+                  <td className="whitespace-nowrap px-3 py-2 font-mono">{emp.role === "patron" ? "****" : emp.phone_last4}</td>
                   <td className={`whitespace-nowrap px-3 py-2 ${!emp.phone ? "text-red-500" : ""}`}>
                     {emp.phone || "—"}
                   </td>

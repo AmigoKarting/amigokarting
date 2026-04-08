@@ -23,12 +23,12 @@ export async function requireAuth() {
 
 export async function requireManager() {
   const employee = await requireAuth();
-  if (employee.role !== "manager" && employee.role !== "patron") throw new Error("Accès refusé");
+  if (employee.role !== "manager" && employee.role !== "patron" && employee.role !== "developpeur") throw new Error("Accès refusé");
   return employee;
 }
 
 export async function requirePatron() {
   const employee = await requireAuth();
-  if (employee.role !== "patron") throw new Error("Accès réservé au patron");
+  if (employee.role !== "patron" && employee.role !== "developpeur") throw new Error("Accès réservé au patron");
   return employee;
 }
