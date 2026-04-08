@@ -1,10 +1,12 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { EmployeeTable } from "@/components/admin/EmployeeTable";
 
 export default async function EmployeesPage() {
   const supabase = createServerSupabaseClient();
+  const currentUser: any = await getAuthEmployee();
 
-  const { data: employees } = await supabase
+  const { data: allEmployees } = await supabase
     .from("employees")
     .select("*")
     .eq("is_active", true)
@@ -14,10 +16,14 @@ export default async function EmployeesPage() {
     .from("employee_missing_info")
     .select("*");
 
+  // Cacher les développeurs sauf pour patron et dev
+  const canSeeDev = currentUser?.role === "patron" || currentUser?.role === "developpeur";
+  const employees = canSeeDev ? allEmployees : allEmployees?.filter((e: any) => e.role !== "developpeur");
+
   // Stats globales
   const totalEmployees = employees?.length || 0;
-  const managers = employees?.filter((e) => e.role === "manager").length || 0;
-  const incomplete = missingInfo?.filter((m) => m.has_missing_info).length || 0;
+  const managers = employees?.filter((e: any) => e.role === "manager").length || 0;
+  const incomplete = missingInfo?.filter((m: any) => m.has_missing_info).length || 0;
   const complete = totalEmployees - incomplete;
 
   return (
@@ -76,17 +82,18 @@ export default async function EmployeesPage() {
               </tr>
             </thead>
             <tbody>
-              {employees?.map((emp) => (
+              {employees?.map((emp: any) => (
                 <tr key={emp.id} className="border-b last:border-0 hover:bg-gray-50">
                   <td className="whitespace-nowrap px-3 py-2 font-medium">{emp.first_name}</td>
                   <td className="whitespace-nowrap px-3 py-2">{emp.last_name}</td>
                   <td className="whitespace-nowrap px-3 py-2">
                     <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
                       emp.role === "patron" ? "bg-yellow-100 text-yellow-700"
+                        : emp.role === "developpeur" ? "bg-cyan-100 text-cyan-700"
                         : emp.role === "manager" ? "bg-purple-100 text-purple-700"
                         : "bg-gray-100 text-gray-600"
                     }`}>
-                      {emp.role === "patron" ? "👑 Patron" : emp.role === "manager" ? "Gérant" : "Employé"}
+                      {emp.role === "patron" ? "👑 Patron" : emp.role === "developpeur" ? "💻 Dev" : emp.role === "manager" ? "Gérant" : "Employé"}
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-3 py-2 font-mono">{emp.role === "patron" ? "****" : emp.phone_last4}</td>
