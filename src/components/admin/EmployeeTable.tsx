@@ -99,7 +99,7 @@ export function EmployeeTable({ employees, missingInfo }: Props) {
 
                 {/* Rôle avec bouton toggle */}
                 <td className="px-4 py-3">
-                {emp.role === "patron" || emp.role === "developpeur" ? (
+                {emp.role === "patron" ? (
                     <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${emp.role === "patron" ? "bg-yellow-100 text-yellow-700" : "bg-cyan-100 text-cyan-700"}`}>
                       {emp.role === "patron" ? "👑 Patron" : "💻 Dev"}
                     </span>
