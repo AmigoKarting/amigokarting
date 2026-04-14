@@ -1,6 +1,6 @@
 {
   "name": "Amigo Karting",
-  "short_name": "Amigo",
+  "short_name": "Amigo Karting",
   "description": "Portail des employés d'Amigo Karting",
   "start_url": "/",
   "display": "standalone",
