@@ -6,7 +6,7 @@ export default async function PatronPage() {
   const employee = await getAuthEmployee();
 
   // Seul le patron peut voir cette page
-  if (!employee || employee.role !== "patron") redirect("/admin");
+  if (!employee || (employee.role !== "patron" && employee.role !== "developpeur")) redirect("/admin");
 
   const supabase = createServerSupabaseClient();
 
