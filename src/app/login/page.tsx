@@ -336,8 +336,8 @@ export default function LoginPage() {
       <div className="relative w-full max-w-sm">
         {/* Badge orange en haut */}
         <div className="absolute -top-5 left-1/2 z-10 -translate-x-1/2">
-          <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-orange-400 to-orange-600 shadow-lg shadow-orange-500/30">
-            <KartingIcon className="h-9 w-9 text-white" />
+          <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-2xl shadow-lg shadow-orange-500/30">
+            <img src="/logo-karting.png" alt="Amigo Karting" className="h-16 w-16 rounded-xl" />
           </div>
         </div>
 
