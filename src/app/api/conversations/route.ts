@@ -93,6 +93,7 @@ export async function POST(req: NextRequest) {
 
     // ─── Démarrer une session ──────────────────────────────
     if (action === "start") {
+      const { simulationId } = body;
       let sessionId = `mock-${Date.now()}`;
 
       try {
@@ -108,7 +109,9 @@ export async function POST(req: NextRequest) {
       const ctx = await getEmployeeContext(employee.id);
 
       let greeting: string;
-      if (isMock) {
+      if (simulationId) {
+        greeting = getSimulationIntro(simulationId, ctx?.firstName || employee.first_name);
+      } else if (isMock) {
         greeting = buildSmartGreeting(ctx);
       } else {
         try {
@@ -132,7 +135,7 @@ export async function POST(req: NextRequest) {
 
     // ─── Envoyer un message ────────────────────────────────
     if (action === "message") {
-      const { sessionId, message, history = [] } = body;
+      const { sessionId, message, history = [], simulationId } = body;
 
       if (!sessionId || !message) {
         return NextResponse.json({ error: "sessionId et message requis" }, { status: 400 });
@@ -143,7 +146,9 @@ export async function POST(req: NextRequest) {
 
       let response: string;
 
-      if (isMock) {
+      if (simulationId) {
+        response = getSimulationResponse(simulationId, message, history);
+      } else if (isMock) {
         response = getSmartMockResponse(message, history, ctx);
       } else {
         try {
@@ -222,54 +227,56 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// ─── Greeting intelligent avec contexte ─────────────────────────
+// ─── Greeting intelligent — personnalité chef formateur ─────────
 function buildSmartGreeting(ctx: AIContext | null): string {
-  if (!ctx) return "Salut ! Prêt pour une révision ? Première question : c'est quoi la première chose à vérifier quand tu donnes un casque à un client ?";
+  if (!ctx) return "Hey ! C'est ton chef formateur. Ici on travaille sérieusement mais on a du fun. Montre-moi ce que tu sais. Première question : c'est quoi la première chose à vérifier quand tu donnes un casque à un client ? Vas-y, impressionne-moi.";
 
   const name = ctx.firstName;
   const parts: string[] = [];
 
-  // Salutation personnalisée
+  // Salutation directe et motivante
   if (ctx.totalConversations === 0) {
-    parts.push(`Salut ${name} ! C'est ta première conversation avec moi, bienvenue !`);
+    parts.push(`${name} ! Bienvenue dans ton entraînement. Je suis ton chef formateur. Mon job c'est de m'assurer que tu sois le meilleur employé qu'Amigo Karting a jamais eu. On va travailler fort, mais je crois en toi.`);
   } else if (ctx.lastConversationDate) {
     const days = Math.floor((Date.now() - new Date(ctx.lastConversationDate).getTime()) / (1000 * 60 * 60 * 24));
-    if (days === 0) parts.push(`Re-salut ${name} ! Encore une session aujourd'hui, j'aime ta motivation !`);
-    else if (days === 1) parts.push(`Salut ${name} ! Content de te revoir, c'était bien hier !`);
-    else if (days < 7) parts.push(`Hey ${name} ! Ça fait ${days} jours, on se remet dedans ?`);
-    else parts.push(`Salut ${name} ! Ça fait un moment ! Content de te retrouver.`);
+    if (days === 0) parts.push(`${name} ! Deux sessions la même journée ? J'aime cette attitude. C'est comme ça qu'on devient le meilleur.`);
+    else if (days === 1) parts.push(`${name} ! De retour aujourd'hui, c'est ça l'engagement. On lâche pas.`);
+    else if (days < 7) parts.push(`${name} ! Ça fait ${days} jours. C'est correct, mais les champions s'entraînent tous les jours. On se rattrape maintenant.`);
+    else parts.push(`${name} ! Ça fait trop longtemps. Un bon employé s'entraîne régulièrement. Mais t'es là, c'est ce qui compte. On recommence fort.`);
   } else {
-    parts.push(`Salut ${name} !`);
+    parts.push(`${name} ! Ton chef formateur est prêt. Et toi, t'es prêt ?`);
   }
 
-  // Commentaire sur le score
-  if (ctx.globalScore >= 80) {
-    parts.push(`Ton score est à ${ctx.globalScore} sur 100, c'est excellent !`);
+  // Score — direct et exigeant
+  if (ctx.globalScore >= 90) {
+    parts.push(`Ton score est à ${ctx.globalScore}. C'est excellent. Mais on vise le 100. On arrête jamais de s'améliorer.`);
+  } else if (ctx.globalScore >= 70) {
+    parts.push(`Ton score est à ${ctx.globalScore}. C'est bien, mais je sais que t'es capable de plus. On va pousser ça vers le 90 aujourd'hui.`);
   } else if (ctx.globalScore >= 50) {
-    parts.push(`Ton score est à ${ctx.globalScore} sur 100, on va l'améliorer ensemble.`);
+    parts.push(`Ton score est à ${ctx.globalScore}. Honnêtement, je m'attends à mieux de toi. On va corriger ça maintenant.`);
   } else if (ctx.globalScore > 0) {
-    parts.push(`Ton score est à ${ctx.globalScore} sur 100, on a du travail mais c'est correct !`);
+    parts.push(`Ton score est à ${ctx.globalScore}. C'est en dessous de ce que je veux voir. Mais c'est pour ça que je suis là — on va remonter ça ensemble.`);
   }
 
-  // Cibler les sujets faibles
+  // Cibler les faiblesses — direct
   if (ctx.weakQuestions.length > 0 && ctx.weakSubjects.length > 0) {
-    parts.push(`J'ai regardé tes résultats de quiz. T'as ${ctx.wrongAnswers} erreur${ctx.wrongAnswers > 1 ? "s" : ""}, surtout en ${ctx.weakSubjects[0]}. On va se concentrer là-dessus aujourd'hui.`);
-    parts.push(`Première question : ${simplifyQuestion(ctx.weakQuestions[0])}`);
+    parts.push(`J'ai analysé tes résultats. T'as ${ctx.wrongAnswers} erreur${ctx.wrongAnswers > 1 ? "s" : ""}, principalement en ${ctx.weakSubjects[0]}. C'est là qu'on va frapper fort aujourd'hui. Pas de temps à perdre.`);
+    parts.push(`On commence direct : ${simplifyQuestion(ctx.weakQuestions[0])}`);
   } else if (ctx.weakQuestions.length > 0) {
-    parts.push(`T'as raté ${ctx.wrongAnswers} question${ctx.wrongAnswers > 1 ? "s" : ""} au quiz. On va les revoir ensemble.`);
-    parts.push(`On commence par celle-ci : ${simplifyQuestion(ctx.weakQuestions[0])}`);
+    parts.push(`T'as raté des questions au quiz. Un bon employé d'Amigo doit connaître ses procédures par cœur. On les revoit maintenant.`);
+    parts.push(`Première question : ${simplifyQuestion(ctx.weakQuestions[0])}`);
   } else if (ctx.weakSubjects.length > 0) {
-    parts.push(`Je vois que ${ctx.weakSubjects[0]} c'est ton point faible. On va travailler ça.`);
+    parts.push(`Ton point faible c'est ${ctx.weakSubjects[0]}. On va travailler ça jusqu'à ce que ce soit solide.`);
     const weakQ = getQuestionForSubject(ctx.weakSubjects[0]);
     parts.push(weakQ);
   } else if (ctx.formationPct < 50) {
-    parts.push(`T'as complété ${ctx.formationPct}% de ta formation. On va quand même réviser les bases.`);
-    parts.push("Première question : c'est quoi la première chose à vérifier quand tu donnes un casque à un client ?");
+    parts.push(`T'as complété seulement ${ctx.formationPct}% de ta formation. Faut que ça avance. En attendant, montre-moi ce que tu sais déjà.`);
+    parts.push("C'est quoi la première chose à vérifier quand tu donnes un casque à un client ?");
   } else if (ctx.globalScore >= 80) {
-    parts.push("T'as un super score ! On va approfondir avec des questions plus avancées.");
+    parts.push("T'as un bon score, mais je vais te challenger avec des questions plus tough. Un champion est prêt pour n'importe quelle situation.");
     parts.push("Question : si un casque est trop grand mais que c'est le dernier de cette taille, tu fais quoi ?");
   } else {
-    parts.push("On commence : c'est quoi la première chose à vérifier quand tu donnes un casque à un client ?");
+    parts.push("On commence. Concentre-toi et donne-moi des réponses complètes. C'est quoi la première chose à vérifier quand tu donnes un casque à un client ?");
   }
 
   return parts.join(" ");
@@ -287,54 +294,54 @@ function getSmartMockResponse(message: string, history: any[], ctx: AIContext | 
   const questions = buildAdaptiveQuestions(ctx);
   const nextQ = questionNumber < questions.length ? questions[questionNumber] : questions[questions.length - 1];
 
-  // ─── EXCELLENTE réponse → Féliciter + approfondir ─────
+  // ─── EXCELLENTE réponse → Féliciter fort + challenger ──
   if (analysis.quality === "excellent") {
     const praises = [
-      "Wow, c'est une réponse complète !",
-      "Exactement ! T'as tout compris.",
-      "Parfait, t'as rien oublié !",
-      "Impressionnant, c'est la réponse parfaite.",
-      "Bravo ! C'est exactement ce qu'on attend.",
+      "BOOM ! Réponse parfaite.",
+      "Ça c'est ce que je veux entendre !",
+      "Exactement ! T'as tout dit, rien à ajouter.",
+      "Impeccable. C'est du niveau pro.",
+      "Oui monsieur ! C'est comme ça qu'on fait chez Amigo.",
     ];
     const praise = praises[questionNumber % praises.length];
-    
-    // Approfondir avec une question bonus
     const deeperQ = getDeeperQuestion(questionNumber);
     
     if (ctx && ctx.globalScore >= 80) {
-      return `${praise} Comme d'habitude, t'es un pro ! ${analysis.feedback} Petite question bonus : ${deeperQ}`;
+      return `${praise} ${analysis.feedback} T'es clairement un des meilleurs. Mais je vais te pousser plus loin : ${deeperQ}`;
     }
-    return `${praise} ${analysis.feedback} Pour aller plus loin : ${deeperQ}`;
+    return `${praise} ${analysis.feedback} Tu montes en niveau. Maintenant prouve-moi que tu peux répondre à ça : ${deeperQ}`;
   }
 
-  // ─── MOYENNE réponse → Aider et compléter ─────────────
+  // ─── MOYENNE réponse → Encourager mais exiger plus ─────
   if (analysis.quality === "average") {
-    const helps = [
-      "T'es sur la bonne piste !",
-      "C'est un bon début !",
-      "T'as une partie de la réponse.",
-      "Presque ! T'es pas loin.",
-      "C'est correct, mais il manque des détails.",
+    const pushes = [
+      "T'es sur la bonne track, mais je veux la réponse COMPLÈTE.",
+      "C'est un début. Mais chez Amigo, on vise l'excellence, pas le minimum.",
+      "T'as une partie. Mais si un client te pose la question, faut que tu sois solide à 100%.",
+      "Presque. Mais 'presque' c'est pas assez quand c'est la sécurité des clients.",
+      "Bon effort, mais creuse plus. T'es capable.",
     ];
-    const help = helps[questionNumber % helps.length];
+    const push = pushes[questionNumber % pushes.length];
     
-    return `${help} ${analysis.feedback} Ce qui te manque : ${analysis.missing} ${nextQ}`;
+    return `${push} Ce qui te manque : ${analysis.missing} Retiens ça. ${nextQ}`;
   }
 
-  // ─── MAUVAISE réponse → Corriger simplement ───────────
+  // ─── MAUVAISE réponse → Corriger direct, pas de jugement ──
   const corrections = [
-    "C'est pas tout à fait ça, mais c'est pas grave !",
-    "Pas exactement. Voici la bonne réponse :",
-    "Non, mais t'inquiète, on est là pour apprendre.",
-    "C'est pas ça, mais retiens bien ceci :",
+    "Non, c'est pas ça. Mais c'est pour ça qu'on s'entraîne. Écoute bien :",
+    "Mauvaise réponse. Pas de stress, personne naît en sachant tout. Voici ce que tu dois retenir :",
+    "Raté. Mais un bon employé c'est pas celui qui sait tout, c'est celui qui apprend. La bonne réponse :",
+    "C'est incorrect. Mais je préfère que tu te trompes ici avec moi que devant un client. Retiens ça :",
   ];
   const correction = corrections[questionNumber % corrections.length];
 
-  // Adapter selon le profil
   if (ctx && ctx.totalConversations > 5) {
-    return `${correction} ${analysis.correctAnswer} Rappelle-toi de ça pour la prochaine fois. ${nextQ}`;
+    return `${correction} ${analysis.correctAnswer} T'as déjà vu ça. La prochaine fois, je m'attends à ce que tu le saches. ${nextQ}`;
   }
-  return `${correction} ${analysis.correctAnswer} ${nextQ}`;
+  if (ctx && ctx.totalConversations > 2) {
+    return `${correction} ${analysis.correctAnswer} On l'a déjà couvert. Concentre-toi et retiens-le cette fois. ${nextQ}`;
+  }
+  return `${correction} ${analysis.correctAnswer} Grave ça dans ta mémoire. ${nextQ}`;
 }
 
 // ─── Analyser la qualité d'une réponse ──────────────────────────
@@ -650,4 +657,222 @@ function getContextualResponse(m: string): string | null {
     return "Bonne réponse ! Piste mouillée = réduire la vitesse max des karts et aviser les clients des conditions.";
 
   return null;
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// MODE SIMULATION
+// ═══════════════════════════════════════════════════════════════════
+
+function getSimulationIntro(simId: string, name: string): string {
+  const intros: Record<string, string> = {
+    "accident": `${name}, on va simuler un accident sur la piste. Imagine : t'es à côté de la piste, tu surveilles la course. Soudain, un kart frappe le mur à la sortie du virage 3. Le kart s'arrête. Le pilote ne bouge plus. Les autres karts arrivent derrière. Qu'est-ce que tu fais en PREMIER ?`,
+
+    "client-fache": `${name}, on simule un client fâché. Imagine : un homme arrive au comptoir, visiblement en colère. Il te dit : "Ça fait 45 minutes qu'on attend ! C'est quoi ce service de merde ? Je veux voir le gérant et je veux un remboursement complet !" Sa femme et ses deux enfants sont derrière lui, gênés. Comment tu réagis ?`,
+
+    "panne-kart": `${name}, simulation d'une panne de kart. Imagine : une course est en cours avec 8 karts sur la piste. Le kart numéro 5 s'arrête soudainement en plein milieu de la ligne droite. Le pilote lève la main. Les autres karts arrivent à pleine vitesse derrière lui. Qu'est-ce que tu fais ?`,
+
+    "blessure": `${name}, on simule une urgence blessure. Imagine : un enfant de 10 ans vient de terminer sa course. En sortant du kart, il trébuche et tombe par terre. Il pleure et tient son bras droit, qui a l'air enflé. Son parent court vers lui en criant : "Mon fils ! Quelqu'un appelez une ambulance !" Qu'est-ce que tu fais ?`,
+
+    "rush": `${name}, simulation d'un rush de clients. Imagine : c'est samedi après-midi. Un autobus scolaire vient d'arriver avec 15 enfants et 3 accompagnateurs. En même temps, il y a déjà 4 clients au comptoir qui attendent, la piste est pleine, et ton collègue vient de partir en pause. Tu es tout seul. Comment tu gères ça ?`,
+  };
+
+  return intros[simId] || `${name}, on commence la simulation. Décris-moi ce que tu ferais.`;
+}
+
+function getSimulationResponse(simId: string, message: string, history: any[]): string {
+  const m = message.toLowerCase();
+  const step = Math.floor(history.length / 2);
+
+  switch (simId) {
+    case "accident": return simulateAccident(m, step);
+    case "client-fache": return simulateClientFache(m, step);
+    case "panne-kart": return simulatePanneKart(m, step);
+    case "blessure": return simulateBlessure(m, step);
+    case "rush": return simulateRush(m, step);
+    default: return "Décris-moi ce que tu ferais dans cette situation.";
+  }
+}
+
+// ─── SIMULATION : Accident sur la piste ─────────────────────────
+function simulateAccident(m: string, step: number): string {
+  if (step === 0) {
+    if (m.includes("drapeau") || m.includes("rouge") || m.includes("arrêter") || m.includes("stop"))
+      return "Correct ! Tu sors le drapeau rouge pour arrêter la course. Les karts ralentissent. Maintenant, le pilote accidenté est toujours immobile dans son kart. Qu'est-ce que tu fais ensuite ?";
+    if (m.includes("courir") || m.includes("aller voir") || m.includes("pilote"))
+      return "Attention ! Avant d'aller voir le pilote, tu dois d'abord arrêter la course pour pas qu'un autre kart le frappe. C'est quoi le signal pour arrêter la course ?";
+    return "Réfléchis bien. Il y a des karts qui roulent encore derrière. Ta première action doit protéger tout le monde. Qu'est-ce que tu fais pour arrêter la course ?";
+  }
+  if (step === 1) {
+    if (m.includes("couper") || m.includes("alimentation") || m.includes("moteur") || m.includes("éteindre"))
+      return "Parfait ! Tu coupes l'alimentation des karts. Plus rien ne bouge. Maintenant tu t'approches du pilote. Il gémit un peu mais ne bouge pas. Tu fais quoi ?";
+    if (m.includes("aller voir") || m.includes("approche") || m.includes("pilote"))
+      return "Oui, tu vas vers le pilote. Mais avant, as-tu pensé à couper l'alimentation de tous les karts pour que personne redémarre ?";
+    return "Les karts sont arrêtés avec le drapeau rouge, mais les moteurs tournent encore. Qu'est-ce que tu fais avec l'alimentation ?";
+  }
+  if (step === 2) {
+    if (m.includes("parle") || m.includes("conscient") || m.includes("ça va") || m.includes("bouge pas") || m.includes("évaluer"))
+      return "Bien ! Tu lui parles pour évaluer s'il est conscient. Il te dit qu'il a mal au cou. Est-ce que tu le sors du kart ?";
+    if (m.includes("911") || m.includes("ambulance") || m.includes("appeler"))
+      return "Le 911 c'est une bonne idée, mais avant d'appeler, tu dois évaluer la situation. Le pilote est conscient ? Il respire ? Tu lui parles d'abord. Qu'est-ce que tu lui dis ?";
+    return "Tu es à côté du pilote maintenant. Comment tu évalues son état ? Qu'est-ce que tu fais ou tu dis ?";
+  }
+  if (step === 3) {
+    if (m.includes("non") || m.includes("bouge pas") || m.includes("pas bouger") || m.includes("pas sortir") || m.includes("attendre"))
+      return "Excellent ! Si quelqu'un a mal au cou, on ne le bouge JAMAIS. Tu appelles le 911, tu restes avec lui, tu le rassures et tu attends les secours. Qui d'autre tu avises ?";
+    if (m.includes("oui") || m.includes("sortir") || m.includes("lever"))
+      return "NON ! Si il a mal au cou, tu ne le bouges surtout pas ! Tu pourrais aggraver une blessure à la colonne. Tu le laisses dans le kart, tu appelles le 911 et tu attends les secours. C'est une règle de base. Qui d'autre tu avises ?";
+    return "Il dit qu'il a mal au cou. C'est important : est-ce que tu le sors du kart ou tu le laisses dedans ?";
+  }
+  if (step === 4) {
+    if (m.includes("gestionnaire") || m.includes("gérant") || m.includes("patron") || m.includes("boss"))
+      return "C'est ça ! Tu appelles le gestionnaire de garde. Et qu'est-ce que tu fais avec les autres clients qui étaient sur la piste ?";
+    return "Pense à qui doit être au courant dans l'entreprise. Qui tu appelles après le 911 ?";
+  }
+  if (step === 5) {
+    if (m.includes("expliquer") || m.includes("rassurer") || m.includes("excuser") || m.includes("rembours"))
+      return "Très bien ! Tu rassures les autres clients, tu leur expliques la situation calmement, et tu gères les remboursements si nécessaire. Bravo, tu as bien géré cette simulation d'accident ! Tu as suivi les bonnes étapes : drapeau rouge, couper l'alimentation, évaluer sans bouger la victime, 911, aviser le gestionnaire, et gérer les clients. Tu veux continuer ou terminer ?";
+    return "Les autres clients ont vu l'accident et sont inquiets. Comment tu les gères ?";
+  }
+  return "Tu as bien géré cette simulation ! Les étapes clés : drapeau rouge, couper l'alimentation, ne pas bouger la victime, appeler le 911, aviser le gestionnaire, et rassurer les clients. Tu veux refaire ou terminer ?";
+}
+
+// ─── SIMULATION : Client fâché ──────────────────────────────────
+function simulateClientFache(m: string, step: number): string {
+  if (step === 0) {
+    if (m.includes("excuse") || m.includes("désolé") || m.includes("comprend") || m.includes("raison"))
+      return "Bon début ! Tu restes calme et tu t'excuses pour l'attente. Le client dit : 'Des excuses ça suffit pas ! Je veux parler au gérant MAINTENANT !' Qu'est-ce que tu réponds ?";
+    if (m.includes("calme") || m.includes("écouter") || m.includes("respir"))
+      return "C'est bien de rester calme ! Mais le client attend une réponse. Il est devant toi, rouge de colère. Qu'est-ce que tu lui dis en premier ?";
+    return "Le client est en face de toi et il crie. La première chose à faire, c'est quoi ? Pense à comment désamorcer la situation.";
+  }
+  if (step === 1) {
+    if (m.includes("gérant") || m.includes("patron") || m.includes("supérieur") || m.includes("appeler"))
+      return "Ok, tu proposes d'appeler le gérant. Mais il est pas disponible tout de suite. Le client s'impatiente encore plus : 'C'est une joke ? Personne est capable de gérer ici ?' Tu fais quoi en attendant ?";
+    if (m.includes("solution") || m.includes("offrir") || m.includes("compens") || m.includes("gratuit"))
+      return "Bonne approche ! Offrir une compensation, c'est proactif. Qu'est-ce que tu peux lui offrir concrètement pour le calmer ?";
+    return "Le gérant est pas là. C'est toi qui dois gérer. Qu'est-ce que tu peux offrir au client pour compenser l'attente ?";
+  }
+  if (step === 2) {
+    if (m.includes("tour gratuit") || m.includes("rabais") || m.includes("gratuit") || m.includes("réduction") || m.includes("compens"))
+      return "Excellente idée ! Un tour gratuit ou un rabais, ça montre que tu prends la situation au sérieux. Le client se calme un peu : 'Bon... OK, mais mes enfants ont faim aussi.' Qu'est-ce que tu fais ?";
+    if (m.includes("rembours"))
+      return "Attention ! Un remboursement complet, c'est une décision que normalement le gérant doit prendre. Tu peux offrir quoi d'autre en attendant ? Un tour gratuit, un rabais ?";
+    return "Pense à ce que tu as le pouvoir d'offrir : tours gratuits, rabais, priorité sur la prochaine course. Qu'est-ce que tu proposes ?";
+  }
+  if (step === 3) {
+    if (m.includes("collation") || m.includes("boisson") || m.includes("eau") || m.includes("manger") || m.includes("attendre"))
+      return "Parfait ! Tu leur offres des boissons ou collations pendant qu'ils attendent. Le client se calme. Sa femme sourit. Il te dit : 'Bon, c'est correct. Merci.' Bravo ! Tu as bien désamorcé la situation. Les clés : rester calme, s'excuser, offrir une compensation concrète, et montrer que tu te soucies d'eux. Tu veux continuer ou terminer ?";
+    return "Ses enfants ont faim et ils attendent encore. Qu'est-ce que tu peux leur offrir en attendant leur tour ?";
+  }
+  return "Tu as bien géré ! Rappelle-toi : rester calme, écouter, s'excuser sincèrement, offrir une compensation, et aviser le gérant. Tu veux refaire ou terminer ?";
+}
+
+// ─── SIMULATION : Panne de kart ─────────────────────────────────
+function simulatePanneKart(m: string, step: number): string {
+  if (step === 0) {
+    if (m.includes("jaune") || m.includes("drapeau") || m.includes("ralentir"))
+      return "Bon réflexe ! Tu sors le drapeau jaune pour que les autres ralentissent et ne dépassent pas. Le kart 5 est toujours immobile au milieu de la piste. Les autres karts passent lentement à côté. Qu'est-ce que tu fais maintenant ?";
+    if (m.includes("rouge") || m.includes("arrêter"))
+      return "Le drapeau rouge c'est pour les urgences graves. Ici, c'est juste une panne. Quel drapeau tu utilises pour que les autres ralentissent sans arrêter la course ?";
+    return "Il y a des karts qui arrivent vite derrière le kart en panne. Quel signal tu utilises pour les avertir ?";
+  }
+  if (step === 1) {
+    if (m.includes("pousser") || m.includes("sortir") || m.includes("dégager") || m.includes("bord") || m.includes("côté"))
+      return "Exact ! Tu vas sur la piste (en faisant attention) et tu pousses le kart sur le côté pour dégager la voie. Le pilote dit : 'Le moteur a juste arrêté d'un coup.' Qu'est-ce que tu vérifies ?";
+    if (m.includes("aller voir") || m.includes("pilote"))
+      return "Oui, tu vas voir le pilote. Mais d'abord, le kart est en plein milieu de la piste. C'est dangereux. Qu'est-ce que tu fais avec le kart ?";
+    return "Le kart bloque la piste et les autres doivent le contourner. Comment tu sécurises la situation ?";
+  }
+  if (step === 2) {
+    if (m.includes("essence") || m.includes("batterie") || m.includes("bouton") || m.includes("redémarrer") || m.includes("kill switch"))
+      return "Bien ! Tu vérifies le kill switch, le niveau d'essence et tu essaies de redémarrer. Ça marche pas. Le client dit : 'Est-ce que je peux avoir un autre kart ?' Tu fais quoi ?";
+    return "Pense aux causes fréquentes de panne : kill switch activé par accident, manque d'essence, problème électrique. Qu'est-ce que tu vérifies en premier ?";
+  }
+  if (step === 3) {
+    if (m.includes("autre kart") || m.includes("remplacer") || m.includes("changer") || m.includes("nouveau"))
+      return "C'est ça ! Tu lui donnes un autre kart et tu ajoutes du temps pour compenser. Le kart en panne, tu le mets où ?";
+    return "Le client a payé pour rouler et son kart est en panne. Comment tu le satisfais ?";
+  }
+  if (step === 4) {
+    if (m.includes("garage") || m.includes("réparation") || m.includes("hors service") || m.includes("note") || m.includes("registre"))
+      return "Parfait ! Tu mets le kart au garage, tu le marques hors service, et tu notes le problème dans le registre pour le mécanicien. Bravo ! Tu as bien géré : drapeau jaune, dégager le kart, vérifier, remplacer, et documenter. Tu veux continuer ou terminer ?";
+    return "Le kart est en panne. Où tu le mets pour qu'il soit réparé et que personne l'utilise par erreur ?";
+  }
+  return "Bien joué ! Les étapes : drapeau jaune, dégager le kart, vérifier la panne, donner un autre kart au client, et documenter le problème. Tu veux refaire ou terminer ?";
+}
+
+// ─── SIMULATION : Urgence blessure ──────────────────────────────
+function simulateBlessure(m: string, step: number): string {
+  if (step === 0) {
+    if (m.includes("calme") || m.includes("rassurer") || m.includes("panique pas") || m.includes("approche"))
+      return "Bien ! Tu gardes ton calme et tu t'approches. Le parent crie toujours. L'enfant pleure et tient son bras. Tu fais quoi avec l'enfant ?";
+    if (m.includes("911") || m.includes("ambulance"))
+      return "Le 911 c'est peut-être nécessaire, mais d'abord tu dois évaluer la blessure. L'enfant est conscient et pleure. Approche-toi calmement. Qu'est-ce que tu fais en premier ?";
+    return "Le parent panique et l'enfant pleure. La première chose, c'est de garder ton calme. Ensuite, tu fais quoi ?";
+  }
+  if (step === 1) {
+    if (m.includes("regarde") || m.includes("touche pas") || m.includes("évaluer") || m.includes("bras") || m.includes("demander"))
+      return "C'est ça ! Tu regardes le bras sans le toucher. Il est enflé et l'enfant crie quand il essaie de bouger. C'est possiblement une fracture. Est-ce que tu bouges son bras ?";
+    if (m.includes("glace") || m.includes("ice"))
+      return "La glace c'est une bonne idée, mais avant il faut évaluer la blessure. Le bras est enflé. Est-ce que tu le touches ?";
+    return "L'enfant tient son bras et pleure. Comment tu évalues la blessure ? Qu'est-ce que tu regardes ?";
+  }
+  if (step === 2) {
+    if (m.includes("non") || m.includes("pas bouger") || m.includes("pas toucher") || m.includes("immobil"))
+      return "Exact ! On ne bouge jamais un membre possiblement fracturé. Tu immobilises le bras dans la position où il est. Qu'est-ce que tu fais ensuite ? Tu appelles qui ?";
+    if (m.includes("oui") || m.includes("bouger") || m.includes("replacer"))
+      return "NON ! On ne bouge jamais un membre qui pourrait être fracturé. Tu pourrais aggraver la blessure. On immobilise dans la position où il est. Maintenant, tu appelles qui ?";
+    return "Son bras est peut-être fracturé. Est-ce que tu essaies de le bouger ou de le replacer ?";
+  }
+  if (step === 3) {
+    if (m.includes("911") || m.includes("ambulance") || m.includes("secours") || m.includes("parent"))
+      return "Oui ! Tu appelles le 911, tu restes avec l'enfant et tu rassures le parent. En attendant l'ambulance, qu'est-ce que tu fais ?";
+    if (m.includes("gestionnaire") || m.includes("gérant"))
+      return "Oui, aviser le gestionnaire c'est important, mais en premier tu appelles qui pour l'enfant ?";
+    return "L'enfant a possiblement une fracture. C'est quoi le numéro à appeler pour les urgences médicales ?";
+  }
+  if (step === 4) {
+    if (m.includes("rester") || m.includes("rassurer") || m.includes("parler") || m.includes("couverture") || m.includes("confort"))
+      return "Parfait ! Tu restes avec l'enfant, tu le rassures, tu le gardes au chaud et immobile. Tu documentes l'incident. Bravo ! Les étapes : garder son calme, évaluer sans bouger le membre, immobiliser, appeler le 911, rassurer l'enfant et le parent, documenter. Excellente simulation ! Tu veux continuer ou terminer ?";
+    return "L'ambulance est en route. Comment tu gères l'attente avec l'enfant et son parent ?";
+  }
+  return "Bien géré ! Les clés : calme, évaluation, ne pas bouger la blessure, 911, rassurer, documenter. Tu veux refaire ou terminer ?";
+}
+
+// ─── SIMULATION : Rush de clients ───────────────────────────────
+function simulateRush(m: string, step: number): string {
+  if (step === 0) {
+    if (m.includes("priorité") || m.includes("organiser") || m.includes("file") || m.includes("ordre") || m.includes("un à la fois"))
+      return "Bon réflexe ! Tu organises une file d'attente. Mais le groupe scolaire veut tout réserver en même temps, et les 4 clients au comptoir s'impatientent. Tu gères qui en premier ?";
+    if (m.includes("collègue") || m.includes("rappeler") || m.includes("aide") || m.includes("renfort"))
+      return "Bonne idée de demander du renfort ! Mais en attendant que ton collègue revienne, tu es seul. Comment tu organises tout ce monde ?";
+    return "T'es seul avec 15 enfants, 3 accompagnateurs et 4 clients. C'est le chaos. C'est quoi ta première action pour reprendre le contrôle ?";
+  }
+  if (step === 1) {
+    if (m.includes("comptoir") || m.includes("4 client") || m.includes("déjà là") || m.includes("premier"))
+      return "C'est ça ! Les 4 clients qui étaient déjà là passent en premier — c'est juste fair. Tu les sers rapidement. Pendant ce temps, le responsable du groupe scolaire s'approche et dit : 'On a une réservation pour 15 enfants à 14h.' Tu vérifies dans le système, mais t'as rien. Il dit que c'est confirmé par téléphone. Tu fais quoi ?";
+    if (m.includes("groupe") || m.includes("scolaire") || m.includes("bus"))
+      return "Le groupe est gros, mais les 4 clients au comptoir étaient là avant. Si tu t'occupes du groupe en premier, les 4 vont se fâcher. Qui tu sers en premier ?";
+    return "Il y a les 4 clients qui attendent depuis plus longtemps et le groupe de 15 qui vient d'arriver. C'est quoi la règle : qui passe en premier ?";
+  }
+  if (step === 2) {
+    if (m.includes("vérif") || m.includes("cherche") || m.includes("système") || m.includes("téléphone") || m.includes("gestionnaire"))
+      return "Bien ! Tu vérifies dans le système et tu appelles le gestionnaire pour confirmer. Pendant ce temps, les 15 enfants courent partout dans le centre. C'est dangereux. Comment tu les gères ?";
+    if (m.includes("accepter") || m.includes("ok") || m.includes("oui"))
+      return "Attention ! Avant d'accepter, tu dois vérifier. Si la réservation existe pas et que tu acceptes 15 personnes, tu vas avoir un problème de capacité. Qu'est-ce que tu fais pour vérifier ?";
+    return "Il dit qu'il a réservé mais y'a rien dans le système. Tu l'acceptes comme ça ou tu vérifies ?";
+  }
+  if (step === 3) {
+    if (m.includes("asseoir") || m.includes("attendre") || m.includes("zone") || m.includes("accompagnateur") || m.includes("responsable") || m.includes("sécurité"))
+      return "Parfait ! Tu demandes aux accompagnateurs de garder les enfants assis dans la zone d'attente pour la sécurité. Ton collègue revient de sa pause. Comment tu répartis les tâches ?";
+    if (m.includes("crier") || m.includes("dire") || m.includes("arrêter"))
+      return "C'est bien de leur dire d'arrêter, mais tu parles aux accompagnateurs, pas aux enfants directement. Demande aux 3 adultes de gérer leur groupe. Qu'est-ce que tu leur dis ?";
+    return "15 enfants qui courent dans un centre de karting, c'est dangereux. Comment tu les calmes sans être bête ?";
+  }
+  if (step === 4) {
+    if (m.includes("caisse") || m.includes("comptoir") || m.includes("casque") || m.includes("piste") || m.includes("répartir"))
+      return "Excellent ! Tu gères la caisse, ton collègue prépare les casques et la piste. Vous travaillez en équipe. Bravo ! Tu as bien géré le rush : organiser une file, servir par ordre d'arrivée, vérifier la réservation, sécuriser les enfants, et répartir les tâches. C'est exactement ce qu'on attend d'un bon employé. Tu veux continuer ou terminer ?";
+    return "Ton collègue est de retour. Tu fais quoi et lui il fait quoi ? Comment vous vous répartissez le travail ?";
+  }
+  return "Bien joué ! Les clés du rush : garder son calme, organiser la file, servir par ordre, vérifier les réservations, sécuriser les enfants, et travailler en équipe. Tu veux refaire ou terminer ?";
 }
