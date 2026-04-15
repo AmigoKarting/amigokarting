@@ -13,7 +13,8 @@ const baseNav = [
   { label: "Rapport conversations", href: "/admin/conversations", icon: "MessageCircle" },
   { label: "Banque de questions", href: "/admin/conversations/questions", icon: "List" },
   { label: "Annonces", href: "/admin/announcements", icon: "Megaphone" },
-  { label: "Paramètres", href: "/admin/settings", icon: "Settings" },
+ { label: "Paramètres", href: "/admin/settings", icon: "Settings" },
+  { label: "Guide", href: "/admin/guide", icon: "BookOpen", divider: true },
   // Section personnelle
   { label: "Ma fiche", href: "/admin/my-profile", icon: "User", divider: true },
   { label: "Ma note", href: "/admin/my-score", icon: "Star" },

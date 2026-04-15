@@ -10,6 +10,7 @@ const employeeNav = [
   { label: "Formation", href: "/training", icon: "GraduationCap" },
   { label: "Conversations", href: "/conversations", icon: "MessageCircle" },
   { label: "Q&A", href: "/qa", icon: "HelpCircle" },
+  { label: "Guide", href: "/guide", icon: "BookOpen" },
   { label: "Aide", href: "/aide", icon: "LifeBuoy" },
 ];
 
