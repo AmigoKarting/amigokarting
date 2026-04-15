@@ -252,14 +252,22 @@ function buildSmartGreeting(ctx: AIContext | null): string {
   }
 
   // Cibler les sujets faibles
-  if (ctx.weakSubjects.length > 0) {
-    parts.push(`Je vois que t'as de la difficulté avec ${ctx.weakSubjects[0]}. On va travailler ça.`);
-    // Poser une question sur le sujet faible
+  if (ctx.weakQuestions.length > 0 && ctx.weakSubjects.length > 0) {
+    parts.push(`J'ai regardé tes résultats de quiz. T'as ${ctx.wrongAnswers} erreur${ctx.wrongAnswers > 1 ? "s" : ""}, surtout en ${ctx.weakSubjects[0]}. On va se concentrer là-dessus aujourd'hui.`);
+    parts.push(`Première question : ${simplifyQuestion(ctx.weakQuestions[0])}`);
+  } else if (ctx.weakQuestions.length > 0) {
+    parts.push(`T'as raté ${ctx.wrongAnswers} question${ctx.wrongAnswers > 1 ? "s" : ""} au quiz. On va les revoir ensemble.`);
+    parts.push(`On commence par celle-ci : ${simplifyQuestion(ctx.weakQuestions[0])}`);
+  } else if (ctx.weakSubjects.length > 0) {
+    parts.push(`Je vois que ${ctx.weakSubjects[0]} c'est ton point faible. On va travailler ça.`);
     const weakQ = getQuestionForSubject(ctx.weakSubjects[0]);
     parts.push(weakQ);
-  } else if (ctx.weakQuestions.length > 0) {
-    parts.push("On va revoir les questions que t'as ratées au quiz.");
-    parts.push(`Première question : ${simplifyQuestion(ctx.weakQuestions[0])}`);
+  } else if (ctx.formationPct < 50) {
+    parts.push(`T'as complété ${ctx.formationPct}% de ta formation. On va quand même réviser les bases.`);
+    parts.push("Première question : c'est quoi la première chose à vérifier quand tu donnes un casque à un client ?");
+  } else if (ctx.globalScore >= 80) {
+    parts.push("T'as un super score ! On va approfondir avec des questions plus avancées.");
+    parts.push("Question : si un casque est trop grand mais que c'est le dernier de cette taille, tu fais quoi ?");
   } else {
     parts.push("On commence : c'est quoi la première chose à vérifier quand tu donnes un casque à un client ?");
   }
@@ -471,39 +479,107 @@ function getDeeperQuestion(questionNumber: number): string {
 
 function buildAdaptiveQuestions(ctx: AIContext | null): string[] {
   const baseQuestions = [
-    "Passons à autre chose : c'est quoi la procédure quand un casque est fissuré ?",
-    "On continue : à quelle fréquence on désinfecte les casques ?",
-    "Prochaine question : c'est quoi la distance minimale entre deux karts sur la piste ?",
-    "Maintenant : quelles sont les étapes en cas d'accident sur la piste ?",
-    "Question suivante : que signifie le drapeau jaune ?",
-    "Allez : c'est quoi les étapes pour ouvrir le centre le matin ?",
-    "Dis-moi : comment on fait la fermeture de la caisse ?",
-    "Autre sujet : quels sont les forfaits qu'on offre aux clients ?",
-    "On passe à : que fais-tu si un client refuse le casque ?",
+    "C'est quoi la procédure quand un casque est fissuré ?",
+    "À quelle fréquence on désinfecte les casques ?",
+    "C'est quoi la distance minimale entre deux karts sur la piste ?",
+    "Quelles sont les étapes en cas d'accident sur la piste ?",
+    "Que signifie le drapeau jaune ?",
+    "C'est quoi les étapes pour ouvrir le centre le matin ?",
+    "Comment on fait la fermeture de la caisse ?",
+    "Quels sont les forfaits qu'on offre aux clients ?",
+    "Que fais-tu si un client refuse le casque ?",
     "C'est quoi les numéros d'urgence qu'on doit connaître ?",
   ];
 
-  if (!ctx || ctx.weakQuestions.length === 0) return baseQuestions;
+  if (!ctx) return baseQuestions.map((q, i) => (i === 0 ? "On commence : " : "Question suivante : ") + q);
 
-  // Insérer les questions faibles en priorité
-  const adapted = [...baseQuestions];
-  ctx.weakQuestions.slice(0, 3).forEach((wq, i) => {
-    if (i < adapted.length) {
-      adapted.splice(i * 3, 0, `On revient sur une question que t'as ratée au quiz : ${simplifyQuestion(wq)}`);
+  const priorityQuestions: string[] = [];
+
+  // ─── PRIORITÉ 1 : Questions ratées au quiz (les plus importantes) ─
+  if (ctx.weakQuestions.length > 0) {
+    ctx.weakQuestions.slice(0, 5).forEach((wq) => {
+      priorityQuestions.push(`Tu as raté cette question au quiz, on la revoit : ${simplifyQuestion(wq)}`);
+    });
+  }
+
+  // ─── PRIORITÉ 2 : Sujets faibles (catégories avec le plus d'erreurs) ─
+  if (ctx.weakSubjects.length > 0) {
+    ctx.weakSubjects.forEach((ws) => {
+      const questions = getMultipleQuestionsForSubject(ws);
+      questions.forEach((q) => {
+        if (!priorityQuestions.some((pq) => pq.includes(q))) {
+          priorityQuestions.push(`On travaille ton point faible (${ws}) : ${q}`);
+        }
+      });
+    });
+  }
+
+  // ─── PRIORITÉ 3 : Sujets pas encore couverts en formation ─
+  if (ctx.formationPct < 100 && ctx.completedVideos < ctx.totalVideos) {
+    priorityQuestions.push("T'as pas encore fini ta formation vidéo. En attendant, dis-moi : c'est quoi les règles de sécurité de base sur la piste ?");
+    priorityQuestions.push("Autre question de base : comment tu accueilles un client quand il arrive ?");
+  }
+
+  // ─── PRIORITÉ 4 : Si le score de quiz est bas, réviser les bases ─
+  if (ctx.quizAvg < 60) {
+    priorityQuestions.push("On revoit les bases : c'est quoi la première chose à faire quand un client arrive ?");
+    priorityQuestions.push("Question de base : pourquoi le casque est obligatoire ?");
+    priorityQuestions.push("Révision : c'est quoi la différence entre le drapeau jaune et le drapeau rouge ?");
+  }
+
+  // ─── Compléter avec les questions de base pas encore posées ─
+  baseQuestions.forEach((bq) => {
+    if (!priorityQuestions.some((pq) => pq.toLowerCase().includes(bq.toLowerCase().slice(0, 30)))) {
+      priorityQuestions.push("Question suivante : " + bq);
     }
   });
 
-  // Ajouter des questions sur les sujets faibles
-  ctx.weakSubjects.forEach((ws) => {
-    const q = getQuestionForSubject(ws);
-    if (q && !adapted.includes(q)) {
-      adapted.push(q);
-    }
-  });
+  priorityQuestions.push("Tu t'es bien amélioré ! On peut continuer ou tu peux terminer la conversation.");
 
-  adapted.push("Tu t'es bien amélioré ! On peut continuer ou tu peux terminer la conversation.");
+  return priorityQuestions;
+}
 
-  return adapted;
+// ─── Plusieurs questions par sujet faible ───────────────────────
+function getMultipleQuestionsForSubject(subject: string): string[] {
+  const s = subject.toLowerCase();
+  
+  if (s.includes("sécurité")) return [
+    "C'est quoi les 3 règles de base sur la piste ?",
+    "Que fais-tu si un client enlève son casque pendant la course ?",
+    "Comment tu réagis si tu vois un kart qui va trop vite ?",
+  ];
+  if (s.includes("casque")) return [
+    "Comment tu vérifies qu'un casque est en bon état ?",
+    "C'est quoi la procédure pour un casque fissuré ?",
+    "Quand est-ce qu'on désinfecte les casques ?",
+  ];
+  if (s.includes("urgence")) return [
+    "Décris-moi les étapes en cas d'accident grave.",
+    "C'est quoi les numéros d'urgence à connaître ?",
+    "Que fais-tu si un client perd connaissance sur la piste ?",
+  ];
+  if (s.includes("opération")) return [
+    "C'est quoi la procédure d'ouverture du centre ?",
+    "Comment on ferme le centre à la fin de la journée ?",
+    "Que fais-tu si un équipement est brisé ?",
+  ];
+  if (s.includes("client") || s.includes("accueil")) return [
+    "Comment tu accueilles un nouveau client ?",
+    "Un client se plaint que c'est trop cher, tu fais quoi ?",
+    "Comment tu gères un groupe de 15 personnes qui arrive ?",
+  ];
+  if (s.includes("caisse")) return [
+    "C'est quoi les étapes de fermeture de la caisse ?",
+    "Si la caisse ne balance pas, tu fais quoi ?",
+    "Combien on laisse de fond de caisse ?",
+  ];
+  if (s.includes("drapeau")) return [
+    "Que signifie le drapeau jaune ?",
+    "Que signifie le drapeau rouge ?",
+    "C'est quoi le drapeau à damier ?",
+  ];
+  
+  return ["C'est quoi le plus important à retenir dans ce sujet ?"];
 }
 
 function getQuestionForSubject(subject: string): string {
