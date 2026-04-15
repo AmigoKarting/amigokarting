@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
 
 interface NavItem {
@@ -19,17 +20,11 @@ interface SidebarProps {
 
 export function Sidebar({ items, userName, role, onLogout }: SidebarProps) {
   const pathname = usePathname();
-  const router = useRouter();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
-
-  function handleNav(href: string) {
-    router.push(href);
-    setOpen(false);
-  }
 
   const sidebarContent = (
     <>
@@ -50,17 +45,18 @@ export function Sidebar({ items, userName, role, onLogout }: SidebarProps) {
                 </p>
               </div>
             )}
-            <button
-              onClick={() => handleNav(item.href)}
+            <Link
+              href={item.href}
+              onClick={() => setOpen(false)}
               className={clsx(
-                "flex w-full items-center rounded-lg px-3 py-2.5 text-left text-sm font-medium",
+                "flex items-center rounded-lg px-3 py-2.5 text-sm font-medium",
                 pathname === item.href
                   ? "bg-orange-50 text-orange-700"
                   : "text-gray-600 active:bg-gray-50"
               )}
             >
               {item.label}
-            </button>
+            </Link>
           </div>
         ))}
       </nav>
