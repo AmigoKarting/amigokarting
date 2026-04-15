@@ -341,7 +341,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-3xl bg-white pt-12 shadow-2xl shadow-black/30">
+        <div className="overflow-hidden rounded-3xl bg-white pt-16 shadow-2xl shadow-black/30">
           {/* En-tête */}
           <div className="px-8 pb-2 text-center">
             <h1 className="text-xl font-bold tracking-tight text-gray-900">
