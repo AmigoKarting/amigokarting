@@ -58,10 +58,10 @@ export function Sidebar({ items, userName, role, onLogout }: SidebarProps) {
             <Link
               href={item.href}
               className={clsx(
-                "flex items-center rounded-lg px-3 py-2.5 text-sm font-medium transition",
+                "flex items-center rounded-lg px-3 py-2.5 text-sm font-medium",
                 pathname === item.href
                   ? "bg-orange-50 text-orange-700"
-                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  : "text-gray-600 active:bg-gray-50 active:text-gray-900"
               )}
             >
               {item.label}
