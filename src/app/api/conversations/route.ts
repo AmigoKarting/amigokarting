@@ -267,43 +267,206 @@ function buildSmartGreeting(ctx: AIContext | null): string {
   return parts.join(" ");
 }
 
-// ─── Réponses mock intelligentes ────────────────────────────────
+// ─── Réponses mock intelligentes avec 3 niveaux ─────────────────
 function getSmartMockResponse(message: string, history: any[], ctx: AIContext | null): string {
   const m = message.toLowerCase();
   const questionNumber = Math.floor(history.length / 2);
 
-  // Réponse contextuelle basée sur les mots-clés
-  const contextual = getContextualResponse(m);
+  // Analyser la qualité de la réponse
+  const analysis = analyzeAnswer(m, questionNumber);
 
-  // Questions adaptées au profil de l'employé
+  // Questions adaptées au profil
   const questions = buildAdaptiveQuestions(ctx);
   const nextQ = questionNumber < questions.length ? questions[questionNumber] : questions[questions.length - 1];
 
-  if (contextual) {
-    // Féliciter différemment selon le score
-    let praise = "";
+  // ─── EXCELLENTE réponse → Féliciter + approfondir ─────
+  if (analysis.quality === "excellent") {
+    const praises = [
+      "Wow, c'est une réponse complète !",
+      "Exactement ! T'as tout compris.",
+      "Parfait, t'as rien oublié !",
+      "Impressionnant, c'est la réponse parfaite.",
+      "Bravo ! C'est exactement ce qu'on attend.",
+    ];
+    const praise = praises[questionNumber % praises.length];
+    
+    // Approfondir avec une question bonus
+    const deeperQ = getDeeperQuestion(questionNumber);
+    
     if (ctx && ctx.globalScore >= 80) {
-      praise = "Comme d'habitude, t'es solide ! ";
-    } else if (ctx && ctx.wrongAnswers > 5) {
-      praise = "Eh ben ! Tu t'améliores ! ";
+      return `${praise} Comme d'habitude, t'es un pro ! ${analysis.feedback} Petite question bonus : ${deeperQ}`;
     }
-    return praise + contextual + " " + nextQ;
+    return `${praise} ${analysis.feedback} Pour aller plus loin : ${deeperQ}`;
   }
 
-  // Réponse incorrecte — adapter selon l'historique
-  let encouragement: string;
-  if (ctx && ctx.wrongAnswers > 10) {
-    encouragement = "C'est pas grave, on est là pour apprendre ! Rappelle-toi : ";
-  } else if (ctx && ctx.totalConversations > 3) {
-    encouragement = "Presque ! T'as déjà vu ça, essaie de te rappeler : ";
-  } else {
-    encouragement = "Pas tout à fait, mais continue ! ";
+  // ─── MOYENNE réponse → Aider et compléter ─────────────
+  if (analysis.quality === "average") {
+    const helps = [
+      "T'es sur la bonne piste !",
+      "C'est un bon début !",
+      "T'as une partie de la réponse.",
+      "Presque ! T'es pas loin.",
+      "C'est correct, mais il manque des détails.",
+    ];
+    const help = helps[questionNumber % helps.length];
+    
+    return `${help} ${analysis.feedback} Ce qui te manque : ${analysis.missing} ${nextQ}`;
   }
 
-  // Donner un indice basé sur la question en cours
-  const hint = getHintForQuestion(questionNumber);
+  // ─── MAUVAISE réponse → Corriger simplement ───────────
+  const corrections = [
+    "C'est pas tout à fait ça, mais c'est pas grave !",
+    "Pas exactement. Voici la bonne réponse :",
+    "Non, mais t'inquiète, on est là pour apprendre.",
+    "C'est pas ça, mais retiens bien ceci :",
+  ];
+  const correction = corrections[questionNumber % corrections.length];
 
-  return encouragement + hint + " " + nextQ;
+  // Adapter selon le profil
+  if (ctx && ctx.totalConversations > 5) {
+    return `${correction} ${analysis.correctAnswer} Rappelle-toi de ça pour la prochaine fois. ${nextQ}`;
+  }
+  return `${correction} ${analysis.correctAnswer} ${nextQ}`;
+}
+
+// ─── Analyser la qualité d'une réponse ──────────────────────────
+interface AnswerAnalysis {
+  quality: "excellent" | "average" | "bad";
+  feedback: string;
+  missing: string;
+  correctAnswer: string;
+}
+
+function analyzeAnswer(m: string, questionNumber: number): AnswerAnalysis {
+  // Définir les réponses attendues par question
+  const expectations: {
+    excellent: string[];  // Mots-clés pour une réponse complète
+    average: string[];    // Mots-clés partiels
+    feedback: string;     // Feedback positif
+    missing: string;      // Ce qui manque
+    correct: string;      // Réponse complète
+  }[] = [
+    { // Q0: Casque - vérifier quoi
+      excellent: ["taille", "ajust", "bouge pas", "secoue"],
+      average: ["casque", "taille"],
+      feedback: "La taille et l'ajustement, c'est la base. Il faut que le casque bouge pas quand le client secoue la tête.",
+      missing: "il faut vérifier que le casque bouge pas quand le client secoue la tête.",
+      correct: "Quand tu donnes un casque, tu vérifies la taille et l'ajustement. Le casque doit pas bouger quand le client secoue la tête.",
+    },
+    { // Q1: Casque fissuré
+      excellent: ["retir", "bac rouge", "registre", "gestionnaire"],
+      average: ["retir", "bac rouge"],
+      feedback: "On retire, bac rouge, registre et on avise le gestionnaire. Procédure complète !",
+      missing: "il faut aussi noter le numéro dans le registre et aviser le gestionnaire.",
+      correct: "Un casque fissuré : on le retire immédiatement, on le met dans le bac rouge, on note le numéro dans le registre et on avise le gestionnaire.",
+    },
+    { // Q2: Désinfection casques
+      excellent: ["chaque", "spray", "bleu", "30 seconde"],
+      average: ["chaque", "spray"],
+      feedback: "Spray antibactérien bleu après chaque utilisation, 30 secondes de séchage.",
+      missing: "c'est le spray antibactérien bleu, et il faut laisser sécher 30 secondes.",
+      correct: "On désinfecte après chaque utilisation avec le spray antibactérien bleu. On laisse sécher 30 secondes avant de le redonner.",
+    },
+    { // Q3: Distance entre karts
+      excellent: ["2 mètre", "deux mètre", "longueur de kart"],
+      average: ["mètre", "distance", "longueur"],
+      feedback: "2 mètres, c'est environ une longueur de kart. Facile à retenir !",
+      missing: "c'est exactement 2 mètres, environ une longueur de kart.",
+      correct: "La distance minimale entre deux karts c'est 2 mètres, environ une longueur de kart.",
+    },
+    { // Q4: Accident sur la piste
+      excellent: ["drapeau rouge", "couper", "sécuriser", "911"],
+      average: ["arrêter", "drapeau"],
+      feedback: "Drapeau rouge, couper l'alimentation, sécuriser la zone, évaluer le pilote, 911 si nécessaire.",
+      missing: "la séquence complète c'est : drapeau rouge, couper l'alimentation, sécuriser, évaluer et 911 si nécessaire.",
+      correct: "En cas d'accident : drapeau rouge, couper l'alimentation des karts, sécuriser la zone, évaluer le pilote, appeler le 911 si nécessaire.",
+    },
+    { // Q5: Drapeau jaune
+      excellent: ["ralentir", "pas de dépassement", "attention"],
+      average: ["ralentir", "attention"],
+      feedback: "Jaune = attention, ralentir et AUCUN dépassement permis.",
+      missing: "le plus important c'est : PAS DE DÉPASSEMENT quand le jaune est sorti.",
+      correct: "Le drapeau jaune signifie attention, il faut ralentir et il n'y a aucun dépassement permis.",
+    },
+    { // Q6: Ouverture du centre
+      excellent: ["alarme", "lumière", "piste", "kart", "casque", "caisse"],
+      average: ["alarme", "lumière"],
+      feedback: "Alarme, lumières, piste, karts, casques, ordis, caisse. T'as tout la séquence !",
+      missing: "la séquence complète c'est : alarme, lumières, vérifier la piste, inspecter les karts, préparer les casques, allumer les ordis, compter la caisse.",
+      correct: "Pour ouvrir : désarmer l'alarme, allumer les lumières, vérifier la piste, inspecter les karts, préparer les casques, allumer les ordis et compter la caisse.",
+    },
+    { // Q7: Fermeture caisse
+      excellent: ["rapport z", "comptant", "enveloppe", "coffre", "200"],
+      average: ["rapport", "compter"],
+      feedback: "Rapport Z, compter le comptant, vérifier le balance, enveloppe datée au coffre, laisser 200$ de fond de caisse.",
+      missing: "il faut faire le Rapport Z, compter le comptant, mettre dans l'enveloppe datée au coffre et laisser 200$ de fond de caisse.",
+      correct: "Pour fermer la caisse : faire le Rapport Z, compter le comptant, vérifier que ça balance, enveloppe datée au coffre, laisser 200$ de fond de caisse.",
+    },
+    { // Q8: Forfaits
+      excellent: ["tour simple", "3 tour", "groupe", "fête"],
+      average: ["forfait", "tour"],
+      feedback: "Tour simple, Forfait 3 tours (15% rabais), Forfait groupe (20%), Forfait fête avec salle privée. Complet !",
+      missing: "on a : Tour simple, Forfait 3 tours (15% rabais), Forfait groupe (20% rabais), et Forfait fête avec salle privée.",
+      correct: "Les forfaits : Tour simple, Forfait 3 tours (15% rabais), Forfait groupe (20% rabais), et Forfait fête avec salle privée.",
+    },
+    { // Q9: Client refuse casque
+      excellent: ["obligatoire", "pas rouler", "exception", "non négociable"],
+      average: ["obligatoire", "pas rouler"],
+      feedback: "Le casque c'est non négociable, zéro exception. Pas de casque = pas de kart.",
+      missing: "c'est simple : le casque est obligatoire, zéro exception. Pas de casque, pas de kart.",
+      correct: "Si un client refuse le casque, il ne peut tout simplement pas rouler. C'est obligatoire, zéro exception. Pas de casque = pas de kart.",
+    },
+    { // Q10: Numéros d'urgence
+      excellent: ["911", "poison", "1-800", "gestionnaire", "babillard"],
+      average: ["911", "gestionnaire"],
+      feedback: "911 pour les urgences, 1-800-463-5060 pour le centre antipoison, et le gestionnaire de garde sur le babillard.",
+      missing: "les 3 numéros : 911, centre antipoison (1-800-463-5060), et le numéro du gestionnaire de garde sur le babillard.",
+      correct: "Les numéros d'urgence : 911, centre antipoison 1-800-463-5060, et le gestionnaire de garde (numéro sur le babillard).",
+    },
+  ];
+
+  const idx = questionNumber % expectations.length;
+  const exp = expectations[idx];
+
+  // Vérifier si "je sais pas" ou réponse vide
+  if (m.includes("sais pas") || m.includes("aucune idée") || m.includes("pas sûr") || m.length < 5) {
+    return { quality: "bad", feedback: "", missing: "", correctAnswer: exp.correct };
+  }
+
+  // Compter les mots-clés excellents trouvés
+  const excellentHits = exp.excellent.filter((kw) => m.includes(kw)).length;
+  const averageHits = exp.average.filter((kw) => m.includes(kw)).length;
+
+  // Excellente : au moins 3 mots-clés excellents OU tous les mots-clés moyens + 1 excellent
+  if (excellentHits >= 3 || (averageHits >= exp.average.length && excellentHits >= 1)) {
+    return { quality: "excellent", feedback: exp.feedback, missing: "", correctAnswer: "" };
+  }
+
+  // Moyenne : au moins 1 mot-clé moyen
+  if (averageHits >= 1 || excellentHits >= 1) {
+    return { quality: "average", feedback: "", missing: exp.missing, correctAnswer: "" };
+  }
+
+  // Mauvaise : aucun mot-clé reconnu
+  return { quality: "bad", feedback: "", missing: "", correctAnswer: exp.correct };
+}
+
+// ─── Questions d'approfondissement (pour les réponses excellentes) ─
+function getDeeperQuestion(questionNumber: number): string {
+  const deeper = [
+    "Si le casque est trop grand mais que c'est le dernier de cette taille, tu fais quoi ?",
+    "Et si tu trouves 3 casques fissurés d'un coup, c'est quoi la priorité ?",
+    "Est-ce qu'on utilise le même spray pour les casques et pour les karts ?",
+    "Si un kart colle à celui d'en avant mais respecte la distance, c'est correct ?",
+    "Si un pilote a l'air correct après un accident mais dit qu'il a mal à la tête, tu fais quoi ?",
+    "Quelle est la différence entre le drapeau jaune et le drapeau rouge ?",
+    "Si l'alarme se déclenche par erreur pendant l'ouverture, c'est quoi la procédure ?",
+    "Si la caisse est en surplus de 20$, tu fais quoi avec le surplus ?",
+    "Un client veut un forfait fête mais il y a déjà une réservation ce jour-là. Comment tu gères ça ?",
+    "Un enfant de 6 ans veut rouler mais il est trop petit pour le casque. Tu fais quoi ?",
+    "Si tu peux pas joindre le gestionnaire de garde, c'est quoi ton plan B ?",
+  ];
+  return deeper[questionNumber % deeper.length];
 }
 
 function buildAdaptiveQuestions(ctx: AIContext | null): string[] {
@@ -359,22 +522,6 @@ function simplifyQuestion(question: string): string {
   if (question.length > 100) return question.substring(0, 100) + "... ?";
   if (!question.endsWith("?")) return question + " ?";
   return question;
-}
-
-function getHintForQuestion(qNum: number): string {
-  const hints = [
-    "Pense au bac rouge et au registre.",
-    "C'est après chaque utilisation, avec le spray bleu.",
-    "Pense à une longueur de kart.",
-    "Drapeau rouge, couper l'alimentation, sécuriser.",
-    "C'est le drapeau qui veut dire attention et pas de dépassement.",
-    "Alarme, lumières, piste, karts, casques, ordis, caisse.",
-    "Rapport Z, compter le comptant, enveloppe au coffre.",
-    "Tour simple, forfait 3 tours, forfait groupe, forfait fête.",
-    "Le casque c'est obligatoire, zéro exception.",
-    "911, centre antipoison, et le gestionnaire de garde.",
-  ];
-  return hints[qNum % hints.length];
 }
 
 function getContextualResponse(m: string): string | null {
