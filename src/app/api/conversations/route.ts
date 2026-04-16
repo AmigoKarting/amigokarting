@@ -70,6 +70,144 @@ async function saveMemory(employeeId: string, key: string, value: string) {
   } catch {}
 }
 
+// ─── Analyse basée sur le manuel (knowledge_documents) ──────────
+// Cherche dans le manuel et compare avec la réponse de l'employé
+
+const STOP_WORDS = new Set([
+  "le", "la", "les", "un", "une", "des", "de", "du", "au", "aux",
+  "et", "ou", "en", "a", "à", "est", "ce", "se", "sa", "son", "ses",
+  "que", "qui", "ne", "pas", "plus", "je", "tu", "il", "on", "nous",
+  "vous", "ils", "mon", "ton", "dans", "sur", "pour", "par", "avec",
+  "mais", "bien", "ça", "c'est", "faut", "peut", "fait", "faire",
+  "être", "avoir", "très", "quand", "comment", "aussi", "tout",
+  "bon", "bonne", "oui", "non", "là", "ici", "car", "donc",
+]);
+
+function extractKeyWords(text: string): string[] {
+  return text
+    .toLowerCase()
+    .replace(/[^a-zàâäéèêëïîôùûüç0-9\s-]/g, " ")
+    .split(/\s+/)
+    .filter((w) => w.length > 2 && !STOP_WORDS.has(w));
+}
+
+function extractPhrases(text: string): string[] {
+  // Extraire des groupes de 2-3 mots importants
+  const words = extractKeyWords(text);
+  const phrases: string[] = [...words];
+  for (let i = 0; i < words.length - 1; i++) {
+    phrases.push(words[i] + " " + words[i + 1]);
+  }
+  return phrases;
+}
+
+async function searchManual(topic: string): Promise<string | null> {
+  try {
+    const keywords = extractKeyWords(topic);
+    if (keywords.length === 0) return null;
+
+    // Chercher dans knowledge_documents
+    const { data: docs } = await supabaseAdmin
+      .from("knowledge_documents")
+      .select("title, content");
+
+    if (!docs || docs.length === 0) return null;
+
+    // Scorer chaque document par pertinence
+    let bestDoc: any = null;
+    let bestScore = 0;
+
+    for (const doc of docs) {
+      const docText = `${doc.title} ${doc.content}`.toLowerCase();
+      let score = 0;
+      for (const kw of keywords) {
+        if (docText.includes(kw)) score += 1;
+      }
+      if (score > bestScore) {
+        bestScore = score;
+        bestDoc = doc;
+      }
+    }
+
+    if (bestDoc && bestScore >= 1) {
+      return bestDoc.content;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+interface ManualAnalysis {
+  quality: "excellent" | "average" | "bad";
+  matchPercent: number;
+  matchedConcepts: string[];
+  missingConcepts: string[];
+  manualAnswer: string;
+}
+
+async function analyzeWithManual(question: string, answer: string): Promise<ManualAnalysis | null> {
+  // Chercher le sujet dans le manuel
+  const manualContent = await searchManual(question);
+  if (!manualContent) return null;
+
+  const answerLower = answer.toLowerCase();
+  const manualLower = manualContent.toLowerCase();
+
+  // Extraire les concepts importants du manuel
+  const manualWords = extractKeyWords(manualContent);
+  const manualPhrases = extractPhrases(manualContent);
+
+  // Extraire les mots de la réponse
+  const answerWords = extractKeyWords(answer);
+  const answerPhrases = extractPhrases(answer);
+
+  // Trouver les concepts du manuel qui sont dans la réponse
+  const uniqueManualWords = [...new Set(manualWords)];
+  const matchedWords = uniqueManualWords.filter((mw) => 
+    answerWords.some((aw) => aw.includes(mw) || mw.includes(aw))
+  );
+
+  // Aussi chercher des phrases de 2 mots
+  const manualUniquePhrases = [...new Set(manualPhrases.filter((p) => p.includes(" ")))];
+  const matchedPhrases = manualUniquePhrases.filter((mp) =>
+    answerPhrases.some((ap) => ap.includes(mp) || mp.includes(ap))
+  );
+
+  // Score combiné
+  const totalConcepts = Math.max(uniqueManualWords.length, 1);
+  const matchCount = matchedWords.length + matchedPhrases.length * 2; // Les phrases comptent double
+  const matchPercent = Math.min(100, Math.round((matchCount / totalConcepts) * 100));
+
+  // Trouver les concepts manquants importants (les mots qui reviennent souvent dans le manuel)
+  const wordFrequency: Record<string, number> = {};
+  manualWords.forEach((w) => { wordFrequency[w] = (wordFrequency[w] || 0) + 1; });
+  
+  const importantMissing = Object.entries(wordFrequency)
+    .filter(([w, count]) => count >= 2 && !matchedWords.includes(w))
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([w]) => w);
+
+  // Résumé court du manuel (premières 200 caractères)
+  const manualSummary = manualContent.length > 200 
+    ? manualContent.substring(0, 200) + "..." 
+    : manualContent;
+
+  let quality: "excellent" | "average" | "bad";
+  if (matchPercent >= 40) quality = "excellent";
+  else if (matchPercent >= 15) quality = "average";
+  else quality = "bad";
+
+  return {
+    quality,
+    matchPercent,
+    matchedConcepts: matchedWords.slice(0, 10),
+    missingConcepts: importantMissing,
+    manualAnswer: manualSummary,
+  };
+}
+
 export async function POST(req: NextRequest) {
   try {
     const supabase = createServerSupabaseClient();
@@ -149,7 +287,7 @@ export async function POST(req: NextRequest) {
       if (simulationId) {
         response = getSimulationResponse(simulationId, message, history);
       } else if (isMock) {
-        response = getSmartMockResponse(message, history, ctx);
+        response = await getSmartMockResponse(message, history, ctx);
       } else {
         try {
           const result = await handleConversation({
@@ -161,7 +299,7 @@ export async function POST(req: NextRequest) {
           });
           response = result.response;
         } catch {
-          response = getSmartMockResponse(message, history, ctx);
+          response = await getSmartMockResponse(message, history, ctx);
         }
       }
 
@@ -282,66 +420,56 @@ function buildSmartGreeting(ctx: AIContext | null): string {
   return parts.join(" ");
 }
 
-// ─── Réponses mock intelligentes avec 3 niveaux ─────────────────
-function getSmartMockResponse(message: string, history: any[], ctx: AIContext | null): string {
+// ─── Réponses chef formateur — manuel + mots-clés ─────────────────
+async function getSmartMockResponse(message: string, history: any[], ctx: AIContext | null): Promise<string> {
   const m = message.toLowerCase();
   const questionNumber = Math.floor(history.length / 2);
 
-  // Analyser la qualité de la réponse
-  const analysis = analyzeAnswer(m, questionNumber);
-
-  // Questions adaptées au profil
   const questions = buildAdaptiveQuestions(ctx);
   const nextQ = questionNumber < questions.length ? questions[questionNumber] : questions[questions.length - 1];
 
-  // ─── EXCELLENTE réponse → Féliciter fort + challenger ──
-  if (analysis.quality === "excellent") {
-    const praises = [
-      "BOOM ! Réponse parfaite.",
-      "Ça c'est ce que je veux entendre !",
-      "Exactement ! T'as tout dit, rien à ajouter.",
-      "Impeccable. C'est du niveau pro.",
-      "Oui monsieur ! C'est comme ça qu'on fait chez Amigo.",
-    ];
-    const praise = praises[questionNumber % praises.length];
-    const deeperQ = getDeeperQuestion(questionNumber);
-    
-    if (ctx && ctx.globalScore >= 80) {
-      return `${praise} ${analysis.feedback} T'es clairement un des meilleurs. Mais je vais te pousser plus loin : ${deeperQ}`;
+  // ─── ÉTAPE 1 : Chercher dans le MANUEL ────────────────
+  const lastAI = history.filter((h: any) => h.role === "assistant").pop();
+  const currentQ = lastAI?.content || "";
+
+  const manual = await analyzeWithManual(currentQ, message);
+
+  if (manual) {
+    if (manual.quality === "excellent") {
+      const p = ["BOOM ! Réponse parfaite.", "Ça c'est ce que je veux entendre !", "Exactement !", "Impeccable.", "C'est comme ça qu'on fait chez Amigo."][questionNumber % 5];
+      return `${p} T'as bien couvert le sujet. ${nextQ}`;
     }
-    return `${praise} ${analysis.feedback} Tu montes en niveau. Maintenant prouve-moi que tu peux répondre à ça : ${deeperQ}`;
+    if (manual.quality === "average") {
+      const p = ["T'es sur la bonne track.", "C'est un début.", "T'as une partie.", "Presque."][questionNumber % 4];
+      const miss = manual.missingConcepts.length > 0 ? `Pense à : ${manual.missingConcepts.slice(0, 3).join(", ")}.` : "Il manque des détails.";
+      return `${p} ${miss} ${nextQ}`;
+    }
+    const c = ["C'est pas ça, mais on est là pour apprendre.", "Mauvaise réponse. Pas de stress.", "Raté, mais je préfère ici que devant un client.", "C'est incorrect. Retiens bien :"][questionNumber % 4];
+    return `${c} Selon le manuel : ${manual.manualAnswer} ${nextQ}`;
   }
 
-  // ─── MOYENNE réponse → Encourager mais exiger plus ─────
+  // ─── ÉTAPE 2 : Pas dans le manuel → mots-clés ────────
+  const analysis = analyzeAnswer(m, questionNumber);
+
+  if (analysis.quality === "excellent") {
+    const p = ["BOOM ! Réponse parfaite.", "Ça c'est ce que je veux entendre !", "Exactement ! T'as tout dit.", "Impeccable. Niveau pro.", "C'est comme ça qu'on fait chez Amigo."][questionNumber % 5];
+    const deeperQ = getDeeperQuestion(questionNumber);
+    if (ctx && ctx.globalScore >= 80) {
+      return `${p} ${analysis.feedback} T'es un des meilleurs. Je te pousse plus loin : ${deeperQ}`;
+    }
+    return `${p} ${analysis.feedback} Tu montes en niveau. ${nextQ}`;
+  }
+
   if (analysis.quality === "average") {
-    const pushes = [
-      "T'es sur la bonne track, mais je veux la réponse COMPLÈTE.",
-      "C'est un début. Mais chez Amigo, on vise l'excellence, pas le minimum.",
-      "T'as une partie. Mais si un client te pose la question, faut que tu sois solide à 100%.",
-      "Presque. Mais 'presque' c'est pas assez quand c'est la sécurité des clients.",
-      "Bon effort, mais creuse plus. T'es capable.",
-    ];
-    const push = pushes[questionNumber % pushes.length];
-    
-    return `${push} Ce qui te manque : ${analysis.missing} Retiens ça. ${nextQ}`;
+    const p = ["T'es sur la bonne track, mais je veux la réponse COMPLÈTE.", "C'est un début. Chez Amigo, on vise l'excellence.", "T'as une partie. Faut être solide à 100%.", "Presque. C'est pas assez pour la sécurité.", "Bon effort, creuse plus."][questionNumber % 5];
+    return `${p} Ce qui te manque : ${analysis.missing} Retiens ça. ${nextQ}`;
   }
 
-  // ─── MAUVAISE réponse → Corriger direct, pas de jugement ──
-  const corrections = [
-    "Non, c'est pas ça. Mais c'est pour ça qu'on s'entraîne. Écoute bien :",
-    "Mauvaise réponse. Pas de stress, personne naît en sachant tout. Voici ce que tu dois retenir :",
-    "Raté. Mais un bon employé c'est pas celui qui sait tout, c'est celui qui apprend. La bonne réponse :",
-    "C'est incorrect. Mais je préfère que tu te trompes ici avec moi que devant un client. Retiens ça :",
-  ];
-  const correction = corrections[questionNumber % corrections.length];
-
+  const c = ["C'est pas ça. Écoute bien :", "Mauvaise réponse. Voici ce que tu dois retenir :", "Raté. La bonne réponse :", "C'est incorrect. Retiens ça :"][questionNumber % 4];
   if (ctx && ctx.totalConversations > 5) {
-    return `${correction} ${analysis.correctAnswer} T'as déjà vu ça. La prochaine fois, je m'attends à ce que tu le saches. ${nextQ}`;
+    return `${c} ${analysis.correctAnswer} La prochaine fois, je m'attends à ce que tu le saches. ${nextQ}`;
   }
-  if (ctx && ctx.totalConversations > 2) {
-    return `${correction} ${analysis.correctAnswer} On l'a déjà couvert. Concentre-toi et retiens-le cette fois. ${nextQ}`;
-  }
-  return `${correction} ${analysis.correctAnswer} Grave ça dans ta mémoire. ${nextQ}`;
+  return `${c} ${analysis.correctAnswer} Grave ça dans ta mémoire. ${nextQ}`;
 }
 
 // ─── Analyser la qualité d'une réponse (flexible, synonymes) ────
