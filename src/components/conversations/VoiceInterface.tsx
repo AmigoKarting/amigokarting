@@ -16,12 +16,13 @@ function getSR(): any {
   return (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition || null;
 }
 
-export function VoiceInterface() {
+export function VoiceInterface({ simulationId }: { simulationId?: string } = {}) {
   const [phase, setPhase] = useState<CallPhase>("idle");
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [transcript, setTranscript] = useState("");
   const [liveTranscript, setLiveTranscript] = useState("");
+  const [textInput, setTextInput] = useState("");
   const [error, setError] = useState("");
   const [elapsedSec, setElapsedSec] = useState(0);
   const [rating, setRating] = useState(7);
@@ -38,6 +39,7 @@ export function VoiceInterface() {
   const finalRef = useRef("");
   const sidRef = useRef<string | null>(null);
   const msgsRef = useRef<Message[]>([]);
+  const textInputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => { phaseRef.current = phase; }, [phase]);
   useEffect(() => { sidRef.current = sessionId; }, [sessionId]);
@@ -100,7 +102,6 @@ export function VoiceInterface() {
     setPhase("listening");
   }, []);
 
-  // Send text to AI and get response
   const sendToAI = useCallback(async (text: string) => {
     if (!text.trim()) {
       setPhase("listening");
@@ -123,7 +124,7 @@ export function VoiceInterface() {
       const res = await fetch("/api/conversations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "message", sessionId: sidRef.current, message: text, history }),
+        body: JSON.stringify({ action: "message", sessionId: sidRef.current, message: text, history, simulationId }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
@@ -134,7 +135,6 @@ export function VoiceInterface() {
 
       await speak(data.response);
 
-      // Auto re-listen after AI speaks
       setPhase("listening");
       setTimeout(() => { if (phaseRef.current === "listening") autoListen(); }, 600);
     } catch (err: any) {
@@ -142,7 +142,23 @@ export function VoiceInterface() {
       setPhase("listening");
       setTimeout(() => { if (phaseRef.current === "listening") autoListen(); }, 2000);
     }
-  }, [speak]);
+  }, [speak, simulationId]);
+
+  // Send text message
+  const sendText = useCallback(() => {
+    if (!textInput.trim() || phase === "processing") return;
+    stopMic();
+    const text = textInput.trim();
+    setTextInput("");
+    sendToAI(text);
+  }, [textInput, phase, sendToAI]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      sendText();
+    }
+  }, [sendText]);
 
   // Auto-listen with silence detection
   const autoListen = useCallback(() => {
@@ -171,7 +187,6 @@ export function VoiceInterface() {
       if (fin) { accumulated = fin; finalRef.current = fin; setTranscript(fin); setLiveTranscript(""); }
       else if (interim) { setLiveTranscript(interim); }
 
-      // Reset silence timer
       if (silenceRef.current) clearTimeout(silenceRef.current);
       silenceRef.current = setTimeout(() => {
         const txt = accumulated || finalRef.current || interim;
@@ -188,7 +203,6 @@ export function VoiceInterface() {
         setPhase("listening");
         return;
       }
-      // Restart on no-speech or other errors
       if (e.error !== "aborted") {
         setTimeout(() => {
           if (phaseRef.current === "listening" || phaseRef.current === "recording") {
@@ -201,7 +215,6 @@ export function VoiceInterface() {
 
     rec.onend = () => {
       recRef.current = null;
-      // Auto restart if still listening and no text processed
       if (phaseRef.current === "recording" && !accumulated && !finalRef.current) {
         setPhase("listening");
         setTimeout(() => { if (phaseRef.current === "listening") autoListen(); }, 500);
@@ -216,7 +229,7 @@ export function VoiceInterface() {
     try { rec.start(); } catch {}
   }, [sendToAI]);
 
-  // Manual hold-to-talk (fallback)
+  // Manual hold-to-talk
   const manualStart = useCallback(() => {
     if (phase !== "listening" && phase !== "recording") return;
     stopMic();
@@ -267,7 +280,7 @@ export function VoiceInterface() {
       const res = await fetch("/api/conversations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "start" }),
+        body: JSON.stringify({ action: "start", simulationId }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
@@ -289,7 +302,7 @@ export function VoiceInterface() {
       setError(err.message || "Impossible de démarrer.");
       setPhase("idle");
     }
-  }, [speak, autoListen]);
+  }, [speak, autoListen, simulationId]);
 
   const endSession = useCallback(async (withRating = false) => {
     window.speechSynthesis.cancel();
@@ -309,6 +322,7 @@ export function VoiceInterface() {
 
   const isActive = !["idle", "ended"].includes(phase);
   const isRec = phase === "recording";
+  const canSend = phase === "listening" || phase === "recording";
 
   return (
     <div className="mx-auto max-w-lg">
@@ -327,10 +341,10 @@ export function VoiceInterface() {
           <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-orange-100">
             <svg className="h-10 w-10 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
           </div>
-          <h2 className="text-xl font-bold text-gray-900">Conversation vocale IA</h2>
-          <p className="mt-2 text-sm text-gray-500">Révise les procédures en parlant avec l'assistant.</p>
+          <h2 className="text-xl font-bold text-gray-900">Conversation IA</h2>
+          <p className="mt-2 text-sm text-gray-500">Révise les procédures avec ton chef formateur.</p>
           <div className="mt-5 space-y-2 text-left">
-            {["Le micro s'active automatiquement", "Détecte quand tu arrêtes de parler", "La conversation continue toute seule", "100% gratuit — micro du navigateur"].map((t) => (
+            {["Parle avec le micro ou écris ton message", "L'IA détecte quand tu arrêtes de parler", "Tu peux taper ta réponse si tu préfères", "100% gratuit"].map((t) => (
               <div key={t} className="flex items-center gap-3 rounded-lg bg-gray-50 px-4 py-2.5">
                 <svg className="h-4 w-4 shrink-0 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 <span className="text-sm text-gray-600">{t}</span>
@@ -343,22 +357,32 @@ export function VoiceInterface() {
 
       {isActive && phase !== "rating" && (
         <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-          <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-6 py-4 text-center">
-            <div className="flex items-center justify-center gap-2">
-              {phase === "connecting" ? <span className="h-2 w-2 animate-pulse rounded-full bg-yellow-400" /> : isRec ? <span className="h-2 w-2 animate-pulse rounded-full bg-red-400" /> : <span className="h-2 w-2 rounded-full bg-green-400" />}
-              <span className="text-xs font-medium text-gray-300">
-                {phase === "connecting" ? "Connexion..." : isRec ? "Je t'écoute..." : phase === "processing" ? "Réflexion..." : phase === "speaking" ? "L'assistant parle..." : "En ligne"}
-              </span>
+          {/* Header */}
+          <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                {phase === "connecting" ? <span className="h-2 w-2 animate-pulse rounded-full bg-yellow-400" /> : isRec ? <span className="h-2 w-2 animate-pulse rounded-full bg-red-400" /> : <span className="h-2 w-2 rounded-full bg-green-400" />}
+                <span className="text-xs font-medium text-gray-300">
+                  {phase === "connecting" ? "Connexion..." : isRec ? "Je t'écoute..." : phase === "processing" ? "Réflexion..." : phase === "speaking" ? "Parle..." : "En ligne"}
+                </span>
+              </div>
+              <div className="text-right">
+                <p className="text-sm font-semibold text-white">Chef Formateur</p>
+                <p className="font-mono text-xs tabular-nums text-gray-400">{fmt(elapsedSec)}</p>
+              </div>
             </div>
-            <p className="mt-1 text-lg font-semibold text-white">Assistant Amigo</p>
-            <p className="font-mono text-sm tabular-nums text-gray-400">{fmt(elapsedSec)}</p>
           </div>
 
-          <div className="h-56 overflow-y-auto sm:h-80 bg-gray-50 px-4 py-4">
+          {/* Messages */}
+          <div className="h-60 overflow-y-auto sm:h-80 bg-gray-50 px-4 py-4">
             <div className="space-y-3">
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.role === "employee" ? "justify-end" : "justify-start"}`}>
-                  <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${msg.role === "employee" ? "rounded-br-md bg-orange-500 text-white" : "rounded-bl-md bg-white text-gray-800 shadow-sm"}`}>{msg.content}</div>
+                  <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                    msg.role === "employee" 
+                      ? "rounded-br-md bg-orange-500 text-white" 
+                      : "rounded-bl-md bg-white text-gray-800 shadow-sm"
+                  }`}>{msg.content}</div>
                 </div>
               ))}
               {(liveTranscript || (transcript && phase === "processing")) && (
@@ -381,38 +405,82 @@ export function VoiceInterface() {
 
           {error && <div className="mx-4 mt-2 rounded-lg bg-red-50 px-3 py-2 text-center text-xs text-red-600">{error}</div>}
 
-          <div className="border-t border-gray-100 px-6 py-5">
-            <div className="mb-4 flex items-center justify-center">
-              {isRec && (
-                <div className="flex items-center gap-2 rounded-full bg-red-50 px-4 py-2">
-                  <span className="h-3 w-3 animate-pulse rounded-full bg-red-500" />
-                  <span className="text-xs font-medium text-red-700">Écoute en cours... parle maintenant</span>
-                </div>
-              )}
-              {phase === "listening" && <div className="flex items-center gap-2 rounded-full bg-orange-50 px-4 py-2"><span className="h-3 w-3 animate-pulse rounded-full bg-orange-400" /><span className="text-xs font-medium text-orange-700">Activation du micro...</span></div>}
-              {phase === "processing" && <span className="text-xs text-gray-400">Traitement de ta réponse...</span>}
-              {phase === "speaking" && <span className="text-xs text-gray-400">L'assistant parle...</span>}
-              {phase === "connecting" && <span className="text-xs text-gray-400">Connexion...</span>}
+          {/* Status */}
+          {isRec && (
+            <div className="flex items-center justify-center gap-2 bg-red-50 px-4 py-2">
+              <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-red-500" />
+              <span className="text-xs font-medium text-red-700">Écoute en cours... parle maintenant</span>
+            </div>
+          )}
+
+          {/* Zone de saisie texte + boutons */}
+          <div className="border-t border-gray-100 px-4 py-3">
+            <div className="flex items-end gap-2">
+              {/* Bouton terminer */}
+              <button 
+                onClick={() => { stopMic(); setPhase("rating"); }} 
+                disabled={phase === "connecting" || phase === "processing"} 
+                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-500 text-white active:scale-95 disabled:opacity-50" 
+                aria-label="Terminer"
+              >
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+
+              {/* Zone texte */}
+              <div className="relative flex-1">
+                <textarea
+                  ref={textInputRef}
+                  value={textInput}
+                  onChange={(e) => setTextInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  placeholder={isRec ? "Le micro écoute... ou tape ici" : "Tape ta réponse ici..."}
+                  rows={1}
+                  disabled={phase === "processing" || phase === "connecting"}
+                  className="w-full resize-none rounded-xl border-2 border-gray-200 bg-white px-4 py-2.5 pr-12 text-sm transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100 disabled:bg-gray-50 disabled:opacity-60"
+                  style={{ minHeight: 44, maxHeight: 100 }}
+                />
+              </div>
+
+              {/* Bouton micro */}
+              <button
+                onMouseDown={manualStart}
+                onMouseUp={manualStop}
+                onTouchStart={(e) => { e.preventDefault(); manualStart(); }}
+                onTouchEnd={(e) => { e.preventDefault(); manualStop(); }}
+                disabled={!canSend}
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all ${
+                  isRec 
+                    ? "bg-red-500 text-white animate-pulse" 
+                    : canSend 
+                      ? "bg-gray-100 text-gray-600 active:bg-gray-200" 
+                      : "bg-gray-100 text-gray-300"
+                }`}
+                aria-label="Maintenir pour parler"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+              </button>
+
+              {/* Bouton envoyer */}
+              <button
+                onClick={sendText}
+                disabled={!textInput.trim() || phase === "processing" || phase === "connecting"}
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all ${
+                  textInput.trim() && canSend
+                    ? "bg-orange-500 text-white active:scale-95"
+                    : "bg-gray-100 text-gray-300"
+                }`}
+                aria-label="Envoyer"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+              </button>
             </div>
 
-            <div className="flex items-center justify-center gap-6">
-              <button onClick={() => { stopMic(); setPhase("rating"); }} disabled={phase === "connecting" || phase === "processing"} className="flex h-12 w-12 items-center justify-center rounded-full bg-red-500 text-white active:scale-95 disabled:opacity-50" aria-label="Terminer">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.536 8.464a5 5 0 010 7.072M17.414 6.586a8 8 0 010 11.314M6.343 17.657l-1.414-1.414M3.515 14.828a8 8 0 010-5.656" /></svg>
+            {/* Skip speaking button */}
+            {phase === "speaking" && (
+              <button onClick={skipSpeak} className="mt-2 w-full rounded-lg bg-gray-100 px-3 py-2 text-xs font-medium text-gray-500 active:bg-gray-200">
+                Passer la réponse vocale
               </button>
-
-              <button onMouseDown={manualStart} onMouseUp={manualStop} onTouchStart={(e) => { e.preventDefault(); manualStart(); }} onTouchEnd={(e) => { e.preventDefault(); manualStop(); }} disabled={phase !== "listening" && phase !== "recording"} className={`flex h-20 w-20 items-center justify-center rounded-full text-white shadow-lg transition-all ${isRec ? "scale-110 bg-red-500 shadow-red-500/30" : phase === "listening" ? "bg-orange-500 shadow-orange-500/25" : "bg-gray-300 shadow-none"}`} aria-label="Maintenir pour parler">
-                {isRec ? (
-                  <div className="flex items-center gap-1">{[1,2,3,4,5].map((i) => (<div key={i} className="w-1 animate-pulse rounded-full bg-white" style={{ height: `${12+Math.random()*16}px`, animationDelay: `${i*0.1}s` }} />))}</div>
-                ) : (
-                  <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
-                )}
-              </button>
-
-              <button onClick={skipSpeak} disabled={phase !== "speaking"} className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-200 text-gray-600 active:scale-95 disabled:opacity-30" aria-label="Passer">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 8.689c0-.864.933-1.405 1.683-.977l7.108 4.061a1.125 1.125 0 010 1.954l-7.108 4.061A1.125 1.125 0 013 16.811V8.69zM12.75 8.689c0-.864.933-1.405 1.683-.977l7.108 4.061a1.125 1.125 0 010 1.954l-7.108 4.061a1.125 1.125 0 01-1.683-.977V8.69z" /></svg>
-              </button>
-            </div>
-            <p className="mt-4 text-center text-[11px] text-gray-400">Le micro s'active tout seul. Tu peux aussi maintenir le bouton pour parler.</p>
+            )}
           </div>
         </div>
       )}
@@ -440,7 +508,7 @@ export function VoiceInterface() {
           </div>
           <h3 className="text-lg font-semibold text-gray-900">Session terminée</h3>
           <p className="mt-1 text-sm text-gray-500">{fmt(elapsedSec)} · {messages.filter((m) => m.role === "employee").length} échanges{rating ? ` · Note : ${rating}/10` : ""}</p>
-          <button onClick={() => { setPhase("idle"); setSessionId(null); setMessages([]); setElapsedSec(0); setHasAskedRating(false); setRating(7); setRatingComment(""); startTimeRef.current = null; finalRef.current = ""; }} className="mt-6 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-3 text-sm font-semibold text-white active:scale-[0.98]">Nouvelle conversation</button>
+          <button onClick={() => { setPhase("idle"); setSessionId(null); setMessages([]); setElapsedSec(0); setHasAskedRating(false); setRating(7); setRatingComment(""); startTimeRef.current = null; finalRef.current = ""; setTextInput(""); }} className="mt-6 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-3 text-sm font-semibold text-white active:scale-[0.98]">Nouvelle conversation</button>
         </div>
       )}
     </div>
