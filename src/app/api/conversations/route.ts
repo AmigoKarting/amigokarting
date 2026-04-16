@@ -1,8 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
-import { handleConversation, generateGreeting } from "@/lib/openai/conversation";
-
+// OpenAI désactivé — chargé dynamiquement seulement si la clé existe
+let _openaiModule: any = null;
+async function getOpenAIModule() {
+  if (!_openaiModule && process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY !== "sk-..." && process.env.OPENAI_API_KEY !== "sk-fake-not-used") {
+    try { _openaiModule = await import("@/lib/openai/conversation"); } catch {}
+  }
+  return _openaiModule;
+}
+const handleConversation = async (...args: any[]) => {
+  const mod = await getOpenAIModule();
+  if (mod) return mod.handleConversation(...args);
+  throw new Error("OpenAI non disponible");
+};
+const generateGreeting = async (...args: any[]) => {
+  const mod = await getOpenAIModule();
+  if (mod) return mod.generateGreeting(...args);
+  throw new Error("OpenAI non disponible");
+};
 interface AIContext {
   firstName: string;
   globalScore: number;
