@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { requireManager } from "@/lib/supabase/middleware";
-import { generateQuizQuestions } from "@/lib/openai/quiz-generator";
 
 export async function POST(req: NextRequest) {
   await requireManager();
@@ -33,14 +32,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (body.action === "generate") {
-    const questions = await generateQuizQuestions(body.topic, body.count || 20);
-    const rows = questions.map((q) => ({
-      question_text: q.question_text,
-      source: "generated" as const,
-      is_priority: false,
-    }));
-    await supabaseAdmin.from("conversation_questions").insert(rows);
-    return NextResponse.json({ success: true, count: rows.length });
+    return NextResponse.json({ error: "La génération automatique nécessite une clé OpenAI. Ajoute les questions manuellement." }, { status: 400 });
   }
 
   return NextResponse.json({ error: "Action inconnue" }, { status: 400 });
