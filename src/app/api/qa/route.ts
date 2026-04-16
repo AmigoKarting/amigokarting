@@ -290,40 +290,63 @@ export async function POST(req: NextRequest) {
         .filter((s) => s.toLowerCase() !== message.toLowerCase())
         .slice(0, 6);
 
-      // Sauvegarder l'historique
+      // Sauvegarder dans qa_history
       try {
-        const { data: existingMem } = await supabaseAdmin
-          .from("ai_memory")
-          .select("value")
-          .eq("employee_id", employee.id)
-          .eq("key", "qa_history")
-          .single();
-
-        let historyArr: any[] = [];
-        if (existingMem?.value) { try { historyArr = JSON.parse(existingMem.value); } catch {} }
-
-        historyArr = historyArr.filter((h: any) => h.query !== message);
-        historyArr.unshift({ query: message, timestamp: new Date().toISOString() });
-        historyArr = historyArr.slice(0, 30);
-
-        await supabaseAdmin
-          .from("ai_memory")
-          .upsert({
-            employee_id: employee.id, key: "qa_history",
-            value: JSON.stringify(historyArr),
-            updated_at: new Date().toISOString(),
-          }, { onConflict: "employee_id,key" });
-
-        await supabaseAdmin
-          .from("ai_memory")
-          .upsert({
-            employee_id: employee.id, key: "qa_total_questions",
-            value: String(historyArr.length),
-            updated_at: new Date().toISOString(),
-          }, { onConflict: "employee_id,key" });
+        await supabaseAdmin.from("qa_history").insert({
+          employee_id: employee.id,
+          query: message,
+          response_preview: response.slice(0, 200),
+          sources: sources.join(", "),
+        });
       } catch {}
 
       return NextResponse.json({ response, sources, nextSuggestions });
+    }
+
+    // ─── Historique de l'employé ─────────────────────────
+    if (body.action === "myHistory") {
+      const { data } = await supabaseAdmin
+        .from("qa_history")
+        .select("id, query, response_preview, sources, created_at")
+        .eq("employee_id", employee.id)
+        .order("created_at", { ascending: false })
+        .limit(50);
+
+      return NextResponse.json({ history: data || [] });
+    }
+
+    // ─── Supprimer une entrée d'historique ───────────────
+    if (body.action === "deleteHistory") {
+      await supabaseAdmin
+        .from("qa_history")
+        .delete()
+        .eq("id", body.historyId)
+        .eq("employee_id", employee.id);
+      return NextResponse.json({ success: true });
+    }
+
+    // ─── Historique de tous les employés (gérant/patron) ─
+    if (body.action === "allHistory") {
+      const { data: emp } = await supabase
+        .from("employees")
+        .select("role")
+        .eq("auth_user_id", user.id)
+        .single();
+
+      if (!emp || (emp.role !== "manager" && emp.role !== "patron" && emp.role !== "developpeur")) {
+        return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
+      }
+
+      const { data } = await supabaseAdmin
+        .from("qa_history")
+        .select(`
+          id, query, response_preview, sources, created_at,
+          employees!inner(first_name, last_name)
+        `)
+        .order("created_at", { ascending: false })
+        .limit(100);
+
+      return NextResponse.json({ history: data || [] });
     }
 
     return NextResponse.json({ error: "Action inconnue" }, { status: 400 });
