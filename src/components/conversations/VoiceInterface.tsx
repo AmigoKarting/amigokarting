@@ -374,7 +374,7 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
           </div>
 
           {/* Messages */}
-          <div className="h-60 overflow-y-auto sm:h-80 bg-gray-50 px-4 py-4">
+          <div className="h-[55vh] overflow-y-auto sm:h-[60vh] bg-gray-50 px-4 py-4">
             <div className="space-y-3">
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.role === "employee" ? "justify-end" : "justify-start"}`}>
