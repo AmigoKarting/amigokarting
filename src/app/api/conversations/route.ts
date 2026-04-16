@@ -344,7 +344,7 @@ function getSmartMockResponse(message: string, history: any[], ctx: AIContext | 
   return `${correction} ${analysis.correctAnswer} Grave ça dans ta mémoire. ${nextQ}`;
 }
 
-// ─── Analyser la qualité d'une réponse ──────────────────────────
+// ─── Analyser la qualité d'une réponse (flexible, synonymes) ────
 interface AnswerAnalysis {
   quality: "excellent" | "average" | "bad";
   feedback: string;
@@ -352,91 +352,154 @@ interface AnswerAnalysis {
   correctAnswer: string;
 }
 
+// Chaque concept a plusieurs façons de le dire
+interface Concept {
+  name: string;           // Nom du concept
+  keywords: string[];     // Toutes les façons de le dire (synonymes, variantes)
+  required: boolean;      // Obligatoire pour "excellent" ?
+}
+
+interface QuestionExpectation {
+  concepts: Concept[];
+  feedback: string;
+  missing: string;
+  correct: string;
+  minForExcellent: number;  // Combien de concepts pour "excellent"
+  minForAverage: number;    // Combien de concepts pour "average"
+}
+
+function matchesConcept(answer: string, concept: Concept): boolean {
+  return concept.keywords.some((kw) => answer.includes(kw));
+}
+
 function analyzeAnswer(m: string, questionNumber: number): AnswerAnalysis {
-  // Définir les réponses attendues par question
-  const expectations: {
-    excellent: string[];  // Mots-clés pour une réponse complète
-    average: string[];    // Mots-clés partiels
-    feedback: string;     // Feedback positif
-    missing: string;      // Ce qui manque
-    correct: string;      // Réponse complète
-  }[] = [
+  const expectations: QuestionExpectation[] = [
     { // Q0: Casque - vérifier quoi
-      excellent: ["taille", "ajust", "bouge pas", "secoue"],
-      average: ["casque", "taille"],
+      concepts: [
+        { name: "taille", keywords: ["taille", "grandeur", "mesure", "bon format", "bonne grosseur", "trop grand", "trop petit", "bonne taille", "right size"], required: true },
+        { name: "ajustement", keywords: ["ajust", "serr", "fit", "attache", "sangle", "bien mis", "correct", "stable", "bouge pas", "bouge plus", "tient bien", "pas lousse", "bien placé", "bien attaché"], required: true },
+        { name: "test secouer", keywords: ["secoue", "bouge pas", "bouger", "check", "vérif", "test", "branle", "shake", "hocher", "tourne la tête", "gauche droite"], required: false },
+      ],
       feedback: "La taille et l'ajustement, c'est la base. Il faut que le casque bouge pas quand le client secoue la tête.",
       missing: "il faut vérifier que le casque bouge pas quand le client secoue la tête.",
       correct: "Quand tu donnes un casque, tu vérifies la taille et l'ajustement. Le casque doit pas bouger quand le client secoue la tête.",
+      minForExcellent: 2, minForAverage: 1,
     },
     { // Q1: Casque fissuré
-      excellent: ["retir", "bac rouge", "registre", "gestionnaire"],
-      average: ["retir", "bac rouge"],
+      concepts: [
+        { name: "retirer", keywords: ["retir", "enlev", "ôte", "sort", "met de côté", "utilise plus", "jeter", "enlève", "garde pas", "prend", "isol"], required: true },
+        { name: "bac rouge", keywords: ["bac rouge", "bac", "rouge", "poubelle", "défectueux", "range", "met dans", "place dans", "conteneur", "boite"], required: true },
+        { name: "registre", keywords: ["registre", "note", "écri", "numéro", "documenter", "rapport", "log", "inscri", "marqu"], required: false },
+        { name: "gestionnaire", keywords: ["gestionnaire", "gérant", "boss", "patron", "supérieur", "responsable", "avise", "avertir", "dire", "informer", "signaler", "appeler", "prévenir"], required: false },
+      ],
       feedback: "On retire, bac rouge, registre et on avise le gestionnaire. Procédure complète !",
       missing: "il faut aussi noter le numéro dans le registre et aviser le gestionnaire.",
       correct: "Un casque fissuré : on le retire immédiatement, on le met dans le bac rouge, on note le numéro dans le registre et on avise le gestionnaire.",
+      minForExcellent: 3, minForAverage: 1,
     },
     { // Q2: Désinfection casques
-      excellent: ["chaque", "spray", "bleu", "30 seconde"],
-      average: ["chaque", "spray"],
+      concepts: [
+        { name: "chaque utilisation", keywords: ["chaque", "après", "tout le temps", "à chaque fois", "toujours", "entre chaque", "à chaque client", "entre les client", "systématique"], required: true },
+        { name: "spray", keywords: ["spray", "produit", "désinfect", "nettoyer", "vaporis", "pulvéris", "liquide", "antibactérien", "nettoyant"], required: true },
+        { name: "bleu", keywords: ["bleu", "antibactérien bleu"], required: false },
+        { name: "30 secondes", keywords: ["30 seconde", "30 sec", "trente seconde", "sécher", "attendre", "laisser sécher", "temps de séchage", "pause"], required: false },
+      ],
       feedback: "Spray antibactérien bleu après chaque utilisation, 30 secondes de séchage.",
       missing: "c'est le spray antibactérien bleu, et il faut laisser sécher 30 secondes.",
       correct: "On désinfecte après chaque utilisation avec le spray antibactérien bleu. On laisse sécher 30 secondes avant de le redonner.",
+      minForExcellent: 3, minForAverage: 1,
     },
     { // Q3: Distance entre karts
-      excellent: ["2 mètre", "deux mètre", "longueur de kart"],
-      average: ["mètre", "distance", "longueur"],
+      concepts: [
+        { name: "2 mètres", keywords: ["2 mètre", "deux mètre", "2m", "2 m", "deux m", "quelques mètre"], required: true },
+        { name: "longueur kart", keywords: ["longueur", "un kart", "kart de distance", "kart entre", "longueur de kart", "grandeur d'un kart", "espace d'un kart"], required: false },
+      ],
       feedback: "2 mètres, c'est environ une longueur de kart. Facile à retenir !",
       missing: "c'est exactement 2 mètres, environ une longueur de kart.",
       correct: "La distance minimale entre deux karts c'est 2 mètres, environ une longueur de kart.",
+      minForExcellent: 2, minForAverage: 1,
     },
     { // Q4: Accident sur la piste
-      excellent: ["drapeau rouge", "couper", "sécuriser", "911"],
-      average: ["arrêter", "drapeau"],
+      concepts: [
+        { name: "drapeau rouge", keywords: ["drapeau rouge", "rouge", "flag", "arrêter la course", "arrêter tout", "stop", "stopper"], required: true },
+        { name: "couper alimentation", keywords: ["couper", "éteindre", "alimentation", "moteur", "kill", "switch", "arrêter les kart", "fermer"], required: true },
+        { name: "sécuriser", keywords: ["sécuris", "protéger", "zone", "périmètre", "dégager", "évacuer", "mettre en sécurité"], required: false },
+        { name: "911", keywords: ["911", "ambulance", "urgence", "secours", "appeler", "téléphone", "pompier", "paramédic"], required: false },
+        { name: "évaluer", keywords: ["évaluer", "vérifier", "check", "regarder", "voir si", "état", "conscient", "blessé", "parler"], required: false },
+      ],
       feedback: "Drapeau rouge, couper l'alimentation, sécuriser la zone, évaluer le pilote, 911 si nécessaire.",
       missing: "la séquence complète c'est : drapeau rouge, couper l'alimentation, sécuriser, évaluer et 911 si nécessaire.",
       correct: "En cas d'accident : drapeau rouge, couper l'alimentation des karts, sécuriser la zone, évaluer le pilote, appeler le 911 si nécessaire.",
+      minForExcellent: 3, minForAverage: 1,
     },
     { // Q5: Drapeau jaune
-      excellent: ["ralentir", "pas de dépassement", "attention"],
-      average: ["ralentir", "attention"],
+      concepts: [
+        { name: "ralentir", keywords: ["ralentir", "slow", "réduire vitesse", "moins vite", "doucement", "tranquille", "prudent", "attention", "vigilant", "faire attention", "careful"], required: true },
+        { name: "pas dépasser", keywords: ["pas de dépassement", "dépasse pas", "pas dépasser", "pas doubler", "pas passer", "dépassement interdit", "rester derrière", "pas devancer", "interdit de dépasser", "on dépasse pas", "aucun dépassement"], required: true },
+      ],
       feedback: "Jaune = attention, ralentir et AUCUN dépassement permis.",
       missing: "le plus important c'est : PAS DE DÉPASSEMENT quand le jaune est sorti.",
       correct: "Le drapeau jaune signifie attention, il faut ralentir et il n'y a aucun dépassement permis.",
+      minForExcellent: 2, minForAverage: 1,
     },
     { // Q6: Ouverture du centre
-      excellent: ["alarme", "lumière", "piste", "kart", "casque", "caisse"],
-      average: ["alarme", "lumière"],
-      feedback: "Alarme, lumières, piste, karts, casques, ordis, caisse. T'as tout la séquence !",
+      concepts: [
+        { name: "alarme", keywords: ["alarme", "désarmer", "code", "système", "sécurité", "débarrer"], required: true },
+        { name: "lumières", keywords: ["lumière", "allumer", "éclairage", "light", "ouvrir les lumière"], required: true },
+        { name: "piste", keywords: ["piste", "track", "circuit", "parcours", "vérifier la piste", "inspecter la piste", "tour de piste"], required: false },
+        { name: "karts", keywords: ["kart", "véhicule", "char", "voiture", "machine", "inspecter les kart", "vérifier les kart"], required: false },
+        { name: "casques", keywords: ["casque", "équipement", "préparer les casque"], required: false },
+        { name: "caisse", keywords: ["caisse", "argent", "fond", "comptoir", "cash", "tiroir", "compter"], required: false },
+      ],
+      feedback: "Alarme, lumières, piste, karts, casques, ordis, caisse. T'as toute la séquence !",
       missing: "la séquence complète c'est : alarme, lumières, vérifier la piste, inspecter les karts, préparer les casques, allumer les ordis, compter la caisse.",
       correct: "Pour ouvrir : désarmer l'alarme, allumer les lumières, vérifier la piste, inspecter les karts, préparer les casques, allumer les ordis et compter la caisse.",
+      minForExcellent: 4, minForAverage: 2,
     },
     { // Q7: Fermeture caisse
-      excellent: ["rapport z", "comptant", "enveloppe", "coffre", "200"],
-      average: ["rapport", "compter"],
+      concepts: [
+        { name: "rapport Z", keywords: ["rapport z", "rapport", "z", "imprim", "ticket", "reçu de fin", "fermeture de caisse", "lecture z"], required: true },
+        { name: "compter", keywords: ["compter", "comptant", "cash", "argent", "additionn", "calculer", "vérifier", "balance", "comparer"], required: true },
+        { name: "enveloppe coffre", keywords: ["enveloppe", "coffre", "coffre-fort", "safe", "mettre dans", "déposer", "ranger", "date", "datée"], required: false },
+        { name: "fond de caisse", keywords: ["200", "fond", "laisser", "garder", "rester", "deux cent", "fond de caisse"], required: false },
+      ],
       feedback: "Rapport Z, compter le comptant, vérifier le balance, enveloppe datée au coffre, laisser 200$ de fond de caisse.",
       missing: "il faut faire le Rapport Z, compter le comptant, mettre dans l'enveloppe datée au coffre et laisser 200$ de fond de caisse.",
       correct: "Pour fermer la caisse : faire le Rapport Z, compter le comptant, vérifier que ça balance, enveloppe datée au coffre, laisser 200$ de fond de caisse.",
+      minForExcellent: 3, minForAverage: 1,
     },
     { // Q8: Forfaits
-      excellent: ["tour simple", "3 tour", "groupe", "fête"],
-      average: ["forfait", "tour"],
+      concepts: [
+        { name: "tour simple", keywords: ["tour simple", "un tour", "1 tour", "simple", "single", "individuel", "régulier", "normal", "de base"], required: true },
+        { name: "3 tours", keywords: ["3 tour", "trois tour", "forfait 3", "pack 3", "15%", "quinze", "rabais"], required: true },
+        { name: "groupe", keywords: ["groupe", "20%", "vingt", "gang", "équipe", "corporate", "entreprise", "compagnie", "party"], required: false },
+        { name: "fête", keywords: ["fête", "party", "anniversaire", "birthday", "salle", "privé", "célébr", "spécial", "événement"], required: false },
+      ],
       feedback: "Tour simple, Forfait 3 tours (15% rabais), Forfait groupe (20%), Forfait fête avec salle privée. Complet !",
       missing: "on a : Tour simple, Forfait 3 tours (15% rabais), Forfait groupe (20% rabais), et Forfait fête avec salle privée.",
       correct: "Les forfaits : Tour simple, Forfait 3 tours (15% rabais), Forfait groupe (20% rabais), et Forfait fête avec salle privée.",
+      minForExcellent: 3, minForAverage: 1,
     },
     { // Q9: Client refuse casque
-      excellent: ["obligatoire", "pas rouler", "exception", "non négociable"],
-      average: ["obligatoire", "pas rouler"],
+      concepts: [
+        { name: "obligatoire", keywords: ["obligatoire", "obligé", "faut", "doit", "nécessaire", "requis", "pas le choix", "condition", "loi", "règle", "règlement", "imposé"], required: true },
+        { name: "pas rouler", keywords: ["pas rouler", "pas embarquer", "roule pas", "peut pas", "a pas le droit", "interdit", "refuser", "embarque pas", "monte pas", "pas aller", "pas conduire", "pas piloter", "non négociable", "aucune exception", "zéro exception", "exception"], required: true },
+      ],
       feedback: "Le casque c'est non négociable, zéro exception. Pas de casque = pas de kart.",
       missing: "c'est simple : le casque est obligatoire, zéro exception. Pas de casque, pas de kart.",
       correct: "Si un client refuse le casque, il ne peut tout simplement pas rouler. C'est obligatoire, zéro exception. Pas de casque = pas de kart.",
+      minForExcellent: 2, minForAverage: 1,
     },
     { // Q10: Numéros d'urgence
-      excellent: ["911", "poison", "1-800", "gestionnaire", "babillard"],
-      average: ["911", "gestionnaire"],
+      concepts: [
+        { name: "911", keywords: ["911", "neuf un un", "urgence", "police", "ambulance", "pompier"], required: true },
+        { name: "antipoison", keywords: ["poison", "antipoison", "1-800", "1800", "800", "463", "5060", "centre anti"], required: false },
+        { name: "gestionnaire", keywords: ["gestionnaire", "gérant", "boss", "patron", "garde", "responsable", "babillard", "tableau", "affiché", "numéro du gérant", "appeler le boss"], required: true },
+      ],
       feedback: "911 pour les urgences, 1-800-463-5060 pour le centre antipoison, et le gestionnaire de garde sur le babillard.",
       missing: "les 3 numéros : 911, centre antipoison (1-800-463-5060), et le numéro du gestionnaire de garde sur le babillard.",
       correct: "Les numéros d'urgence : 911, centre antipoison 1-800-463-5060, et le gestionnaire de garde (numéro sur le babillard).",
+      minForExcellent: 2, minForAverage: 1,
     },
   ];
 
@@ -444,25 +507,29 @@ function analyzeAnswer(m: string, questionNumber: number): AnswerAnalysis {
   const exp = expectations[idx];
 
   // Vérifier si "je sais pas" ou réponse vide
-  if (m.includes("sais pas") || m.includes("aucune idée") || m.includes("pas sûr") || m.length < 5) {
+  if (m.includes("sais pas") || m.includes("aucune idée") || m.includes("pas sûr") || m.includes("je sais pas") || m.includes("ché pas") || m.includes("no idea") || m.length < 5) {
     return { quality: "bad", feedback: "", missing: "", correctAnswer: exp.correct };
   }
 
-  // Compter les mots-clés excellents trouvés
-  const excellentHits = exp.excellent.filter((kw) => m.includes(kw)).length;
-  const averageHits = exp.average.filter((kw) => m.includes(kw)).length;
+  // Compter les concepts trouvés
+  const matched = exp.concepts.filter((c) => matchesConcept(m, c));
+  const matchedCount = matched.length;
+  const totalConcepts = exp.concepts.length;
 
-  // Excellente : au moins 3 mots-clés excellents OU tous les mots-clés moyens + 1 excellent
-  if (excellentHits >= 3 || (averageHits >= exp.average.length && excellentHits >= 1)) {
+  // Excellente : assez de concepts trouvés
+  if (matchedCount >= exp.minForExcellent) {
     return { quality: "excellent", feedback: exp.feedback, missing: "", correctAnswer: "" };
   }
 
-  // Moyenne : au moins 1 mot-clé moyen
-  if (averageHits >= 1 || excellentHits >= 1) {
-    return { quality: "average", feedback: "", missing: exp.missing, correctAnswer: "" };
+  // Moyenne : au moins le minimum
+  if (matchedCount >= exp.minForAverage) {
+    // Trouver ce qui manque
+    const missingConcepts = exp.concepts.filter((c) => c.required && !matchesConcept(m, c));
+    const missingText = missingConcepts.length > 0 ? exp.missing : "il manque quelques détails.";
+    return { quality: "average", feedback: "", missing: missingText, correctAnswer: "" };
   }
 
-  // Mauvaise : aucun mot-clé reconnu
+  // Mauvaise : pas assez de concepts
   return { quality: "bad", feedback: "", missing: "", correctAnswer: exp.correct };
 }
 
