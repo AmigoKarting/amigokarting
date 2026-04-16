@@ -413,8 +413,12 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
           {/* Zone de saisie */}
           <div className="border-t border-gray-100 px-4 py-3">
             <div className="flex items-end gap-2">
-              <button onClick={() => { stopMic(); setPhase("rating"); }} disabled={phase === "connecting" || phase === "processing"} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-500 text-white active:scale-95 disabled:opacity-50" aria-label="Terminer">
+             <button onClick={() => { stopMic(); setPhase("rating"); }} disabled={phase === "connecting" || phase === "processing"} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-500 text-white active:scale-95 disabled:opacity-50" aria-label="Terminer">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+              </button>
+              <button onClick={() => { stopMic(); sendToAI("aide-moi"); }} disabled={!canSend || phase === "processing"} className="flex h-11 shrink-0 items-center justify-center gap-1 rounded-full bg-blue-50 px-3 text-blue-600 active:bg-blue-100 disabled:opacity-40" aria-label="Aide">
+                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+                <span className="text-xs font-semibold">Aide</span>
               </button>
               <div className="relative flex-1">
                 <textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} onKeyDown={handleKeyDown}
