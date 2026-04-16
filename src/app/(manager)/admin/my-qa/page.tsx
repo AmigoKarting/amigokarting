@@ -1,272 +1,190 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 
-interface SearchResult {
+interface Message {
   id: string;
-  title: string;
+  role: "user" | "ai";
   content: string;
-  category: string;
-  relevance: number;
-  highlight: string;
-}
-
-interface HistoryItem {
-  query: string;
   timestamp: Date;
-}
-
-interface RelatedQuestion {
-  text: string;
-  category: string;
+  sources?: string[];
 }
 
 export default function QAPage() {
-  const [query, setQuery] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
-  const [relatedQuestions, setRelatedQuestions] = useState<RelatedQuestion[]>([]);
-  const [suggestions, setSuggestions] = useState<string[]>([]);
-  const [weaknessSuggestions, setWeaknessSuggestions] = useState<string[]>([]);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [searched, setSearched] = useState(false);
-  const [expandedId, setExpandedId] = useState<string | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [initialSuggestions, setInitialSuggestions] = useState<string[]>([]);
+  const bottomRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLTextAreaElement>(null);
 
-  // Charger les suggestions et l'historique au démarrage
+  // Charger les suggestions initiales (selon faiblesses)
   useEffect(() => {
-    loadSuggestions();
-    loadHistory();
+    loadInitialSuggestions();
   }, []);
 
-  async function loadSuggestions() {
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, loading]);
+
+  async function loadInitialSuggestions() {
     try {
       const res = await fetch("/api/qa?action=suggestions");
       const data = await res.json();
-      if (data.weaknessSuggestions) setWeaknessSuggestions(data.weaknessSuggestions);
-    } catch {}
+      const weak = data.weaknessSuggestions || [];
+      const defaults = ["C'est quoi les forfaits ?", "Comment ouvrir le centre ?", "Procédure casque fissuré", "Numéros d'urgence", "Drapeaux de course", "Fermeture de caisse"];
+      const merged = [...weak, ...defaults.filter((d) => !weak.includes(d))].slice(0, 6);
+      setInitialSuggestions(merged);
+      setSuggestions(merged);
+    } catch {
+      const defaults = ["Casques", "Sécurité piste", "Urgences", "Forfaits", "Ouverture centre", "Fermeture caisse"];
+      setInitialSuggestions(defaults);
+      setSuggestions(defaults);
+    }
   }
 
-  async function loadHistory() {
-    try {
-      const res = await fetch("/api/qa?action=history");
-      const data = await res.json();
-      if (data.history) setHistory(data.history.map((h: any) => ({ ...h, timestamp: new Date(h.timestamp) })));
-    } catch {}
-  }
+  async function sendMessage(text?: string) {
+    const msg = text || input.trim();
+    if (!msg || loading) return;
 
-  const search = useCallback(async (q?: string) => {
-    const searchQuery = q || query;
-    if (!searchQuery.trim()) return;
-
+    setInput("");
+    const userMsg: Message = { id: `u-${Date.now()}`, role: "user", content: msg, timestamp: new Date() };
+    setMessages((prev) => [...prev, userMsg]);
     setLoading(true);
-    setSearched(true);
 
     try {
+      const history = messages.map((m) => ({ role: m.role, content: m.content }));
+
       const res = await fetch("/api/qa", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "search", query: searchQuery }),
+        body: JSON.stringify({ action: "chat", message: msg, history }),
       });
       const data = await res.json();
 
-      setResults(data.results || []);
-      setRelatedQuestions(data.relatedQuestions || []);
-      setSuggestions(data.autocomplete || []);
+      const aiMsg: Message = {
+        id: `ai-${Date.now()}`,
+        role: "ai",
+        content: data.response || "Je n'ai pas trouvé de réponse dans le manuel.",
+        timestamp: new Date(),
+        sources: data.sources || [],
+      };
+      setMessages((prev) => [...prev, aiMsg]);
 
-      // Ajouter à l'historique local
-      setHistory((prev) => {
-        const newItem = { query: searchQuery, timestamp: new Date() };
-        const filtered = prev.filter((h) => h.query !== searchQuery);
-        return [newItem, ...filtered].slice(0, 20);
-      });
+      // Mettre à jour les suggestions dynamiquement
+      if (data.nextSuggestions && data.nextSuggestions.length > 0) {
+        setSuggestions(data.nextSuggestions);
+      }
     } catch {
-      setResults([]);
+      setMessages((prev) => [...prev, {
+        id: `ai-${Date.now()}`,
+        role: "ai",
+        content: "Erreur de connexion. Réessaie.",
+        timestamp: new Date(),
+      }]);
     }
 
     setLoading(false);
-  }, [query]);
+    setTimeout(() => inputRef.current?.focus(), 100);
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") { e.preventDefault(); search(); }
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage(); }
   };
 
-  const quickSearch = (text: string) => {
-    setQuery(text);
-    search(text);
-  };
-
-  // Autocomplete en temps réel
-  useEffect(() => {
-    if (query.length < 2) { setSuggestions([]); return; }
-    const timer = setTimeout(async () => {
-      try {
-        const res = await fetch(`/api/qa?action=autocomplete&q=${encodeURIComponent(query)}`);
-        const data = await res.json();
-        if (data.suggestions) setSuggestions(data.suggestions);
-      } catch {}
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [query]);
-
-  const categories = [
-    { id: "accueil", label: "Accueil clients", icon: "👋" },
-    { id: "casque", label: "Casques", icon: "⛑️" },
-    { id: "sécurité", label: "Sécurité", icon: "🛡️" },
-    { id: "urgence", label: "Urgences", icon: "🚨" },
-    { id: "opérations", label: "Opérations", icon: "🔧" },
-    { id: "caisse", label: "Caisse", icon: "💰" },
-    { id: "drapeau", label: "Drapeaux", icon: "🏁" },
-    { id: "fermeture", label: "Fermeture", icon: "🔒" },
-  ];
+  const isEmpty = messages.length === 0;
 
   return (
-    <div className="mx-auto max-w-2xl space-y-6">
+    <div className="mx-auto flex h-[calc(100vh-6rem)] max-w-lg flex-col">
       {/* Header */}
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-900">Q&A Manuel</h1>
-        <p className="mt-1 text-sm text-gray-500">Cherche n'importe quoi dans le manuel d'Amigo Karting</p>
+      <div className="shrink-0 pb-3">
+        <h1 className="text-xl font-bold text-gray-900">Q&A Manuel</h1>
+        <p className="text-xs text-gray-400">Pose tes questions sur le manuel d'Amigo Karting</p>
       </div>
 
-      {/* Barre de recherche style Google */}
-      <div className="relative">
-        <div className="flex items-center rounded-2xl border-2 border-gray-200 bg-white px-4 py-3 shadow-sm transition focus-within:border-orange-400 focus-within:shadow-md">
-          <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <input
-            ref={inputRef}
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Comment on fait pour... ?"
-            className="ml-3 flex-1 bg-transparent text-sm text-gray-900 outline-none placeholder:text-gray-400"
-            autoFocus
-          />
-          {query && (
-            <button onClick={() => { setQuery(""); setSearched(false); setResults([]); inputRef.current?.focus(); }} className="ml-2 text-gray-400 active:text-gray-600">
-              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-            </button>
-          )}
-          <button onClick={() => search()} disabled={!query.trim() || loading} className="ml-2 rounded-xl bg-orange-500 px-4 py-2 text-xs font-semibold text-white active:scale-95 disabled:opacity-50">
-            Chercher
-          </button>
-        </div>
-
-        {/* Autocomplete dropdown */}
-        {suggestions.length > 0 && !searched && (
-          <div className="absolute left-0 right-0 top-full z-10 mt-1 rounded-xl border border-gray-200 bg-white shadow-lg">
-            {suggestions.map((s, i) => (
-              <button key={i} onClick={() => quickSearch(s)} className="flex w-full items-center gap-3 px-4 py-3 text-left text-sm text-gray-700 transition first:rounded-t-xl last:rounded-b-xl hover:bg-gray-50 active:bg-gray-100">
-                <svg className="h-4 w-4 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-                {s}
-              </button>
-            ))}
+      {/* Zone de chat */}
+      <div className="flex-1 overflow-y-auto rounded-2xl bg-gray-50 px-4 py-4">
+        {isEmpty && (
+          <div className="flex h-full flex-col items-center justify-center text-center">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-100">
+              <svg className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
+            </div>
+            <p className="mt-4 text-sm font-medium text-gray-700">Demande-moi n'importe quoi</p>
+            <p className="mt-1 text-xs text-gray-400">Je cherche dans le manuel et je t'explique dans mes mots</p>
           </div>
         )}
-      </div>
 
-      {/* Suggestions selon les faiblesses */}
-      {!searched && weaknessSuggestions.length > 0 && (
-        <div className="rounded-xl bg-orange-50 p-4">
-          <p className="mb-2 text-xs font-semibold text-orange-700">Recommandé pour toi :</p>
-          <div className="flex flex-wrap gap-2">
-            {weaknessSuggestions.map((s, i) => (
-              <button key={i} onClick={() => quickSearch(s)} className="rounded-full bg-white px-3 py-1.5 text-xs font-medium text-orange-700 shadow-sm active:scale-95">{s}</button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Catégories - page d'accueil */}
-      {!searched && (
-        <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {categories.map((cat) => (
-            <button key={cat.id} onClick={() => quickSearch(cat.label)} className="flex flex-col items-center gap-2 rounded-xl bg-white p-4 shadow-sm transition active:scale-[0.97]">
-              <span className="text-2xl">{cat.icon}</span>
-              <span className="text-xs font-medium text-gray-600">{cat.label}</span>
-            </button>
-          ))}
-        </div>
-      )}
-
-      {/* Historique */}
-      {!searched && history.length > 0 && (
-        <div>
-          <p className="mb-2 text-xs font-semibold text-gray-400">Recherches récentes</p>
-          <div className="flex flex-wrap gap-2">
-            {history.slice(0, 8).map((h, i) => (
-              <button key={i} onClick={() => quickSearch(h.query)} className="flex items-center gap-1.5 rounded-full bg-gray-100 px-3 py-1.5 text-xs text-gray-600 active:bg-gray-200">
-                <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                {h.query}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Loading */}
-      {loading && (
-        <div className="flex justify-center py-8">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-orange-200 border-t-orange-500" />
-        </div>
-      )}
-
-      {/* Résultats */}
-      {searched && !loading && (
         <div className="space-y-3">
-          <p className="text-xs text-gray-400">{results.length} résultat{results.length !== 1 ? "s" : ""} pour "{query}"</p>
+          {messages.map((msg) => (
+            <div key={msg.id} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
+              <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+                msg.role === "user"
+                  ? "rounded-br-md bg-orange-500 text-white"
+                  : "rounded-bl-md bg-white text-gray-800 shadow-sm"
+              }`}>
+                <p className="whitespace-pre-line">{msg.content}</p>
+                {msg.sources && msg.sources.length > 0 && (
+                  <div className="mt-2 flex flex-wrap gap-1 border-t border-gray-100 pt-2">
+                    {msg.sources.map((s, i) => (
+                      <span key={i} className="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] text-gray-500">{s}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
 
-          {results.length === 0 && (
-            <div className="rounded-xl bg-white p-8 text-center shadow-sm">
-              <p className="text-4xl">🤷</p>
-              <p className="mt-3 text-sm font-medium text-gray-700">Aucun résultat trouvé</p>
-              <p className="mt-1 text-xs text-gray-400">Essaie avec d'autres mots ou choisis une catégorie</p>
+          {loading && (
+            <div className="flex justify-start">
+              <div className="rounded-2xl rounded-bl-md bg-white px-4 py-3 shadow-sm">
+                <div className="flex gap-1">
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-gray-300" />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-gray-300" style={{ animationDelay: "0.15s" }} />
+                  <span className="h-2 w-2 animate-bounce rounded-full bg-gray-300" style={{ animationDelay: "0.3s" }} />
+                </div>
+              </div>
             </div>
           )}
 
-          {results.map((result) => (
-            <div key={result.id} className="rounded-xl bg-white shadow-sm overflow-hidden">
-              <button onClick={() => setExpandedId(expandedId === result.id ? null : result.id)} className="w-full p-4 text-left">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <span className="inline-block rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium text-gray-500 mb-1">{result.category}</span>
-                    <h3 className="text-sm font-semibold text-gray-900">{result.title}</h3>
-                    <p className="mt-1 text-xs text-gray-500 line-clamp-2">{result.highlight}</p>
-                  </div>
-                  <div className="flex shrink-0 items-center gap-2">
-                    <div className="h-2 w-12 overflow-hidden rounded-full bg-gray-100">
-                      <div className="h-full rounded-full bg-orange-400" style={{ width: `${Math.min(100, result.relevance)}%` }} />
-                    </div>
-                    <svg className={`h-4 w-4 text-gray-400 transition ${expandedId === result.id ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-                  </div>
-                </div>
-              </button>
+          <div ref={bottomRef} />
+        </div>
+      </div>
 
-              {expandedId === result.id && (
-                <div className="border-t border-gray-100 bg-gray-50 px-4 py-4">
-                  <p className="whitespace-pre-line text-sm leading-relaxed text-gray-700">{result.content}</p>
-                </div>
-              )}
-            </div>
+      {/* Suggestions dynamiques */}
+      <div className="shrink-0 overflow-x-auto py-2">
+        <div className="flex gap-2">
+          {suggestions.map((s, i) => (
+            <button key={i} onClick={() => sendMessage(s)} disabled={loading}
+              className="shrink-0 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-medium text-orange-700 transition active:scale-95 disabled:opacity-50">
+              {s}
+            </button>
           ))}
         </div>
-      )}
+      </div>
 
-      {/* Questions reliées */}
-      {searched && !loading && relatedQuestions.length > 0 && (
-        <div>
-          <p className="mb-2 text-xs font-semibold text-gray-400">Questions reliées</p>
-          <div className="space-y-2">
-            {relatedQuestions.map((rq, i) => (
-              <button key={i} onClick={() => quickSearch(rq.text)} className="flex w-full items-center gap-3 rounded-xl bg-white px-4 py-3 text-left shadow-sm transition active:scale-[0.99]">
-                <svg className="h-4 w-4 shrink-0 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
-                <span className="text-sm text-gray-700">{rq.text}</span>
-              </button>
-            ))}
-          </div>
+      {/* Zone de saisie */}
+      <div className="shrink-0 pb-2">
+        <div className="flex items-end gap-2">
+          <textarea
+            ref={inputRef}
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
+            placeholder="Pose ta question..."
+            rows={1}
+            disabled={loading}
+            className="flex-1 resize-none rounded-xl border-2 border-gray-200 bg-white px-4 py-2.5 text-sm transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100 disabled:opacity-60"
+            style={{ minHeight: 44, maxHeight: 100 }}
+          />
+          <button onClick={() => sendMessage()} disabled={!input.trim() || loading}
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all ${
+              input.trim() ? "bg-orange-500 text-white active:scale-95" : "bg-gray-100 text-gray-300"
+            }`}>
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+          </button>
         </div>
-      )}
+      </div>
     </div>
   );
 }
