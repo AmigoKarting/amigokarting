@@ -231,7 +231,7 @@ export async function POST(req: NextRequest) {
 
     // ─── Démarrer une session ──────────────────────────────
     if (action === "start") {
-      const { simulationId } = body;
+      const { simulationId, topicId } = body;
       let sessionId = `mock-${Date.now()}`;
 
       try {
@@ -250,12 +250,12 @@ export async function POST(req: NextRequest) {
       if (simulationId) {
         greeting = getSimulationIntro(simulationId, ctx?.firstName || employee.first_name);
       } else if (isMock) {
-        greeting = await buildSmartGreeting(ctx);
+        greeting = await buildSmartGreeting(ctx, topicId);
       } else {
         try {
           greeting = await generateGreeting(employee.first_name);
         } catch {
-          greeting = await buildSmartGreeting(ctx);
+          greeting = await buildSmartGreeting(ctx, topicId);
         }
       }
 
@@ -283,11 +283,25 @@ export async function POST(req: NextRequest) {
       const ctx = await getEmployeeContext(employee.id);
 
       let response: string;
+      let quality: "excellent" | "average" | "bad" | null = null;
 
-      if (simulationId) {
+      // Détecter "aide-moi" / "indice" / "help"
+      const mLower = message.toLowerCase();
+      const isAskingHelp = mLower.includes("aide") || mLower.includes("indice") || mLower.includes("help") || mLower.includes("un indice") || mLower.includes("aide-moi") || mLower.includes("je sais pas");
+
+      if (isAskingHelp && !simulationId) {
+        // Donner un indice basé sur la question en cours
+        const lastAI = history.filter((h: any) => h.role === "assistant").pop();
+        const currentQ = lastAI?.content || "";
+        const hint = await getHintForCurrentQuestion(currentQ);
+        response = hint;
+        quality = null; // Pas de score pour les demandes d'aide
+      } else if (simulationId) {
         response = getSimulationResponse(simulationId, message, history);
       } else if (isMock) {
-        response = await getSmartMockResponse(message, history, ctx);
+        const result = await getSmartMockResponseWithQuality(message, history, ctx, topicId);
+        response = result.response;
+        quality = result.quality;
       } else {
         try {
           const result = await handleConversation({
@@ -299,7 +313,9 @@ export async function POST(req: NextRequest) {
           });
           response = result.response;
         } catch {
-          response = await getSmartMockResponse(message, history, ctx);
+          const result = await getSmartMockResponseWithQuality(message, history, ctx, topicId);
+          response = result.response;
+          quality = result.quality;
         }
       }
 
@@ -311,26 +327,18 @@ export async function POST(req: NextRequest) {
         ]);
       } catch {}
 
-      // Compter les erreurs de l'employé dans cette conversation
-      const errorCount = history.filter((h: any) => 
-        h.role === "assistant" && (
-          h.content.includes("Pas tout à fait") || 
-          h.content.includes("Pas exactement") ||
-          h.content.includes("pas grave") ||
-          h.content.includes("Presque")
-        )
-      ).length;
-
-      if (errorCount > 0) {
+      // Sauvegarder les stats
+      if (quality === "bad") {
+        const errorCount = parseInt((ctx?.memories?.last_error_count) || "0") + 1;
         await saveMemory(employee.id, "last_error_count", String(errorCount));
       }
 
-      return NextResponse.json({ response });
+      return NextResponse.json({ response, quality });
     }
 
     // ─── Terminer la session ───────────────────────────────
     if (action === "end") {
-      const { sessionId, rating, ratingComment, durationSec } = body;
+      const { sessionId, rating, ratingComment, durationSec, sessionScore, bestStreak, topicId: endTopicId } = body;
       if (!sessionId) return NextResponse.json({ error: "sessionId requis" }, { status: 400 });
 
       const { count: msgCount } = await supabaseAdmin
@@ -354,6 +362,22 @@ export async function POST(req: NextRequest) {
       await saveMemory(employee.id, "last_session_duration", String(durationSec || 0));
       await saveMemory(employee.id, "last_session_messages", String(msgCount || 0));
       if (rating) await saveMemory(employee.id, "last_rating", String(rating));
+
+      // Sauvegarder le score et résumé (visible par le patron)
+      if (sessionScore) {
+        const total = (sessionScore.good || 0) + (sessionScore.partial || 0) + (sessionScore.bad || 0);
+        const pct = total > 0 ? Math.round(((sessionScore.good || 0) / total) * 100) : 0;
+        await saveMemory(employee.id, "last_session_score", JSON.stringify({
+          good: sessionScore.good || 0,
+          partial: sessionScore.partial || 0,
+          bad: sessionScore.bad || 0,
+          percent: pct,
+          bestStreak: bestStreak || 0,
+          topic: endTopicId || "all",
+          duration: durationSec || 0,
+          date: new Date().toISOString(),
+        }));
+      }
 
       return NextResponse.json({ success: true });
     }
@@ -454,10 +478,24 @@ async function thinkAboutEmployee(ctx: AIContext | null): Promise<SessionStrateg
 }
 
 // ─── Greeting intelligent — adapté au profil ────────────────────
-async function buildSmartGreeting(ctx: AIContext | null): Promise<string> {
+async function buildSmartGreeting(ctx: AIContext | null, topicId?: string): Promise<string> {
   const strategy = await thinkAboutEmployee(ctx);
   
-  if (!ctx) return `Hey ! C'est ton chef formateur chez Amigo Karting. On va réviser les procédures ensemble. ${strategy.firstQuestion}`;
+  // Si un sujet est choisi, adapter la première question
+  if (topicId && topicId !== "all") {
+    const topicQuestions: Record<string, string> = {
+      casques: "Parlons casques. C'est quoi la première chose à vérifier quand tu en donnes un à un client ?",
+      securite: "On parle sécurité. C'est quoi les 3 règles de base sur la piste ?",
+      urgence: "On parle urgences. Quelles sont les étapes en cas d'accident sur la piste ?",
+      operations: "Parlons opérations. C'est quoi la procédure d'ouverture du centre le matin ?",
+      caisse: "On parle caisse. Comment tu fais la fermeture en fin de journée ?",
+      clients: "Parlons service client. Comment tu accueilles un nouveau client qui arrive ?",
+    };
+    strategy.firstQuestion = topicQuestions[topicId] || strategy.firstQuestion;
+    strategy.focus = topicId;
+  }
+
+  if (!ctx) return `Hey ! C'est ton chef formateur chez Amigo Karting. On va réviser ensemble. ${strategy.firstQuestion}`;
 
   const name = ctx.firstName;
   const parts: string[] = [];
@@ -530,6 +568,69 @@ async function buildSmartGreeting(ctx: AIContext | null): Promise<string> {
   parts.push(strategy.firstQuestion);
 
   return parts.join(" ");
+}
+
+// ─── Indices — l'employé dit "aide-moi" ─────────────────────────
+async function getHintForCurrentQuestion(questionContext: string): Promise<string> {
+  // Chercher dans le manuel d'abord
+  const manualContent = await searchManual(questionContext);
+  if (manualContent) {
+    // Extraire les premiers mots importants comme indice
+    const words = extractKeyWords(manualContent);
+    const hintWords = words.slice(0, 6).join(", ");
+    return `Ok, je te donne un indice. Pense à : ${hintWords}. Essaie de compléter la réponse avec ça.`;
+  }
+
+  // Indices codés en dur selon les mots-clés de la question
+  const q = questionContext.toLowerCase();
+  if (q.includes("casque") && (q.includes("fissuré") || q.includes("brisé") || q.includes("défectueux")))
+    return "Indice : pense à 4 étapes — retirer, ranger, documenter, aviser.";
+  if (q.includes("casque") && (q.includes("vérifie") || q.includes("donne")))
+    return "Indice : pense à la taille et au test de stabilité. Comment tu sais si ça tient bien ?";
+  if (q.includes("désinfect"))
+    return "Indice : pense au produit utilisé, la fréquence, et le temps d'attente.";
+  if (q.includes("distance"))
+    return "Indice : c'est environ la longueur d'un véhicule sur la piste.";
+  if (q.includes("accident") || q.includes("urgence"))
+    return "Indice : pense à la séquence — arrêter, sécuriser, évaluer, appeler.";
+  if (q.includes("jaune"))
+    return "Indice : deux mots importants — ralentir et une interdiction.";
+  if (q.includes("ouvrir") || q.includes("ouverture"))
+    return "Indice : pense à la séquence du matin — sécurité, éclairage, piste, véhicules, équipement, technologie, argent.";
+  if (q.includes("caisse") || q.includes("fermeture"))
+    return "Indice : pense au rapport, au comptage, à l'enveloppe et au montant qui reste.";
+  if (q.includes("forfait") || q.includes("prix"))
+    return "Indice : il y a 4 options — individuel, multi-tours, groupe, et événement spécial.";
+  if (q.includes("refuse") && q.includes("casque"))
+    return "Indice : c'est une règle absolue. Pas de protection = pas de course.";
+  if (q.includes("numéro") || q.includes("urgence"))
+    return "Indice : pense à 3 contacts — le service public, un centre spécialisé, et quelqu'un dans l'entreprise.";
+
+  return "Indice : réfléchis aux étapes de la procédure, une par une. Qu'est-ce qui vient en premier ?";
+}
+
+// ─── Wrapper qui retourne la qualité avec la réponse ────────────
+async function getSmartMockResponseWithQuality(
+  message: string, history: any[], ctx: AIContext | null, topicId?: string
+): Promise<{ response: string; quality: "excellent" | "average" | "bad" }> {
+  const m = message.toLowerCase();
+  const questionNumber = Math.floor(history.length / 2);
+
+  // D'abord analyser la qualité
+  const lastAI = history.filter((h: any) => h.role === "assistant").pop();
+  const currentQ = lastAI?.content || "";
+  const manual = await analyzeWithManual(currentQ, message);
+  
+  let quality: "excellent" | "average" | "bad";
+  if (manual) {
+    quality = manual.quality;
+  } else {
+    const analysis = analyzeAnswer(m, questionNumber);
+    quality = analysis.quality;
+  }
+
+  const response = await getSmartMockResponse(message, history, ctx);
+  return { response, quality };
 }
 
 // ─── Réponses chef formateur — intelligent + manuel ──────────────

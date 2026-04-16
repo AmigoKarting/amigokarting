@@ -7,6 +7,7 @@ interface Message {
   role: "ai" | "employee";
   content: string;
   timestamp: Date;
+  quality?: "excellent" | "average" | "bad" | null;
 }
 
 type CallPhase = "idle" | "connecting" | "listening" | "recording" | "processing" | "speaking" | "rating" | "ended";
@@ -16,7 +17,7 @@ function getSR(): any {
   return (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition || null;
 }
 
-export function VoiceInterface({ simulationId }: { simulationId?: string } = {}) {
+export function VoiceInterface({ topicId, simulationId }: { topicId?: string; simulationId?: string } = {}) {
   const [phase, setPhase] = useState<CallPhase>("idle");
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -30,6 +31,12 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
   const [hasAskedRating, setHasAskedRating] = useState(false);
   const [browserSupported, setBrowserSupported] = useState(true);
 
+  // Score et streak
+  const [score, setScore] = useState({ good: 0, partial: 0, bad: 0 });
+  const [streak, setStreak] = useState(0);
+  const [bestStreak, setBestStreak] = useState(0);
+  const [showReport, setShowReport] = useState(false);
+
   const startTimeRef = useRef<Date | null>(null);
   const recRef = useRef<any>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -39,7 +46,6 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
   const finalRef = useRef("");
   const sidRef = useRef<string | null>(null);
   const msgsRef = useRef<Message[]>([]);
-  const textInputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => { phaseRef.current = phase; }, [phase]);
   useEffect(() => { sidRef.current = sessionId; }, [sessionId]);
@@ -124,12 +130,30 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
       const res = await fetch("/api/conversations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "message", sessionId: sidRef.current, message: text, history, simulationId }),
+        body: JSON.stringify({ action: "message", sessionId: sidRef.current, message: text, history, topicId, simulationId }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
 
-      setMessages((prev) => [...prev, { id: `ai-${Date.now()}`, role: "ai", content: data.response, timestamp: new Date() }]);
+      // Tracker le score
+      const q = data.quality || null;
+      if (q === "excellent") {
+        setScore((prev) => ({ ...prev, good: prev.good + 1 }));
+        setStreak((prev) => {
+          const newStreak = prev + 1;
+          setBestStreak((best) => Math.max(best, newStreak));
+          return newStreak;
+        });
+      } else if (q === "average") {
+        setScore((prev) => ({ ...prev, partial: prev.partial + 1 }));
+        setStreak(0);
+      } else if (q === "bad") {
+        setScore((prev) => ({ ...prev, bad: prev.bad + 1 }));
+        setStreak(0);
+      }
+
+      const aiMsg: Message = { id: `ai-${Date.now()}`, role: "ai", content: data.response, timestamp: new Date(), quality: q };
+      setMessages((prev) => [...prev, aiMsg]);
       setTranscript("");
       finalRef.current = "";
 
@@ -142,9 +166,8 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
       setPhase("listening");
       setTimeout(() => { if (phaseRef.current === "listening") autoListen(); }, 2000);
     }
-  }, [speak, simulationId]);
+  }, [speak, topicId, simulationId]);
 
-  // Send text message
   const sendText = useCallback(() => {
     if (!textInput.trim() || phase === "processing") return;
     stopMic();
@@ -154,18 +177,13 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
   }, [textInput, phase, sendToAI]);
 
   const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendText();
-    }
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendText(); }
   }, [sendText]);
 
-  // Auto-listen with silence detection
   const autoListen = useCallback(() => {
     if (phaseRef.current !== "listening") return;
     const SR = getSR();
     if (!SR) return;
-
     stopMic();
 
     const rec = new SR();
@@ -173,7 +191,6 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
     rec.continuous = true;
     rec.interimResults = true;
     rec.maxAlternatives = 1;
-
     let accumulated = "";
 
     rec.onresult = (e: any) => {
@@ -183,33 +200,20 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
         if (e.results[i].isFinal) fin += e.results[i][0].transcript;
         else interim += e.results[i][0].transcript;
       }
-
       if (fin) { accumulated = fin; finalRef.current = fin; setTranscript(fin); setLiveTranscript(""); }
       else if (interim) { setLiveTranscript(interim); }
 
       if (silenceRef.current) clearTimeout(silenceRef.current);
       silenceRef.current = setTimeout(() => {
         const txt = accumulated || finalRef.current || interim;
-        if (txt.trim()) {
-          stopMic();
-          sendToAI(txt.trim());
-        }
+        if (txt.trim()) { stopMic(); sendToAI(txt.trim()); }
       }, 2000);
     };
 
     rec.onerror = (e: any) => {
-      if (e.error === "not-allowed") {
-        setError("Autorise le micro dans ton navigateur.");
-        setPhase("listening");
-        return;
-      }
+      if (e.error === "not-allowed") { setError("Autorise le micro."); setPhase("listening"); return; }
       if (e.error !== "aborted") {
-        setTimeout(() => {
-          if (phaseRef.current === "listening" || phaseRef.current === "recording") {
-            setPhase("listening");
-            setTimeout(() => autoListen(), 800);
-          }
-        }, 500);
+        setTimeout(() => { if (phaseRef.current === "listening" || phaseRef.current === "recording") { setPhase("listening"); setTimeout(() => autoListen(), 800); } }, 500);
       }
     };
 
@@ -223,45 +227,25 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
 
     recRef.current = rec;
     setPhase("recording");
-    setTranscript("");
-    setLiveTranscript("");
-    finalRef.current = "";
+    setTranscript(""); setLiveTranscript(""); finalRef.current = "";
     try { rec.start(); } catch {}
   }, [sendToAI]);
 
-  // Manual hold-to-talk
   const manualStart = useCallback(() => {
     if (phase !== "listening" && phase !== "recording") return;
     stopMic();
-
     const SR = getSR();
     if (!SR) return;
-
     const rec = new SR();
-    rec.lang = "fr-CA";
-    rec.continuous = false;
-    rec.interimResults = true;
-
+    rec.lang = "fr-CA"; rec.continuous = false; rec.interimResults = true;
     rec.onresult = (e: any) => {
-      let interim = "";
-      let fin = "";
-      for (let i = 0; i < e.results.length; i++) {
-        if (e.results[i].isFinal) fin += e.results[i][0].transcript;
-        else interim += e.results[i][0].transcript;
-      }
-      if (fin) { setTranscript(fin); setLiveTranscript(""); finalRef.current = fin; }
-      else { setLiveTranscript(interim); }
+      let interim = ""; let fin = "";
+      for (let i = 0; i < e.results.length; i++) { if (e.results[i].isFinal) fin += e.results[i][0].transcript; else interim += e.results[i][0].transcript; }
+      if (fin) { setTranscript(fin); setLiveTranscript(""); finalRef.current = fin; } else { setLiveTranscript(interim); }
     };
-
     rec.onerror = () => { setPhase("listening"); };
     rec.onend = () => { recRef.current = null; };
-
-    recRef.current = rec;
-    setPhase("recording");
-    setTranscript("");
-    setLiveTranscript("");
-    finalRef.current = "";
-    rec.start();
+    recRef.current = rec; setPhase("recording"); setTranscript(""); setLiveTranscript(""); finalRef.current = ""; rec.start();
   }, [phase]);
 
   const manualStop = useCallback(async () => {
@@ -272,57 +256,56 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
   }, [phase, transcript, liveTranscript, sendToAI]);
 
   const startSession = useCallback(async () => {
-    setPhase("connecting");
-    setError("");
-    setMessages([]);
+    setPhase("connecting"); setError(""); setMessages([]);
+    setScore({ good: 0, partial: 0, bad: 0 }); setStreak(0); setBestStreak(0); setShowReport(false);
 
     try {
       const res = await fetch("/api/conversations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "start", simulationId }),
+        body: JSON.stringify({ action: "start", topicId, simulationId }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error);
 
-      setSessionId(data.sessionId);
-      sidRef.current = data.sessionId;
+      setSessionId(data.sessionId); sidRef.current = data.sessionId;
       startTimeRef.current = new Date();
-
       const msg: Message = { id: `ai-${Date.now()}`, role: "ai", content: data.greeting, timestamp: new Date() };
-      setMessages([msg]);
-      msgsRef.current = [msg];
+      setMessages([msg]); msgsRef.current = [msg];
 
       window.speechSynthesis.getVoices();
       await speak(data.greeting);
-
       setPhase("listening");
       setTimeout(() => { if (phaseRef.current === "listening") autoListen(); }, 600);
     } catch (err: any) {
-      setError(err.message || "Impossible de démarrer.");
-      setPhase("idle");
+      setError(err.message || "Impossible de démarrer."); setPhase("idle");
     }
-  }, [speak, autoListen, simulationId]);
+  }, [speak, autoListen, topicId, simulationId]);
 
   const endSession = useCallback(async (withRating = false) => {
-    window.speechSynthesis.cancel();
-    stopMic();
+    window.speechSynthesis.cancel(); stopMic();
     const dur = startTimeRef.current ? Math.floor((Date.now() - startTimeRef.current.getTime()) / 1000) : 0;
     try {
       await fetch("/api/conversations", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action: "end", sessionId, durationSec: dur, ...(withRating ? { rating, ratingComment } : {}) }),
+        body: JSON.stringify({
+          action: "end", sessionId, durationSec: dur,
+          ...(withRating ? { rating, ratingComment } : {}),
+          sessionScore: score, bestStreak, topicId,
+        }),
       });
     } catch {}
     setPhase("ended");
-  }, [sessionId, rating, ratingComment]);
+  }, [sessionId, rating, ratingComment, score, bestStreak, topicId]);
 
   const submitRating = useCallback(async () => { await endSession(true); }, [endSession]);
 
   const isActive = !["idle", "ended"].includes(phase);
   const isRec = phase === "recording";
   const canSend = phase === "listening" || phase === "recording";
+  const totalAnswers = score.good + score.partial + score.bad;
+  const scorePercent = totalAnswers > 0 ? Math.round((score.good / totalAnswers) * 100) : 0;
 
   return (
     <div className="mx-auto max-w-lg">
@@ -342,9 +325,9 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
             <svg className="h-10 w-10 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
           </div>
           <h2 className="text-xl font-bold text-gray-900">Conversation IA</h2>
-          <p className="mt-2 text-sm text-gray-500">Révise les procédures avec ton chef formateur.</p>
+          <p className="mt-2 text-sm text-gray-500">Parle ou écris. L'IA s'adapte à ton niveau.</p>
           <div className="mt-5 space-y-2 text-left">
-            {["Parle avec le micro ou écris ton message", "L'IA détecte quand tu arrêtes de parler", "Tu peux taper ta réponse si tu préfères", "100% gratuit"].map((t) => (
+            {["Dis 'aide-moi' pour un indice", "Le micro s'active automatiquement", "Score en temps réel", "100% gratuit"].map((t) => (
               <div key={t} className="flex items-center gap-3 rounded-lg bg-gray-50 px-4 py-2.5">
                 <svg className="h-4 w-4 shrink-0 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                 <span className="text-sm text-gray-600">{t}</span>
@@ -357,20 +340,35 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
 
       {isActive && phase !== "rating" && (
         <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-          {/* Header */}
-          <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-6 py-4">
+          {/* Header avec score */}
+          <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-4 py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                {phase === "connecting" ? <span className="h-2 w-2 animate-pulse rounded-full bg-yellow-400" /> : isRec ? <span className="h-2 w-2 animate-pulse rounded-full bg-red-400" /> : <span className="h-2 w-2 rounded-full bg-green-400" />}
-                <span className="text-xs font-medium text-gray-300">
-                  {phase === "connecting" ? "Connexion..." : isRec ? "Je t'écoute..." : phase === "processing" ? "Réflexion..." : phase === "speaking" ? "Parle..." : "En ligne"}
-                </span>
+                {isRec ? <span className="h-2 w-2 animate-pulse rounded-full bg-red-400" /> : <span className="h-2 w-2 rounded-full bg-green-400" />}
+                <span className="text-xs text-gray-300">Chef Formateur</span>
               </div>
-              <div className="text-right">
-                <p className="text-sm font-semibold text-white">Chef Formateur</p>
-                <p className="font-mono text-xs tabular-nums text-gray-400">{fmt(elapsedSec)}</p>
-              </div>
+              <span className="font-mono text-xs tabular-nums text-gray-400">{fmt(elapsedSec)}</span>
             </div>
+
+            {/* Score en temps réel */}
+            {totalAnswers > 0 && (
+              <div className="mt-2 flex items-center gap-3">
+                <div className="flex items-center gap-1.5">
+                  <span className="text-xs text-green-400">{score.good}</span>
+                  <span className="text-[10px] text-gray-500">✓</span>
+                  <span className="text-xs text-yellow-400">{score.partial}</span>
+                  <span className="text-[10px] text-gray-500">~</span>
+                  <span className="text-xs text-red-400">{score.bad}</span>
+                  <span className="text-[10px] text-gray-500">✗</span>
+                </div>
+                <div className="flex-1 h-1.5 rounded-full bg-gray-700 overflow-hidden">
+                  <div className="h-full rounded-full bg-gradient-to-r from-green-500 to-green-400 transition-all" style={{ width: `${scorePercent}%` }} />
+                </div>
+                <span className="text-xs font-semibold text-white">{scorePercent}%</span>
+                {streak >= 3 && <span className="text-sm" title={`${streak} bonnes de suite !`}>🔥</span>}
+                {streak >= 5 && <span className="text-sm">⚡</span>}
+              </div>
+            )}
           </div>
 
           {/* Messages */}
@@ -379,8 +377,8 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
               {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.role === "employee" ? "justify-end" : "justify-start"}`}>
                   <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                    msg.role === "employee" 
-                      ? "rounded-br-md bg-orange-500 text-white" 
+                    msg.role === "employee"
+                      ? "rounded-br-md bg-orange-500 text-white"
                       : "rounded-bl-md bg-white text-gray-800 shadow-sm"
                   }`}>{msg.content}</div>
                 </div>
@@ -405,7 +403,6 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
 
           {error && <div className="mx-4 mt-2 rounded-lg bg-red-50 px-3 py-2 text-center text-xs text-red-600">{error}</div>}
 
-          {/* Status */}
           {isRec && (
             <div className="flex items-center justify-center gap-2 bg-red-50 px-4 py-2">
               <span className="h-2.5 w-2.5 animate-pulse rounded-full bg-red-500" />
@@ -413,90 +410,103 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
             </div>
           )}
 
-          {/* Zone de saisie texte + boutons */}
+          {/* Zone de saisie */}
           <div className="border-t border-gray-100 px-4 py-3">
             <div className="flex items-end gap-2">
-              {/* Bouton terminer */}
-              <button 
-                onClick={() => { stopMic(); setPhase("rating"); }} 
-                disabled={phase === "connecting" || phase === "processing"} 
-                className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-500 text-white active:scale-95 disabled:opacity-50" 
-                aria-label="Terminer"
-              >
+              <button onClick={() => { stopMic(); setPhase("rating"); }} disabled={phase === "connecting" || phase === "processing"} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-500 text-white active:scale-95 disabled:opacity-50" aria-label="Terminer">
                 <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
               </button>
-
-              {/* Zone texte */}
               <div className="relative flex-1">
-                <textarea
-                  ref={textInputRef}
-                  value={textInput}
-                  onChange={(e) => setTextInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder={isRec ? "Le micro écoute... ou tape ici" : "Tape ta réponse ici..."}
-                  rows={1}
-                  disabled={phase === "processing" || phase === "connecting"}
+                <textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} onKeyDown={handleKeyDown}
+                  placeholder={isRec ? "Le micro écoute... ou tape ici" : "Tape ta réponse (ou dis 'aide-moi')"}
+                  rows={1} disabled={phase === "processing" || phase === "connecting"}
                   className="w-full resize-none rounded-xl border-2 border-gray-200 bg-white px-4 py-2.5 pr-12 text-sm transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100 disabled:bg-gray-50 disabled:opacity-60"
-                  style={{ minHeight: 44, maxHeight: 100 }}
-                />
+                  style={{ minHeight: 44, maxHeight: 100 }} />
               </div>
-
-              {/* Bouton micro */}
-              <button
-                onMouseDown={manualStart}
-                onMouseUp={manualStop}
-                onTouchStart={(e) => { e.preventDefault(); manualStart(); }}
-                onTouchEnd={(e) => { e.preventDefault(); manualStop(); }}
-                disabled={!canSend}
-                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all ${
-                  isRec 
-                    ? "bg-red-500 text-white animate-pulse" 
-                    : canSend 
-                      ? "bg-gray-100 text-gray-600 active:bg-gray-200" 
-                      : "bg-gray-100 text-gray-300"
-                }`}
-                aria-label="Maintenir pour parler"
-              >
+              <button onMouseDown={manualStart} onMouseUp={manualStop} onTouchStart={(e) => { e.preventDefault(); manualStart(); }} onTouchEnd={(e) => { e.preventDefault(); manualStop(); }} disabled={!canSend}
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all ${isRec ? "bg-red-500 text-white animate-pulse" : canSend ? "bg-gray-100 text-gray-600 active:bg-gray-200" : "bg-gray-100 text-gray-300"}`} aria-label="Micro">
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
               </button>
-
-              {/* Bouton envoyer */}
-              <button
-                onClick={sendText}
-                disabled={!textInput.trim() || phase === "processing" || phase === "connecting"}
-                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all ${
-                  textInput.trim() && canSend
-                    ? "bg-orange-500 text-white active:scale-95"
-                    : "bg-gray-100 text-gray-300"
-                }`}
-                aria-label="Envoyer"
-              >
+              <button onClick={sendText} disabled={!textInput.trim() || phase === "processing" || phase === "connecting"}
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all ${textInput.trim() && canSend ? "bg-orange-500 text-white active:scale-95" : "bg-gray-100 text-gray-300"}`} aria-label="Envoyer">
                 <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
               </button>
             </div>
-
-            {/* Skip speaking button */}
             {phase === "speaking" && (
-              <button onClick={skipSpeak} className="mt-2 w-full rounded-lg bg-gray-100 px-3 py-2 text-xs font-medium text-gray-500 active:bg-gray-200">
-                Passer la réponse vocale
-              </button>
+              <button onClick={skipSpeak} className="mt-2 w-full rounded-lg bg-gray-100 px-3 py-2 text-xs font-medium text-gray-500 active:bg-gray-200">Passer la réponse vocale</button>
             )}
           </div>
         </div>
       )}
 
       {phase === "rating" && (
-        <div className="rounded-2xl bg-white p-8 shadow-sm">
-          <h3 className="text-center text-lg font-semibold text-gray-900">Comment était cette conversation ?</h3>
-          <p className="mt-1 text-center text-sm text-gray-500">{fmt(elapsedSec)} · {messages.filter((m) => m.role === "employee").length} messages</p>
-          <div className="mt-6">
+        <div className="rounded-2xl bg-white shadow-sm">
+          {/* Rapport de session */}
+          <div className="border-b border-gray-100 px-6 py-5">
+            <h3 className="text-center text-lg font-semibold text-gray-900">Rapport de session</h3>
+            <p className="mt-1 text-center text-sm text-gray-500">{fmt(elapsedSec)} · {totalAnswers} question{totalAnswers > 1 ? "s" : ""}</p>
+
+            {totalAnswers > 0 && (
+              <div className="mt-5 space-y-4">
+                {/* Score visuel */}
+                <div className="flex items-center justify-center gap-8">
+                  <div className="text-center">
+                    <p className="text-3xl font-bold text-green-600">{score.good}</p>
+                    <p className="text-[10px] text-gray-400">Bonnes</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-3xl font-bold text-yellow-500">{score.partial}</p>
+                    <p className="text-[10px] text-gray-400">Partielles</p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-3xl font-bold text-red-500">{score.bad}</p>
+                    <p className="text-[10px] text-gray-400">Mauvaises</p>
+                  </div>
+                </div>
+
+                {/* Barre de score */}
+                <div>
+                  <div className="flex justify-between text-xs text-gray-400 mb-1">
+                    <span>Score</span>
+                    <span className="font-semibold text-gray-900">{scorePercent}%</span>
+                  </div>
+                  <div className="h-3 rounded-full bg-gray-100 overflow-hidden">
+                    <div className="h-full rounded-full transition-all" style={{
+                      width: `${scorePercent}%`,
+                      background: scorePercent >= 80 ? "#22C55E" : scorePercent >= 50 ? "#F59E0B" : "#EF4444",
+                    }} />
+                  </div>
+                </div>
+
+                {/* Meilleure série */}
+                {bestStreak >= 2 && (
+                  <div className="flex items-center justify-center gap-2 rounded-lg bg-orange-50 px-4 py-2">
+                    <span>🔥</span>
+                    <span className="text-sm font-medium text-orange-700">Meilleure série : {bestStreak} bonnes de suite</span>
+                  </div>
+                )}
+
+                {/* Message selon le score */}
+                <p className="text-center text-sm text-gray-600">
+                  {scorePercent >= 90 ? "Performance exceptionnelle ! Tu maîtrises tes procédures." :
+                   scorePercent >= 70 ? "Bonne session ! Continue comme ça." :
+                   scorePercent >= 50 ? "C'est correct, mais il y a de la place pour s'améliorer." :
+                   "Faut retravailler ça. Reviens demain pour une autre session."}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Note */}
+          <div className="px-6 py-5">
+            <p className="text-center text-sm font-medium text-gray-700 mb-4">Comment était cette session ?</p>
             <input type="range" min={1} max={10} value={rating} onChange={(e) => setRating(Number(e.target.value))} className="w-full accent-orange-500" />
             <div className="mt-2 text-center"><span className="text-4xl font-bold text-orange-600">{rating}</span><span className="text-lg text-gray-400">/10</span></div>
-          </div>
-          <textarea value={ratingComment} onChange={(e) => setRatingComment(e.target.value)} placeholder="Explique pourquoi (optionnel)" rows={3} className="mt-4 w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-sm focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100" />
-          <div className="mt-5 flex gap-3">
-            <button onClick={() => { setPhase("listening"); setTimeout(() => autoListen(), 600); }} className="flex-1 rounded-xl border-2 border-gray-200 px-4 py-3 text-sm font-medium text-gray-600 active:bg-gray-50">Continuer</button>
-            <button onClick={submitRating} className="flex-1 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-4 py-3 text-sm font-semibold text-white active:scale-[0.98]">Terminer</button>
+            <textarea value={ratingComment} onChange={(e) => setRatingComment(e.target.value)} placeholder="Commentaire (optionnel)" rows={2} className="mt-4 w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-sm focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100" />
+            <div className="mt-5 flex gap-3">
+              <button onClick={() => { setPhase("listening"); setTimeout(() => autoListen(), 600); }} className="flex-1 rounded-xl border-2 border-gray-200 px-4 py-3 text-sm font-medium text-gray-600 active:bg-gray-50">Continuer</button>
+              <button onClick={submitRating} className="flex-1 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-4 py-3 text-sm font-semibold text-white active:scale-[0.98]">Terminer</button>
+            </div>
           </div>
         </div>
       )}
@@ -507,8 +517,9 @@ export function VoiceInterface({ simulationId }: { simulationId?: string } = {})
             <svg className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
           </div>
           <h3 className="text-lg font-semibold text-gray-900">Session terminée</h3>
-          <p className="mt-1 text-sm text-gray-500">{fmt(elapsedSec)} · {messages.filter((m) => m.role === "employee").length} échanges{rating ? ` · Note : ${rating}/10` : ""}</p>
-          <button onClick={() => { setPhase("idle"); setSessionId(null); setMessages([]); setElapsedSec(0); setHasAskedRating(false); setRating(7); setRatingComment(""); startTimeRef.current = null; finalRef.current = ""; setTextInput(""); }} className="mt-6 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-3 text-sm font-semibold text-white active:scale-[0.98]">Nouvelle conversation</button>
+          <p className="mt-1 text-sm text-gray-500">{fmt(elapsedSec)} · {scorePercent}% · {totalAnswers} questions</p>
+          {bestStreak >= 3 && <p className="mt-2 text-sm text-orange-600">🔥 Meilleure série : {bestStreak} bonnes de suite</p>}
+          <button onClick={() => { setPhase("idle"); setSessionId(null); setMessages([]); setElapsedSec(0); setHasAskedRating(false); setRating(7); setRatingComment(""); startTimeRef.current = null; finalRef.current = ""; setTextInput(""); setScore({ good: 0, partial: 0, bad: 0 }); setStreak(0); setBestStreak(0); }} className="mt-6 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-3 text-sm font-semibold text-white active:scale-[0.98]">Nouvelle conversation</button>
         </div>
       )}
     </div>
