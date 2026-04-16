@@ -250,12 +250,12 @@ export async function POST(req: NextRequest) {
       if (simulationId) {
         greeting = getSimulationIntro(simulationId, ctx?.firstName || employee.first_name);
       } else if (isMock) {
-        greeting = buildSmartGreeting(ctx);
+        greeting = await buildSmartGreeting(ctx);
       } else {
         try {
           greeting = await generateGreeting(employee.first_name);
         } catch {
-          greeting = buildSmartGreeting(ctx);
+          greeting = await buildSmartGreeting(ctx);
         }
       }
 
@@ -365,111 +365,276 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// ─── Greeting intelligent — personnalité chef formateur ─────────
-function buildSmartGreeting(ctx: AIContext | null): string {
-  if (!ctx) return "Hey ! C'est ton chef formateur. Ici on travaille sérieusement mais on a du fun. Montre-moi ce que tu sais. Première question : c'est quoi la première chose à vérifier quand tu donnes un casque à un client ? Vas-y, impressionne-moi.";
+// ─── Analyse du profil — l'IA "réfléchit" avant de parler ──────
+interface SessionStrategy {
+  level: "débutant" | "intermédiaire" | "avancé" | "expert";
+  focus: string;
+  tone: "accueillant" | "motivant" | "exigeant" | "challenger";
+  firstQuestion: string;
+}
+
+async function thinkAboutEmployee(ctx: AIContext | null): Promise<SessionStrategy> {
+  const defaultQ = "C'est quoi la première chose à vérifier quand tu donnes un casque à un client ?";
+
+  if (!ctx) return { level: "débutant", focus: "bases", tone: "accueillant", firstQuestion: defaultQ };
+
+  // ─── Déterminer le niveau ─────────────────────────────
+  let level: SessionStrategy["level"];
+  if (ctx.globalScore >= 85 && ctx.totalConversations >= 5) level = "expert";
+  else if (ctx.globalScore >= 65 && ctx.totalConversations >= 2) level = "avancé";
+  else if (ctx.globalScore >= 40 || ctx.totalConversations >= 1) level = "intermédiaire";
+  else level = "débutant";
+
+  // ─── Déterminer le focus de la session ─────────────────
+  let focus: string;
+  let firstQuestion: string;
+
+  // Chercher des questions dans le manuel
+  let manualQuestion: string | null = null;
+  try {
+    const { data: docs } = await supabaseAdmin
+      .from("knowledge_documents")
+      .select("title, content, category");
+    
+    if (docs && docs.length > 0) {
+      // Trouver un sujet pas encore couvert ou un point faible
+      if (ctx.weakSubjects.length > 0) {
+        const weakDoc = docs.find((d: any) => 
+          d.title.toLowerCase().includes(ctx.weakSubjects[0].toLowerCase()) ||
+          d.category?.toLowerCase().includes(ctx.weakSubjects[0].toLowerCase())
+        );
+        if (weakDoc) {
+          const concepts = extractKeyWords(weakDoc.content).slice(0, 5);
+          manualQuestion = `Selon le manuel, parlons de ${weakDoc.title}. Explique-moi dans tes mots : ${weakDoc.title.toLowerCase().includes("casque") ? "c'est quoi la procédure pour les casques ?" : weakDoc.title.toLowerCase().includes("urgence") ? "que fais-tu en cas d'urgence ?" : weakDoc.title.toLowerCase().includes("caisse") ? "comment tu gères la caisse ?" : "c'est quoi les étapes importantes ?"}`;
+        }
+      }
+      
+      // Pour les experts, prendre un sujet random du manuel
+      if (!manualQuestion && level === "expert") {
+        const randomDoc = docs[Math.floor(Math.random() * docs.length)];
+        manualQuestion = `Question avancée sur ${randomDoc.title} : explique-moi la procédure complète dans tes mots.`;
+      }
+    }
+  } catch {}
+
+  if (ctx.weakQuestions.length > 0) {
+    focus = ctx.weakSubjects.length > 0 ? ctx.weakSubjects[0] : "questions ratées";
+    firstQuestion = manualQuestion || simplifyQuestion(ctx.weakQuestions[0]);
+  } else if (ctx.formationPct < 50) {
+    focus = "bases de la formation";
+    firstQuestion = manualQuestion || defaultQ;
+  } else if (ctx.quizAvg < 60) {
+    focus = "révision des quiz";
+    firstQuestion = manualQuestion || "Nomme-moi les 3 choses les plus importantes en sécurité sur la piste.";
+  } else if (level === "expert") {
+    focus = "situations avancées";
+    firstQuestion = manualQuestion || "Un client VIP arrive avec 20 personnes sans réservation un samedi soir. Tu gères ça comment ?";
+  } else {
+    focus = "révision générale";
+    firstQuestion = manualQuestion || defaultQ;
+  }
+
+  // ─── Déterminer le ton ─────────────────────────────────
+  let tone: SessionStrategy["tone"];
+  if (level === "débutant") tone = "accueillant";
+  else if (level === "intermédiaire") tone = "motivant";
+  else if (level === "avancé") tone = "exigeant";
+  else tone = "challenger";
+
+  // Ajuster selon les habitudes
+  if (ctx.lastConversationDate) {
+    const days = Math.floor((Date.now() - new Date(ctx.lastConversationDate).getTime()) / (1000 * 60 * 60 * 24));
+    if (days > 14) tone = "motivant"; // Revenu après longtemps, pas trop exigeant
+  }
+  if (ctx.lastConversationRating && ctx.lastConversationRating <= 4) {
+    tone = "accueillant"; // La dernière fois il a pas aimé, être plus doux
+  }
+
+  return { level, focus, tone, firstQuestion };
+}
+
+// ─── Greeting intelligent — adapté au profil ────────────────────
+async function buildSmartGreeting(ctx: AIContext | null): Promise<string> {
+  const strategy = await thinkAboutEmployee(ctx);
+  
+  if (!ctx) return `Hey ! C'est ton chef formateur chez Amigo Karting. On va réviser les procédures ensemble. ${strategy.firstQuestion}`;
 
   const name = ctx.firstName;
   const parts: string[] = [];
 
-  // Salutation directe et motivante
+  // ─── Salutation selon le ton ──────────────────────────
+  const now = new Date();
+  const hour = now.getHours();
+  const timeGreeting = hour < 12 ? "Bon matin" : hour < 17 ? "Bon après-midi" : "Bonne soirée";
+
   if (ctx.totalConversations === 0) {
-    parts.push(`${name} ! Bienvenue dans ton entraînement. Je suis ton chef formateur. Mon job c'est de m'assurer que tu sois le meilleur employé qu'Amigo Karting a jamais eu. On va travailler fort, mais je crois en toi.`);
-  } else if (ctx.lastConversationDate) {
-    const days = Math.floor((Date.now() - new Date(ctx.lastConversationDate).getTime()) / (1000 * 60 * 60 * 24));
-    if (days === 0) parts.push(`${name} ! Deux sessions la même journée ? J'aime cette attitude. C'est comme ça qu'on devient le meilleur.`);
-    else if (days === 1) parts.push(`${name} ! De retour aujourd'hui, c'est ça l'engagement. On lâche pas.`);
-    else if (days < 7) parts.push(`${name} ! Ça fait ${days} jours. C'est correct, mais les champions s'entraînent tous les jours. On se rattrape maintenant.`);
-    else parts.push(`${name} ! Ça fait trop longtemps. Un bon employé s'entraîne régulièrement. Mais t'es là, c'est ce qui compte. On recommence fort.`);
+    // PREMIÈRE FOIS — accueillir chaleureusement
+    if (strategy.tone === "accueillant") {
+      parts.push(`${timeGreeting} ${name} ! Bienvenue dans ta première session d'entraînement. Je suis ton chef formateur. Mon rôle c'est de t'aider à devenir un employé solide chez Amigo Karting. On va y aller à ton rythme, une question à la fois.`);
+    } else {
+      parts.push(`${name} ! Bienvenue. Je suis ton chef formateur. Ici on travaille sérieusement mais on a du fun. Mon objectif : que tu connaisses tes procédures par cœur.`);
+    }
   } else {
-    parts.push(`${name} ! Ton chef formateur est prêt. Et toi, t'es prêt ?`);
+    // RETOUR — adapter selon la fréquence
+    const days = ctx.lastConversationDate
+      ? Math.floor((Date.now() - new Date(ctx.lastConversationDate).getTime()) / (1000 * 60 * 60 * 24))
+      : 999;
+
+    if (days === 0) {
+      const msgs = [
+        `${name} ! Deux fois aujourd'hui ? J'aime cette énergie.`,
+        `Re-salut ${name} ! T'en veux encore ? Parfait.`,
+        `${name} ! T'es encore là ? Un vrai champion.`,
+      ];
+      parts.push(msgs[ctx.totalConversations % 3]);
+    } else if (days === 1) {
+      parts.push(`${timeGreeting} ${name} ! De retour aujourd'hui, c'est régulier. C'est ça la discipline.`);
+    } else if (days < 4) {
+      parts.push(`${timeGreeting} ${name} ! Ça fait ${days} jours. On reprend où on a laissé.`);
+    } else if (days < 14) {
+      parts.push(`${name} ! ${days} jours sans entraînement. Les champions s'entraînent plus souvent que ça. Mais t'es là, c'est l'important.`);
+    } else {
+      parts.push(`${name} ! Wow, ça fait ${days} jours. Content que tu sois revenu. On a du rattrapage à faire.`);
+    }
   }
 
-  // Score — direct et exigeant
-  if (ctx.globalScore >= 90) {
-    parts.push(`Ton score est à ${ctx.globalScore}. C'est excellent. Mais on vise le 100. On arrête jamais de s'améliorer.`);
-  } else if (ctx.globalScore >= 70) {
-    parts.push(`Ton score est à ${ctx.globalScore}. C'est bien, mais je sais que t'es capable de plus. On va pousser ça vers le 90 aujourd'hui.`);
-  } else if (ctx.globalScore >= 50) {
-    parts.push(`Ton score est à ${ctx.globalScore}. Honnêtement, je m'attends à mieux de toi. On va corriger ça maintenant.`);
-  } else if (ctx.globalScore > 0) {
-    parts.push(`Ton score est à ${ctx.globalScore}. C'est en dessous de ce que je veux voir. Mais c'est pour ça que je suis là — on va remonter ça ensemble.`);
+  // ─── Résumé du profil ─────────────────────────────────
+  if (ctx.totalConversations > 0) {
+    if (strategy.level === "expert") {
+      parts.push(`T'es niveau expert — score ${ctx.globalScore}, ${ctx.totalConversations} sessions, ${ctx.quizzesPassed} quiz réussis. Je vais te sortir de ta zone de confort aujourd'hui.`);
+    } else if (strategy.level === "avancé") {
+      parts.push(`Ton score est à ${ctx.globalScore}. T'es en bonne voie mais je sais que t'es capable de plus.`);
+    } else if (strategy.level === "intermédiaire") {
+      parts.push(`Ton score est à ${ctx.globalScore}. On a du travail à faire ensemble. C'est pour ça que je suis là.`);
+    } else {
+      if (ctx.globalScore > 0) {
+        parts.push(`Ton score est à ${ctx.globalScore}. C'est un début. Chaque session te rend meilleur.`);
+      }
+    }
   }
 
-  // Cibler les faiblesses — direct
-  if (ctx.weakQuestions.length > 0 && ctx.weakSubjects.length > 0) {
-    parts.push(`J'ai analysé tes résultats. T'as ${ctx.wrongAnswers} erreur${ctx.wrongAnswers > 1 ? "s" : ""}, principalement en ${ctx.weakSubjects[0]}. C'est là qu'on va frapper fort aujourd'hui. Pas de temps à perdre.`);
-    parts.push(`On commence direct : ${simplifyQuestion(ctx.weakQuestions[0])}`);
-  } else if (ctx.weakQuestions.length > 0) {
-    parts.push(`T'as raté des questions au quiz. Un bon employé d'Amigo doit connaître ses procédures par cœur. On les revoit maintenant.`);
-    parts.push(`Première question : ${simplifyQuestion(ctx.weakQuestions[0])}`);
+  // ─── Plan de la session ───────────────────────────────
+  if (strategy.focus === "questions ratées" || strategy.focus.includes("ratée")) {
+    parts.push(`Aujourd'hui, on va retravailler les questions que t'as ratées au quiz. ${ctx.wrongAnswers} erreur${ctx.wrongAnswers > 1 ? "s" : ""} à corriger.`);
   } else if (ctx.weakSubjects.length > 0) {
-    parts.push(`Ton point faible c'est ${ctx.weakSubjects[0]}. On va travailler ça jusqu'à ce que ce soit solide.`);
-    const weakQ = getQuestionForSubject(ctx.weakSubjects[0]);
-    parts.push(weakQ);
+    parts.push(`J'ai analysé tes résultats. Ton point faible c'est ${ctx.weakSubjects[0]}. On se concentre là-dessus.`);
+  } else if (strategy.level === "expert") {
+    parts.push(`Aujourd'hui on va dans les situations complexes. Pas de questions faciles pour toi.`);
   } else if (ctx.formationPct < 50) {
-    parts.push(`T'as complété seulement ${ctx.formationPct}% de ta formation. Faut que ça avance. En attendant, montre-moi ce que tu sais déjà.`);
-    parts.push("C'est quoi la première chose à vérifier quand tu donnes un casque à un client ?");
-  } else if (ctx.globalScore >= 80) {
-    parts.push("T'as un bon score, mais je vais te challenger avec des questions plus tough. Un champion est prêt pour n'importe quelle situation.");
-    parts.push("Question : si un casque est trop grand mais que c'est le dernier de cette taille, tu fais quoi ?");
+    parts.push(`T'as fait ${ctx.formationPct}% de ta formation vidéo. En attendant que tu finisses, on révise ce que tu devrais déjà savoir.`);
   } else {
-    parts.push("On commence. Concentre-toi et donne-moi des réponses complètes. C'est quoi la première chose à vérifier quand tu donnes un casque à un client ?");
+    parts.push(`On fait une révision complète aujourd'hui.`);
   }
+
+  // ─── Première question ────────────────────────────────
+  parts.push(strategy.firstQuestion);
 
   return parts.join(" ");
 }
 
-// ─── Réponses chef formateur — manuel + mots-clés ─────────────────
+// ─── Réponses chef formateur — intelligent + manuel ──────────────
 async function getSmartMockResponse(message: string, history: any[], ctx: AIContext | null): Promise<string> {
   const m = message.toLowerCase();
   const questionNumber = Math.floor(history.length / 2);
+
+  // ─── Analyser le pattern de la conversation en cours ──
+  const aiMessages = history.filter((h: any) => h.role === "assistant");
+  const userMessages = history.filter((h: any) => h.role === "user");
+  
+  // Compter les bonnes/mauvaises dans cette session
+  let sessionGood = 0;
+  let sessionBad = 0;
+  for (const ai of aiMessages) {
+    const t = ai.content.toLowerCase();
+    if (t.includes("boom") || t.includes("parfait") || t.includes("exactement") || t.includes("impeccable")) sessionGood++;
+    if (t.includes("c'est pas ça") || t.includes("mauvaise") || t.includes("raté") || t.includes("incorrect")) sessionBad++;
+  }
+
+  const isOnAStreak = sessionGood >= 3 && sessionBad === 0;
+  const isStruggling = sessionBad >= 2;
+  const isFirstAnswer = questionNumber === 0;
 
   const questions = buildAdaptiveQuestions(ctx);
   const nextQ = questionNumber < questions.length ? questions[questionNumber] : questions[questions.length - 1];
 
   // ─── ÉTAPE 1 : Chercher dans le MANUEL ────────────────
-  const lastAI = history.filter((h: any) => h.role === "assistant").pop();
+  const lastAI = aiMessages.length > 0 ? aiMessages[aiMessages.length - 1] : null;
   const currentQ = lastAI?.content || "";
-
   const manual = await analyzeWithManual(currentQ, message);
 
+  let quality: "excellent" | "average" | "bad";
+  let feedback = "";
+  let missing = "";
+  let correctAnswer = "";
+
   if (manual) {
-    if (manual.quality === "excellent") {
-      const p = ["BOOM ! Réponse parfaite.", "Ça c'est ce que je veux entendre !", "Exactement !", "Impeccable.", "C'est comme ça qu'on fait chez Amigo."][questionNumber % 5];
-      return `${p} T'as bien couvert le sujet. ${nextQ}`;
+    quality = manual.quality;
+    missing = manual.missingConcepts.length > 0 ? `Pense à : ${manual.missingConcepts.slice(0, 3).join(", ")}.` : "Il manque des détails.";
+    correctAnswer = `Selon le manuel : ${manual.manualAnswer}`;
+  } else {
+    const analysis = analyzeAnswer(m, questionNumber);
+    quality = analysis.quality;
+    feedback = analysis.feedback;
+    missing = analysis.missing;
+    correctAnswer = analysis.correctAnswer;
+  }
+
+  // ─── EXCELLENTE RÉPONSE ───────────────────────────────
+  if (quality === "excellent") {
+    let praise: string;
+    
+    if (isOnAStreak) {
+      praise = [`${sessionGood + 1} bonnes réponses de suite ! T'es en feu !`, "Encore une bonne ! T'arrêtes plus.", "On dirait que tu connais ton affaire par cœur !"][questionNumber % 3];
+    } else if (isFirstAnswer) {
+      praise = "Wow, tu commences fort ! Première question et c'est déjà parfait.";
+    } else if (isStruggling) {
+      praise = "AH ! Enfin ! Tu vois que t'es capable quand tu te concentres !";
+    } else {
+      praise = ["BOOM ! Réponse parfaite.", "Ça c'est ce que je veux entendre !", "Exactement ! T'as tout dit.", "Impeccable.", "C'est comme ça qu'on fait chez Amigo."][questionNumber % 5];
     }
-    if (manual.quality === "average") {
-      const p = ["T'es sur la bonne track.", "C'est un début.", "T'as une partie.", "Presque."][questionNumber % 4];
-      const miss = manual.missingConcepts.length > 0 ? `Pense à : ${manual.missingConcepts.slice(0, 3).join(", ")}.` : "Il manque des détails.";
-      return `${p} ${miss} ${nextQ}`;
+
+    if (feedback) praise += ` ${feedback}`;
+
+    // Expert = question plus difficile
+    if (ctx && ctx.globalScore >= 80 && !manual) {
+      const deeperQ = getDeeperQuestion(questionNumber);
+      return `${praise} Je te pousse plus loin : ${deeperQ}`;
     }
-    const c = ["C'est pas ça, mais on est là pour apprendre.", "Mauvaise réponse. Pas de stress.", "Raté, mais je préfère ici que devant un client.", "C'est incorrect. Retiens bien :"][questionNumber % 4];
-    return `${c} Selon le manuel : ${manual.manualAnswer} ${nextQ}`;
+    return `${praise} ${nextQ}`;
   }
 
-  // ─── ÉTAPE 2 : Pas dans le manuel → mots-clés ────────
-  const analysis = analyzeAnswer(m, questionNumber);
+  // ─── RÉPONSE MOYENNE ──────────────────────────────────
+  if (quality === "average") {
+    let push: string;
 
-  if (analysis.quality === "excellent") {
-    const p = ["BOOM ! Réponse parfaite.", "Ça c'est ce que je veux entendre !", "Exactement ! T'as tout dit.", "Impeccable. Niveau pro.", "C'est comme ça qu'on fait chez Amigo."][questionNumber % 5];
-    const deeperQ = getDeeperQuestion(questionNumber);
-    if (ctx && ctx.globalScore >= 80) {
-      return `${p} ${analysis.feedback} T'es un des meilleurs. Je te pousse plus loin : ${deeperQ}`;
+    if (isStruggling) {
+      push = "C'est mieux que tantôt ! T'es sur la bonne voie.";
+    } else if (isFirstAnswer) {
+      push = "C'est un bon début pour ta première réponse, mais il manque des éléments.";
+    } else {
+      push = ["T'es sur la bonne track, mais je veux la réponse COMPLÈTE.", "C'est un début. Chez Amigo, on vise l'excellence.", "T'as une partie. Faut être solide à 100%.", "Presque. C'est pas assez pour la sécurité.", "Bon effort, creuse plus."][questionNumber % 5];
     }
-    return `${p} ${analysis.feedback} Tu montes en niveau. ${nextQ}`;
+
+    return `${push} Ce qui te manque : ${missing} Retiens ça. ${nextQ}`;
   }
 
-  if (analysis.quality === "average") {
-    const p = ["T'es sur la bonne track, mais je veux la réponse COMPLÈTE.", "C'est un début. Chez Amigo, on vise l'excellence.", "T'as une partie. Faut être solide à 100%.", "Presque. C'est pas assez pour la sécurité.", "Bon effort, creuse plus."][questionNumber % 5];
-    return `${p} Ce qui te manque : ${analysis.missing} Retiens ça. ${nextQ}`;
+  // ─── MAUVAISE RÉPONSE ─────────────────────────────────
+  let correction: string;
+
+  if (isStruggling) {
+    correction = "Encore une erreur. C'est correct, tout le monde a des journées comme ça. L'important c'est de retenir la bonne réponse :";
+  } else if (isFirstAnswer) {
+    correction = "C'est pas la bonne réponse, mais t'inquiète, c'est juste le début. Voici ce que tu dois savoir :";
+  } else if (isOnAStreak) {
+    correction = "Oups ! T'étais sur une lancée mais celle-là t'as manquée. C'est pas grave, retiens ça :";
+  } else {
+    correction = ["C'est pas ça. Écoute bien :", "Mauvaise réponse. Voici ce que tu dois retenir :", "Raté. La bonne réponse :", "C'est incorrect. Retiens ça :"][questionNumber % 4];
   }
 
-  const c = ["C'est pas ça. Écoute bien :", "Mauvaise réponse. Voici ce que tu dois retenir :", "Raté. La bonne réponse :", "C'est incorrect. Retiens ça :"][questionNumber % 4];
-  if (ctx && ctx.totalConversations > 5) {
-    return `${c} ${analysis.correctAnswer} La prochaine fois, je m'attends à ce que tu le saches. ${nextQ}`;
+  if (ctx && ctx.totalConversations > 5 && !isFirstAnswer) {
+    return `${correction} ${correctAnswer} La prochaine fois, je m'attends à ce que tu le saches. ${nextQ}`;
   }
-  return `${c} ${analysis.correctAnswer} Grave ça dans ta mémoire. ${nextQ}`;
+  return `${correction} ${correctAnswer} Grave ça dans ta mémoire. ${nextQ}`;
 }
 
 // ─── Analyser la qualité d'une réponse (flexible, synonymes) ────
