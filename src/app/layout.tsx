@@ -46,44 +46,44 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             backgroundSize: "60px 60px",
             animation: "splashChecker 6s linear infinite",
           }} />
-          <div style={{ position:"absolute", left:0, top:"25%", width:"100%", height:3, background:"linear-gradient(90deg, transparent, #EA580C, transparent)", animation:"splashSpeed 3s ease-out 0.5s both" }} />
-          <div style={{ position:"absolute", left:0, top:"50%", width:"100%", height:2, background:"linear-gradient(90deg, transparent, #F97316, transparent)", animation:"splashSpeed 3s ease-out 1s both" }} />
-          <div style={{ position:"absolute", left:0, top:"75%", width:"100%", height:3, background:"linear-gradient(90deg, transparent, #EA580C, transparent)", animation:"splashSpeed 3s ease-out 1.5s both" }} />
+          <div style={{ position:"absolute", left:0, top:"25%", width:"100%", height:3, background:"linear-gradient(90deg, transparent, #EA580C, transparent)", animation:"splashSpeed 3.5s ease-out 0.5s both" }} />
+          <div style={{ position:"absolute", left:0, top:"50%", width:"100%", height:2, background:"linear-gradient(90deg, transparent, #F97316, transparent)", animation:"splashSpeed 3.5s ease-out 1.2s both" }} />
+          <div style={{ position:"absolute", left:0, top:"75%", width:"100%", height:3, background:"linear-gradient(90deg, transparent, #EA580C, transparent)", animation:"splashSpeed 3.5s ease-out 1.9s both" }} />
           <div style={{ position:"relative", zIndex:1, display:"flex", flexDirection:"column", alignItems:"center" }}>
             <div style={{
               width: 140, height: 140, borderRadius: 36,
               background: "linear-gradient(135deg, #EA580C, #F97316)",
               boxShadow: "0 0 80px rgba(234,88,12,0.6), 0 0 160px rgba(234,88,12,0.2)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              animation: "splashLogo 1.5s cubic-bezier(0.16,1,0.3,1) both",
+              animation: "splashLogo 2.5s cubic-bezier(0.16,1,0.3,1) both",
             }}>
               <img src="/logo-karting.png" alt="" width={120} height={120} style={{ objectFit: "contain" }} />
             </div>
             <h1 style={{
               marginTop: 28, fontSize: 40, fontWeight: 800, color: "white",
               letterSpacing: "-0.02em", textAlign: "center",
-              animation: "splashText 1s cubic-bezier(0.16,1,0.3,1) 0.8s both",
+              animation: "splashText 1.5s cubic-bezier(0.16,1,0.3,1) 1.5s both",
             }}>Amigo Karting</h1>
             <p style={{
               marginTop: 10, fontSize: 14, fontWeight: 600, color: "#F97316",
               letterSpacing: "0.35em", textAlign: "center",
-              animation: "splashText 1s cubic-bezier(0.16,1,0.3,1) 1.2s both",
+              animation: "splashText 1.5s cubic-bezier(0.16,1,0.3,1) 2.2s both",
             }}>PORTAIL DES EMPLOYÉS</p>
             <div style={{
               marginTop: 36, width: 220, height: 4, borderRadius: 4,
               background: "rgba(255,255,255,0.1)", overflow: "hidden",
-              animation: "splashText 1s cubic-bezier(0.16,1,0.3,1) 1.6s both",
+              animation: "splashText 1.5s cubic-bezier(0.16,1,0.3,1) 2.8s both",
             }}>
               <div style={{
                 height: "100%", borderRadius: 4,
                 background: "linear-gradient(90deg, #EA580C, #F97316, #EA580C)",
-                animation: "splashBar 2.5s ease-in-out 1.6s both",
+                animation: "splashBar 3s ease-in-out 2.8s both",
               }} />
             </div>
           </div>
         </div>
         <style dangerouslySetInnerHTML={{ __html: `
-          @keyframes splashLogo { from { opacity:0; transform:scale(0.2) translateY(40px); } to { opacity:1; transform:scale(1) translateY(0); } }
+          @keyframes splashLogo { 0% { opacity:0; transform:scale(0.2) translateY(40px); } 40% { opacity:1; transform:scale(1.08) translateY(-8px); } 70% { transform:scale(0.97) translateY(2px); } 100% { opacity:1; transform:scale(1) translateY(0); } }
           @keyframes splashText { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
           @keyframes splashBar { from { width:0%; } to { width:100%; } }
           @keyframes splashSpeed { 0% { opacity:0; transform:translateX(-100%); } 30% { opacity:1; } 100% { opacity:0; transform:translateX(100%); } }
@@ -94,7 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             setTimeout(function() {
               var s = document.getElementById('splash');
               if (s) { s.style.opacity = '0'; setTimeout(function() { s.remove(); }, 800); }
-            }, 4000);
+            }, 6000);
           });
         `}} />
         {children}
