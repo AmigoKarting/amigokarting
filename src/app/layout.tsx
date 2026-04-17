@@ -46,9 +46,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             backgroundSize: "60px 60px",
             animation: "splashChecker 6s linear infinite",
           }} />
-          <div style={{ position:"absolute", left:0, top:"25%", width:"100%", height:3, background:"linear-gradient(90deg, transparent, #EA580C, transparent)", animation:"splashSpeed 3.5s ease-out 0.5s both" }} />
-          <div style={{ position:"absolute", left:0, top:"50%", width:"100%", height:2, background:"linear-gradient(90deg, transparent, #F97316, transparent)", animation:"splashSpeed 3.5s ease-out 1.2s both" }} />
-          <div style={{ position:"absolute", left:0, top:"75%", width:"100%", height:3, background:"linear-gradient(90deg, transparent, #EA580C, transparent)", animation:"splashSpeed 3.5s ease-out 1.9s both" }} />
+          <div style={{ position:"absolute", left:0, top:"25%", width:"100%", height:3, background:"linear-gradient(90deg, transparent, #EA580C, transparent)", animation:"splashSpeed 2s ease-in-out 0s infinite" }} />
+          <div style={{ position:"absolute", left:0, top:"50%", width:"100%", height:2, background:"linear-gradient(90deg, transparent, #F97316, transparent)", animation:"splashSpeed 2s ease-in-out 0.7s infinite" }} />
+          <div style={{ position:"absolute", left:0, top:"75%", width:"100%", height:3, background:"linear-gradient(90deg, transparent, #EA580C, transparent)", animation:"splashSpeed 2s ease-in-out 1.4s infinite" }} />
           <div style={{ position:"relative", zIndex:1, display:"flex", flexDirection:"column", alignItems:"center" }}>
             <div style={{
               width: 140, height: 140, borderRadius: 36,
