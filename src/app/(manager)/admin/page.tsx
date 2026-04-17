@@ -66,7 +66,7 @@ export default async function AdminDashboard() {
   try {
     const { data: employees } = await supabaseAdmin
       .from("employees")
-      .select("id, first_name, last_name")
+     .select("id, first_name, last_name, created_at")
       .eq("is_active", true)
       .in("role", ["employee", "manager"]);
 
@@ -77,9 +77,12 @@ export default async function AdminDashboard() {
         .eq("employee_id", emp.id)
         .single();
 
-      let days = 999;
+      let days = 0;
       if (activity?.updated_at) {
         days = Math.floor((Date.now() - new Date(activity.updated_at).getTime()) / (1000 * 60 * 60 * 24));
+      } else {
+        // Pas d'activité enregistrée — utiliser la date de création du compte
+        days = Math.floor((Date.now() - new Date(emp.created_at).getTime()) / (1000 * 60 * 60 * 24));
       }
 
       // Aussi checker la dernière conversation
