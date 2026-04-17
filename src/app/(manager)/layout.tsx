@@ -12,7 +12,8 @@ const baseNav = [
   { label: "Suivi formation", href: "/admin/training", icon: "GraduationCap" },
   { label: "Rapport conversations", href: "/admin/conversations", icon: "MessageCircle" },
   { label: "Banque de questions", href: "/admin/conversations/questions", icon: "List" },
-  { label: "Annonces", href: "/admin/announcements", icon: "Megaphone" },
+ { label: "Annonces", href: "/admin/announcements", icon: "Megaphone" },
+  { label: "Alertes & Évolution", href: "/admin/alerts", icon: "Bell" },
  { label: "Paramètres", href: "/admin/settings", icon: "Settings" },
   { label: "Guide", href: "/admin/guide", icon: "BookOpen", divider: true },
   // Section personnelle
