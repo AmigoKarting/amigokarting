@@ -94,7 +94,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             setTimeout(function() {
               var s = document.getElementById('splash');
               if (s) { s.style.opacity = '0'; setTimeout(function() { s.remove(); }, 800); }
-            }, 3500);
+            }, 4000);
           });
         `}} />
         {children}
