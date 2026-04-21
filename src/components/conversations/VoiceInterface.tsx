@@ -197,8 +197,16 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
       let interim = "";
       let fin = "";
       for (let i = 0; i < e.results.length; i++) {
-        if (e.results[i].isFinal) fin += e.results[i][0].transcript;
-        else interim += e.results[i][0].transcript;
+        if (e.results[i].isFinal) {
+          // Prendre la meilleure alternative avec la plus haute confiance
+          let best = e.results[i][0];
+          for (let j = 1; j < e.results[i].length; j++) {
+            if (e.results[i][j].confidence > best.confidence) best = e.results[i][j];
+          }
+          if (best.confidence > 0.3) fin += best.transcript;
+        } else {
+          interim += e.results[i][0].transcript;
+        }
       }
       if (fin) { accumulated = fin; finalRef.current = fin; setTranscript(fin); setLiveTranscript(""); }
       else if (interim) { setLiveTranscript(interim); }
@@ -237,10 +245,20 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
     const SR = getSR();
     if (!SR) return;
     const rec = new SR();
-    rec.lang = "fr-CA"; rec.continuous = false; rec.interimResults = true;
+    rec.lang = "fr-CA"; rec.continuous = false; rec.interimResults = true; rec.maxAlternatives = 3;
     rec.onresult = (e: any) => {
       let interim = ""; let fin = "";
-      for (let i = 0; i < e.results.length; i++) { if (e.results[i].isFinal) fin += e.results[i][0].transcript; else interim += e.results[i][0].transcript; }
+      for (let i = 0; i < e.results.length; i++) {
+        if (e.results[i].isFinal) {
+          let best = e.results[i][0];
+          for (let j = 1; j < e.results[i].length; j++) {
+            if (e.results[i][j].confidence > best.confidence) best = e.results[i][j];
+          }
+          if (best.confidence > 0.3) fin += best.transcript;
+        } else {
+          interim += e.results[i][0].transcript;
+        }
+      }
       if (fin) { setTranscript(fin); setLiveTranscript(""); finalRef.current = fin; } else { setLiveTranscript(interim); }
     };
     rec.onerror = () => { setPhase("listening"); };
