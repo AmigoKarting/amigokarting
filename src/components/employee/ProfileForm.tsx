@@ -6,6 +6,7 @@ import type { Employee } from "@/types/employee";
 
 // ─── Types ─────────────────────────────────────────────────────
 type FormFields = {
+  date_of_birth: string;
   phone: string;
   address: string;
   city: string;
@@ -35,7 +36,6 @@ const PROVINCES = [
 
 // ─── Helpers ───────────────────────────────────────────────────
 
-/** Formate un numéro de téléphone au fur et à mesure : 514-555-1234 */
 function formatPhone(raw: string): string {
   const digits = raw.replace(/\D/g, "").slice(0, 10);
   if (digits.length <= 3) return digits;
@@ -43,14 +43,12 @@ function formatPhone(raw: string): string {
   return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
 }
 
-/** Formate un code postal canadien : H2X 1Y4 */
 function formatPostalCode(raw: string): string {
   const clean = raw.replace(/[^a-zA-Z0-9]/g, "").toUpperCase().slice(0, 6);
   if (clean.length <= 3) return clean;
   return `${clean.slice(0, 3)} ${clean.slice(3)}`;
 }
 
-/** Valide un champ et retourne un message d'erreur ou null */
 function validateField(field: keyof FormFields, value: string): string | null {
   const v = value.trim();
   switch (field) {
@@ -85,7 +83,6 @@ function validateField(field: keyof FormFields, value: string): string | null {
   }
 }
 
-// ─── Champs requis (pour l'indicateur de section) ──────────────
 const REQUIRED_FIELDS: (keyof FormFields)[] = [
   "phone", "address", "city", "postal_code",
   "emergency_contact_name", "emergency_contact_phone",
@@ -97,7 +94,7 @@ const SECTIONS = [
     id: "address",
     title: "Adresse complète",
     icon: "📍",
-    fields: ["phone", "address", "city", "postal_code", "province"] as (keyof FormFields)[],
+    fields: ["date_of_birth", "phone", "address", "city", "postal_code", "province"] as (keyof FormFields)[],
   },
   {
     id: "emergency",
@@ -118,6 +115,7 @@ export function ProfileForm({ employee }: { employee: Employee }) {
   const supabase = createClient();
 
   const [form, setForm] = useState<FormFields>({
+    date_of_birth: employee.date_of_birth || "",
     phone: employee.phone || "",
     address: employee.address || "",
     city: employee.city || "",
@@ -133,22 +131,16 @@ export function ProfileForm({ employee }: { employee: Employee }) {
   const [status, setStatus] = useState<SaveStatus>("idle");
   const [saveError, setSaveError] = useState("");
 
-  // ─── Mise à jour d'un champ ─────────────────────────────────
   const updateField = useCallback((field: keyof FormFields, raw: string) => {
     let value = raw;
-
-    // Auto-formatage
     if (field === "phone" || field === "emergency_contact_phone") {
       value = formatPhone(raw);
     } else if (field === "postal_code") {
       value = formatPostalCode(raw);
     }
-
     setForm((prev) => ({ ...prev, [field]: value }));
     setStatus("idle");
     setSaveError("");
-
-    // Valider si le champ a déjà été touché
     if (touched.has(field)) {
       const err = validateField(field, value);
       setErrors((prev) => {
@@ -160,7 +152,6 @@ export function ProfileForm({ employee }: { employee: Employee }) {
     }
   }, [touched]);
 
-  // ─── Marquer un champ comme touché (au blur) ────────────────
   const handleBlur = useCallback((field: keyof FormFields) => {
     setTouched((prev) => new Set(prev).add(field));
     const err = validateField(field, form[field]);
@@ -172,7 +163,6 @@ export function ProfileForm({ employee }: { employee: Employee }) {
     });
   }, [form]);
 
-  // ─── Completion par section ─────────────────────────────────
   const sectionCompletion = useMemo(() => {
     return SECTIONS.map((section) => {
       const requiredInSection = section.fields.filter((f) =>
@@ -195,15 +185,12 @@ export function ProfileForm({ employee }: { employee: Employee }) {
     (f) => form[f].trim().length > 0 && !validateField(f, form[f])
   ).length;
 
-  // ─── Validation complète et sauvegarde ──────────────────────
   const handleSave = useCallback(async () => {
-    // Tout marquer comme touché
     const allTouched = new Set<keyof FormFields>(
       Object.keys(form) as (keyof FormFields)[]
     );
     setTouched(allTouched);
 
-    // Valider tous les champs requis
     const newErrors: FieldErrors = {};
     for (const field of REQUIRED_FIELDS) {
       const err = validateField(field, form[field]);
@@ -212,7 +199,6 @@ export function ProfileForm({ employee }: { employee: Employee }) {
     setErrors(newErrors);
 
     if (Object.keys(newErrors).length > 0) {
-      // Scroll vers la première erreur
       const firstErrorField = REQUIRED_FIELDS.find((f) => newErrors[f]);
       if (firstErrorField) {
         document.getElementById(`field-${firstErrorField}`)?.scrollIntoView({
@@ -223,13 +209,13 @@ export function ProfileForm({ employee }: { employee: Employee }) {
       return;
     }
 
-    // Sauvegarder dans Supabase
     setStatus("saving");
     setSaveError("");
 
     const { error } = await supabase
       .from("employees")
       .update({
+        date_of_birth: form.date_of_birth || null,
         phone: form.phone.trim(),
         address: form.address.trim(),
         city: form.city.trim(),
@@ -250,7 +236,6 @@ export function ProfileForm({ employee }: { employee: Employee }) {
     }
   }, [form, employee.id, supabase]);
 
-  // ─── Rendu ──────────────────────────────────────────────────
   return (
     <div className="space-y-6">
       {/* ─── Barre de progression globale ──────────────────── */}
@@ -303,6 +288,20 @@ export function ProfileForm({ employee }: { employee: Employee }) {
           )}
         </div>
         <div className="space-y-4 px-6 py-5">
+          {/* Date de naissance */}
+          <div id="field-date_of_birth">
+            <label htmlFor="date_of_birth" className="mb-1.5 block text-sm font-medium text-gray-700">
+              Date de naissance
+            </label>
+            <input
+              id="date_of_birth"
+              type="date"
+              value={form.date_of_birth}
+              onChange={(e) => updateField("date_of_birth", e.target.value)}
+              className="w-full rounded-lg border-2 border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
+            />
+          </div>
+
           {/* Téléphone */}
           <FieldInput
             id="phone"
@@ -426,7 +425,6 @@ export function ProfileForm({ employee }: { employee: Employee }) {
           )}
         </div>
         <div className="space-y-4 px-6 py-5">
-          {/* Taille chandail — boutons radio visuels */}
           <div id="field-uniform_size_shirt">
             <label className="mb-1.5 block text-sm font-medium text-gray-700">
               Chandail <span className="text-red-500">*</span>
@@ -456,8 +454,6 @@ export function ProfileForm({ employee }: { employee: Employee }) {
               </p>
             )}
           </div>
-
-
         </div>
       </section>
 
@@ -482,7 +478,6 @@ export function ProfileForm({ employee }: { employee: Employee }) {
           )}
         </button>
 
-        {/* Messages de statut */}
         {status === "saved" && (
           <div className="flex items-center gap-2 rounded-lg bg-green-50 px-4 py-2.5 text-sm text-green-700">
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
