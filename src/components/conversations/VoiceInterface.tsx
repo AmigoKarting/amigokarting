@@ -190,7 +190,7 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
     rec.lang = "fr-CA";
     rec.continuous = true;
     rec.interimResults = true;
-    rec.maxAlternatives = 1;
+    rec.maxAlternatives = 3;
     let accumulated = "";
 
     rec.onresult = (e: any) => {
@@ -207,13 +207,13 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
       silenceRef.current = setTimeout(() => {
         const txt = accumulated || finalRef.current || interim;
         if (txt.trim()) { stopMic(); sendToAI(txt.trim()); }
-      }, 2000);
+      }, 3000);
     };
 
     rec.onerror = (e: any) => {
       if (e.error === "not-allowed") { setError("Autorise le micro."); setPhase("listening"); return; }
       if (e.error !== "aborted") {
-        setTimeout(() => { if (phaseRef.current === "listening" || phaseRef.current === "recording") { setPhase("listening"); setTimeout(() => autoListen(), 800); } }, 500);
+        setTimeout(() => { if (phaseRef.current === "listening" || phaseRef.current === "recording") { setPhase("listening"); setTimeout(() => autoListen(), 400); } }, 500);
       }
     };
 
@@ -221,7 +221,7 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
       recRef.current = null;
       if (phaseRef.current === "recording" && !accumulated && !finalRef.current) {
         setPhase("listening");
-        setTimeout(() => { if (phaseRef.current === "listening") autoListen(); }, 500);
+        setTimeout(() => { if (phaseRef.current === "listening") autoListen(); }, 300);
       }
     };
 
@@ -251,7 +251,7 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
   const manualStop = useCallback(async () => {
     if (phase !== "recording") return;
     stopMic();
-    await new Promise((r) => setTimeout(r, 400));
+    await new Promise((r) => setTimeout(r, 800));
     sendToAI(transcript || liveTranscript || finalRef.current);
   }, [phase, transcript, liveTranscript, sendToAI]);
 
