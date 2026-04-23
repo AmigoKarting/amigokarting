@@ -6,179 +6,117 @@ import { PendingAccounts } from "@/components/admin/PendingAccounts";
 export default async function AdminDashboard() {
   const supabase = createServerSupabaseClient();
 
-  // ─── Stats de base ────────────────────────────────────
-  const { count: employeeCount } = await supabase
-    .from("employees")
-    .select("*", { count: "exact", head: true })
-    .eq("is_active", true);
+  // ─── Toutes les requêtes en parallèle ─────────────────
+  const [
+    { count: employeeCount },
+    { data: missingInfo },
+    { count: pendingCount },
+    scoresResult,
+    ratingsResult,
+    employeesResult,
+    activitiesResult,
+    conversationsResult,
+    quizResult,
+    alertsResult,
+    recentActivityResult,
+    recentConvResult,
+    oldScoresResult,
+  ] = await Promise.all([
+    supabase.from("employees").select("*", { count: "exact", head: true }).eq("is_active", true),
+    supabase.from("employee_missing_info").select("*").eq("has_missing_info", true),
+    supabase.from("employees").select("*", { count: "exact", head: true }).eq("is_active", false),
+    supabaseAdmin.from("employee_global_score").select("global_score").then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("conversation_sessions").select("rating").not("rating", "is", null).then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("employees").select("id, first_name, last_name, created_at").eq("is_active", true).in("role", ["employee", "manager"]).then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("employee_activity").select("employee_id, updated_at").then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("conversation_sessions").select("employee_id, created_at").order("created_at", { ascending: false }).then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("quiz_answers").select("is_correct, question_id, quiz_questions(question_text)").then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("manager_alerts").select("title, alert_type, created_at").eq("is_read", false).order("created_at", { ascending: false }).limit(5).then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("employee_activity").select("employee_id, updated_at, employees(first_name)").gte("updated_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()).then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("conversation_sessions").select("employee_id, created_at, employees(first_name)").gte("created_at", new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()).then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("score_history").select("global_score").lte("recorded_at", new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString()).then(r => r).catch(() => ({ data: null })),
+  ]);
 
-  const { data: missingInfo } = await supabase
-    .from("employee_missing_info")
-    .select("*")
-    .eq("has_missing_info", true);
+  // ─── Score moyen ──────────────────────────────────────
+  const scores = scoresResult?.data || [];
+  const teamAvg = scores.length > 0 ? Math.round(scores.reduce((sum: number, s: any) => sum + (s.global_score || 0), 0) / scores.length) : 0;
 
-  const { count: pendingCount } = await supabase
-    .from("employees")
-    .select("*", { count: "exact", head: true })
-    .eq("is_active", false);
+  const oldScores = oldScoresResult?.data || [];
+  const oldAvg = oldScores.length > 0 ? Math.round(oldScores.reduce((sum: number, s: any) => sum + (s.global_score || 0), 0) / oldScores.length) : teamAvg;
+  const teamTrend = teamAvg - oldAvg;
 
-  // ─── Score moyen de l'équipe ──────────────────────────
-  let teamAvg = 0;
-  let teamTrend = 0;
-  try {
-    const { data: scores } = await supabaseAdmin
-      .from("employee_global_score")
-      .select("global_score");
+  // ─── Note conversations ───────────────────────────────
+  const ratings = ratingsResult?.data || [];
+  const avgRating = ratings.length > 0 ? (ratings.reduce((sum: number, r: any) => sum + r.rating, 0) / ratings.length).toFixed(1) : "—";
 
-    if (scores && scores.length > 0) {
-      teamAvg = Math.round(scores.reduce((sum: number, s: any) => sum + (s.global_score || 0), 0) / scores.length);
+  // ─── Inactifs — calculé sans boucle de requêtes ───────
+  const employees = employeesResult?.data || [];
+  const activities = activitiesResult?.data || [];
+  const conversations = conversationsResult?.data || [];
+
+  const activityMap: Record<string, string> = {};
+  activities.forEach((a: any) => { activityMap[a.employee_id] = a.updated_at; });
+
+  const lastConvMap: Record<string, string> = {};
+  conversations.forEach((c: any) => {
+    if (!lastConvMap[c.employee_id] || c.created_at > lastConvMap[c.employee_id]) {
+      lastConvMap[c.employee_id] = c.created_at;
     }
+  });
 
-    // Tendance vs semaine passée
-    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-    const { data: oldScores } = await supabaseAdmin
-      .from("score_history")
-      .select("global_score")
-      .lte("recorded_at", weekAgo);
-
-    if (oldScores && oldScores.length > 0) {
-      const oldAvg = Math.round(oldScores.reduce((sum: number, s: any) => sum + (s.global_score || 0), 0) / oldScores.length);
-      teamTrend = teamAvg - oldAvg;
+  const inactiveEmployees: { name: string; days: number }[] = [];
+  for (const emp of employees) {
+    let days = 0;
+    if (activityMap[emp.id]) {
+      days = Math.floor((Date.now() - new Date(activityMap[emp.id]).getTime()) / (1000 * 60 * 60 * 24));
+    } else {
+      days = Math.floor((Date.now() - new Date(emp.created_at).getTime()) / (1000 * 60 * 60 * 24));
     }
-  } catch {}
-
-  // ─── Note moyenne conversations ───────────────────────
-  let avgRating = "—";
-  try {
-    const { data: ratings } = await supabaseAdmin
-      .from("conversation_sessions")
-      .select("rating")
-      .not("rating", "is", null);
-
-    if (ratings && ratings.length > 0) {
-      const avg = ratings.reduce((sum: number, r: any) => sum + r.rating, 0) / ratings.length;
-      avgRating = avg.toFixed(1);
+    if (lastConvMap[emp.id]) {
+      const convDays = Math.floor((Date.now() - new Date(lastConvMap[emp.id]).getTime()) / (1000 * 60 * 60 * 24));
+      days = Math.min(days, convDays);
     }
-  } catch {}
-
-  // ─── Employés inactifs 7+ jours ───────────────────────
-  let inactiveEmployees: { name: string; days: number }[] = [];
-  try {
-    const { data: employees } = await supabaseAdmin
-      .from("employees")
-     .select("id, first_name, last_name, created_at")
-      .eq("is_active", true)
-      .in("role", ["employee", "manager"]);
-
-    for (const emp of (employees || [])) {
-      const { data: activity } = await supabaseAdmin
-        .from("employee_activity")
-        .select("updated_at")
-        .eq("employee_id", emp.id)
-        .single();
-
-      let days = 0;
-      if (activity?.updated_at) {
-        days = Math.floor((Date.now() - new Date(activity.updated_at).getTime()) / (1000 * 60 * 60 * 24));
-      } else {
-        // Pas d'activité enregistrée — utiliser la date de création du compte
-        days = Math.floor((Date.now() - new Date(emp.created_at).getTime()) / (1000 * 60 * 60 * 24));
-      }
-
-      // Aussi checker la dernière conversation
-      const { data: lastConv } = await supabaseAdmin
-        .from("conversation_sessions")
-        .select("created_at")
-        .eq("employee_id", emp.id)
-        .order("created_at", { ascending: false })
-        .limit(1)
-        .single();
-
-      if (lastConv?.created_at) {
-        const convDays = Math.floor((Date.now() - new Date(lastConv.created_at).getTime()) / (1000 * 60 * 60 * 24));
-        days = Math.min(days, convDays);
-      }
-
-      if (days >= 7) {
-        inactiveEmployees.push({ name: `${emp.first_name} ${emp.last_name || ""}`.trim(), days });
-      }
+    if (days >= 7) {
+      inactiveEmployees.push({ name: `${emp.first_name} ${emp.last_name || ""}`.trim(), days });
     }
+  }
+  inactiveEmployees.sort((a, b) => b.days - a.days);
 
-    inactiveEmployees.sort((a, b) => b.days - a.days);
-  } catch {}
+  // ─── Questions ratées ─────────────────────────────────
+  const qa = quizResult?.data || [];
+  const byQuestion: Record<string, { text: string; total: number; wrong: number }> = {};
+  for (const a of qa) {
+    const qText = (a as any).quiz_questions?.question_text || "?";
+    const qId = a.question_id;
+    if (!byQuestion[qId]) byQuestion[qId] = { text: qText, total: 0, wrong: 0 };
+    byQuestion[qId].total++;
+    if (!a.is_correct) byQuestion[qId].wrong++;
+  }
+  const worstQuestions = Object.values(byQuestion)
+    .map((q) => ({ text: q.text, failRate: Math.round((q.wrong / q.total) * 100) }))
+    .filter((q) => q.failRate > 30)
+    .sort((a, b) => b.failRate - a.failRate)
+    .slice(0, 5);
 
-  // ─── Questions les plus ratées ────────────────────────
-  let worstQuestions: { text: string; failRate: number }[] = [];
-  try {
-    const { data: qa } = await supabaseAdmin
-      .from("quiz_answers")
-      .select("is_correct, question_id, quiz_questions(question_text)");
+  // ─── Alertes ──────────────────────────────────────────
+  const alerts = (alertsResult?.data || []).map((a: any) => ({
+    title: a.title,
+    type: a.alert_type,
+    date: new Date(a.created_at).toLocaleDateString("fr-CA", { day: "numeric", month: "short" }),
+  }));
 
-    if (qa && qa.length > 0) {
-      const byQuestion: Record<string, { text: string; total: number; wrong: number }> = {};
-      for (const a of qa) {
-        const qText = (a as any).quiz_questions?.question_text || "?";
-        const qId = a.question_id;
-        if (!byQuestion[qId]) byQuestion[qId] = { text: qText, total: 0, wrong: 0 };
-        byQuestion[qId].total++;
-        if (!a.is_correct) byQuestion[qId].wrong++;
-      }
-
-      worstQuestions = Object.values(byQuestion)
-        .map((q) => ({ text: q.text, failRate: Math.round((q.wrong / q.total) * 100) }))
-        .filter((q) => q.failRate > 30)
-        .sort((a, b) => b.failRate - a.failRate)
-        .slice(0, 5);
-    }
-  } catch {}
-
-  // ─── Dernières alertes ────────────────────────────────
-  let alerts: { title: string; type: string; date: string }[] = [];
-  try {
-    const { data: alertData } = await supabaseAdmin
-      .from("manager_alerts")
-      .select("title, alert_type, created_at, is_read")
-      .eq("is_read", false)
-      .order("created_at", { ascending: false })
-      .limit(5);
-
-    alerts = (alertData || []).map((a: any) => ({
-      title: a.title,
-      type: a.alert_type,
-      date: new Date(a.created_at).toLocaleDateString("fr-CA", { day: "numeric", month: "short" }),
-    }));
-  } catch {}
-
-  // ─── Activité récente (dernières 24h) ─────────────────
-  let recentActive: string[] = [];
-  try {
-    const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-    const { data: recent } = await supabaseAdmin
-      .from("employee_activity")
-      .select("employee_id, updated_at, employees(first_name)")
-      .gte("updated_at", oneDayAgo);
-
-    // Aussi checker les conversations récentes
-    const { data: recentConv } = await supabaseAdmin
-      .from("conversation_sessions")
-      .select("employee_id, created_at, employees(first_name)")
-      .gte("created_at", oneDayAgo);
-
-    const activeNames = new Set<string>();
-    (recent || []).forEach((r: any) => { if (r.employees?.first_name) activeNames.add(r.employees.first_name); });
-    (recentConv || []).forEach((r: any) => { if (r.employees?.first_name) activeNames.add(r.employees.first_name); });
-    recentActive = [...activeNames];
-  } catch {}
+  // ─── Actifs récents ───────────────────────────────────
+  const activeNames = new Set<string>();
+  (recentActivityResult?.data || []).forEach((r: any) => { if (r.employees?.first_name) activeNames.add(r.employees.first_name); });
+  (recentConvResult?.data || []).forEach((r: any) => { if (r.employees?.first_name) activeNames.add(r.employees.first_name); });
+  const recentActive = [...activeNames];
 
   return (
     <div className="space-y-6">
       <AnnouncementPopup />
-
       <h1 className="text-2xl font-bold">Tableau de bord</h1>
-
       <PendingAccounts />
 
-      {/* Cartes principales */}
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <div className="rounded-xl bg-white p-5 shadow-sm">
           <p className="text-xs text-gray-500">Employés actifs</p>
@@ -209,9 +147,7 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      {/* Activité en temps réel + Inactifs */}
       <div className="grid gap-4 lg:grid-cols-2">
-        {/* Actifs aujourd'hui */}
         <div className="rounded-xl bg-white p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <p className="text-sm font-semibold text-gray-900">Actifs aujourd'hui</p>
@@ -234,7 +170,6 @@ export default async function AdminDashboard() {
           )}
         </div>
 
-        {/* Inactifs 7+ jours */}
         <div className="rounded-xl bg-white p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <p className="text-sm font-semibold text-gray-900">Inactifs 7+ jours</p>
@@ -260,9 +195,7 @@ export default async function AdminDashboard() {
         </div>
       </div>
 
-      {/* Questions ratées + Alertes */}
       <div className="grid gap-4 lg:grid-cols-2">
-        {/* Questions les plus ratées */}
         <div className="rounded-xl bg-white p-5 shadow-sm">
           <p className="mb-3 text-sm font-semibold text-gray-900">Questions les plus ratées</p>
           {worstQuestions.length === 0 ? (
@@ -287,7 +220,6 @@ export default async function AdminDashboard() {
           )}
         </div>
 
-        {/* Dernières alertes */}
         <div className="rounded-xl bg-white p-5 shadow-sm">
           <div className="flex items-center justify-between mb-3">
             <p className="text-sm font-semibold text-gray-900">Alertes récentes</p>

@@ -1,4 +1,5 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { EmployeeTable } from "@/components/admin/EmployeeTable";
 
@@ -6,13 +7,13 @@ export default async function EmployeesPage() {
   const supabase = createServerSupabaseClient();
   const currentUser: any = await getAuthEmployee();
 
-  const { data: allEmployees } = await supabase
+  const { data: allEmployees } = await supabaseAdmin
     .from("employees")
     .select("*")
     .eq("is_active", true)
     .order("last_name");
 
-  const { data: missingInfo } = await supabase
+  const { data: missingInfo } = await supabaseAdmin
     .from("employee_missing_info")
     .select("*");
 

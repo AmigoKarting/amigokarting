@@ -100,15 +100,10 @@ export async function POST(req: NextRequest) {
       .update({ auth_user_id: authUser.user.id })
       .eq("id", employee.id);
 
-    return NextResponse.json({
+   return NextResponse.json({
       success: true,
-      employee: {
-        id: employee.id,
-        firstName: employee.first_name,
-        lastName: employee.last_name,
-      },
-      email,
-      password: phoneLast4,
+      pending: true,
+      message: "Ton compte a été créé. Un gestionnaire doit l'approuver avant que tu puisses te connecter.",
     });
   } catch (err) {
     console.error("Erreur register:", err);
