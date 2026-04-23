@@ -2,14 +2,15 @@ import { NextRequest, NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { requireManager, requirePatron } from "@/lib/supabase/middleware";
 
-export async function GET() {
+export async function GET(req: NextRequest) {
   await requireManager();
 
-  const { data } = await supabaseAdmin
-    .from("employees")
-    .select("*")
-    .eq("is_active", true)
-    .order("last_name");
+  const url = new URL(req.url);
+  const includeInactive = url.searchParams.get("all") === "true";
+
+  const query = supabaseAdmin.from("employees").select("*").order("last_name");
+  if (!includeInactive) query.eq("is_active", true);
+  const { data } = await query;
 
   return NextResponse.json({ employees: data || [] });
 }

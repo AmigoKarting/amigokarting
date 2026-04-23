@@ -6,11 +6,15 @@ export function PendingAccounts() {
   const [pending, setPending] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => { loadPending(); }, []);
+ useEffect(() => {
+    const emp = JSON.parse(localStorage.getItem("employee") || "{}");
+    if (emp.role !== "patron" && emp.role !== "developpeur") { setLoading(false); return; }
+    loadPending();
+  }, []);
 
   async function loadPending() {
     try {
-      const res = await fetch("/api/admin/employees");
+      const res = await fetch("/api/admin/employees?all=true");
       const data = await res.json();
       const inactive = (data.employees || []).filter((e: any) => !e.is_active);
       setPending(inactive);
