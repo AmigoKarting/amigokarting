@@ -3,6 +3,7 @@ import type { TrainingModule } from "@/types/training";
 
 export function ModuleCard({ module }: { module: TrainingModule }) {
   const chapterCount = module.chapters?.length || 0;
+  const isText = module.content_type === "text";
   const videoCount = module.chapters?.reduce(
     (acc, ch) => acc + (ch.videos?.length || 0), 0
   ) || 0;
@@ -16,7 +17,11 @@ export function ModuleCard({ module }: { module: TrainingModule }) {
         )}
         <div className="mt-4 flex gap-4 text-xs text-gray-400">
           <span>{chapterCount} chapitre{chapterCount > 1 ? "s" : ""}</span>
-          <span>{videoCount} vidéo{videoCount > 1 ? "s" : ""}</span>
+          {isText ? (
+            <span>Lecture</span>
+          ) : (
+            <span>{videoCount} vidéo{videoCount > 1 ? "s" : ""}</span>
+          )}
         </div>
       </div>
     </Link>

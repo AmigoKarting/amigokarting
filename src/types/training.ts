@@ -1,7 +1,10 @@
+export type TrainingContentType = "text" | "video";
+
 export interface TrainingModule {
   id: string;
   title: string;
   description: string | null;
+  content_type: TrainingContentType;
   sort_order: number;
   is_active: boolean;
   created_at: string;
@@ -12,6 +15,7 @@ export interface TrainingChapter {
   id: string;
   module_id: string;
   title: string;
+  content: string | null;
   sort_order: number;
   created_at: string;
   videos?: TrainingVideo[];

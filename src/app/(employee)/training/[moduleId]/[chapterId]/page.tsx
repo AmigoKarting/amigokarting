@@ -43,6 +43,12 @@ export default async function ChapterPage({
     <div className="mx-auto max-w-3xl space-y-8">
       <h1 className="text-2xl font-bold">{chapter.title}</h1>
 
+      {chapter.content && (
+        <div className="whitespace-pre-wrap rounded-xl bg-white p-6 leading-relaxed text-gray-800 shadow-sm">
+          {chapter.content}
+        </div>
+      )}
+
       <div className="space-y-6">
         {chapter.training_videos
           ?.sort((a: any, b: any) => a.sort_order - b.sort_order)
