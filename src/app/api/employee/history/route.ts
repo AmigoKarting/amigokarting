@@ -63,11 +63,11 @@ export async function GET(req: NextRequest) {
           id: `quiz-${q.id}`,
           type: "quiz",
           title: quizTitle,
-          description: q.passed ? "Réussi" : "Échoué",
+          description: q.passed ? "Réussi — voir le détail" : "Échoué — voir le détail",
           date: q.created_at,
           icon: q.passed ? "✅" : "❌",
           score: Math.round((q.score || 0) * 100),
-          link: "/training",
+          link: `/training/resultat/${q.id}`,
         });
       });
     } catch {}
