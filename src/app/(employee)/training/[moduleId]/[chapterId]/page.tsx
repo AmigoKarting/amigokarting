@@ -73,7 +73,7 @@ export default async function ChapterPage({
       {quiz && allVideosCompleted && (
         <div className="space-y-4">
           <h2 className="text-xl font-bold">Quiz : {quiz.title}</h2>
-          <QuizFormWrapper quiz={quiz} />
+          <QuizFormWrapper quiz={quiz} employeeId={employee?.id} />
         </div>
       )}
 
@@ -87,7 +87,7 @@ export default async function ChapterPage({
 }
 
 // Client wrapper pour le QuizForm
-function QuizFormWrapper({ quiz }: { quiz: any }) {
+function QuizFormWrapper({ quiz, employeeId }: { quiz: any; employeeId?: string }) {
   // Le QuizForm attend `choices` sur chaque question (la BD fournit `quiz_choices`)
   const questions = (quiz.quiz_questions || []).map((q: any) => ({
     ...q,
@@ -100,6 +100,7 @@ function QuizFormWrapper({ quiz }: { quiz: any }) {
       quizTitle={quiz.title}
       passingScore={quiz.passing_score}
       questions={questions}
+      employeeId={employeeId}
     />
   );
 }

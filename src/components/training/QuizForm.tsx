@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 
 // ─── Types ─────────────────────────────────────────────────────
 interface QuizChoice {
@@ -23,6 +23,7 @@ interface QuizFormProps {
   quizTitle: string;
   passingScore?: number;         // 0.0 à 1.0, défaut 0.7
   questions: QuizQuestion[];
+  employeeId?: string;           // Pour sauvegarder la progression par employé
   onComplete?: (result: QuizResult) => void;
 }
 
@@ -50,6 +51,7 @@ export function QuizForm({
   quizTitle,
   passingScore = 0.7,
   questions,
+  employeeId,
   onComplete,
 }: QuizFormProps) {
   const sortedQuestions = useMemo(
@@ -63,6 +65,10 @@ export function QuizForm({
   const [answers, setAnswers] = useState<AnswerRecord[]>([]);
   const [result, setResult] = useState<QuizResult | null>(null);
   const [error, setError] = useState("");
+  const [savedAnswers, setSavedAnswers] = useState<AnswerRecord[] | null>(null);
+
+  // Clé de sauvegarde de la progression (par employé + quiz)
+  const storageKey = `quiz-progress:${employeeId || "anon"}:${quizId}`;
 
   const question = sortedQuestions[currentIdx];
   const totalQuestions = sortedQuestions.length;
@@ -82,15 +88,77 @@ export function QuizForm({
   // Score courant (pendant le quiz)
   const correctSoFar = answers.filter((a) => a.isCorrect).length;
 
-  // ─── Démarrer le quiz ─────────────────────────────────────
+  // ─── Charger la progression sauvegardée (au montage) ──────
+  useEffect(() => {
+    try {
+      const raw = window.localStorage.getItem(storageKey);
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (
+          Array.isArray(data?.answers) &&
+          data.answers.length > 0 &&
+          data.total === totalQuestions
+        ) {
+          setSavedAnswers(data.answers as AnswerRecord[]);
+        }
+      }
+    } catch {
+      /* ignore */
+    }
+  }, [storageKey, totalQuestions]);
+
+  // ─── Sauvegarder la progression à chaque réponse ──────────
+  useEffect(() => {
+    if (phase === "question" || phase === "correction") {
+      try {
+        window.localStorage.setItem(
+          storageKey,
+          JSON.stringify({ answers, total: totalQuestions })
+        );
+      } catch {
+        /* ignore */
+      }
+    }
+  }, [answers, phase, storageKey, totalQuestions]);
+
+  // ─── Effacer la progression une fois le quiz terminé ──────
+  useEffect(() => {
+    if (phase === "results") {
+      try {
+        window.localStorage.removeItem(storageKey);
+      } catch {
+        /* ignore */
+      }
+    }
+  }, [phase, storageKey]);
+
+  // ─── Démarrer le quiz (à zéro) ────────────────────────────
   const startQuiz = useCallback(() => {
+    try {
+      window.localStorage.removeItem(storageKey);
+    } catch {
+      /* ignore */
+    }
+    setSavedAnswers(null);
     setPhase("question");
     setCurrentIdx(0);
     setAnswers([]);
     setSelectedChoiceId(null);
     setResult(null);
     setError("");
-  }, []);
+  }, [storageKey]);
+
+  // ─── Reprendre où on s'était arrêté ───────────────────────
+  const resumeQuiz = useCallback(() => {
+    if (!savedAnswers) return;
+    const resumeIdx = Math.min(savedAnswers.length, totalQuestions - 1);
+    setAnswers(savedAnswers.slice(0, resumeIdx));
+    setCurrentIdx(resumeIdx);
+    setSelectedChoiceId(null);
+    setResult(null);
+    setError("");
+    setPhase("question");
+  }, [savedAnswers, totalQuestions]);
 
   // ─── Sélectionner un choix ────────────────────────────────
   const selectChoice = useCallback(
@@ -188,14 +256,32 @@ export function QuizForm({
           <div className="mt-6 space-y-3 text-left">
             <InfoRow icon="check" text="Correction immédiate après chaque question" />
             <InfoRow icon="book" text="Explication fournie si la réponse est incorrecte" />
-            <InfoRow icon="save" text="Résultats sauvegardés automatiquement" />
+            <InfoRow icon="save" text="Ta progression est gardée — tu peux arrêter et revenir plus tard" />
           </div>
-          <button
-            onClick={startQuiz}
-            className="mt-8 w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-orange-500/25 transition-all hover:shadow-lg active:scale-[0.98]"
-          >
-            Commencer le quiz
-          </button>
+
+          {savedAnswers ? (
+            <div className="mt-8 space-y-3">
+              <button
+                onClick={resumeQuiz}
+                className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-orange-500/25 transition-all hover:shadow-lg active:scale-[0.98]"
+              >
+                Reprendre où tu étais ({Math.min(savedAnswers.length, totalQuestions) + 1}/{totalQuestions})
+              </button>
+              <button
+                onClick={startQuiz}
+                className="w-full rounded-xl border border-gray-200 px-6 py-3 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 active:scale-[0.98]"
+              >
+                Recommencer à zéro
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={startQuiz}
+              className="mt-8 w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-orange-500/25 transition-all hover:shadow-lg active:scale-[0.98]"
+            >
+              Commencer le quiz
+            </button>
+          )}
         </div>
       )}
 
