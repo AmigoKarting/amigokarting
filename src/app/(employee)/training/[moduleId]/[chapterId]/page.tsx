@@ -88,12 +88,18 @@ export default async function ChapterPage({
 
 // Client wrapper pour le QuizForm
 function QuizFormWrapper({ quiz }: { quiz: any }) {
+  // Le QuizForm attend `choices` sur chaque question (la BD fournit `quiz_choices`)
+  const questions = (quiz.quiz_questions || []).map((q: any) => ({
+    ...q,
+    choices: q.quiz_choices || [],
+  }));
+
   return (
     <QuizForm
       quizId={quiz.id}
       quizTitle={quiz.title}
       passingScore={quiz.passing_score}
-      questions={quiz.quiz_questions}
+      questions={questions}
     />
   );
 }
