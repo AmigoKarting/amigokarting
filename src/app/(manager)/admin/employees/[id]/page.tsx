@@ -233,6 +233,7 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
                   <th className="px-4 py-2">Score</th>
                   <th className="px-4 py-2">Résultat</th>
                   <th className="px-4 py-2">Date</th>
+                  <th className="px-4 py-2"></th>
                 </tr>
               </thead>
               <tbody>
@@ -249,6 +250,14 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
                     </td>
                     <td className="px-4 py-2 text-xs text-gray-400">
                       {new Date(a.started_at).toLocaleDateString("fr-CA")}
+                    </td>
+                    <td className="px-4 py-2 text-right">
+                      <Link
+                        href={`/training/resultat/${a.id}?from=/admin/employees/${params.id}`}
+                        className="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-medium text-orange-600 hover:bg-orange-100"
+                      >
+                        Voir le détail →
+                      </Link>
                     </td>
                   </tr>
                 ))}

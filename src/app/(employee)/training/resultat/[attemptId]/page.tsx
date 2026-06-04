@@ -5,15 +5,24 @@ import { ArrowLeft, Check, X } from "lucide-react";
 
 export default async function QuizResultPage({
   params,
+  searchParams,
 }: {
   params: { attemptId: string };
+  searchParams: { from?: string };
 }) {
   const supabase = createServerSupabaseClient();
+
+  // Lien de retour (par défaut l'historique ; un gérant revient à la fiche employé)
+  const from = searchParams?.from;
+  const backHref =
+    from && from.startsWith("/") && !from.startsWith("//") ? from : "/historique";
 
   // Tentative (RLS : l'employé ne voit que les siennes, le gérant voit tout)
   const { data: attempt } = await supabase
     .from("quiz_attempts")
-    .select("id, score, passed, created_at, quiz_id, quizzes(title, passing_score)")
+    .select(
+      "id, score, passed, created_at, quiz_id, quizzes(title, passing_score), employees(first_name, last_name)"
+    )
     .eq("id", params.attemptId)
     .single();
 
@@ -52,18 +61,23 @@ export default async function QuizResultPage({
     "fr-CA",
     { day: "numeric", month: "long", year: "numeric" }
   );
+  const emp = (attempt as any).employees;
+  const empName = emp ? `${emp.first_name} ${emp.last_name}` : null;
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
         <Link
-          href="/historique"
+          href={backHref}
           className="mb-2 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700"
         >
-          <ArrowLeft className="h-4 w-4" /> Retour à l'historique
+          <ArrowLeft className="h-4 w-4" /> Retour
         </Link>
         <h1 className="text-2xl font-bold">{quizTitle}</h1>
-        <p className="text-sm text-gray-500">{dateStr}</p>
+        <p className="text-sm text-gray-500">
+          {empName ? `${empName} · ` : ""}
+          {dateStr}
+        </p>
       </div>
 
       {/* Résumé du score */}
