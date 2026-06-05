@@ -61,18 +61,6 @@ export default async function ChapterPage({
         </div>
       )}
 
-      {/* Bouton vers le quiz — fin de la formation */}
-      {chapter.content && showQuiz && (
-        <div className="flex justify-center">
-          <a
-            href="#quiz"
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-orange-500/25 transition hover:shadow-lg active:scale-[0.98]"
-          >
-            Faire le quiz maintenant ↓
-          </a>
-        </div>
-      )}
-
       <div className="space-y-6">
         {chapter.training_videos
           ?.sort((a: any, b: any) => a.sort_order - b.sort_order)
