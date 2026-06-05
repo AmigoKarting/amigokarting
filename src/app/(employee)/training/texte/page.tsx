@@ -1,6 +1,7 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { ModuleCard } from "@/components/training/ModuleCard";
 import { CollapsibleCategory } from "@/components/training/CollapsibleCategory";
+import { TRAINING_CATEGORIES } from "@/lib/training";
 import { BookOpen, ClipboardList, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
@@ -16,11 +17,12 @@ export default async function TrainingTextePage() {
 
   const textModules = modules || [];
 
-  const categories: string[] = [];
-  for (const m of textModules) {
-    const c = m.category || "Autres";
-    if (!categories.includes(c)) categories.push(c);
-  }
+  // Liste des catégories : les catégories prédéfinies + toute autre trouvée
+  const found = new Set(textModules.map((m) => m.category || "Autres"));
+  const categories = [
+    ...TRAINING_CATEGORIES,
+    ...[...found].filter((c) => !TRAINING_CATEGORIES.includes(c)),
+  ];
 
   const chapterCat: Record<string, string> = {};
   for (const m of textModules) {
@@ -64,26 +66,21 @@ export default async function TrainingTextePage() {
           <h2 className="text-lg font-semibold text-gray-800">Mes formations</h2>
         </div>
 
-        {textModules.length === 0 && (
-          <p className="text-sm text-gray-400">
-            Aucune formation écrite pour le moment.
-          </p>
-        )}
-
         {categories.map((cat) => {
           const mods = textModules.filter((m) => (m.category || "Autres") === cat);
-          if (mods.length === 0) return null;
           return (
-            <CollapsibleCategory
-              key={`mod-${cat}`}
-              title={cat}
-              count={mods.length}
-            >
-              <div className="grid gap-3 sm:grid-cols-2">
-                {mods.map((module) => (
-                  <ModuleCard key={module.id} module={module} />
-                ))}
-              </div>
+            <CollapsibleCategory key={`mod-${cat}`} title={cat} count={mods.length}>
+              {mods.length > 0 ? (
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {mods.map((module) => (
+                    <ModuleCard key={module.id} module={module} />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-gray-400">
+                  Aucune formation pour le moment.
+                </p>
+              )}
             </CollapsibleCategory>
           );
         })}
@@ -96,34 +93,29 @@ export default async function TrainingTextePage() {
           <h2 className="text-lg font-semibold text-gray-800">Quiz</h2>
         </div>
 
-        {textQuizzes.length === 0 && (
-          <p className="text-sm text-gray-400">Aucun quiz pour le moment.</p>
-        )}
-
         {categories.map((cat) => {
           const qs = textQuizzes.filter((q) => chapterCat[q.chapter_id] === cat);
-          if (qs.length === 0) return null;
           return (
-            <CollapsibleCategory
-              key={`quiz-${cat}`}
-              title={cat}
-              count={qs.length}
-            >
-              <div className="grid gap-3 sm:grid-cols-2">
-                {qs.map((quiz) => (
-                  <Link
-                    key={quiz.id}
-                    href={`/training/${quiz.training_chapters?.module_id}/${quiz.chapter_id}`}
-                  >
-                    <div className="rounded-lg border border-gray-100 bg-white p-4 transition hover:border-orange-200 hover:shadow-sm">
-                      <h3 className="text-sm font-semibold text-gray-900">{quiz.title}</h3>
-                      <div className="mt-1 text-xs text-gray-400">
-                        Quiz · {Math.round((quiz.passing_score || 0) * 100)}% pour réussir
+            <CollapsibleCategory key={`quiz-${cat}`} title={cat} count={qs.length}>
+              {qs.length > 0 ? (
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {qs.map((quiz) => (
+                    <Link
+                      key={quiz.id}
+                      href={`/training/${quiz.training_chapters?.module_id}/${quiz.chapter_id}`}
+                    >
+                      <div className="rounded-lg border border-gray-100 bg-white p-4 transition hover:border-orange-200 hover:shadow-sm">
+                        <h3 className="text-sm font-semibold text-gray-900">{quiz.title}</h3>
+                        <div className="mt-1 text-xs text-gray-400">
+                          Quiz · {Math.round((quiz.passing_score || 0) * 100)}% pour réussir
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+                    </Link>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-gray-400">Aucun quiz pour le moment.</p>
+              )}
             </CollapsibleCategory>
           );
         })}
