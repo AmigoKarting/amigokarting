@@ -5,6 +5,7 @@ export interface TrainingModule {
   title: string;
   description: string | null;
   content_type: TrainingContentType;
+  category: string | null;
   sort_order: number;
   is_active: boolean;
   created_at: string;

@@ -3,4 +3,4 @@
 node_modules
 .next
 __pycache__
-scripts/_quiz_*.sql
+scripts/_*.sql
