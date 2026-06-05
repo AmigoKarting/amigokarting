@@ -56,11 +56,16 @@ export default function AnnouncementsPage() {
 
   const handleDelete = useCallback(async (id: string) => {
     if (!confirm("Supprimer cette annonce ?")) return;
-    await fetch("/api/announcements", {
+    const res = await fetch("/api/announcements", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ action: "delete", announcementId: id }),
     });
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}));
+      alert(data.error || "La suppression a échoué.");
+      return;
+    }
     loadAnnouncements();
   }, []);
 

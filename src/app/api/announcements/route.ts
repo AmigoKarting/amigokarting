@@ -68,7 +68,11 @@ export async function POST(req: NextRequest) {
 
     // ─── Créer une annonce (gérant/patron seulement) ───────
     if (action === "create") {
-      if (employee.role !== "manager" && employee.role !== "patron") {
+      if (
+        employee.role !== "manager" &&
+        employee.role !== "patron" &&
+        employee.role !== "developpeur"
+      ) {
         return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
       }
 
@@ -97,7 +101,11 @@ export async function POST(req: NextRequest) {
 
     // ─── Supprimer une annonce (gérant/patron) ─────────────
     if (action === "delete") {
-      if (employee.role !== "manager" && employee.role !== "patron") {
+      if (
+        employee.role !== "manager" &&
+        employee.role !== "patron" &&
+        employee.role !== "developpeur"
+      ) {
         return NextResponse.json({ error: "Accès refusé" }, { status: 403 });
       }
 
