@@ -7,6 +7,7 @@ export interface NavItem {
   href: string;
   icon: string;
   divider?: boolean;
+  patronOnly?: boolean; // visible seulement pour patron / développeur
 }
 
 export const employeeNav: NavItem[] = [
@@ -33,7 +34,7 @@ export const managerBaseNav: NavItem[] = [
   { label: "Banque de questions", href: "/admin/conversations/questions", icon: "List" },
   { label: "Annonces", href: "/admin/announcements", icon: "Megaphone" },
   { label: "Alertes & Évolution", href: "/admin/alerts", icon: "Bell" },
-  { label: "Paramètres", href: "/admin/settings", icon: "Settings" },
+  { label: "Paramètres", href: "/admin/settings", icon: "Settings", patronOnly: true },
   { label: "Logs de connexion", href: "/admin/login-logs", icon: "Shield" },
   { label: "Guide", href: "/admin/guide", icon: "BookOpen", divider: true },
   // Section personnelle
@@ -54,7 +55,9 @@ export function navForRole(role: string | undefined | null): NavItem[] {
   const isStaff = role === "manager" || role === "patron" || role === "developpeur";
   if (!isStaff) return employeeNav;
   const isPatron = role === "patron" || role === "developpeur";
-  return isPatron ? [...managerBaseNav, ...patronNav] : managerBaseNav;
+  if (isPatron) return [...managerBaseNav, ...patronNav];
+  // Gérant : on retire les items réservés au patron/dev (ex : Paramètres)
+  return managerBaseNav.filter((item) => !item.patronOnly);
 }
 
 export function roleLabel(role: string | undefined | null): string | undefined {

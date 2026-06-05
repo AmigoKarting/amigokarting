@@ -1,50 +1,25 @@
-"use client";
-import { Button } from "@/components/ui/Button";
-import { useState } from "react";
+import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import { SettingsClient } from "./SettingsClient";
 
-export default function SettingsPage() {
-  const [generating, setGenerating] = useState(false);
+// Page réservée au patron et au développeur. Un gérant est redirigé.
+export default async function SettingsPage() {
+  const supabase = createServerSupabaseClient();
 
-  async function handleGenerateQuestions() {
-    setGenerating(true);
-    await fetch("/api/admin/questions", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ action: "generate", topic: "Procédures de sécurité karting", count: 20 }),
-    });
-    setGenerating(false);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/login");
+
+  const { data: employee } = await supabase
+    .from("employees")
+    .select("role")
+    .eq("auth_user_id", user.id)
+    .single();
+
+  if (employee?.role !== "patron" && employee?.role !== "developpeur") {
+    redirect("/admin");
   }
 
-  return (
-    <div className="space-y-8">
-      <h1 className="text-2xl font-bold">Paramètres</h1>
-
-      <section className="rounded-xl bg-white p-6 shadow-sm">
-        <h2 className="font-semibold">Génération de questions IA</h2>
-        <p className="mt-1 text-sm text-gray-500">
-          Générer automatiquement des questions pour les conversations IA à partir des thèmes de formation.
-        </p>
-        <Button onClick={handleGenerateQuestions} disabled={generating} className="mt-4">
-          {generating ? "Génération en cours..." : "Générer 20 questions"}
-        </Button>
-      </section>
-
-      <section className="rounded-xl bg-white p-6 shadow-sm">
-        <h2 className="font-semibold">Notifications SMS</h2>
-        <p className="mt-1 text-sm text-gray-500">
-          Configuration des rappels automatiques Agendrix et des alertes d'informations manquantes.
-        </p>
-        <div className="mt-4 space-y-3">
-          <label className="flex items-center gap-3 text-sm">
-            <input type="checkbox" defaultChecked className="rounded accent-brand-500" />
-            Rappel Agendrix (6h avant la date limite)
-          </label>
-          <label className="flex items-center gap-3 text-sm">
-            <input type="checkbox" defaultChecked className="rounded accent-brand-500" />
-            Alerte informations manquantes
-          </label>
-        </div>
-      </section>
-    </div>
-  );
+  return <SettingsClient />;
 }
