@@ -2,30 +2,23 @@
 import { useAuth } from "@/hooks/useAuth";
 import { Sidebar } from "@/components/layout/Sidebar";
 import { Spinner } from "@/components/ui/Spinner";
-
-const employeeNav = [
-  { label: "Accueil", href: "/dashboard", icon: "Home" },
-  { label: "Ma fiche", href: "/profile", icon: "User" },
-  { label: "Ma note", href: "/score", icon: "Star" },
-  { label: "Formation", href: "/training", icon: "GraduationCap" },
-  { label: "Conversations", href: "/conversations", icon: "MessageCircle" },
-  { label: "Q&A", href: "/qa", icon: "HelpCircle" },
-  { label: "Historique", href: "/historique", icon: "Clock" },
-  { label: "Progression", href: "/progression", icon: "TrendingUp" },
-  { label: "Guide", href: "/guide", icon: "BookOpen" },
-  { label: "Aide", href: "/aide", icon: "LifeBuoy" },
-];
+import { navForRole, roleLabel } from "@/lib/nav";
 
 export default function EmployeeLayout({ children }: { children: React.ReactNode }) {
   const { employee, isLoading, logout } = useAuth();
 
   if (isLoading) return <Spinner fullScreen />;
 
+  // Un gérant/patron/dev qui visite une page du groupe employé (ex: prise de
+  // quiz) garde son menu complet d'administration.
+  const navItems = navForRole(employee?.role);
+
   return (
     <div className="flex min-h-screen">
       <Sidebar
-        items={employeeNav}
+        items={navItems}
         userName={employee?.first_name || ""}
+        role={roleLabel(employee?.role)}
         onLogout={logout}
       />
       <main className="flex-1 overflow-y-auto p-6 pt-16 lg:p-8 lg:pt-8">{children}</main>
