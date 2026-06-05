@@ -39,13 +39,37 @@ export default async function ChapterPage({
     watchLogs?.find((w: any) => w.video_id === v.id && w.completed)
   );
 
+  const showQuiz = !!quiz && !!allVideosCompleted;
+
   return (
     <div className="mx-auto max-w-3xl space-y-8">
       <h1 className="text-2xl font-bold">{chapter.title}</h1>
 
+      {/* Bouton vers le quiz — début de la formation */}
+      {chapter.content && showQuiz && (
+        <a
+          href="#quiz"
+          className="inline-flex items-center gap-2 rounded-xl border border-orange-200 bg-orange-50 px-4 py-2.5 text-sm font-semibold text-orange-700 transition hover:bg-orange-100"
+        >
+          Passer directement au quiz ↓
+        </a>
+      )}
+
       {chapter.content && (
         <div className="whitespace-pre-wrap rounded-xl bg-white p-6 leading-relaxed text-gray-800 shadow-sm">
           {chapter.content}
+        </div>
+      )}
+
+      {/* Bouton vers le quiz — fin de la formation */}
+      {chapter.content && showQuiz && (
+        <div className="flex justify-center">
+          <a
+            href="#quiz"
+            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-orange-500/25 transition hover:shadow-lg active:scale-[0.98]"
+          >
+            Faire le quiz maintenant ↓
+          </a>
         </div>
       )}
 
@@ -71,7 +95,7 @@ export default async function ChapterPage({
       </div>
 
       {quiz && allVideosCompleted && (
-        <div className="space-y-4">
+        <div id="quiz" className="scroll-mt-24 space-y-4">
           <h2 className="text-xl font-bold">Quiz : {quiz.title}</h2>
           <QuizFormWrapper quiz={quiz} employeeId={employee?.id} />
         </div>

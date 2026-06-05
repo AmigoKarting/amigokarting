@@ -21,7 +21,7 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
         role={roleLabel(employee?.role)}
         onLogout={logout}
       />
-      <main className="flex-1 overflow-y-auto p-6 pt-16 lg:p-8 lg:pt-8">{children}</main>
+      <main className="flex-1 scroll-smooth overflow-y-auto p-6 pt-16 lg:p-8 lg:pt-8">{children}</main>
     </div>
   );
 }
