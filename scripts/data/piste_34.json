@@ -1,0 +1,158 @@
+{
+  "category": "Piste",
+  "sort_order": 34,
+  "title": "Les drapeaux et les interventions sur la piste",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "À quoi servent principalement les drapeaux sur la piste ?",
+      "choices": ["À décorer l'aire de course", "À identifier les employés de service", "À protéger les employés et les clients", "À forcer les karts à ralentir dans chaque courbe"],
+      "correct": 2,
+      "explanation": "Les drapeaux sont avant tout un outil de sécurité qui sert à protéger les employés et les clients."
+    },
+    {
+      "q": "Pourquoi l'utilisation des drapeaux est-elle essentielle au travail sur la piste ?",
+      "choices": ["Elle projette une image professionnelle et te rend plus visible", "Elle aide à respecter les horaires de groupes", "Elle permet de vendre davantage de courses", "Elle sert surtout à impressionner les clients"],
+      "correct": 0,
+      "explanation": "Bien utilisés, les drapeaux projettent une image professionnelle et rendent l'employé plus visible auprès des pilotes."
+    },
+    {
+      "q": "Dans quel état les drapeaux doivent-ils être gardés en tout temps ?",
+      "choices": ["Rangés en permanence dans un kart", "À portée rapide et bien entretenus", "Cachés dans le garage entre les courses", "Déposés au sol dans les puits"],
+      "correct": 1,
+      "explanation": "Les drapeaux doivent rester à portée rapide et bien entretenus pour pouvoir intervenir efficacement et avec professionnalisme."
+    },
+    {
+      "q": "Pourquoi faut-il garder les drapeaux propres ?",
+      "choices": ["Pour éviter des amendes", "Pour les rendre plus beaux en photo", "Parce qu'ils reflètent l'image de l'entreprise", "Pour qu'ils durent un peu plus longtemps"],
+      "correct": 2,
+      "explanation": "Des drapeaux propres reflètent directement l'image professionnelle de l'entreprise."
+    },
+    {
+      "q": "Un drapeau devrait être visible en permanence afin que les clients s'y habituent.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Au contraire, un drapeau toujours visible finit par être moins respecté; on ne le montre que lorsqu'on l'utilise."
+    },
+    {
+      "q": "Pourquoi ne faut-il pas laisser un drapeau visible lorsqu'on ne l'utilise pas ?",
+      "choices": ["Parce qu'il prend de la place dans les puits", "Parce que les clients finissent par moins le respecter", "Parce qu'il se salit plus vite", "Parce qu'il bloque la vue des pilotes"],
+      "correct": 1,
+      "explanation": "Un drapeau exposé en tout temps perd de son impact, car les clients finissent par moins le respecter."
+    },
+    {
+      "q": "Dans quelle situation utilise-t-on le drapeau jaune ?",
+      "choices": ["Lorsqu'il y a un danger ou une intervention sur la piste", "Pour annoncer la fin d'une course", "Pour expulser un client de la piste", "Pour donner le départ à un groupe"],
+      "correct": 0,
+      "explanation": "Le drapeau jaune signale un danger ou une intervention en cours sur la piste."
+    },
+    {
+      "q": "Un pilote passe trop vite près d'un drapeau jaune. Que doit-on faire ?",
+      "choices": ["Lui offrir un nouveau kart", "Fermer immédiatement la piste", "Ne rien faire et le laisser continuer", "Lui donner un avertissement"],
+      "correct": 3,
+      "explanation": "Un pilote qui ne ralentit pas près du drapeau jaune doit recevoir un avertissement."
+    },
+    {
+      "q": "Que doit-on faire si le même pilote recommence après un avertissement lié au drapeau jaune ?",
+      "choices": ["Lui donner un deuxième avertissement", "Le suspendre une minute", "Procéder à son expulsion", "Lui faire changer de kart"],
+      "correct": 2,
+      "explanation": "Si le pilote recommence malgré l'avertissement, on procède à son expulsion."
+    },
+    {
+      "q": "Quel équipement supplémentaire est recommandé au fond de la piste avec le drapeau jaune ?",
+      "choices": ["Une radio additionnelle", "Une lampe de poche", "Une lumière clignotante", "Un casque de rechange"],
+      "correct": 2,
+      "explanation": "Une lumière clignotante augmente la visibilité de l'intervention au fond de la piste, là où le drapeau jaune est utilisé."
+    },
+    {
+      "q": "À quoi sert principalement le drapeau rouge ?",
+      "choices": ["À signaler une intervention disciplinaire", "À donner le départ d'une course", "À signaler un kart trop rapide", "À avertir qu'il pleut"],
+      "correct": 0,
+      "explanation": "Le drapeau rouge sert principalement à signaler une intervention disciplinaire auprès d'un pilote."
+    },
+    {
+      "q": "À quel endroit doit-on donner un avertissement avec le drapeau rouge ?",
+      "choices": ["Au milieu d'une courbe", "Derrière un mur", "N'importe où sur la piste", "Dans une zone sécuritaire"],
+      "correct": 3,
+      "explanation": "L'avertissement au drapeau rouge se donne toujours dans une zone sécuritaire."
+    },
+    {
+      "q": "Pourquoi faut-il éviter de donner un avertissement en sortie de courbe ?",
+      "choices": ["Les clients ont peu de temps pour réagir", "Le bruit y est trop fort", "La radio y fonctionne mal", "Les drapeaux y sont moins visibles"],
+      "correct": 0,
+      "explanation": "En sortie de courbe, les pilotes ont peu de temps pour voir le drapeau et réagir à temps."
+    },
+    {
+      "q": "Comment doit-on se positionner lorsqu'on utilise le drapeau rouge ?",
+      "choices": ["Tourner le dos aux clients", "Être visible et pointer le pilote concerné", "Garder le drapeau caché jusqu'au dernier moment", "S'approcher le plus possible du kart"],
+      "correct": 1,
+      "explanation": "On doit rester bien visible et pointer clairement le pilote concerné pour que l'avertissement soit compris."
+    },
+    {
+      "q": "Après combien de passages devant le drapeau rouge un client peut-il être expulsé s'il refuse d'obéir ?",
+      "choices": ["2", "3", "4", "5"],
+      "correct": 1,
+      "explanation": "Après trois passages sans obéir au drapeau rouge, le client peut être expulsé."
+    },
+    {
+      "q": "Un pilote ignore trois fois ton drapeau rouge. Que dois-tu faire ?",
+      "choices": ["Lui donner un dernier avertissement", "Réduire son temps de course", "Le faire changer de kart", "Procéder à son expulsion"],
+      "correct": 3,
+      "explanation": "Trois refus d'obéir au drapeau rouge mènent à l'expulsion du pilote."
+    },
+    {
+      "q": "Pourquoi la courbe Nascar est-elle considérée comme spéciale ?",
+      "choices": ["Elle est plus lente que les autres", "Les karts y tombent souvent en panne", "Les pilotes y arrivent à très haute vitesse avec peu de visibilité", "Elle est réservée aux pilotes experts"],
+      "correct": 2,
+      "explanation": "La courbe Nascar est délicate parce que les pilotes y arrivent à très haute vitesse avec peu de visibilité."
+    },
+    {
+      "q": "Un kart est immobilisé dans la courbe Nascar. Quelle est la procédure ?",
+      "choices": ["Sortir uniquement le drapeau jaune", "Ignorer la situation jusqu'à la fin", "Demander à un client d'aller aider", "Procéder à un arrêt complet de la course"],
+      "correct": 3,
+      "explanation": "Un kart immobilisé dans la courbe Nascar exige un arrêt complet de la course, vu la vitesse et le manque de visibilité."
+    },
+    {
+      "q": "Lors d'un déblocage de kart, quelle est la première priorité ?",
+      "choices": ["Le temps de course", "Le kart à dégager", "La sécurité", "Le classement des pilotes"],
+      "correct": 2,
+      "explanation": "Peu importe la situation, la sécurité passe toujours en premier lors d'un déblocage de kart."
+    },
+    {
+      "q": "Quelle règle doit toujours guider l'utilisation des drapeaux ?",
+      "choices": ["Être visible", "Être rapide", "Être bruyant", "Rester proche des karts"],
+      "correct": 0,
+      "explanation": "La visibilité est la règle de base : un drapeau ne sert que s'il est clairement vu des pilotes."
+    },
+    {
+      "q": "Quelle couleur de drapeau utilise-t-on pour signaler un danger ou une intervention sur la piste ?",
+      "choices": ["Le rouge", "Le jaune", "Le vert", "Le bleu"],
+      "correct": 1,
+      "explanation": "Le drapeau jaune est celui qui signale un danger ou une intervention en cours sur la piste."
+    },
+    {
+      "q": "Combien d'avertissements liés au drapeau jaune un pilote reçoit-il avant d'être expulsé ?",
+      "choices": ["Un seul avertissement", "Deux avertissements", "Trois avertissements", "Aucun avertissement"],
+      "correct": 0,
+      "explanation": "Un seul avertissement est donné au drapeau jaune; si le pilote recommence, il est expulsé."
+    },
+    {
+      "q": "Lorsqu'un kart est immobilisé dans la courbe Nascar, il est acceptable de demander à un client d'aller aider à le dégager.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Non : la procédure exige un arrêt complet de la course, et la sécurité demeure la première priorité; on ne fait jamais intervenir un client."
+    },
+    {
+      "q": "Quel équipement augmente la visibilité d'une intervention au fond de la piste avec le drapeau jaune ?",
+      "choices": ["Une lampe de poche", "Une lumière clignotante", "Un casque de rechange", "Une radio additionnelle"],
+      "correct": 1,
+      "explanation": "La lumière clignotante recommandée au fond de la piste rend l'intervention bien plus visible des pilotes."
+    },
+    {
+      "q": "Le drapeau rouge sert à donner le départ d'une course.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : le drapeau rouge sert à une intervention disciplinaire, et non à donner le départ."
+    }
+  ]
+}

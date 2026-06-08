@@ -1,0 +1,158 @@
+{
+  "category": "Piste",
+  "sort_order": 38,
+  "title": "Accidents, blessures et procédures d'urgence",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Comment définit-on un accident majeur sur la piste de karting ?",
+      "choices": ["Un kart immobilisé dans les pneus sans blessé", "Une sortie de piste mineure rapidement corrigée", "Un accident impliquant un blessé ou un impact important", "Une panne mécanique qui ralentit la course"],
+      "correct": 2,
+      "explanation": "Un accident majeur est un événement qui implique un blessé ou un impact important, contrairement à un simple incident mécanique ou une sortie mineure."
+    },
+    {
+      "q": "Quelle est la toute première étape à poser lors d'un accident majeur ?",
+      "choices": ["Arrêter immédiatement la course par radio", "Remplir le rapport d'accident", "Appeler les parents du client", "Déplacer les karts accidentés"],
+      "correct": 0,
+      "explanation": "La toute première étape est d'arrêter immédiatement la course par radio afin de sécuriser la piste avant toute intervention."
+    },
+    {
+      "q": "Une fois la course arrêtée, quelle devient la priorité immédiate ?",
+      "choices": ["Identifier le pilote responsable", "Repartir la course le plus vite possible", "S'occuper du blessé", "Déplacer les pneus de protection"],
+      "correct": 2,
+      "explanation": "Après l'arrêt de la course, la priorité immédiate est de s'occuper du blessé avant toute autre démarche."
+    },
+    {
+      "q": "Quelle question faut-il poser en premier au client impliqué dans l'accident ?",
+      "choices": ["Es-tu correct ?", "Qui est responsable de l'accident ?", "Quel kart conduisais-tu ?", "Veux-tu un remboursement ?"],
+      "correct": 0,
+      "explanation": "On demande d'abord au blessé s'il est correct afin d'évaluer rapidement son état et ses besoins."
+    },
+    {
+      "q": "Qui est responsable d'appeler l'ambulance lorsque la situation l'exige ?",
+      "choices": ["Le client lui-même", "Le préposé au fond de la piste", "Le gérant", "Le mécanicien"],
+      "correct": 2,
+      "explanation": "C'est le gérant qui appelle l'ambulance lorsque l'état du blessé le nécessite."
+    },
+    {
+      "q": "Il faut répondre aux demandes du blessé au meilleur de ses capacités.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "On doit répondre aux demandes du blessé au meilleur de ses capacités afin de le rassurer et de répondre à ses besoins."
+    },
+    {
+      "q": "Une fois la situation stabilisée, quelle démarche faut-il entreprendre ?",
+      "choices": ["Repartir la course immédiatement", "Fermer le site au public", "Changer les pneus de protection", "Chercher les causes et les circonstances de l'accident"],
+      "correct": 3,
+      "explanation": "Quand la situation est stabilisée, on recueille les causes et les circonstances de l'accident pour bien le documenter."
+    },
+    {
+      "q": "Quel document doit obligatoirement être rempli à la suite d'un accident majeur ?",
+      "choices": ["La feuille de temps", "Le rapport d'accident", "Le bon de travail", "Le contrat de location"],
+      "correct": 1,
+      "explanation": "Le rapport d'accident doit être rempli après un accident majeur pour conserver une trace officielle de l'événement."
+    },
+    {
+      "q": "Pourquoi est-il important de noter les détails observés après l'accident ?",
+      "choices": ["Pour améliorer les statistiques de la journée", "Pour calculer les temps de course", "Pour documenter correctement l'événement", "Pour planifier la maintenance"],
+      "correct": 2,
+      "explanation": "Noter les détails observés permet de documenter correctement l'événement dans le rapport d'accident."
+    },
+    {
+      "q": "Lorsqu'une course est arrêtée pour un accident majeur, que fait-on avec le temps perdu par les clients ?",
+      "choices": ["Rien, le temps est perdu", "On le remet aux clients", "On coupe le temps restant", "On offre un breuvage à la place"],
+      "correct": 1,
+      "explanation": "Le temps perdu en raison de l'arrêt de la course doit être remis aux clients."
+    },
+    {
+      "q": "Un client dit avoir mal au cou après un impact. Quelle doit être ta priorité ?",
+      "choices": ["Repartir la course rapidement", "Prendre la situation au sérieux et s'occuper du blessé avant toute autre chose", "Lui demander de terminer sa course", "Remplir le rapport avant de l'aider"],
+      "correct": 1,
+      "explanation": "Une douleur au cou doit toujours être prise au sérieux : on s'occupe du blessé avant toute autre chose."
+    },
+    {
+      "q": "Tu ne sais pas si la blessure est grave. Dois-tu minimiser la situation ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "On ne minimise jamais une blessure incertaine : la sécurité du blessé doit primer."
+    },
+    {
+      "q": "Un collègue veut repartir la course rapidement. Est-ce prioritaire sur la prise en charge du blessé ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Repartir la course n'est jamais prioritaire sur la sécurité et la prise en charge du blessé."
+    },
+    {
+      "q": "Un blessé te demande de l'eau. Quelle est la bonne attitude ?",
+      "choices": ["Refuser systématiquement", "L'ignorer pour traiter le rapport", "Répondre à sa demande dans la mesure du possible", "Lui demander d'attendre la fin de la journée"],
+      "correct": 2,
+      "explanation": "On répond aux demandes du blessé dans la mesure du possible afin de le rassurer et de répondre à ses besoins."
+    },
+    {
+      "q": "Qui est responsable de déterminer les causes de l'accident ?",
+      "choices": ["Le client blessé", "Le pilote fautif seulement", "L'équipe, après avoir sécurisé la situation", "Personne, ce n'est pas nécessaire"],
+      "correct": 2,
+      "explanation": "C'est l'équipe qui recueille les informations sur les causes, une fois la situation sécurisée et le blessé pris en charge."
+    },
+    {
+      "q": "Pourquoi faut-il poser des questions au blessé après l'accident ?",
+      "choices": ["Pour gagner du temps", "Pour comprendre les circonstances et ses besoins", "Pour le distraire de sa douleur", "Pour remplir le rapport plus vite"],
+      "correct": 1,
+      "explanation": "On questionne le blessé pour comprendre les circonstances de l'accident et cerner ses besoins."
+    },
+    {
+      "q": "Peut-on ignorer un impact important si le client semble correct ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "On ne peut jamais ignorer un impact important, même si le client semble correct, car certaines blessures n'apparaissent pas immédiatement."
+    },
+    {
+      "q": "Quelle est la priorité absolue lors d'un accident sur la piste ?",
+      "choices": ["Le temps de course", "La sécurité et l'état du blessé", "Le classement des pilotes", "La satisfaction des autres clients"],
+      "correct": 1,
+      "explanation": "La sécurité et l'état du blessé constituent toujours la priorité absolue lors d'un accident."
+    },
+    {
+      "q": "Que doit-on faire avant même de discuter des responsabilités de l'accident ?",
+      "choices": ["Contrôler la situation et aider le blessé", "Trouver le pilote coupable", "Repartir la course", "Appeler les parents"],
+      "correct": 0,
+      "explanation": "On contrôle d'abord la situation et on aide le blessé; la question des responsabilités vient seulement après."
+    },
+    {
+      "q": "Quel est l'objectif principal de toute intervention d'urgence ?",
+      "choices": ["Gagner du temps sur la course", "Éviter les plaintes des clients", "Protéger l'équipement du centre", "Assurer la sécurité et limiter les conséquences de l'accident"],
+      "correct": 3,
+      "explanation": "Toute intervention d'urgence vise à assurer la sécurité et à limiter les conséquences de l'accident."
+    },
+    {
+      "q": "Par quel moyen arrête-t-on la course lors d'un accident majeur ?",
+      "choices": ["Par radio", "En klaxonnant", "En agitant un drapeau seulement", "En coupant l'électricité du bâtiment"],
+      "correct": 0,
+      "explanation": "La course s'arrête immédiatement par radio, ce qui permet d'avertir rapidement toute l'équipe."
+    },
+    {
+      "q": "Dans quel ordre faut-il agir à la suite d'un accident majeur ?",
+      "choices": ["Repartir la course, puis aider le blessé", "Aider le blessé, puis chercher les causes et remplir le rapport", "Remplir le rapport, puis s'occuper du blessé", "Chercher le coupable, puis arrêter la course"],
+      "correct": 1,
+      "explanation": "On stabilise et aide d'abord le blessé, puis on cherche les causes et on remplit le rapport d'accident."
+    },
+    {
+      "q": "Sur quels éléments porte principalement le rapport d'accident à remplir ?",
+      "choices": ["Le classement et les temps des pilotes", "Les ventes réalisées durant la journée", "Les causes, les circonstances et les détails observés", "L'horaire des employés présents"],
+      "correct": 2,
+      "explanation": "Le rapport d'accident documente les causes, les circonstances et les détails observés lors de l'événement."
+    },
+    {
+      "q": "Faut-il prendre au sérieux une douleur au cou signalée après un impact ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "Une douleur au cou signalée après un impact doit toujours être prise au sérieux et le blessé pris en charge en priorité."
+    },
+    {
+      "q": "Une fois le blessé pris en charge et la situation sécurisée, quelle est l'étape suivante ?",
+      "choices": ["Recueillir les causes et circonstances de l'accident", "Repartir la course sans délai", "Effacer les traces de l'incident", "Ignorer l'événement s'il n'y a pas de plainte"],
+      "correct": 0,
+      "explanation": "Après avoir sécurisé la situation et pris en charge le blessé, l'équipe recueille les causes et circonstances pour documenter l'accident."
+    }
+  ]
+}

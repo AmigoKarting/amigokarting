@@ -1,0 +1,164 @@
+{
+  "category": "Piste",
+  "sort_order": 37,
+  "title": "Karts, mécanique de base, essence et inspections",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Quand un client affirme que son kart fonctionne mal, quelle est la première chose à faire ?",
+      "choices": ["Lui offrir un remboursement immédiat", "Aller tester le kart soi-même pour confirmer le problème", "Lui demander de continuer à rouler quand même", "Lui remettre un autre kart sans poser de questions"],
+      "correct": 1,
+      "explanation": "On doit d'abord aller tester soi-même le kart pour confirmer son état réel avant de prendre toute décision."
+    },
+    {
+      "q": "Pourquoi doit-on tester un kart qui a été signalé comme défectueux ?",
+      "choices": ["Uniquement pour vérifier sa vitesse de pointe", "Seulement pour rassurer le client mécontent", "Pour confirmer son état réel, rassurer le client et vérifier son comportement", "Pour user volontairement les pneus avant l'entretien"],
+      "correct": 2,
+      "explanation": "Le test permet à la fois de confirmer l'état réel du kart, de rassurer le client et de valider son comportement en piste."
+    },
+    {
+      "q": "Un kart signalé comme défectueux peut être redonné immédiatement à un autre client sans vérification.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : un kart signalé défectueux doit toujours être testé et inspecté avant d'être remis en service."
+    },
+    {
+      "q": "Quel est le but principal d'un test de kart ?",
+      "choices": ["Avoir du plaisir en piste", "Réaliser un meilleur temps au tour", "Vérifier que le kart est sécuritaire", "User les pneus avant la course suivante"],
+      "correct": 2,
+      "explanation": "Le test sert avant tout à s'assurer que le kart est sécuritaire pour les clients."
+    },
+    {
+      "q": "Lors d'un test de kart, comment doit-on le conduire ?",
+      "choices": ["Comme si le kart était dans sa pire condition possible", "Comme un pilote professionnel en compétition", "Le plus vite possible pour gagner du temps", "Comme si le kart était en parfait état"],
+      "correct": 0,
+      "explanation": "On conduit comme si le kart était dans sa pire condition possible afin de débusquer tout défaut caché."
+    },
+    {
+      "q": "Un frein qui demande beaucoup plus d'effort que la normale indique quoi ?",
+      "choices": ["Un avantage pour mieux contrôler le kart", "Un signe de problème à inspecter", "Un comportement tout à fait normal", "Un simple ajustement mineur sans importance"],
+      "correct": 1,
+      "explanation": "Un effort de freinage anormalement élevé est un signe de problème qui exige une inspection."
+    },
+    {
+      "q": "Que doit-on faire lorsqu'un kart présente des freins bruyants ?",
+      "choices": ["Augmenter sa vitesse pour les réchauffer", "Le nettoyer rapidement et le remettre en piste", "Ne rien faire tant qu'il roule encore", "Procéder à une inspection mécanique"],
+      "correct": 3,
+      "explanation": "Des freins bruyants doivent mener à une inspection mécanique pour en trouver la cause."
+    },
+    {
+      "q": "Une colonne de direction lousse (avec du jeu) sur un kart est considérée comme :",
+      "choices": ["Dangereuse", "Acceptable", "Normale", "Temporaire et sans risque"],
+      "correct": 0,
+      "explanation": "Une colonne de direction lousse est dangereuse et le kart doit être retiré du service."
+    },
+    {
+      "q": "Que faut-il faire si une composante du kart est brisée ?",
+      "choices": ["Continuer à utiliser le kart prudemment", "Le donner à un client expérimenté", "Envoyer le kart au garage", "Réduire seulement son temps de piste"],
+      "correct": 2,
+      "explanation": "Un kart dont une composante est brisée doit être envoyé au garage pour réparation."
+    },
+    {
+      "q": "Que signifie un « gaz qui colle » sur un kart ?",
+      "choices": ["Le moteur refuse de démarrer", "Le kart avance sans pression sur l'accélérateur", "Le volant reste bloqué", "Le frein demeure coincé"],
+      "correct": 1,
+      "explanation": "Un gaz qui colle signifie que le kart continue d'avancer même sans appuyer sur l'accélérateur."
+    },
+    {
+      "q": "Que faut-il faire si le gaz d'un kart colle ?",
+      "choices": ["Continuer à l'utiliser en surveillant", "Simplement diminuer la vitesse", "Ajouter de l'essence pour régler le problème", "Retirer immédiatement le kart du service"],
+      "correct": 3,
+      "explanation": "Un gaz qui colle est dangereux : il faut retirer immédiatement le kart du service."
+    },
+    {
+      "q": "Une switch ON/OFF qui ne fonctionne pas sur un kart représente :",
+      "choices": ["Un défaut critique", "Un problème sans importance", "Une situation tout à fait normale", "Un simple souci électrique mineur"],
+      "correct": 0,
+      "explanation": "La switch ON/OFF permet d'arrêter le kart en urgence : un défaut à ce niveau est critique."
+    },
+    {
+      "q": "Un kart beaucoup trop rapide ou beaucoup trop lent par rapport aux autres doit :",
+      "choices": ["Continuer à rouler normalement", "Être réservé aux clients experts", "Être inspecté", "Être utilisé seulement en soirée"],
+      "correct": 2,
+      "explanation": "Un kart dont la vitesse est anormale doit être inspecté, car cela révèle souvent un problème mécanique."
+    },
+    {
+      "q": "Pourquoi faut-il laisser passer le trafic avant de tester un kart en piste ?",
+      "choices": ["Seulement pour mieux évaluer le kart", "Uniquement pour éviter de gêner les clients", "Strictement pour améliorer la sécurité", "Pour mieux évaluer le kart, ne pas gêner les clients et améliorer la sécurité"],
+      "correct": 3,
+      "explanation": "Laisser passer le trafic permet à la fois de mieux évaluer le kart, de ne pas nuire aux clients et d'assurer la sécurité."
+    },
+    {
+      "q": "En quoi consiste le phénomène appelé « brake/gaz » ?",
+      "choices": ["Le pilote freine uniquement", "Le pilote accélère uniquement", "Le pilote appuie en même temps sur l'accélérateur et le frein", "Le moteur cale en pleine course"],
+      "correct": 2,
+      "explanation": "Le brake/gaz survient quand le pilote appuie simultanément sur l'accélérateur et le frein."
+    },
+    {
+      "q": "Pourquoi le brake/gaz est-il problématique pour un kart ?",
+      "choices": ["Il use les freins, peut endommager la transmission et entraîner des défaillances", "Il améliore l'adhérence dans les courbes", "Il rend seulement le kart plus silencieux", "Il n'a aucun effet réel sur le kart"],
+      "correct": 0,
+      "explanation": "Le brake/gaz use les freins, sollicite la transmission et peut provoquer des défaillances mécaniques."
+    },
+    {
+      "q": "Comment repère-t-on souvent un conducteur qui fait du brake/gaz ?",
+      "choices": ["Le kart se met à fumer abondamment", "Le moteur devient plus bruyant dans les courbes", "Les pneus crient à chaque virage", "Le volant vibre fortement"],
+      "correct": 1,
+      "explanation": "On reconnaît souvent le brake/gaz au moteur qui devient plus bruyant dans les courbes."
+    },
+    {
+      "q": "Si un kart est arrêté et que le client continue d'appuyer sur l'accélérateur, que doit faire l'employé ?",
+      "choices": ["Attendre que le client s'arrête de lui-même", "Couper l'alimentation de toute la piste", "Aller pousser la pédale d'accélérateur vers le client", "Remplacer le moteur du kart"],
+      "correct": 2,
+      "explanation": "L'employé doit aller pousser la pédale d'accélérateur vers le client pour relâcher le gaz."
+    },
+    {
+      "q": "Combien de Super-Karts peut-on mettre en piste si 15 sont disponibles dans les puits ?",
+      "choices": ["15", "14", "13", "12"],
+      "correct": 2,
+      "explanation": "On garde toujours au moins deux Super-Karts en réserve, donc 13 au maximum peuvent rouler sur 15 disponibles."
+    },
+    {
+      "q": "Pourquoi doit-on conserver au moins deux Super-Karts en réserve ?",
+      "choices": ["Pour les prendre en photo", "Pour remplacer rapidement un kart défectueux", "Pour les réserver aux employés", "Pour économiser du carburant"],
+      "correct": 1,
+      "explanation": "La réserve de deux Super-Karts permet de remplacer rapidement tout kart qui devient défectueux."
+    },
+    {
+      "q": "Avant de redonner un kart au service après un signalement, l'employé doit l'avoir testé en piste.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : le test en piste est l'étape qui permet de confirmer que le kart est de nouveau sécuritaire."
+    },
+    {
+      "q": "Quel comportement de conduite est attendu de l'employé pendant un test de kart ?",
+      "choices": ["Rouler le plus vite possible pour gagner du temps", "Imiter un pilote de course professionnel", "Solliciter le kart comme s'il était dans sa pire condition", "Conduire en supposant que tout fonctionne parfaitement"],
+      "correct": 2,
+      "explanation": "L'employé doit solliciter le kart comme s'il était dans sa pire condition afin de révéler tout défaut."
+    },
+    {
+      "q": "Parmi ces éléments, lequel constitue un défaut critique qui justifie de retirer le kart du service ?",
+      "choices": ["Un gaz qui colle", "Une légère trace de poussière sur le siège", "Un autocollant décollé", "Une ceinture un peu froissée"],
+      "correct": 0,
+      "explanation": "Un gaz qui colle est un défaut critique, car le kart avance sans contrôle de l'accélérateur."
+    },
+    {
+      "q": "Quelle destination doit avoir un kart dont une composante est brisée ou jugée dangereuse ?",
+      "choices": ["La file des clients suivants", "Le garage pour réparation", "Une zone de stationnement en piste", "La réserve de Super-Karts disponibles"],
+      "correct": 1,
+      "explanation": "Tout kart brisé ou dangereux doit être dirigé vers le garage et non remis en service."
+    },
+    {
+      "q": "Quel risque le brake/gaz fait-il principalement peser sur le kart ?",
+      "choices": ["Une amélioration de la tenue de route", "Une usure prématurée et des défaillances mécaniques", "Une économie d'essence notable", "Un meilleur temps au tour"],
+      "correct": 1,
+      "explanation": "Le brake/gaz provoque une usure prématurée des freins et de la transmission, menant à des défaillances."
+    },
+    {
+      "q": "Quelle est la bonne réaction d'un employé devant un kart au comportement anormal (trop rapide, trop lent ou bruyant) ?",
+      "choices": ["Le laisser rouler jusqu'à la fin de la journée", "Le réserver aux clients les plus expérimentés", "Le faire inspecter avant de le remettre en service", "Augmenter sa vitesse pour vérifier sa limite"],
+      "correct": 2,
+      "explanation": "Un comportement anormal doit toujours mener à une inspection avant toute remise en service."
+    }
+  ]
+}

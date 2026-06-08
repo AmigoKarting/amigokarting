@@ -1,0 +1,158 @@
+{
+  "category": "Superviseur du service à la clientèle",
+  "sort_order": 54,
+  "title": "Gestion des employés, pauses et performance",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Dans l'équipe, qui a la responsabilité de gérer et de coordonner les pauses des employés ?",
+      "choices": ["Le superviseur", "Chaque employé individuellement", "La caissière en poste", "Le mécanicien de service"],
+      "correct": 0,
+      "explanation": "C'est le superviseur qui coordonne les pauses afin d'assurer que le service reste couvert en tout temps."
+    },
+    {
+      "q": "Pourquoi faut-il éviter que tous les employés partent manger en même temps ?",
+      "choices": ["Pour réduire la facture d'électricité", "Pour permettre à l'équipe de finir son quart plus tôt", "Pour maintenir le service aux clients en tout temps", "Pour diminuer la masse salariale du jour"],
+      "correct": 2,
+      "explanation": "Échelonner les pauses garantit qu'il reste toujours du personnel pour servir la clientèle."
+    },
+    {
+      "q": "Selon le manuel, quel effet la paresse de certains employés peut-elle avoir sur le reste de l'équipe ?",
+      "choices": ["Elle améliore l'ambiance générale", "Elle augmente la productivité des autres", "Elle n'a aucun effet sur le groupe", "Elle peut être contagieuse"],
+      "correct": 3,
+      "explanation": "Le manuel précise que la paresse est contagieuse et peut se propager si elle n'est pas corrigée."
+    },
+    {
+      "q": "Lorsqu'un employé a terminé la tâche qui lui était assignée, que doit-il faire ?",
+      "choices": ["Attendre les prochaines consignes sans bouger", "Partir automatiquement en pause", "Aider ses collègues sur d'autres tâches", "Quitter son poste de travail"],
+      "correct": 2,
+      "explanation": "Un employé disponible doit prêter main-forte à l'équipe plutôt que de rester inactif."
+    },
+    {
+      "q": "Parmi les responsabilités suivantes, lesquelles font partie du rôle du superviseur ?",
+      "choices": ["Uniquement attribuer les tâches", "Uniquement aider l'équipe au besoin", "Uniquement surveiller le déroulement", "Attribuer les tâches, aider l'équipe et superviser"],
+      "correct": 3,
+      "explanation": "Le superviseur cumule l'attribution des tâches, le soutien et la supervision de l'équipe."
+    },
+    {
+      "q": "Un employé peu performant doit être encadré par le superviseur.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le superviseur a la responsabilité d'encadrer et d'accompagner les employés moins performants."
+    },
+    {
+      "q": "Le superviseur doit tolérer un employé qui demeure constamment négatif envers l'équipe.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Un comportement négatif persistant ne doit pas être toléré, car il nuit à toute l'équipe."
+    },
+    {
+      "q": "Une bonne gestion des pauses a une influence directe sur la qualité du service offert.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Bien répartir les pauses évite les manques de personnel et protège la qualité du service."
+    },
+    {
+      "q": "Les employés peuvent choisir librement le moment de leurs pauses sans aucune supervision.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Les pauses doivent être supervisées et coordonnées par le superviseur, pas laissées au choix libre de chacun."
+    },
+    {
+      "q": "La motivation d'un employé peut influencer celle de ses collègues.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "La motivation, tout comme la démotivation, se transmet entre les membres de l'équipe."
+    },
+    {
+      "q": "Trois employés te demandent de partir manger ensemble en même temps. Que fais-tu ?",
+      "choices": ["Tu les laisses tous partir ensemble", "Tu répartis les pauses pour maintenir le service", "Tu annules complètement leurs pauses", "Tu fermes le service le temps du dîner"],
+      "correct": 1,
+      "explanation": "Il faut échelonner leurs pauses afin que le service demeure couvert en tout temps."
+    },
+    {
+      "q": "Un employé a fini sa tâche et reste assis sans rien faire. Que fais-tu ?",
+      "choices": ["Tu le laisses se reposer sur place", "Tu le renvoies à la maison", "Tu le rediriges vers une autre tâche utile", "Tu l'ignores et continues ton travail"],
+      "correct": 2,
+      "explanation": "Un employé inactif doit être redirigé vers une tâche utile pour l'équipe."
+    },
+    {
+      "q": "Un employé démotive constamment ses collègues par son attitude. Que fais-tu ?",
+      "choices": ["Tu interviens rapidement et recadres la situation", "Tu l'ignores en espérant que ça passe", "Tu le récompenses pour éviter le conflit", "Tu changes simplement d'équipe"],
+      "correct": 0,
+      "explanation": "Le superviseur doit intervenir rapidement pour recadrer un employé qui démotive les autres."
+    },
+    {
+      "q": "Pourquoi est-il important de gérer activement les pauses plutôt que de les laisser au hasard ?",
+      "choices": ["Pour compliquer volontairement l'horaire", "Pour maintenir l'efficacité opérationnelle", "Pour réduire les salaires des employés", "Parce que ce n'est pas vraiment nécessaire"],
+      "correct": 1,
+      "explanation": "Une gestion active des pauses préserve l'efficacité opérationnelle et la couverture du service."
+    },
+    {
+      "q": "Quel est le principal danger d'un manque d'encadrement de l'équipe ?",
+      "choices": ["Une hausse de la motivation", "Une meilleure ambiance de travail", "Une baisse de la performance générale", "Aucune conséquence notable"],
+      "correct": 2,
+      "explanation": "Sans encadrement, la performance de l'ensemble de l'équipe a tendance à diminuer."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il rester visible et présent sur le terrain ?",
+      "choices": ["Pour impressionner les clients", "Pour surveiller l'équipe de loin", "Pour passer le temps durant son quart", "Pour soutenir l'équipe et corriger vite les problèmes"],
+      "correct": 3,
+      "explanation": "La présence sur le terrain permet de soutenir l'équipe et de régler les problèmes dès qu'ils surviennent."
+    },
+    {
+      "q": "Quelle qualité d'un bon superviseur est mentionnée dans le manuel ?",
+      "choices": ["L'initiative", "La paresse", "L'indifférence", "La lenteur"],
+      "correct": 0,
+      "explanation": "Le manuel cite l'initiative comme une qualité essentielle du superviseur."
+    },
+    {
+      "q": "Quelle autre qualité d'un bon superviseur est mentionnée dans le manuel ?",
+      "choices": ["La négativité", "L'autorité brutale", "Le positivisme", "La distance avec l'équipe"],
+      "correct": 2,
+      "explanation": "Le manuel valorise le positivisme du superviseur comme moteur de l'équipe."
+    },
+    {
+      "q": "Quel est le rôle du superviseur envers les employés moins constants dans leur travail ?",
+      "choices": ["Les ignorer complètement", "Les renvoyer immédiatement", "Les laisser faire à leur guise", "Les remettre sur la bonne voie"],
+      "correct": 3,
+      "explanation": "Le superviseur doit accompagner les employés moins constants pour les remettre sur la bonne voie."
+    },
+    {
+      "q": "Quel est l'objectif final visé par une bonne gestion de l'équipe ?",
+      "choices": ["Réduire les coûts d'exploitation", "Permettre à l'équipe de finir plus tôt", "Offrir une expérience client exceptionnelle", "Multiplier le nombre de pauses"],
+      "correct": 2,
+      "explanation": "Toute la gestion de l'équipe vise ultimement à offrir une expérience client exceptionnelle."
+    },
+    {
+      "q": "Un nouvel employé voit un collègue traîner et ralentir au lieu de travailler. Selon le principe du manuel, quel est le risque pour lui ?",
+      "choices": ["Il risque d'adopter à son tour ce comportement", "Il deviendra automatiquement plus rapide", "Cela n'aura aucune influence sur lui", "Il sera félicité par le superviseur"],
+      "correct": 0,
+      "explanation": "Comme la paresse est contagieuse, un nouvel employé peut imiter un collègue qui ralentit."
+    },
+    {
+      "q": "Pendant une période très occupée, à quel moment est-il préférable de planifier les pauses du personnel ?",
+      "choices": ["Toutes en même temps pour simplifier", "De façon échelonnée pour garder le service couvert", "Seulement à la fermeture du service", "Au choix de chaque employé sans coordination"],
+      "correct": 1,
+      "explanation": "Échelonner les pauses, surtout en période achalandée, permet de toujours garder le service couvert."
+    },
+    {
+      "q": "Un superviseur reste dans son bureau au lieu d'être sur le plancher avec son équipe. Pourquoi est-ce un problème ?",
+      "choices": ["Il économise du temps précieux", "Cela motive davantage les employés", "Il ne peut pas soutenir l'équipe ni corriger vite les problèmes", "Cela améliore l'expérience client"],
+      "correct": 2,
+      "explanation": "En restant à l'écart, le superviseur perd sa capacité à soutenir l'équipe et à régler rapidement les problèmes."
+    },
+    {
+      "q": "Le manuel demande au superviseur de faire preuve de positivisme dans son rôle.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le positivisme fait partie des qualités attendues d'un bon superviseur selon le manuel."
+    },
+    {
+      "q": "Devrais-tu laisser un employé inactif rester assis sans tâche lorsque le service est occupé ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Un employé disponible doit être redirigé vers une tâche utile plutôt que de rester inactif."
+    }
+  ]
+}

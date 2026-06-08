@@ -1,0 +1,248 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 12,
+  "title": "Temps d'attente et achalandage",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Lorsque tu annonces un temps d'attente, il est préférable de :",
+      "choices": ["Donner un temps plus court que prévu", "Donner exactement le temps estimé", "Donner un temps légèrement plus long", "Refuser de répondre au client"],
+      "correct": 2,
+      "explanation": "Annoncer un délai légèrement plus long évite les déceptions si l'attente s'allonge."
+    },
+    {
+      "q": "Pourquoi est-il préférable d'annoncer un temps plus long que trop court ?",
+      "choices": ["Pour faire peur aux clients", "Pour éviter les plaintes", "Pour réduire le nombre de clients", "Pour faciliter la comptabilité"],
+      "correct": 1,
+      "explanation": "Un client servi plus vite que prévu est satisfait, alors qu'un retard surprise génère des plaintes."
+    },
+    {
+      "q": "Si tu ne connais pas le temps d'attente exact, tu dois :",
+      "choices": ["Deviner un chiffre au hasard", "Dire qu'il n'y a aucune attente", "Consulter le gérant avec le walkie-talkie", "Refuser de répondre"],
+      "correct": 2,
+      "explanation": "Le gérant peut aider à confirmer une estimation réaliste plutôt que de deviner."
+    },
+    {
+      "q": "Quel élément doit toujours être pris en compte dans le calcul du temps d'attente ?",
+      "choices": ["La météo extérieure", "Les réservations à venir", "Le nombre d'employés présents", "Le prix des billets"],
+      "correct": 1,
+      "explanation": "Les réservations peuvent modifier complètement la capacité disponible et donc le délai."
+    },
+    {
+      "q": "Si un client est servi plus rapidement que le temps annoncé, il sera généralement :",
+      "choices": ["Satisfait", "Mécontent", "Méfiant", "Indifférent"],
+      "correct": 0,
+      "explanation": "Une attente plus courte que prévu dépasse les attentes du client et le rend satisfait."
+    },
+    {
+      "q": "Quelle méthode rapide est proposée dans le manuel pour estimer l'attente ?",
+      "choices": ["Nombre de karts × 10", "Nombre de réservations × 30", "Nombre de personnes + 20 minutes", "Nombre de personnes × 3 minutes"],
+      "correct": 2,
+      "explanation": "La méthode rapide consiste à additionner le nombre de personnes en attente et 20 minutes."
+    },
+    {
+      "q": "Qui a priorité lorsqu'une réservation approche ?",
+      "choices": ["Les clients déjà en attente", "Les employés de la piste", "Les réservations", "Les clients qui paient comptant"],
+      "correct": 2,
+      "explanation": "Les réservations sont prioritaires et doivent être intégrées aux calculs de capacité."
+    },
+    {
+      "q": "Lorsqu'on approche de la fermeture, il faut :",
+      "choices": ["Continuer à vendre sans aucun calcul", "Estimer le nombre de places restantes", "Arrêter immédiatement toutes les ventes", "Accepter tout le monde sans limite"],
+      "correct": 1,
+      "explanation": "Avant la fermeture, il faut estimer combien de places restent pour ne pas survendre."
+    },
+    {
+      "q": "Le nombre de places restantes dépend principalement :",
+      "choices": ["Du nombre de karts disponibles", "Du nombre de caissiers en poste", "De la météo extérieure", "Du prix des billets"],
+      "correct": 0,
+      "explanation": "Le nombre de karts disponibles détermine directement la capacité de service."
+    },
+    {
+      "q": "Pourquoi faut-il bien gérer les attentes des clients ?",
+      "choices": ["Pour vendre moins de billets", "Pour réduire le travail", "Pour éviter les conflits et les plaintes", "Pour accélérer les courses"],
+      "correct": 2,
+      "explanation": "Une bonne gestion des attentes prévient les frustrations, les conflits et les plaintes."
+    },
+    {
+      "q": "Vaut-il mieux annoncer 30 minutes quand on pense que l'attente sera de 50 minutes ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Sous-estimer l'attente est une erreur fréquente qui mène à des clients déçus."
+    },
+    {
+      "q": "Les réservations peuvent-elles modifier complètement le temps d'attente ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "Un groupe réservé occupe des karts et allonge l'attente des clients déjà sur place."
+    },
+    {
+      "q": "Un client préfère-t-il généralement attendre moins longtemps que prévu ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "Être servi avant le délai annoncé est toujours perçu positivement par le client."
+    },
+    {
+      "q": "Le temps d'attente doit-il être réévalué régulièrement ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "L'achalandage change constamment, alors l'estimation doit être mise à jour souvent."
+    },
+    {
+      "q": "Une mauvaise estimation du temps d'attente peut-elle créer de la frustration ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "Un délai annoncé non respecté est l'une des principales causes d'insatisfaction."
+    },
+    {
+      "q": "Tous les clients doivent-ils être informés honnêtement des délais ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "L'honnêteté et la transparence sur les délais sont des règles d'or du manuel."
+    },
+    {
+      "q": "Le nombre de personnes en ligne est-il un facteur important dans l'estimation ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "Le nombre de personnes en attente est la base de la méthode rapide d'estimation."
+    },
+    {
+      "q": "Les réservations n'ont-elles aucun impact sur les clients réguliers ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Les réservations occupent des karts et allongent donc l'attente des clients réguliers."
+    },
+    {
+      "q": "Le gérant peut-il aider à confirmer une estimation de temps d'attente ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "En cas de doute, on consulte le gérant pour fournir une estimation réaliste."
+    },
+    {
+      "q": "Une bonne gestion des attentes améliore-t-elle l'expérience client ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "Des clients bien informés tolèrent mieux l'attente et vivent une expérience positive."
+    },
+    {
+      "q": "Tu comptes environ 15 personnes en attente. Selon la méthode du manuel, quel temps d'attente annonces-tu ?",
+      "choices": ["Environ 15 minutes", "Environ 25 minutes", "Environ 35 minutes", "Environ 45 minutes"],
+      "correct": 2,
+      "explanation": "Selon la méthode rapide, 15 personnes + 20 minutes donne environ 35 minutes."
+    },
+    {
+      "q": "Il reste 3 vagues avant une réservation et 16 karts disponibles. Combien de places restent disponibles ?",
+      "choices": ["32", "48", "24", "64"],
+      "correct": 1,
+      "explanation": "16 karts × 3 vagues donne 48 places disponibles."
+    },
+    {
+      "q": "Il reste 2 vagues avant la fermeture et 16 karts disponibles. Combien de places peux-tu encore vendre ?",
+      "choices": ["48 places", "16 places", "32 places", "24 places"],
+      "correct": 2,
+      "explanation": "16 karts × 2 vagues donne 32 places encore vendables."
+    },
+    {
+      "q": "Tu peux faire passer 48 personnes avant une réservation et 40 personnes attendent déjà. Combien de places restent disponibles ?",
+      "choices": ["8 places", "12 places", "16 places", "4 places"],
+      "correct": 0,
+      "explanation": "48 places moins 40 personnes en attente laisse 8 places disponibles."
+    },
+    {
+      "q": "Tu peux faire passer 32 personnes avant la fermeture et 35 personnes attendent déjà. Peux-tu continuer à vendre librement ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "La capacité est déjà dépassée car 35 personnes excèdent les 32 places possibles."
+    },
+    {
+      "q": "Pourquoi faut-il faire les calculs de places disponibles ?",
+      "choices": ["Pour augmenter les profits", "Pour éviter de vendre plus de places qu'il est possible d'offrir", "Pour accélérer la fermeture", "Pour réduire le travail des employés"],
+      "correct": 1,
+      "explanation": "Les calculs évitent de survendre des places impossibles à honorer."
+    },
+    {
+      "q": "Que risque-t-il d'arriver si on vend trop de billets ?",
+      "choices": ["Plus de profits seulement", "Des attentes excessives et des clients mécontents", "Aucune conséquence", "Une fermeture plus rapide"],
+      "correct": 1,
+      "explanation": "La survente crée des attentes trop longues et des clients insatisfaits."
+    },
+    {
+      "q": "Une réservation de 20 personnes arrive dans une heure. Que dois-tu faire ?",
+      "choices": ["L'ignorer jusqu'à son arrivée", "L'inclure immédiatement dans tes calculs de capacité", "Refuser la réservation", "Attendre que le gérant le rappelle"],
+      "correct": 1,
+      "explanation": "Une réservation à venir doit être intégrée tout de suite au calcul de capacité."
+    },
+    {
+      "q": "Le calcul des places disponibles doit être fait particulièrement :",
+      "choices": ["Lorsqu'une réservation approche", "Avant la fermeture", "Dans les deux cas", "Jamais"],
+      "correct": 2,
+      "explanation": "On calcule les places autant à l'approche d'une réservation qu'avant la fermeture."
+    },
+    {
+      "q": "Pourquoi est-il important de connaître le nombre de karts disponibles ?",
+      "choices": ["Parce qu'il détermine directement la capacité de service", "Parce qu'il fixe le prix des billets", "Parce qu'il dépend de la météo", "Parce qu'il remplace les réservations"],
+      "correct": 0,
+      "explanation": "Le nombre de karts est le facteur clé qui définit combien de clients on peut servir."
+    },
+    {
+      "q": "Un client demande combien de temps il va attendre et tu n'es pas certaine. Que fais-tu ?",
+      "choices": ["Tu inventes un chiffre", "Tu dis qu'il n'y a pas d'attente", "Tu consultes le gérant et fournis une estimation réaliste", "Tu ignores la question"],
+      "correct": 2,
+      "explanation": "En cas d'incertitude, on consulte le gérant pour donner une estimation réaliste."
+    },
+    {
+      "q": "Tu annonces 45 minutes d'attente et le client passe après 35 minutes. Quelle sera probablement sa réaction ?",
+      "choices": ["Positive, l'attente a été plus courte que prévu", "Négative, il se sent trompé", "Indifférente", "Il demande un remboursement"],
+      "correct": 0,
+      "explanation": "Être servi plus vite que le délai annoncé crée une réaction positive."
+    },
+    {
+      "q": "Tu annonces 20 minutes d'attente mais le client attend finalement 45 minutes. Quelle sera probablement sa réaction ?",
+      "choices": ["Positive", "Négative, les attentes n'ont pas été respectées", "Indifférente", "Reconnaissante"],
+      "correct": 1,
+      "explanation": "Une attente beaucoup plus longue que promise provoque de la frustration."
+    },
+    {
+      "q": "Une réservation de 15 personnes arrive dans 20 minutes et tu continues à vendre sans ajuster tes calculs. Quelle erreur as-tu commise ?",
+      "choices": ["Tu as annoncé un délai trop long", "Tu n'as pas tenu compte de la priorité de la réservation", "Tu as consulté le gérant inutilement", "Tu as fermé la caisse trop tôt"],
+      "correct": 1,
+      "explanation": "Oublier les réservations dans les calculs est l'une des erreurs fréquentes du manuel."
+    },
+    {
+      "q": "Pourquoi la gestion de l'achalandage est-elle importante chez Amigo Karting ?",
+      "choices": ["Pour vendre le moins de billets possible", "Pour servir le plus de clients possible tout en respectant les réservations et l'expérience client", "Pour réduire le nombre d'employés", "Pour fermer la piste plus tôt"],
+      "correct": 1,
+      "explanation": "Une bonne gestion maximise le service tout en respectant réservations et qualité d'expérience."
+    },
+    {
+      "q": "Selon le manuel, quel est un bon exemple de réponse à un client sur le délai ?",
+      "choices": ["« Vous passerez dans 10 minutes » même si c'est faux", "« L'attente actuelle est d'environ 45 à 60 minutes »", "« Je ne sais pas, attendez »", "« Il n'y a jamais d'attente ici »"],
+      "correct": 1,
+      "explanation": "Donner une fourchette réaliste permet au client de prendre une décision éclairée."
+    },
+    {
+      "q": "Si les délais d'attente augmentent soudainement, que dit le manuel de faire ?",
+      "choices": ["Attendre que les clients posent des questions", "Informer les clients de manière proactive", "Fermer la caisse", "Baisser le temps annoncé"],
+      "correct": 1,
+      "explanation": "La communication proactive consiste à informer les clients sans attendre qu'ils demandent."
+    },
+    {
+      "q": "Quel facteur n'influence PAS l'achalandage selon le manuel ?",
+      "choices": ["La météo", "La fin de semaine", "Le mode de paiement du client", "Les événements spéciaux"],
+      "correct": 2,
+      "explanation": "Le manuel cite la météo, la fin de semaine, les vacances, les réservations et les événements, mais pas le mode de paiement."
+    },
+    {
+      "q": "Comment faut-il gérer une plainte liée à l'attente selon le manuel ?",
+      "choices": ["Se mettre sur la défensive", "Écouter, comprendre, expliquer et informer", "Ignorer le client", "Promettre un accès immédiat"],
+      "correct": 1,
+      "explanation": "Le manuel recommande d'écouter, comprendre, expliquer et informer sans se défendre."
+    },
+    {
+      "q": "Durant une journée très occupée, quelle attitude le manuel recommande-t-il ?",
+      "choices": ["Rester calme et informer fréquemment les clients", "Cesser de répondre aux questions", "Accélérer en ignorant les réservations", "Promettre des délais très courts"],
+      "correct": 0,
+      "explanation": "Les clients tolèrent mieux l'attente lorsqu'on reste calme et qu'on les informe souvent."
+    }
+  ]
+}

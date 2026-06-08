@@ -1,0 +1,475 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 15,
+  "title": "Remboursements et certificats-cadeaux",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Dans quelle situation un remboursement peut-il être effectué ?",
+      "choices": [
+        "Le client a changé d'idée",
+        "Le service n'a pas pu être offert dans un délai raisonnable",
+        "Le client n'aime pas la couleur des karts",
+        "Le client trouve le prix trop élevé"
+      ],
+      "correct": 1,
+      "explanation": "Un remboursement se justifie quand l'entreprise n'a pas pu offrir le service prévu, pas pour une simple préférence du client."
+    },
+    {
+      "q": "Selon le manuel, quel délai d'attente peut justifier un remboursement ?",
+      "choices": [
+        "20 minutes",
+        "30 minutes",
+        "45 minutes",
+        "Plus d'une heure"
+      ],
+      "correct": 3,
+      "explanation": "C'est une attente de plus d'une heure qui peut justifier d'envisager un remboursement ou une autre solution."
+    },
+    {
+      "q": "Si un client ne rentre pas physiquement dans un kart, un remboursement est-il permis ?",
+      "choices": [
+        "Oui",
+        "Non"
+      ],
+      "correct": 0,
+      "explanation": "Comme le service ne peut pas lui être offert pour une raison hors de son contrôle, le remboursement est permis."
+    },
+    {
+      "q": "Si un enfant refuse de faire du karting par peur après avoir payé, un remboursement est-il permis ?",
+      "choices": [
+        "Oui",
+        "Non"
+      ],
+      "correct": 0,
+      "explanation": "Cette situation est prévue par la politique et le remboursement est permis."
+    },
+    {
+      "q": "Avant d'effectuer un remboursement, quelle solution doit être envisagée en premier ?",
+      "choices": [
+        "Un rabais",
+        "Un tour gratuit",
+        "Un certificat-cadeau",
+        "Un coupon alimentaire"
+      ],
+      "correct": 2,
+      "explanation": "Le certificat-cadeau est l'alternative à proposer avant de procéder à un remboursement immédiat."
+    },
+    {
+      "q": "Qui peut autoriser des exceptions aux règles normales de remboursement ?",
+      "choices": [
+        "N'importe quel employé",
+        "Le gérant",
+        "Le client lui-même",
+        "Le mécanicien"
+      ],
+      "correct": 1,
+      "explanation": "Seul le gérant a l'autorité d'autoriser une exception aux règles habituelles."
+    },
+    {
+      "q": "Lorsqu'un remboursement est effectué, que faut-il toujours faire ?",
+      "choices": [
+        "Ne rien inscrire",
+        "Justifier la raison",
+        "Détruire le billet",
+        "Fermer la caisse"
+      ],
+      "correct": 1,
+      "explanation": "Chaque remboursement doit être justifié pour assurer un suivi clair de la transaction."
+    },
+    {
+      "q": "Où la raison du remboursement doit-elle être inscrite ?",
+      "choices": [
+        "Dans Apex",
+        "Sur un papier libre seulement",
+        "Nulle part",
+        "Sur Facebook"
+      ],
+      "correct": 0,
+      "explanation": "La raison du remboursement s'inscrit dans Apex pour conserver une trace officielle."
+    },
+    {
+      "q": "En plus du système, où un remboursement doit-il aussi être noté ?",
+      "choices": [
+        "Sur les billets concernés",
+        "Dans le stationnement",
+        "Sur le site web",
+        "Dans les toilettes"
+      ],
+      "correct": 0,
+      "explanation": "Le remboursement doit aussi être noté sur les billets concernés pour garder la cohérence du dossier."
+    },
+    {
+      "q": "Pourquoi faut-il documenter chaque remboursement ?",
+      "choices": [
+        "Pour assurer un suivi financier précis et justifier la transaction",
+        "Pour faire patienter le client",
+        "Parce que c'est facultatif mais bien vu",
+        "Pour remplir les rapports plus lentement"
+      ],
+      "correct": 0,
+      "explanation": "La documentation garantit un suivi financier exact et justifie chaque transaction."
+    },
+    {
+      "q": "Un client qui change simplement d'idée a-t-il automatiquement droit à un remboursement ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 1,
+      "explanation": "Un simple changement d'idée ne donne pas automatiquement droit à un remboursement."
+    },
+    {
+      "q": "Le certificat-cadeau est-il souvent préférable à un remboursement immédiat ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Le certificat-cadeau évite une perte immédiate pour l'entreprise tout en satisfaisant le client."
+    },
+    {
+      "q": "Tous les remboursements doivent-ils être justifiés ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Aucun remboursement ne doit être fait sans justification."
+    },
+    {
+      "q": "Un remboursement peut-il être fait sans aucune explication ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 1,
+      "explanation": "Un remboursement doit toujours être accompagné d'une explication et d'une justification."
+    },
+    {
+      "q": "Le gérant peut-il intervenir dans les cas particuliers de remboursement ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Le gérant est la personne qui intervient et tranche dans les situations particulières."
+    },
+    {
+      "q": "Une longue attente peut-elle justifier un remboursement ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Une attente déraisonnable, comme plus d'une heure, peut justifier un remboursement."
+    },
+    {
+      "q": "Un remboursement doit-il laisser une trace administrative ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Chaque remboursement doit laisser une trace administrative pour le suivi comptable."
+    },
+    {
+      "q": "Un remboursement mal documenté peut-il créer un problème comptable ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Un remboursement mal documenté peut entraîner un écart de caisse ou un problème comptable."
+    },
+    {
+      "q": "Les règles de remboursement doivent-elles être appliquées de la même façon à tous les clients ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "L'application équitable des règles évite les favoritismes entre les clients."
+    },
+    {
+      "q": "Un client a payé puis réalise qu'il n'a plus envie de faire du karting. Que dois-tu faire ?",
+      "choices": [
+        "Le rembourser immédiatement sans question",
+        "Expliquer que le seul changement d'idée ne justifie pas automatiquement un remboursement",
+        "Fermer la caisse pour éviter la demande",
+        "Lui offrir un repas gratuit"
+      ],
+      "correct": 1,
+      "explanation": "Un simple changement d'idée ne donne pas automatiquement droit à un remboursement, et il faut l'expliquer calmement."
+    },
+    {
+      "q": "Un enfant pleure et refuse d'embarquer dans le kart. Que dois-tu faire ?",
+      "choices": [
+        "Refuser toute solution",
+        "Appliquer la politique de remboursement prévue pour cette situation",
+        "Forcer l'enfant à embarquer",
+        "Demander au client de revenir un autre jour sans rien noter"
+      ],
+      "correct": 1,
+      "explanation": "Cette situation est couverte par la politique, qui prévoit un remboursement."
+    },
+    {
+      "q": "Un client attend depuis 1 h 15. Que dois-tu considérer ?",
+      "choices": [
+        "Lui dire de patienter encore",
+        "Un remboursement ou une autre solution prévue par la politique",
+        "Ne rien faire car l'attente est normale",
+        "Lui offrir un rabais sur sa prochaine visite seulement"
+      ],
+      "correct": 1,
+      "explanation": "Une attente de plus d'une heure justifie d'envisager un remboursement ou une solution prévue."
+    },
+    {
+      "q": "Un client demande immédiatement son argent. Quelle alternative peux-tu proposer en premier ?",
+      "choices": [
+        "Un rabais sur la nourriture",
+        "Un certificat-cadeau",
+        "Un tour gratuit illimité",
+        "Aucune alternative"
+      ],
+      "correct": 1,
+      "explanation": "Le certificat-cadeau est l'alternative à proposer avant un remboursement immédiat."
+    },
+    {
+      "q": "Tu effectues un remboursement mais oublies de l'inscrire dans Apex. Quelle erreur as-tu commise ?",
+      "choices": [
+        "Aucune erreur",
+        "Une erreur administrative et comptable",
+        "Une erreur de service à la clientèle uniquement",
+        "Une erreur de sécurité sur la piste"
+      ],
+      "correct": 1,
+      "explanation": "Oublier d'inscrire un remboursement crée une erreur administrative et comptable."
+    },
+    {
+      "q": "Un client ne respecte pas les règles sur la piste et est retiré de sa séance. A-t-il droit à un remboursement ?",
+      "choices": [
+        "Oui",
+        "Non"
+      ],
+      "correct": 1,
+      "explanation": "Le retrait étant causé par son propre comportement, il n'a pas droit à un remboursement."
+    },
+    {
+      "q": "Pourquoi un client retiré pour non-respect des règles n'a-t-il pas droit à un remboursement ?",
+      "choices": [
+        "Parce que le retrait est causé par son propre comportement",
+        "Parce que le gérant est absent",
+        "Parce que la caisse est fermée",
+        "Parce qu'il a déjà reçu un certificat-cadeau"
+      ],
+      "correct": 0,
+      "explanation": "C'est son propre comportement qui a causé le retrait, donc le remboursement n'est pas dû."
+    },
+    {
+      "q": "Un client devient insistant pour obtenir une exception. Que dois-tu faire ?",
+      "choices": [
+        "Inventer une exception pour le calmer",
+        "Expliquer la politique et demander l'aide du gérant si nécessaire",
+        "Le rembourser sans documentation",
+        "L'ignorer jusqu'à ce qu'il parte"
+      ],
+      "correct": 1,
+      "explanation": "On explique la politique sans improviser et on fait appel au gérant au besoin."
+    },
+    {
+      "q": "Un remboursement est accepté. Quelle est la prochaine étape ?",
+      "choices": [
+        "Ne rien faire",
+        "Documenter la transaction",
+        "Fermer la caisse",
+        "Informer tous les clients présents"
+      ],
+      "correct": 1,
+      "explanation": "Une fois le remboursement accepté, il faut documenter la transaction."
+    },
+    {
+      "q": "Pourquoi faut-il rester calme lorsqu'un remboursement est refusé ?",
+      "choices": [
+        "Pour gagner du temps",
+        "Pour maintenir un service professionnel et éviter les conflits",
+        "Pour décourager le client de revenir",
+        "Parce que le gérant l'exige seulement"
+      ],
+      "correct": 1,
+      "explanation": "Le calme préserve un service professionnel et évite l'escalade du conflit."
+    },
+    {
+      "q": "Un client affirme qu'il pleut et veut récupérer son argent. Selon la politique générale, le remboursement est-il automatique ?",
+      "choices": [
+        "Oui",
+        "Non"
+      ],
+      "correct": 1,
+      "explanation": "La pluie ne donne pas automatiquement droit à un remboursement selon la politique générale."
+    },
+    {
+      "q": "Un client est arrivé en retard et manque son départ. A-t-il automatiquement droit à un remboursement ?",
+      "choices": [
+        "Oui",
+        "Non"
+      ],
+      "correct": 1,
+      "explanation": "Un retard du client ne donne pas automatiquement droit à un remboursement."
+    },
+    {
+      "q": "Un client demande un remboursement parce qu'il trouve les karts trop lents. Que dois-tu faire ?",
+      "choices": [
+        "Le rembourser immédiatement",
+        "Expliquer que cela ne constitue pas une raison prévue par la politique",
+        "Augmenter la vitesse des karts",
+        "Lui offrir un remboursement partiel sans le noter"
+      ],
+      "correct": 1,
+      "explanation": "La vitesse jugée trop lente n'est pas une raison de remboursement prévue par la politique."
+    },
+    {
+      "q": "Un groupe de plusieurs personnes demande un remboursement collectif. Quelle est la première étape ?",
+      "choices": [
+        "Rembourser tout le groupe d'un coup",
+        "Vérifier les raisons exactes et appliquer la politique",
+        "Refuser sans écouter",
+        "Appeler la police"
+      ],
+      "correct": 1,
+      "explanation": "On vérifie d'abord les raisons réelles avant d'appliquer la politique au groupe."
+    },
+    {
+      "q": "Quel est le plus grand risque lorsqu'on rembourse sans suivre les procédures ?",
+      "choices": [
+        "Aucun risque",
+        "Des erreurs financières et des injustices entre clients",
+        "Une file d'attente plus courte",
+        "Une meilleure réputation"
+      ],
+      "correct": 1,
+      "explanation": "Sans procédures, on s'expose à des erreurs financières et à un traitement inéquitable des clients."
+    },
+    {
+      "q": "Pourquoi les remboursements doivent-ils rester exceptionnels ?",
+      "choices": [
+        "Parce qu'ils concernent une transaction déjà complétée et doivent respecter les règles de l'entreprise",
+        "Parce qu'ils sont interdits par la loi",
+        "Parce que le client n'a jamais raison",
+        "Parce que la caisse ne le permet pas"
+      ],
+      "correct": 0,
+      "explanation": "Un remboursement touche une transaction déjà conclue, il doit donc rester encadré et exceptionnel."
+    },
+    {
+      "q": "Pourquoi le certificat-cadeau est-il souvent une bonne solution ?",
+      "choices": [
+        "Il évite toute documentation",
+        "Il permet au client de revenir tout en évitant une perte immédiate pour l'entreprise",
+        "Il est plus rapide à détruire qu'un billet",
+        "Il remplace le rôle du gérant"
+      ],
+      "correct": 1,
+      "explanation": "Le certificat-cadeau fidélise le client sans entraîner de perte financière immédiate."
+    },
+    {
+      "q": "Pourquoi faut-il traiter tous les clients de la même façon ?",
+      "choices": [
+        "Pour assurer l'équité et éviter les favoritismes",
+        "Pour aller plus vite à la caisse",
+        "Pour réduire le nombre de certificats-cadeaux",
+        "Pour plaire au mécanicien"
+      ],
+      "correct": 0,
+      "explanation": "Un traitement uniforme garantit l'équité et évite tout favoritisme."
+    },
+    {
+      "q": "Quelle qualité est la plus importante lorsqu'on gère une demande de remboursement ?",
+      "choices": [
+        "La rapidité",
+        "L'improvisation",
+        "Le jugement et le respect des procédures",
+        "La négociation"
+      ],
+      "correct": 2,
+      "explanation": "Un bon jugement combiné au respect des procédures assure une décision juste et défendable."
+    },
+    {
+      "q": "Quel est l'objectif principal de la politique de remboursement ?",
+      "choices": [
+        "Donner raison à tous les clients",
+        "Protéger à la fois le client et l'entreprise",
+        "Réduire le travail administratif",
+        "Augmenter les profits"
+      ],
+      "correct": 1,
+      "explanation": "La politique vise un équilibre qui protège autant le client que l'entreprise."
+    },
+    {
+      "q": "Que faut-il faire en premier lorsqu'un client présente un certificat-cadeau ?",
+      "choices": [
+        "Appliquer le montant sans vérifier",
+        "Vérifier sa validité",
+        "Le détruire après usage",
+        "Demander une pièce d'identité au gérant"
+      ],
+      "correct": 1,
+      "explanation": "On vérifie d'abord la validité du certificat avant de l'appliquer."
+    },
+    {
+      "q": "Qu'est-ce qu'un certificat-cadeau représente concrètement à la caisse ?",
+      "choices": [
+        "Une publicité",
+        "Une valeur monétaire",
+        "Un simple coupon de réduction sans valeur",
+        "Un document interne sans importance"
+      ],
+      "correct": 1,
+      "explanation": "Le certificat-cadeau représente une valeur monétaire qui doit être comptabilisée correctement."
+    },
+    {
+      "q": "Quelle étape vient juste après avoir vérifié la validité d'un certificat-cadeau ?",
+      "choices": [
+        "Vérifier sa valeur",
+        "Le jeter à la poubelle",
+        "Fermer la caisse",
+        "Le publier sur Facebook"
+      ],
+      "correct": 0,
+      "explanation": "Après la validité, on vérifie la valeur du certificat avant d'appliquer le montant."
+    },
+    {
+      "q": "Que faut-il conserver après l'utilisation d'un certificat-cadeau ?",
+      "choices": [
+        "Rien",
+        "La documentation nécessaire",
+        "Seulement le nom du client",
+        "Une photo du client"
+      ],
+      "correct": 1,
+      "explanation": "On conserve la documentation nécessaire pour assurer la traçabilité de la transaction."
+    },
+    {
+      "q": "Laquelle des erreurs suivantes est fréquente avec les certificats-cadeaux ?",
+      "choices": [
+        "Vérifier deux fois la valeur",
+        "Accepter un certificat sans validation",
+        "Conserver la documentation",
+        "Demander l'avis du gérant"
+      ],
+      "correct": 1,
+      "explanation": "Accepter un certificat sans le valider est l'une des erreurs fréquentes à éviter."
+    },
+    {
+      "q": "Un client demande à être remboursé. Quelle est la meilleure première réponse ?",
+      "choices": [
+        "« D'accord, voici votre argent. »",
+        "« Je vais vérifier la transaction et voir quelles options sont disponibles. »",
+        "« C'est impossible, désolé. »",
+        "« Demandez à un autre employé. »"
+      ],
+      "correct": 1,
+      "explanation": "On vérifie toujours la transaction avant de décider plutôt que d'accepter ou refuser d'emblée."
+    }
+  ]
+}

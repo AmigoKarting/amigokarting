@@ -1,0 +1,439 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 11,
+  "title": "Service à la clientèle et clients difficiles",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Quelle doit être votre première réaction lorsqu'un client est mécontent ?",
+      "choices": [
+        "Lui expliquer pourquoi il a tort",
+        "Faire preuve d'empathie et l'écouter",
+        "Ignorer ses commentaires",
+        "Appeler immédiatement le gérant"
+      ],
+      "correct": 1,
+      "explanation": "On écoute d'abord le client avec empathie avant de chercher une solution."
+    },
+    {
+      "q": "Lorsqu'un client est frustré, quel est votre objectif principal ?",
+      "choices": [
+        "Gagner l'argument",
+        "Mettre fin rapidement à la conversation",
+        "Régler la situation",
+        "Trouver un responsable à blâmer"
+      ],
+      "correct": 2,
+      "explanation": "Le but est de résoudre le problème, pas de gagner une discussion."
+    },
+    {
+      "q": "Si vous n'êtes pas capable de régler le problème d'un client, que devez-vous faire ?",
+      "choices": [
+        "Lui demander de revenir plus tard",
+        "Faire semblant de connaître la solution",
+        "Lui offrir un remboursement",
+        "Demander l'aide du gérant"
+      ],
+      "correct": 3,
+      "explanation": "Lorsque la situation dépasse vos capacités, le gérant doit être impliqué."
+    },
+    {
+      "q": "Quel comportement ne doit jamais être toléré à la caisse ?",
+      "choices": [
+        "Un comportement agressif",
+        "Une plainte",
+        "Une question répétée",
+        "Une demande de précision"
+      ],
+      "correct": 0,
+      "explanation": "L'agressivité n'est jamais acceptable, contrairement aux plaintes ou questions légitimes."
+    },
+    {
+      "q": "Que devez-vous faire si un client devient agressif ?",
+      "choices": [
+        "Hausser le ton",
+        "Fermer la fenêtre et appeler le gérant",
+        "L'ignorer complètement",
+        "Quitter votre poste"
+      ],
+      "correct": 1,
+      "explanation": "Face à l'agressivité, on se met en sécurité et on fait appel au gérant."
+    },
+    {
+      "q": "Pourquoi est-il important d'écouter un client jusqu'au bout ?",
+      "choices": [
+        "Pour gagner du temps",
+        "Pour éviter de parler",
+        "Pour comprendre le problème réel",
+        "Parce que c'est obligatoire"
+      ],
+      "correct": 2,
+      "explanation": "Écouter jusqu'au bout permet de saisir la véritable préoccupation du client."
+    },
+    {
+      "q": "Un client vous interrompt constamment. Que devez-vous faire ?",
+      "choices": [
+        "Faire la même chose et l'interrompre",
+        "L'ignorer",
+        "Mettre fin à la conversation",
+        "Garder votre calme"
+      ],
+      "correct": 3,
+      "explanation": "Rester calme est la meilleure façon de désamorcer un client qui interrompt."
+    },
+    {
+      "q": "Lorsqu'un client se plaint du temps d'attente, que devez-vous faire ?",
+      "choices": [
+        "Minimiser son problème",
+        "Le blâmer pour son impatience",
+        "Écouter sa préoccupation",
+        "L'ignorer"
+      ],
+      "correct": 2,
+      "explanation": "Une plainte doit être prise au sérieux en écoutant la préoccupation du client."
+    },
+    {
+      "q": "Quel est le meilleur moyen de désamorcer une situation tendue ?",
+      "choices": [
+        "Parler plus fort que le client",
+        "Utiliser un ton calme",
+        "Argumenter avec lui",
+        "Ignorer le client"
+      ],
+      "correct": 1,
+      "explanation": "Un ton calme est souvent plus efficace que la confrontation."
+    },
+    {
+      "q": "Lorsqu'un client est contrarié, comment devez-vous vous comporter ?",
+      "choices": [
+        "Répliquer sur le même ton",
+        "Quitter la conversation",
+        "Faire des promesses impossibles",
+        "Rester professionnel"
+      ],
+      "correct": 3,
+      "explanation": "Le professionnalisme doit être maintenu en tout temps, même face à un client contrarié."
+    },
+    {
+      "q": "Un client mécontent doit-il être écouté avant qu'une solution soit proposée ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "On écoute d'abord pour comprendre, puis on propose une solution."
+    },
+    {
+      "q": "Un employé peut-il tolérer des insultes pour éviter une plainte ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 1,
+      "explanation": "Les insultes ne doivent jamais être tolérées, même pour éviter une plainte."
+    },
+    {
+      "q": "Le gérant doit-il être impliqué lorsque la situation dépasse vos capacités ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Quand une situation vous dépasse, faire appel au gérant est la bonne démarche."
+    },
+    {
+      "q": "Le calme est-il souvent plus efficace que la confrontation ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Garder son calme désamorce les tensions mieux que la confrontation."
+    },
+    {
+      "q": "Un client agressif doit-il recevoir exactement le même comportement qu'il démontre ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 1,
+      "explanation": "On ne répond jamais à l'agressivité par l'agressivité; l'employé reste professionnel."
+    },
+    {
+      "q": "L'objectif du service est-il de protéger à la fois les clients et les employés ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Les règles visent la sécurité et le respect des clients comme des employés."
+    },
+    {
+      "q": "Une plainte est-elle toujours une attaque personnelle contre l'employé ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 1,
+      "explanation": "Une plainte vise généralement la situation, pas l'employé personnellement."
+    },
+    {
+      "q": "Un client peut-il être frustré sans être agressif ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Un client frustré exprime un mécontentement sans nécessairement être irrespectueux."
+    },
+    {
+      "q": "Le respect doit-il être maintenu même lors d'un conflit ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Le respect doit être préservé en tout temps, même durant un conflit."
+    },
+    {
+      "q": "Chaque plainte doit-elle être prise au sérieux ?",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Toute plainte mérite d'être prise au sérieux et traitée avec attention."
+    },
+    {
+      "q": "Un client affirme avoir attendu plus longtemps que le temps annoncé. Que faites-vous ?",
+      "choices": [
+        "Lui dire que c'est sa faute s'il a mal compris",
+        "Écouter sa plainte, vérifier la situation et lui expliquer les raisons du délai",
+        "Lui demander de revenir un autre jour",
+        "Ignorer sa remarque et servir le client suivant"
+      ],
+      "correct": 1,
+      "explanation": "On écoute, on vérifie, puis on explique calmement les raisons du délai."
+    },
+    {
+      "q": "Un client vous dit : « C'est ridicule, votre organisation est mauvaise ! » Quelle est la meilleure réponse ?",
+      "choices": [
+        "« Vous avez tort. »",
+        "« Ce n'est pas mon problème. »",
+        "« Je comprends votre frustration, laissez-moi vérifier la situation. »",
+        "« Vous pouvez partir si vous voulez. »"
+      ],
+      "correct": 2,
+      "explanation": "Reconnaître la frustration et offrir de vérifier désamorce la tension."
+    },
+    {
+      "q": "Un client commence à crier devant d'autres clients. Quelle est votre priorité ?",
+      "choices": [
+        "Crier plus fort pour vous faire entendre",
+        "Garder votre calme et éviter que la situation dégénère",
+        "Quitter votre poste immédiatement",
+        "Demander aux autres clients de partir"
+      ],
+      "correct": 1,
+      "explanation": "Garder son calme empêche la situation de s'aggraver devant les autres clients."
+    },
+    {
+      "q": "Un client demande à parler au responsable. Que faites-vous ?",
+      "choices": [
+        "Lui dire que le responsable est absent",
+        "Refuser sa demande",
+        "Tenter de régler seul sans l'aviser",
+        "Contacter le gérant immédiatement"
+      ],
+      "correct": 3,
+      "explanation": "Lorsqu'un client demande le responsable, on contacte le gérant sans délai."
+    },
+    {
+      "q": "Un client utilise un langage irrespectueux. Quelle est la procédure ?",
+      "choices": [
+        "Répondre avec le même langage",
+        "Mettre fin à l'échange si nécessaire et demander l'aide du gérant",
+        "Continuer comme si de rien n'était",
+        "Le menacer de le faire expulser"
+      ],
+      "correct": 1,
+      "explanation": "Face à un langage irrespectueux, on peut mettre fin à l'échange et appeler le gérant."
+    },
+    {
+      "q": "Un parent est frustré parce que son enfant n'a finalement pas voulu faire du karting. Que devez-vous faire ?",
+      "choices": [
+        "Lui dire que c'est trop tard",
+        "Le rembourser sur-le-champ sans question",
+        "Expliquer calmement les options disponibles selon la politique de remboursement",
+        "Lui demander de revenir un autre jour"
+      ],
+      "correct": 2,
+      "explanation": "On explique calmement les options prévues par la politique de remboursement."
+    },
+    {
+      "q": "Un client vous accuse d'avoir mal expliqué les règles. Que faites-vous ?",
+      "choices": [
+        "Réécouter sa version, clarifier les informations et demeurer professionnel",
+        "Lui dire qu'il n'a pas écouté",
+        "Hausser le ton pour vous défendre",
+        "Refuser de poursuivre la discussion"
+      ],
+      "correct": 0,
+      "explanation": "On réécoute, on clarifie et on reste professionnel plutôt que de se défendre agressivement."
+    },
+    {
+      "q": "Une longue file d'attente rend plusieurs clients impatients. Que pouvez-vous faire ?",
+      "choices": [
+        "Leur dire d'attendre en silence",
+        "Donner des informations claires sur les délais et mettre à jour les temps d'attente",
+        "Fermer la fenêtre quelques minutes",
+        "Ignorer leur impatience"
+      ],
+      "correct": 1,
+      "explanation": "Informer clairement sur les délais aide à gérer l'impatience des clients."
+    },
+    {
+      "q": "Deux clients commencent à se disputer devant la caisse. Que faites-vous ?",
+      "choices": [
+        "Prendre parti pour l'un d'eux",
+        "Quitter votre poste",
+        "Garder le contrôle de votre espace de travail et demander l'intervention du gérant si nécessaire",
+        "Crier pour les faire taire"
+      ],
+      "correct": 2,
+      "explanation": "On garde le contrôle de son espace et on fait appel au gérant au besoin."
+    },
+    {
+      "q": "Pourquoi un excellent service à la clientèle est-il important pour Amigo Karting ?",
+      "choices": [
+        "Parce qu'il réduit le travail des employés",
+        "Parce qu'il favorise la satisfaction, les recommandations et les avis positifs",
+        "Parce qu'il permet d'augmenter les prix",
+        "Parce qu'il évite d'avoir un gérant"
+      ],
+      "correct": 1,
+      "explanation": "Un bon service génère satisfaction, recommandations et avis positifs."
+    },
+    {
+      "q": "Pourquoi est-il préférable de résoudre un problème rapidement ?",
+      "choices": [
+        "Pour fermer la caisse plus tôt",
+        "Pour éviter de parler au client",
+        "Parce que plus un problème dure, plus la frustration du client augmente",
+        "Parce que le gérant l'exige toujours"
+      ],
+      "correct": 2,
+      "explanation": "Plus un problème traîne, plus la frustration du client s'amplifie."
+    },
+    {
+      "q": "Pourquoi l'empathie est-elle importante dans le service à la clientèle ?",
+      "choices": [
+        "Elle aide le client à se sentir écouté et compris",
+        "Elle permet de servir plus vite",
+        "Elle évite d'avoir à vérifier l'information",
+        "Elle remplace les explications"
+      ],
+      "correct": 0,
+      "explanation": "L'empathie fait sentir au client qu'il est écouté et compris."
+    },
+    {
+      "q": "Quelle différence y a-t-il entre un client frustré et un client agressif ?",
+      "choices": [
+        "Il n'y a aucune différence",
+        "Un client frustré exprime son mécontentement; un client agressif adopte un comportement irrespectueux ou menaçant",
+        "Un client agressif a toujours raison",
+        "Un client frustré doit être expulsé"
+      ],
+      "correct": 1,
+      "explanation": "La frustration s'exprime; l'agressivité ajoute un comportement irrespectueux ou menaçant."
+    },
+    {
+      "q": "Pourquoi ne faut-il jamais prendre une plainte personnellement ?",
+      "choices": [
+        "Parce que le client a toujours raison",
+        "Parce qu'il faut ignorer les plaintes",
+        "Parce que la plainte vise généralement la situation et non l'employé",
+        "Parce que les plaintes ne sont pas importantes"
+      ],
+      "correct": 2,
+      "explanation": "Une plainte concerne la situation, pas la personne de l'employé."
+    },
+    {
+      "q": "Quelle qualité est la plus importante pour un employé à la caisse ?",
+      "choices": [
+        "La rapidité",
+        "La force physique",
+        "La discrétion",
+        "La patience"
+      ],
+      "correct": 3,
+      "explanation": "La patience est essentielle pour bien gérer les clients à la caisse."
+    },
+    {
+      "q": "Lorsqu'un client arrive et que vous êtes occupé au téléphone, que devez-vous faire ?",
+      "choices": [
+        "Le saluer immédiatement pour qu'il sache qu'il a été remarqué",
+        "Terminer votre appel sans le regarder",
+        "Lui faire signe d'attendre sans rien dire",
+        "Lui demander de revenir plus tard"
+      ],
+      "correct": 0,
+      "explanation": "Même occupé, on salue immédiatement le client pour qu'il se sente remarqué."
+    },
+    {
+      "q": "Selon les règles d'or du service, quel ordre faut-il suivre face à une question d'un client ?",
+      "choices": [
+        "Répondre, puis écouter",
+        "Écouter, comprendre, puis répondre",
+        "Comprendre, répondre, puis écouter",
+        "Répondre immédiatement sans écouter"
+      ],
+      "correct": 1,
+      "explanation": "On écoute, on comprend, puis on répond, pour éviter de répondre avant de comprendre."
+    },
+    {
+      "q": "Quelle est la première étape de la technique de désescalade ?",
+      "choices": [
+        "Proposer une solution",
+        "Expliquer la situation",
+        "Laisser parler le client",
+        "Reconnaître son inquiétude"
+      ],
+      "correct": 2,
+      "explanation": "La désescalade commence en laissant le client s'exprimer."
+    },
+    {
+      "q": "Quelle attitude faut-il toujours éviter d'avoir avec un client, même s'il est irrité ?",
+      "choices": [
+        "Lui poser des questions",
+        "Hausser le ton",
+        "Lui expliquer la situation",
+        "Reconnaître son inquiétude"
+      ],
+      "correct": 1,
+      "explanation": "On ne hausse jamais le ton; l'employé reste professionnel en tout temps."
+    },
+    {
+      "q": "Lorsque vous n'êtes pas certain d'une réponse à donner au client, que devez-vous faire ?",
+      "choices": [
+        "Vérifier l'information avant de répondre",
+        "Deviner une réponse plausible",
+        "Donner une réponse vague",
+        "Renvoyer le client sans réponse"
+      ],
+      "correct": 0,
+      "explanation": "On vérifie l'information avant de répondre plutôt que de supposer."
+    },
+    {
+      "q": "Parmi ces erreurs à éviter, laquelle nuit directement à l'esprit d'équipe ?",
+      "choices": [
+        "Couper la parole au client",
+        "Blâmer un collègue devant le client",
+        "Donner une réponse incertaine",
+        "Ignorer un client"
+      ],
+      "correct": 1,
+      "explanation": "Blâmer un collègue devant le client nuit à l'équipe et à l'image de l'entreprise."
+    }
+  ]
+}

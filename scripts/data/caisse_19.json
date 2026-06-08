@@ -1,0 +1,553 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 19,
+  "title": "Comptabilité avancée et rapports Apex",
+  "passing_score": 0.85,
+  "questions": [
+    {
+      "q": "Pourquoi les rapports Apex sont-ils importants ?",
+      "choices": [
+        "Pour décorer le bureau de la réception",
+        "Pour suivre les opérations financières de la journée",
+        "Pour informer les clients des promotions",
+        "Pour planifier l'entretien des karts"
+      ],
+      "correct": 1,
+      "explanation": "Les rapports Apex servent à suivre fidèlement les opérations financières de la journée."
+    },
+    {
+      "q": "Que permettent de vérifier les rapports Apex ?",
+      "choices": [
+        "Uniquement les ventes",
+        "Uniquement les remboursements",
+        "Uniquement les écarts de caisse",
+        "Les ventes, les remboursements et les écarts"
+      ],
+      "correct": 3,
+      "explanation": "Les rapports permettent de vérifier à la fois les ventes, les remboursements et les écarts."
+    },
+    {
+      "q": "Comment chaque transaction doit-elle être traitée dans Apex ?",
+      "choices": [
+        "Mémorisée de tête",
+        "Devinée approximativement",
+        "Enregistrée correctement",
+        "Ignorée si elle est petite"
+      ],
+      "correct": 2,
+      "explanation": "Chaque transaction doit être enregistrée correctement pour assurer l'exactitude des rapports."
+    },
+    {
+      "q": "À quoi sert principalement un rapport exact ?",
+      "choices": [
+        "À réduire le temps de travail",
+        "À assurer un suivi financier fiable",
+        "À impressionner les clients",
+        "À remplacer le comptage de la caisse"
+      ],
+      "correct": 1,
+      "explanation": "Un rapport exact assure un suivi financier fiable de l'entreprise."
+    },
+    {
+      "q": "Que peut entraîner une erreur dans Apex ?",
+      "choices": [
+        "Seulement un écart financier",
+        "Seulement une mauvaise comptabilité",
+        "Seulement des vérifications supplémentaires",
+        "Un écart financier, une mauvaise comptabilité et des vérifications supplémentaires"
+      ],
+      "correct": 3,
+      "explanation": "Une erreur dans Apex peut causer un écart financier, une mauvaise comptabilité et des vérifications supplémentaires."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier les rapports avant de fermer ?",
+      "choices": [
+        "Pour terminer plus tard",
+        "Pour détecter les erreurs pendant qu'elles sont encore faciles à corriger",
+        "Pour éviter de compter la caisse",
+        "Pour impressionner le gérant"
+      ],
+      "correct": 1,
+      "explanation": "On vérifie avant la fermeture pour détecter les erreurs tant qu'elles sont faciles à corriger."
+    },
+    {
+      "q": "Où les remboursements doivent-ils apparaître ?",
+      "choices": [
+        "Seulement dans Apex",
+        "Seulement dans les registres",
+        "Seulement dans les rapports",
+        "Dans Apex, les registres et les rapports"
+      ],
+      "correct": 3,
+      "explanation": "Les remboursements doivent être visibles dans Apex, les registres et les rapports."
+    },
+    {
+      "q": "Que peut causer un rapport incomplet ?",
+      "choices": [
+        "Des problèmes administratifs et financiers",
+        "Une meilleure organisation",
+        "Une vérification plus rapide",
+        "Aucune conséquence"
+      ],
+      "correct": 0,
+      "explanation": "Un rapport incomplet peut causer des problèmes administratifs et financiers."
+    },
+    {
+      "q": "Comment les certificats-cadeaux doivent-ils être gérés ?",
+      "choices": [
+        "Seulement comptabilisés",
+        "Seulement suivis",
+        "Seulement vérifiés",
+        "Comptabilisés, suivis et vérifiés"
+      ],
+      "correct": 3,
+      "explanation": "Les certificats-cadeaux doivent être comptabilisés, suivis et vérifiés."
+    },
+    {
+      "q": "Quel est le rôle principal d'Apex ?",
+      "choices": [
+        "Suivre les opérations financières de l'entreprise",
+        "Contrôler la mécanique des karts",
+        "Gérer l'inventaire des pneus",
+        "Surveiller la météo"
+      ],
+      "correct": 0,
+      "explanation": "Le rôle principal d'Apex est de suivre les opérations financières de l'entreprise."
+    },
+    {
+      "q": "Chaque remboursement doit-il être documenté ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Chaque remboursement doit être documenté pour assurer la traçabilité."
+    },
+    {
+      "q": "Une erreur de saisie peut-elle modifier les résultats financiers ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une simple erreur de saisie peut fausser les résultats financiers."
+    },
+    {
+      "q": "Les certificats-cadeaux n'affectent jamais les rapports.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : les certificats-cadeaux affectent les résultats et doivent figurer dans les rapports."
+    },
+    {
+      "q": "Les rapports servent à vérifier les ventes.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les rapports servent notamment à vérifier les ventes réalisées."
+    },
+    {
+      "q": "Les écarts doivent-ils être expliqués ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Tout écart doit être expliqué et justifié."
+    },
+    {
+      "q": "Une transaction oubliée peut créer un problème comptable.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une transaction oubliée crée un déséquilibre entre la caisse et les rapports."
+    },
+    {
+      "q": "Le montant en caisse doit correspondre aux rapports.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le montant en caisse doit concorder avec les rapports Apex."
+    },
+    {
+      "q": "Les erreurs sont plus faciles à corriger lorsqu'elles sont détectées rapidement.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Plus une erreur est détectée tôt, plus elle est facile à corriger."
+    },
+    {
+      "q": "Tous les employés doivent-ils appliquer les mêmes procédures ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "L'uniformité des procédures garantit des résultats fiables et comparables."
+    },
+    {
+      "q": "Une bonne comptabilité protège l'entreprise.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une comptabilité rigoureuse protège l'entreprise contre les pertes et les erreurs."
+    },
+    {
+      "q": "Les ventes Apex indiquent 1 250 $ et la caisse contient 1 230 $. Quelle est la première étape ?",
+      "choices": [
+        "Recompter et vérifier les transactions",
+        "Inscrire un écart sans vérifier",
+        "Ajouter 20 $ de sa poche",
+        "Fermer la caisse immédiatement"
+      ],
+      "correct": 0,
+      "explanation": "Devant un écart de 20 $, on recompte d'abord et on vérifie les transactions."
+    },
+    {
+      "q": "Un remboursement de 25 $ apparaît au rapport mais aucun employé ne s'en souvient. Que fais-tu ?",
+      "choices": [
+        "Ignorer le remboursement",
+        "Vérifier la transaction dans Apex",
+        "Ajouter 25 $ dans la caisse",
+        "Effacer le remboursement du rapport"
+      ],
+      "correct": 1,
+      "explanation": "On vérifie la transaction directement dans Apex pour en retrouver l'origine."
+    },
+    {
+      "q": "Pourquoi faut-il conserver les justifications des transactions ?",
+      "choices": [
+        "Pour remplir des classeurs",
+        "Pour pouvoir expliquer les écarts",
+        "Pour ralentir la fermeture",
+        "Pour décorer le bureau"
+      ],
+      "correct": 1,
+      "explanation": "Les justifications permettent d'expliquer les écarts au besoin."
+    },
+    {
+      "q": "Tu observes plusieurs remboursements dans la journée. Que dois-tu vérifier ?",
+      "choices": [
+        "Que chacun est correctement documenté",
+        "Que le total est arrondi",
+        "Que personne ne le remarque",
+        "Que la caisse est fermée à temps"
+      ],
+      "correct": 0,
+      "explanation": "Il faut s'assurer que chaque remboursement est correctement documenté."
+    },
+    {
+      "q": "Un certificat-cadeau est utilisé. Pourquoi est-ce important de le noter ?",
+      "choices": [
+        "Parce qu'il affecte les résultats de la journée",
+        "Parce qu'il faut prévenir le client",
+        "Parce qu'il augmente le prix",
+        "Parce qu'il n'a aucun effet"
+      ],
+      "correct": 0,
+      "explanation": "Un certificat-cadeau utilisé affecte les résultats de la journée et doit être noté."
+    },
+    {
+      "q": "Tu remarques qu'une transaction semble avoir été entrée deux fois. Que fais-tu ?",
+      "choices": [
+        "Attendre le lendemain",
+        "Vérifier immédiatement avant la fermeture",
+        "Supprimer les deux saisies",
+        "Ignorer la situation"
+      ],
+      "correct": 1,
+      "explanation": "On vérifie immédiatement la double saisie avant la fermeture."
+    },
+    {
+      "q": "Quel est le danger d'une double saisie ?",
+      "choices": [
+        "Seulement gonfler les ventes",
+        "Seulement créer un écart",
+        "Seulement fausser les rapports",
+        "Gonfler les ventes, créer un écart et fausser les rapports"
+      ],
+      "correct": 3,
+      "explanation": "Une double saisie gonfle les ventes, crée un écart et fausse les rapports."
+    },
+    {
+      "q": "Tu trouves un écart de 50 $. Quelle est ta priorité ?",
+      "choices": [
+        "Finaliser les rapports rapidement",
+        "Trouver la cause avant de finaliser les rapports",
+        "Ajouter 50 $ de sa poche",
+        "Ne rien inscrire"
+      ],
+      "correct": 1,
+      "explanation": "La priorité est de trouver la cause de l'écart avant de finaliser les rapports."
+    },
+    {
+      "q": "Une erreur financière non corrigée peut affecter quoi ?",
+      "choices": [
+        "Seulement les résultats",
+        "Seulement les dépôts",
+        "Seulement la comptabilité",
+        "Les résultats, les dépôts et la comptabilité"
+      ],
+      "correct": 3,
+      "explanation": "Une erreur non corrigée se répercute sur les résultats, les dépôts et la comptabilité."
+    },
+    {
+      "q": "Pourquoi faut-il travailler méthodiquement à la caisse ?",
+      "choices": [
+        "Pour réduire les erreurs",
+        "Pour travailler plus lentement",
+        "Pour impressionner les clients",
+        "Pour produire plus de papier"
+      ],
+      "correct": 0,
+      "explanation": "Une méthode rigoureuse réduit le nombre d'erreurs."
+    },
+    {
+      "q": "Ventes Apex : 1 000 $, remboursements : 50 $. Quel est le montant net ?",
+      "choices": [
+        "1 050 $",
+        "950 $",
+        "1 000 $",
+        "900 $"
+      ],
+      "correct": 1,
+      "explanation": "Le montant net est 1 000 $ moins 50 $ de remboursements, soit 950 $."
+    },
+    {
+      "q": "Ventes Apex : 800 $, certificats-cadeaux utilisés : 100 $. Pourquoi faut-il les noter ?",
+      "choices": [
+        "Pour comprendre l'origine des montants enregistrés",
+        "Pour augmenter le total des ventes",
+        "Pour gêner la fermeture",
+        "Pour avertir le client"
+      ],
+      "correct": 0,
+      "explanation": "Noter les certificats-cadeaux permet de comprendre l'origine des montants enregistrés."
+    },
+    {
+      "q": "La caisse contient 20 $ de moins que prévu. Quelle est la première hypothèse ?",
+      "choices": [
+        "Une erreur de comptage seulement",
+        "Une erreur de transaction seulement",
+        "Un remboursement mal inscrit seulement",
+        "Une erreur de comptage, de transaction ou un remboursement mal inscrit"
+      ],
+      "correct": 3,
+      "explanation": "Un manque de 20 $ peut venir d'une erreur de comptage, de transaction ou d'un remboursement mal inscrit."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier plusieurs fois les chiffres ?",
+      "choices": [
+        "Pour perdre du temps",
+        "Pour détecter les erreurs avant qu'elles deviennent des problèmes",
+        "Pour fatiguer l'employé",
+        "Pour remplir le rapport plus vite"
+      ],
+      "correct": 1,
+      "explanation": "Vérifier plusieurs fois permet de détecter les erreurs avant qu'elles deviennent des problèmes."
+    },
+    {
+      "q": "Quel est le principal objectif du rapprochement entre Apex et la caisse ?",
+      "choices": [
+        "Vérifier que les montants concordent",
+        "Trouver un coupable",
+        "Accélérer la fermeture",
+        "Réduire le nombre de transactions"
+      ],
+      "correct": 0,
+      "explanation": "Le rapprochement vise à vérifier que les montants d'Apex et de la caisse concordent."
+    },
+    {
+      "q": "Tu trouves un remboursement dans Apex mais aucun billet annoté. Quelle erreur a probablement été commise ?",
+      "choices": [
+        "Une erreur de comptage",
+        "Une documentation incomplète",
+        "Un excès de caisse",
+        "Une double saisie de vente"
+      ],
+      "correct": 1,
+      "explanation": "L'absence de billet annoté indique une documentation incomplète du remboursement."
+    },
+    {
+      "q": "Pourquoi un remboursement sans billet annoté est-il problématique ?",
+      "choices": [
+        "Parce qu'il manque une justification",
+        "Parce qu'il augmente les ventes",
+        "Parce qu'il accélère la fermeture",
+        "Parce qu'il n'a aucun effet"
+      ],
+      "correct": 0,
+      "explanation": "Sans billet annoté, il manque une justification pour expliquer le remboursement."
+    },
+    {
+      "q": "Un collègue affirme avoir corrigé une erreur sans l'inscrire. Est-ce acceptable ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non : toute correction doit être inscrite pour assurer la traçabilité."
+    },
+    {
+      "q": "Pourquoi toutes les corrections doivent-elles être documentées ?",
+      "choices": [
+        "Pour assurer la traçabilité",
+        "Pour ralentir le travail",
+        "Pour remplir des formulaires",
+        "Pour impressionner le gérant"
+      ],
+      "correct": 0,
+      "explanation": "Documenter les corrections assure la traçabilité des opérations."
+    },
+    {
+      "q": "Quel est le plus grand risque d'une mauvaise comptabilité ?",
+      "choices": [
+        "Seulement une perte d'information",
+        "Seulement des erreurs financières",
+        "Seulement des difficultés de vérification",
+        "Perte d'information, erreurs financières et difficultés de vérification"
+      ],
+      "correct": 3,
+      "explanation": "Une mauvaise comptabilité entraîne pertes d'information, erreurs financières et difficultés de vérification."
+    },
+    {
+      "q": "Pourquoi la comptabilité est-elle importante même pour un employé à la caisse ?",
+      "choices": [
+        "Parce qu'il participe directement à l'exactitude financière",
+        "Parce qu'il décide des prix",
+        "Parce qu'il n'a aucun rôle financier",
+        "Parce qu'il gère seulement les karts"
+      ],
+      "correct": 0,
+      "explanation": "L'employé à la caisse participe directement à l'exactitude financière de l'entreprise."
+    },
+    {
+      "q": "Quelle qualité est la plus importante en comptabilité ?",
+      "choices": [
+        "La rapidité",
+        "La force physique",
+        "La rigueur",
+        "La créativité"
+      ],
+      "correct": 2,
+      "explanation": "La rigueur est la qualité essentielle pour une comptabilité fiable."
+    },
+    {
+      "q": "Pourquoi faut-il toujours pouvoir expliquer un chiffre ?",
+      "choices": [
+        "Parce que chaque montant doit être vérifiable",
+        "Parce que les chiffres sont décoratifs",
+        "Parce que le client l'exige",
+        "Parce que cela accélère la fermeture"
+      ],
+      "correct": 0,
+      "explanation": "Chaque montant doit être vérifiable et donc explicable."
+    },
+    {
+      "q": "Un bon employé de caisse est aussi quoi ?",
+      "choices": [
+        "Seulement un gestionnaire de données",
+        "Seulement un contrôleur financier de première ligne",
+        "Seulement un représentant de l'entreprise",
+        "Un gestionnaire de données, un contrôleur financier de première ligne et un représentant de l'entreprise"
+      ],
+      "correct": 3,
+      "explanation": "Un bon employé de caisse cumule les rôles de gestionnaire de données, de contrôleur financier de première ligne et de représentant de l'entreprise."
+    },
+    {
+      "q": "Pourquoi les procédures de caisse existent-elles ?",
+      "choices": [
+        "Pour assurer des résultats uniformes et fiables",
+        "Pour compliquer le travail",
+        "Pour ralentir la fermeture",
+        "Pour décourager les employés"
+      ],
+      "correct": 0,
+      "explanation": "Les procédures existent pour assurer des résultats uniformes et fiables."
+    },
+    {
+      "q": "Une erreur détectée immédiatement est :",
+      "choices": [
+        "Plus facile à corriger",
+        "Plus difficile à corriger",
+        "Sans importance",
+        "Impossible à corriger"
+      ],
+      "correct": 0,
+      "explanation": "Une erreur détectée immédiatement est plus facile à corriger."
+    },
+    {
+      "q": "Quelle est la conséquence d'une comptabilité précise ?",
+      "choices": [
+        "Une meilleure gestion de l'entreprise",
+        "Une augmentation des erreurs",
+        "Un ralentissement des opérations",
+        "Une baisse des revenus"
+      ],
+      "correct": 0,
+      "explanation": "Une comptabilité précise mène à une meilleure gestion de l'entreprise."
+    },
+    {
+      "q": "Quel est le lien entre les ventes et les rapports ?",
+      "choices": [
+        "Les rapports doivent refléter exactement les ventes réalisées",
+        "Les rapports n'ont aucun lien avec les ventes",
+        "Les ventes remplacent les rapports",
+        "Les rapports précèdent les ventes"
+      ],
+      "correct": 0,
+      "explanation": "Les rapports doivent refléter exactement les ventes réalisées."
+    },
+    {
+      "q": "Quel est l'objectif ultime de toutes les vérifications ?",
+      "choices": [
+        "Trouver des coupables",
+        "Travailler plus longtemps",
+        "Assurer l'exactitude des opérations",
+        "Produire plus de papier"
+      ],
+      "correct": 2,
+      "explanation": "L'objectif ultime des vérifications est d'assurer l'exactitude des opérations."
+    },
+    {
+      "q": "Un employé qui maîtrise parfaitement Apex et la comptabilité contribue à quoi ?",
+      "choices": [
+        "Seulement réduire les erreurs",
+        "Seulement protéger les revenus",
+        "Seulement faciliter les vérifications",
+        "Réduire les erreurs, protéger les revenus et faciliter les vérifications"
+      ],
+      "correct": 3,
+      "explanation": "La maîtrise d'Apex et de la comptabilité réduit les erreurs, protège les revenus et facilite les vérifications."
+    },
+    {
+      "q": "Ventes Apex : 1 200 $, remboursements : 150 $, certificats-cadeaux utilisés : 50 $. Quel est le montant net des ventes ?",
+      "choices": [
+        "1 050 $",
+        "1 100 $",
+        "1 150 $",
+        "1 000 $"
+      ],
+      "correct": 0,
+      "explanation": "On soustrait les 150 $ de remboursements des 1 200 $ de ventes, ce qui donne 1 050 $."
+    },
+    {
+      "q": "À quel moment de la journée le rapprochement entre Apex et la caisse doit-il être fait ?",
+      "choices": [
+        "Avant la fermeture, pendant que les erreurs sont faciles à corriger",
+        "Une fois par mois seulement",
+        "Uniquement quand un écart est signalé",
+        "Jamais, car Apex est toujours exact"
+      ],
+      "correct": 0,
+      "explanation": "Le rapprochement se fait avant la fermeture, lorsqu'une erreur est encore facile à corriger."
+    },
+    {
+      "q": "Que doit-on faire si un écart de caisse demeure inexpliqué après vérification ?",
+      "choices": [
+        "L'ignorer puisqu'il est petit",
+        "Le documenter avec une justification de l'écart",
+        "Ajouter de l'argent de sa poche",
+        "Effacer la transaction la plus récente"
+      ],
+      "correct": 1,
+      "explanation": "Un écart inexpliqué doit être documenté avec une justification pour en garder la trace."
+    },
+    {
+      "q": "La caisse contient plus d'argent que ce qu'indique Apex. Cet excédent doit-il être vérifié et expliqué ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Tout écart, qu'il soit en trop ou en moins, doit être vérifié et expliqué."
+    },
+    {
+      "q": "Pourquoi un employé senior doit-il maîtriser le rapprochement Apex au-delà du simple comptage ?",
+      "choices": [
+        "Parce qu'il agit comme contrôleur financier de première ligne",
+        "Parce qu'il fixe les prix de l'entreprise",
+        "Parce qu'il remplace le comptable",
+        "Parce qu'il n'a aucune responsabilité financière"
+      ],
+      "correct": 0,
+      "explanation": "L'employé senior agit comme contrôleur financier de première ligne et doit donc maîtriser le rapprochement."
+    }
+  ]
+}

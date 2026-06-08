@@ -1,0 +1,158 @@
+{
+  "category": "Piste",
+  "sort_order": 32,
+  "title": "Briefing des clients et préparation avant la course",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Combien de temps avant la fin prévue d'un groupe doit-on aller chercher le prochain groupe ?",
+      "choices": ["5 minutes", "10 minutes", "15 minutes minimum", "Seulement lorsque la piste est complètement vide"],
+      "correct": 2,
+      "explanation": "On va chercher le prochain groupe au moins 15 minutes à l'avance pour enchaîner sans temps mort."
+    },
+    {
+      "q": "Quelle est la raison principale d'aller chercher le prochain groupe à l'avance ?",
+      "choices": ["Éviter les temps morts entre les courses", "Vendre davantage de produits au comptoir", "Réduire le temps de nettoyage des karts", "Permettre aux employés de finir leur quart plus tôt"],
+      "correct": 0,
+      "explanation": "Aller chercher le groupe d'avance évite les temps morts et garde la piste fluide."
+    },
+    {
+      "q": "Lors du briefing, quelle est la responsabilité principale de l'employé ?",
+      "choices": ["Faire rire les clients pour les détendre", "Imprimer les feuilles de temps du groupe", "S'assurer que les clients comprennent les règles de sécurité", "Distribuer des prix aux meilleurs pilotes"],
+      "correct": 2,
+      "explanation": "La priorité du briefing est de s'assurer que chaque client comprend les règles de sécurité."
+    },
+    {
+      "q": "Un client qui parle constamment durant le briefing peut manquer des informations importantes de sécurité.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Un client distrait pendant le briefing risque de rater des consignes de sécurité essentielles."
+    },
+    {
+      "q": "Que doit faire l'employé si une personne discute pendant la vidéo de sécurité ?",
+      "choices": ["Continuer la vidéo sans rien dire", "Arrêter la vidéo et demander son attention", "Expulser immédiatement le client du centre", "Ignorer la situation et passer au suivant"],
+      "correct": 1,
+      "explanation": "On arrête la vidéo et on redemande l'attention pour que tout le monde reçoive le message de sécurité."
+    },
+    {
+      "q": "Quelle capacité un client doit-il démontrer avant d'embarquer dans un kart ?",
+      "choices": ["Toucher le volant du bout des doigts", "Atteindre le pare-chocs avant du kart", "Appuyer complètement sur les pédales en gardant le dos appuyé", "Avoir déjà conduit une automobile"],
+      "correct": 2,
+      "explanation": "Le pilote doit pouvoir enfoncer complètement les pédales tout en gardant le dos appuyé au siège."
+    },
+    {
+      "q": "Quel est le poids maximal autorisé pour un pilote ?",
+      "choices": ["250 lb", "275 lb", "300 lb", "350 lb"],
+      "correct": 2,
+      "explanation": "Le poids maximal permis pour un pilote est de 300 lb."
+    },
+    {
+      "q": "Quel est l'âge minimum pour conduire un Mini-Kart ?",
+      "choices": ["6 ans", "7 ans", "8 ans", "10 ans"],
+      "correct": 2,
+      "explanation": "L'âge minimum pour conduire un Mini-Kart est de 8 ans."
+    },
+    {
+      "q": "Quel est l'âge minimum pour conduire un Go-Kart ?",
+      "choices": ["10 ans", "11 ans", "12 ans", "14 ans"],
+      "correct": 2,
+      "explanation": "L'âge minimum pour conduire un Go-Kart est de 12 ans."
+    },
+    {
+      "q": "Quel est l'âge minimum pour conduire un Super-Kart ?",
+      "choices": ["14 ans", "15 ans", "16 ans", "18 ans"],
+      "correct": 2,
+      "explanation": "L'âge minimum pour conduire un Super-Kart est de 16 ans."
+    },
+    {
+      "q": "Quelle taille minimale est exigée pour conduire un Super-Kart ?",
+      "choices": ["4'10\"", "5'0\"", "5'4\"", "5'6\""],
+      "correct": 1,
+      "explanation": "La taille minimale exigée pour le Super-Kart est de 5'0\"."
+    },
+    {
+      "q": "Le port du chandail est obligatoire pour piloter.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le port du chandail est obligatoire en tout temps sur la piste."
+    },
+    {
+      "q": "Un enfant de 2 ans peut-il être passager dans un kart double ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non, l'âge minimal pour être passager dans un kart double est de 3 ans."
+    },
+    {
+      "q": "Quel est l'âge minimal pour être passager dans un kart double ?",
+      "choices": ["2 ans", "3 ans", "4 ans", "5 ans"],
+      "correct": 1,
+      "explanation": "Il faut avoir au moins 3 ans pour être passager dans un kart double."
+    },
+    {
+      "q": "Une personne de 12 ans peut-elle conduire un passager dans un kart double ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non, un conducteur de 12 ans n'a pas l'âge requis pour transporter un passager dans un kart double."
+    },
+    {
+      "q": "Pourquoi les cheveux longs doivent-ils être attachés avant de piloter ?",
+      "choices": ["Pour avoir l'air plus professionnel", "Pour des raisons de sécurité", "Pour mieux paraître sur les photos", "Pour le confort du pilote"],
+      "correct": 1,
+      "explanation": "On attache les cheveux longs pour la sécurité, afin d'éviter qu'ils se prennent dans les pièces en mouvement."
+    },
+    {
+      "q": "Un client affirme avoir déjà fait du kart ailleurs et refuse d'écouter le briefing. Que fais-tu ?",
+      "choices": ["Tu le laisses faire puisqu'il a de l'expérience", "Tu lui fais simplement signer un papier", "Tu exiges qu'il participe au briefing comme tout le monde", "Tu ignores la situation et le laisses embarquer"],
+      "correct": 2,
+      "explanation": "Tout le monde participe au briefing, peu importe son expérience antérieure."
+    },
+    {
+      "q": "Un client mesure moins que la taille minimale exigée pour le Super-Kart. Que fais-tu ?",
+      "choices": ["On le laisse conduire quand même", "On lui donne un kart adapté à sa taille", "On demande à un ami de confirmer sa taille", "On refuse le Super-Kart pour des raisons de sécurité"],
+      "correct": 3,
+      "explanation": "On refuse le Super-Kart si la taille minimale n'est pas atteinte, pour la sécurité du pilote."
+    },
+    {
+      "q": "Pourquoi faut-il être rigoureux avec les prérequis d'âge, de taille et de poids ?",
+      "choices": ["Pour compliquer l'accès à la piste", "Pour assurer la sécurité des pilotes", "Pour limiter le nombre de clients", "Pour faire gagner du temps à l'équipe"],
+      "correct": 1,
+      "explanation": "La rigueur sur les prérequis sert avant tout à garantir la sécurité de chaque pilote."
+    },
+    {
+      "q": "Quel est l'objectif final du briefing ?",
+      "choices": ["Faire signer les clients rapidement", "Préparer des pilotes sécuritaires", "Faire respecter les horaires de la journée", "Imprimer les résultats de course"],
+      "correct": 1,
+      "explanation": "Le but ultime du briefing est de préparer des pilotes sécuritaires sur la piste."
+    },
+    {
+      "q": "Quel kart exige à la fois un âge minimum de 16 ans et une taille minimale de 5'0\" ?",
+      "choices": ["Le Mini-Kart", "Le Go-Kart", "Le Super-Kart", "Le kart double"],
+      "correct": 2,
+      "explanation": "Le Super-Kart est réservé aux pilotes d'au moins 16 ans mesurant 5'0\" ou plus."
+    },
+    {
+      "q": "Un client de 7 ans veut conduire seul. Quelle est la bonne décision ?",
+      "choices": ["Le laisser conduire un Mini-Kart", "Refuser, car il n'a pas l'âge minimum de 8 ans pour le Mini-Kart", "Le laisser conduire un Go-Kart accompagné", "Le placer comme passager s'il a 7 ans"],
+      "correct": 1,
+      "explanation": "Avec 7 ans, l'enfant n'atteint pas l'âge minimum de 8 ans requis pour le Mini-Kart."
+    },
+    {
+      "q": "Une personne de 14 ans souhaite conduire. Quel type de kart peut-elle piloter selon les âges minimums ?",
+      "choices": ["Le Super-Kart, peu importe sa taille", "Le Go-Kart, puisqu'elle a au moins 12 ans", "Uniquement le Mini-Kart", "Aucun kart avant 16 ans"],
+      "correct": 1,
+      "explanation": "À 14 ans, elle dépasse les 12 ans requis pour le Go-Kart, mais pas les 16 ans du Super-Kart."
+    },
+    {
+      "q": "Pour quelle raison demande-t-on au pilote de garder le dos appuyé au siège lorsqu'il appuie sur les pédales ?",
+      "choices": ["Pour vérifier qu'il atteint bien les pédales en position de conduite", "Pour mesurer son poids exact", "Pour confirmer sa taille minimale", "Pour tester le volant du kart"],
+      "correct": 0,
+      "explanation": "Le dos appuyé reproduit la vraie position de conduite et confirme que le pilote atteint complètement les pédales."
+    },
+    {
+      "q": "Le briefing de sécurité est facultatif pour les clients ayant déjà fait du karting ailleurs.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : le briefing est obligatoire pour tout le monde, sans exception, peu importe l'expérience."
+    }
+  ]
+}

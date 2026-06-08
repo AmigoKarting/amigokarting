@@ -1,0 +1,278 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 16,
+  "title": "Karting sous la pluie et conditions météo",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Peut-on faire du karting lorsqu'il pleut ?",
+      "choices": ["Oui", "Non", "Seulement les adultes", "Seulement les groupes"],
+      "correct": 0,
+      "explanation": "Le karting peut se poursuivre sous la pluie, la piste demeure ouverte."
+    },
+    {
+      "q": "Pourquoi est-il important d'aviser les clients lorsqu'il pleut ?",
+      "choices": ["Pour leur faire peur", "Pour vendre moins de billets", "Pour qu'ils comprennent les conditions de piste", "Pour éviter de répondre aux questions"],
+      "correct": 2,
+      "explanation": "Aviser le client lui permet de comprendre les conditions de piste avant de rouler."
+    },
+    {
+      "q": "Lorsque la piste est mouillée, elle devient :",
+      "choices": ["Plus rapide", "Plus courte", "Plus large", "Plus glissante"],
+      "correct": 3,
+      "explanation": "Une piste mouillée offre moins d'adhérence et devient donc plus glissante."
+    },
+    {
+      "q": "Comment les clients doivent-ils adapter leur conduite sous la pluie ?",
+      "choices": ["En étant plus prudents", "En accélérant davantage", "En freinant moins", "En ignorant les consignes"],
+      "correct": 0,
+      "explanation": "La conduite doit être plus prudente pour compenser la perte d'adhérence."
+    },
+    {
+      "q": "La pluie excuse-t-elle un mauvais comportement sur la piste ?",
+      "choices": ["Oui", "Toujours", "Seulement pour les enfants", "Non"],
+      "correct": 3,
+      "explanation": "Les règles de comportement restent identiques, peu importe la météo."
+    },
+    {
+      "q": "Un client qui perd le contrôle volontairement de son kart sous la pluie :",
+      "choices": ["N'est pas responsable", "Est responsable de sa conduite", "Reçoit un remboursement", "Obtient un tour gratuit"],
+      "correct": 1,
+      "explanation": "Chaque client demeure responsable de sa conduite, même sur piste mouillée."
+    },
+    {
+      "q": "Lorsqu'un client achète une course alors qu'il pleut déjà, il doit être informé :",
+      "choices": ["Du nom du mécanicien", "Des conditions de piste", "Du nombre de karts", "Du prix du carburant"],
+      "correct": 1,
+      "explanation": "Le client doit connaître les conditions de piste avant de payer sa course."
+    },
+    {
+      "q": "Que faut-il mentionner lorsqu'un orage semble possible ?",
+      "choices": ["Les karts seront plus rapides", "La piste sera vide", "Aucun remboursement en raison de la pluie", "Les règles changent"],
+      "correct": 2,
+      "explanation": "Il faut rappeler qu'il n'y a aucun remboursement en raison de la pluie."
+    },
+    {
+      "q": "La pluie fait généralement :",
+      "choices": ["Augmenter l'adhérence", "Diminuer l'adhérence", "Disparaître les virages", "Doubler la vitesse"],
+      "correct": 1,
+      "explanation": "L'eau réduit l'adhérence des pneus sur la surface de la piste."
+    },
+    {
+      "q": "Pourquoi la transparence est-elle importante avec les clients ?",
+      "choices": ["Pour éviter les malentendus et les plaintes", "Pour accélérer la file d'attente", "Pour vendre des forfaits plus chers", "Pour limiter le nombre de courses"],
+      "correct": 0,
+      "explanation": "Être transparent prévient les malentendus et réduit les plaintes."
+    },
+    {
+      "q": "Le karting est-il automatiquement annulé lorsqu'il commence à pleuvoir ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Le karting n'est pas annulé automatiquement, il se poursuit sous la pluie."
+    },
+    {
+      "q": "La piste devient-elle plus glissante sous la pluie ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "L'eau réduit l'adhérence, ce qui rend la piste plus glissante."
+    },
+    {
+      "q": "Les clients doivent-ils être informés des risques supplémentaires sous la pluie ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Informer des risques fait partie d'une vente responsable et transparente."
+    },
+    {
+      "q": "La pluie donne-t-elle automatiquement droit à un remboursement ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "La pluie n'ouvre aucun droit automatique au remboursement."
+    },
+    {
+      "q": "Les règles de sécurité restent-elles les mêmes sous la pluie ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les consignes de sécurité s'appliquent de la même façon, peu importe la météo."
+    },
+    {
+      "q": "Les clients doivent-ils adapter leur conduite aux conditions ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Chaque pilote doit ajuster sa conduite selon les conditions de la piste."
+    },
+    {
+      "q": "Les pertes de contrôle répétées peuvent-elles entraîner une intervention du personnel ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le personnel peut intervenir si un pilote perd le contrôle de façon répétée."
+    },
+    {
+      "q": "Une bonne communication réduit-elle les conflits ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Bien communiquer en amont diminue les sources de conflit avec les clients."
+    },
+    {
+      "q": "La météo peut-elle influencer les attentes des clients ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "La météo modifie l'expérience et donc les attentes des clients."
+    },
+    {
+      "q": "Un client doit-il savoir dans quelles conditions il va rouler avant de payer ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le client doit connaître les conditions de piste avant de conclure l'achat."
+    },
+    {
+      "q": "Un client arrive et il pleut légèrement. Que dois-tu faire avant de lui vendre une course ?",
+      "choices": ["L'informer que la piste est mouillée et plus glissante", "Lui vendre sans rien dire", "Lui offrir un remboursement à l'avance", "Lui refuser la vente"],
+      "correct": 0,
+      "explanation": "Il faut informer le client que la piste est mouillée et plus glissante avant la vente."
+    },
+    {
+      "q": "Un client affirme : « Je ne savais pas qu'on roulait sous la pluie. » Quelle erreur a probablement été commise ?",
+      "choices": ["Le kart était défectueux", "Les conditions n'ont pas été expliquées clairement avant la vente", "Le prix était trop élevé", "La piste était fermée"],
+      "correct": 1,
+      "explanation": "Cette situation indique que les conditions n'ont pas été expliquées avant la vente."
+    },
+    {
+      "q": "Un client demande : « Est-ce dangereux ? » Que réponds-tu ?",
+      "choices": ["Que c'est totalement sans risque", "Que le karting est annulé", "Que le karting est permis sous la pluie, mais que les conditions sont plus glissantes et les consignes doivent être respectées", "Qu'il doit signer une décharge spéciale"],
+      "correct": 2,
+      "explanation": "Le karting reste permis, mais la piste est plus glissante et les consignes de sécurité s'appliquent."
+    },
+    {
+      "q": "Un client veut un remboursement parce que ses vêtements sont mouillés. Que fais-tu ?",
+      "choices": ["Lui rembourser immédiatement", "Expliquer la politique de l'entreprise et rappeler que les conditions avaient été annoncées", "Lui offrir une course gratuite", "Ignorer sa demande"],
+      "correct": 1,
+      "explanation": "On explique la politique et on rappelle que les conditions avaient été annoncées."
+    },
+    {
+      "q": "Un client hésite à acheter une course à cause de la météo. Que peux-tu faire ?",
+      "choices": ["Lui expliquer honnêtement les conditions actuelles de la piste", "Lui garantir qu'il ne sera pas mouillé", "Le forcer à acheter", "Lui dire qu'il pleuvra toute la journée"],
+      "correct": 0,
+      "explanation": "On lui explique honnêtement l'état réel de la piste pour qu'il décide."
+    },
+    {
+      "q": "Un groupe a réservé plusieurs jours d'avance et il pleut le jour de l'activité. Que dois-tu faire ?",
+      "choices": ["Annuler la réservation", "Exiger un supplément", "Reporter automatiquement la date", "Leur rappeler que les activités ont généralement lieu même sous la pluie"],
+      "correct": 3,
+      "explanation": "Les activités ont généralement lieu même sous la pluie, il faut le rappeler au groupe."
+    },
+    {
+      "q": "Un client croit que les collisions sont permises parce que la piste est mouillée. Que réponds-tu ?",
+      "choices": ["Que c'est permis exceptionnellement", "Que les règles de sécurité sont exactement les mêmes", "Que cela dépend du kart", "Que seul le personnel décide"],
+      "correct": 1,
+      "explanation": "Les règles de sécurité restent identiques, les collisions ne sont jamais permises."
+    },
+    {
+      "q": "Pourquoi est-il important d'expliquer la météo avant la vente ?",
+      "choices": ["Pour gagner du temps", "Pour que le client puisse prendre une décision éclairée", "Pour augmenter le prix", "Pour éviter de servir le client"],
+      "correct": 1,
+      "explanation": "Une bonne information permet au client de prendre une décision éclairée."
+    },
+    {
+      "q": "Un client devient frustré parce qu'il roule moins vite sous la pluie. Que fais-tu ?",
+      "choices": ["Lui expliquer que les conditions de piste influencent naturellement la conduite", "Lui rembourser la course", "Lui dire d'accélérer davantage", "Lui changer de kart"],
+      "correct": 0,
+      "explanation": "On explique que la piste mouillée influence naturellement la vitesse de conduite."
+    },
+    {
+      "q": "Quelle est la meilleure approche avec un client par temps de pluie ?",
+      "choices": ["Cacher les conditions météo", "Être transparent avec le client", "Éviter les questions", "Donner de fausses garanties"],
+      "correct": 1,
+      "explanation": "La transparence est toujours la meilleure approche avec le client."
+    },
+    {
+      "q": "Un client dit : « Je pensais que vous fermiez quand il pleut. » Quelle réponse est correcte ?",
+      "choices": ["Oui, nous fermons toujours", "Non, le karting peut se poursuivre sous la pluie", "Cela dépend du nombre de clients", "Seulement les week-ends"],
+      "correct": 1,
+      "explanation": "Le karting peut se poursuivre sous la pluie, il n'y a pas de fermeture automatique."
+    },
+    {
+      "q": "Un client affirme : « Personne ne m'a dit que la piste serait glissante. » Que dois-tu faire ?",
+      "choices": ["Lui répondre que ce n'est pas ton problème", "Le rembourser sans question", "Écouter sa préoccupation et vérifier que les procédures d'information ont été respectées", "Lui interdire de revenir"],
+      "correct": 2,
+      "explanation": "On écoute le client et on vérifie que les procédures d'information ont bien été suivies."
+    },
+    {
+      "q": "Pourquoi les clients réagissent-ils parfois négativement à la pluie ?",
+      "choices": ["Parce que l'expérience est différente de leurs attentes", "Parce que les karts sont brisés", "Parce que la piste ferme toujours", "Parce que les prix augmentent"],
+      "correct": 0,
+      "explanation": "La pluie change l'expérience par rapport à ce que le client attendait."
+    },
+    {
+      "q": "Quel est le meilleur moyen de prévenir une plainte liée à la pluie ?",
+      "choices": ["Offrir un remboursement", "Bien informer le client avant l'achat", "Éviter la conversation", "Réduire le temps de course"],
+      "correct": 1,
+      "explanation": "Bien informer le client avant l'achat prévient la majorité des plaintes."
+    },
+    {
+      "q": "Quel est le rôle du caissier lors d'une journée de pluie ?",
+      "choices": ["Réparer les karts", "Fermer la piste", "Informer clairement les clients des conditions et des politiques applicables", "Réduire les prix"],
+      "correct": 2,
+      "explanation": "Le caissier doit informer clairement les clients des conditions et des politiques."
+    },
+    {
+      "q": "Pourquoi l'information donnée avant la vente est-elle importante ?",
+      "choices": ["Parce qu'un client bien informé est moins susceptible d'être déçu", "Parce que cela accélère la vente", "Parce que la loi l'interdit", "Parce que cela augmente les prix"],
+      "correct": 0,
+      "explanation": "Un client bien informé avant la vente est moins susceptible d'être déçu."
+    },
+    {
+      "q": "Pourquoi la pluie est-elle un sujet sensible pour certains clients ?",
+      "choices": ["Parce qu'elle modifie l'expérience de conduite qu'ils s'attendaient à vivre", "Parce qu'elle double le prix", "Parce qu'elle brise les karts", "Parce qu'elle ferme la piste"],
+      "correct": 0,
+      "explanation": "La pluie modifie l'expérience de conduite attendue, ce qui rend le sujet sensible."
+    },
+    {
+      "q": "Quelle qualité est essentielle lorsqu'on explique les conditions météo ?",
+      "choices": ["La rapidité", "La transparence", "La négociation", "L'improvisation"],
+      "correct": 1,
+      "explanation": "La transparence est la qualité essentielle pour expliquer les conditions météo."
+    },
+    {
+      "q": "Quel est l'objectif principal de la politique concernant la pluie ?",
+      "choices": ["Vendre plus de billets", "Réduire le travail", "Assurer que les clients comprennent les conditions avant de participer", "Fermer plus souvent"],
+      "correct": 2,
+      "explanation": "La politique vise à s'assurer que les clients comprennent les conditions avant de participer."
+    },
+    {
+      "q": "Une excellente gestion des journées de pluie permet :",
+      "choices": ["De réduire les plaintes", "D'améliorer l'expérience client", "D'éviter les malentendus", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Une bonne gestion réduit les plaintes, améliore l'expérience et évite les malentendus."
+    },
+    {
+      "q": "Quand le client doit-il être informé des conditions de piste mouillée ?",
+      "choices": ["Après la course", "Avant de payer sa course", "Seulement s'il se plaint", "Jamais"],
+      "correct": 1,
+      "explanation": "Le client doit être informé des conditions avant de payer sa course."
+    },
+    {
+      "q": "Un client mécontent de la pluie hausse le ton. Quelle attitude le caissier doit-il adopter ?",
+      "choices": ["Rester calme et transparent en expliquant les conditions et politiques", "Hausser le ton à son tour", "L'ignorer complètement", "Lui promettre un remboursement immédiat"],
+      "correct": 0,
+      "explanation": "Le caissier reste calme et transparent en expliquant les conditions et les politiques."
+    },
+    {
+      "q": "Qui demeure responsable de la conduite du kart sous la pluie ?",
+      "choices": ["Le mécanicien", "Le client qui conduit", "Le caissier", "Personne"],
+      "correct": 1,
+      "explanation": "Le client qui conduit reste responsable de sa conduite, même sous la pluie."
+    },
+    {
+      "q": "Que se passe-t-il avec les consignes de sécurité lorsqu'il pleut ?",
+      "choices": ["Elles sont assouplies", "Elles sont annulées", "Elles restent exactement les mêmes", "Elles deviennent optionnelles"],
+      "correct": 2,
+      "explanation": "Les consignes de sécurité restent exactement les mêmes par temps de pluie."
+    },
+    {
+      "q": "Quel est le principal bénéfice de la transparence sur la météo pour l'entreprise ?",
+      "choices": ["Moins de plaintes et de malentendus", "Des prix plus élevés", "Moins de clients", "Des courses plus rapides"],
+      "correct": 0,
+      "explanation": "La transparence réduit les plaintes et les malentendus, ce qui profite à l'entreprise."
+    }
+  ]
+}

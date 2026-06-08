@@ -1,0 +1,308 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 18,
+  "title": "Fermeture de la caisse",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Quelle est la première étape de la fermeture ?",
+      "choices": ["Éteindre les lumières", "Compter la caisse", "Fermer les portes", "Quitter les lieux"],
+      "correct": 1,
+      "explanation": "On commence toujours par compter la caisse afin de valider les transactions de la journée."
+    },
+    {
+      "q": "Pourquoi faut-il compter la caisse ?",
+      "choices": ["Vérifier l'exactitude des transactions", "Connaître seulement les profits", "Préparer uniquement le lendemain", "Décorer le comptoir"],
+      "correct": 0,
+      "explanation": "Le comptage sert avant tout à confirmer que les transactions de la journée concordent avec l'argent présent."
+    },
+    {
+      "q": "À combien doit être remis le fonds de caisse pour le lendemain ?",
+      "choices": ["300 $", "400 $", "500 $", "1000 $"],
+      "correct": 2,
+      "explanation": "Le fonds de caisse doit toujours être ramené à 500 $ pour l'ouverture du lendemain."
+    },
+    {
+      "q": "Que fait-on avec l'argent excédentaire au-delà du fonds de caisse ?",
+      "choices": ["On le laisse dans le tiroir-caisse", "On le distribue aux employés", "On le prépare selon les procédures de dépôt de l'entreprise", "On le garde pour les pourboires"],
+      "correct": 2,
+      "explanation": "L'excédent au-delà du fonds de 500 $ doit être préparé selon les procédures de dépôt de l'entreprise."
+    },
+    {
+      "q": "Une différence de caisse doit être :",
+      "choices": ["Ignorée", "Cachée", "Notée et expliquée", "Détruite"],
+      "correct": 2,
+      "explanation": "Tout écart doit être noté et expliqué pour assurer un suivi comptable fiable."
+    },
+    {
+      "q": "Pourquoi faut-il identifier les écarts ?",
+      "choices": ["Pour blâmer un collègue", "Pour assurer un suivi comptable précis", "Pour accélérer la fermeture", "Pour éviter de compter"],
+      "correct": 1,
+      "explanation": "Identifier les écarts permet de maintenir un suivi comptable précis des opérations."
+    },
+    {
+      "q": "Une fermeture incomplète peut causer :",
+      "choices": ["Des erreurs financières", "Des problèmes administratifs", "Des difficultés à l'ouverture", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Une fermeture bâclée entraîne à la fois des erreurs financières, des problèmes administratifs et des difficultés à l'ouverture."
+    },
+    {
+      "q": "Avant de quitter, il faut vérifier :",
+      "choices": ["Les rapports", "La caisse", "Les lieux", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Avant de partir, on vérifie les rapports, la caisse et l'ensemble des lieux."
+    },
+    {
+      "q": "La fermeture est aussi importante que :",
+      "choices": ["Les appels", "L'ouverture", "Les réservations", "Les ventes"],
+      "correct": 1,
+      "explanation": "La fermeture est aussi cruciale que l'ouverture, car elle conditionne le bon déroulement du lendemain."
+    },
+    {
+      "q": "Quel est l'objectif principal de la fermeture ?",
+      "choices": ["Partir le plus vite possible", "S'assurer que toutes les opérations de la journée sont correctement terminées", "Augmenter les ventes du jour", "Réorganiser les horaires"],
+      "correct": 1,
+      "explanation": "La fermeture vise à garantir que toutes les opérations de la journée sont correctement terminées."
+    },
+    {
+      "q": "Le fonds de caisse doit être remis à 500 $.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le fonds de caisse est toujours ramené à 500 $ pour le lendemain."
+    },
+    {
+      "q": "Une différence de caisse doit être signalée.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Tout écart de caisse doit être signalé et documenté."
+    },
+    {
+      "q": "On peut quitter sans vérifier les rapports.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Il est interdit de quitter sans avoir vérifié les rapports de fermeture."
+    },
+    {
+      "q": "La fermeture influence le travail du lendemain.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une fermeture bien faite facilite directement le travail à l'ouverture du lendemain."
+    },
+    {
+      "q": "Toutes les transactions doivent être comptabilisées.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Chaque transaction de la journée doit être comptabilisée pour assurer l'exactitude des rapports."
+    },
+    {
+      "q": "Les remboursements doivent apparaître dans les registres.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les remboursements doivent figurer dans les registres car ils affectent les résultats financiers."
+    },
+    {
+      "q": "Les certificats-cadeaux peuvent influencer les chiffres de la journée.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les certificats-cadeaux modifient les chiffres et doivent être comptabilisés correctement."
+    },
+    {
+      "q": "Les erreurs non détectées deviennent plus difficiles à corriger.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Plus une erreur reste non détectée, plus elle devient difficile à corriger par la suite."
+    },
+    {
+      "q": "Le nettoyage fait partie de la fermeture.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le nettoyage est une étape intégrante de la procédure de fermeture."
+    },
+    {
+      "q": "Une bonne fermeture réduit les problèmes futurs.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une fermeture rigoureuse diminue les problèmes lors des journées suivantes."
+    },
+    {
+      "q": "Tu comptes la caisse et trouves un surplus de 10 $. Que fais-tu ?",
+      "choices": ["Tu gardes le surplus", "Tu vérifies les transactions et notes l'écart", "Tu ignores le surplus", "Tu le mets dans le pourboire"],
+      "correct": 1,
+      "explanation": "Un surplus doit être traité comme un écart : on vérifie les transactions et on le note."
+    },
+    {
+      "q": "Tu constates un manque de 5 $. Quelle est la première étape ?",
+      "choices": ["Recompter la caisse", "Payer la différence de ta poche", "Quitter sans rien faire", "Accuser un collègue"],
+      "correct": 0,
+      "explanation": "Devant un manque, la première étape est toujours de recompter la caisse."
+    },
+    {
+      "q": "Après recomptage, l'écart demeure. Que fais-tu ?",
+      "choices": ["Tu effaces la transaction", "Tu notes l'écart et suis la procédure prévue", "Tu pars immédiatement", "Tu changes les chiffres"],
+      "correct": 1,
+      "explanation": "Si l'écart persiste après recomptage, on le note et on suit la procédure prévue."
+    },
+    {
+      "q": "Pourquoi les remboursements doivent-ils être vérifiés ?",
+      "choices": ["Parce qu'ils affectent directement les résultats financiers", "Parce qu'ils sont rares", "Parce qu'ils n'ont aucun impact", "Parce que les clients le demandent"],
+      "correct": 0,
+      "explanation": "Les remboursements doivent être vérifiés car ils influencent directement les résultats financiers."
+    },
+    {
+      "q": "Pourquoi les certificats-cadeaux doivent-ils être comptabilisés ?",
+      "choices": ["Pour décorer les rapports", "Pour assurer l'exactitude des rapports", "Pour les offrir gratuitement", "Pour les ignorer"],
+      "correct": 1,
+      "explanation": "Comptabiliser les certificats-cadeaux garantit l'exactitude des rapports de fin de journée."
+    },
+    {
+      "q": "Un remboursement non inscrit peut causer :",
+      "choices": ["Une erreur comptable", "Un écart de caisse", "Un problème de suivi", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Un remboursement oublié provoque une erreur comptable, un écart et un problème de suivi."
+    },
+    {
+      "q": "Pourquoi faut-il être précis dans les calculs ?",
+      "choices": ["Pour impressionner le patron", "Pour éviter les erreurs financières", "Pour partir plus tôt", "Pour éviter de compter"],
+      "correct": 1,
+      "explanation": "La précision dans les calculs sert à éviter les erreurs financières."
+    },
+    {
+      "q": "Quel est le risque d'un mauvais calcul ?",
+      "choices": ["Créer un écart inexpliqué", "Gagner du temps", "Améliorer les ventes", "Aucun risque"],
+      "correct": 0,
+      "explanation": "Un mauvais calcul risque de créer un écart de caisse inexpliqué."
+    },
+    {
+      "q": "Les rapports de fermeture servent à :",
+      "choices": ["Documenter la journée", "Vérifier les ventes", "Expliquer les écarts", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Les rapports de fermeture documentent la journée, vérifient les ventes et expliquent les écarts."
+    },
+    {
+      "q": "Quelle qualité est essentielle en comptabilité ?",
+      "choices": ["Rapidité", "Précision", "Créativité", "Improvisation"],
+      "correct": 1,
+      "explanation": "La précision est la qualité essentielle pour une comptabilité fiable."
+    },
+    {
+      "q": "Pourquoi faut-il nettoyer avant de partir ?",
+      "choices": ["Pour passer le temps", "Pour que le site soit prêt à accueillir les clients le lendemain", "Parce que c'est facultatif", "Pour éviter de compter la caisse"],
+      "correct": 1,
+      "explanation": "Le nettoyage assure que le site est prêt à accueillir les clients dès le lendemain."
+    },
+    {
+      "q": "Les toilettes doivent être :",
+      "choices": ["Vérifiées", "Nettoyées au besoin", "Approvisionnées", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Les toilettes doivent être vérifiées, nettoyées au besoin et approvisionnées."
+    },
+    {
+      "q": "Une fermeture propre améliore :",
+      "choices": ["L'expérience client", "Le travail des collègues", "L'image de l'entreprise", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Une fermeture propre améliore à la fois l'expérience client, le travail des collègues et l'image de l'entreprise."
+    },
+    {
+      "q": "Comment doit-on traiter les déchets avant le départ ?",
+      "choices": ["Les laisser sur place", "Les ramasser avant le départ", "Les cacher sous le comptoir", "Les ignorer"],
+      "correct": 1,
+      "explanation": "Les déchets doivent être ramassés avant que l'employé quitte les lieux."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier les espaces clients ?",
+      "choices": ["Pour s'assurer qu'ils sont sécuritaires et propres", "Pour gagner du temps", "Pour compter la caisse", "Parce que c'est optionnel"],
+      "correct": 0,
+      "explanation": "On vérifie les espaces clients pour s'assurer qu'ils sont sécuritaires et propres."
+    },
+    {
+      "q": "Tu es pressé de partir et il reste des calculs à faire. Que fais-tu ?",
+      "choices": ["Tu pars quand même", "Tu termines la procédure correctement avant de quitter", "Tu reportes au lendemain", "Tu demandes à un client"],
+      "correct": 1,
+      "explanation": "Même pressé, on termine correctement la procédure avant de quitter."
+    },
+    {
+      "q": "Tu remarques un remboursement qui n'apparaît pas dans les rapports. Que fais-tu ?",
+      "choices": ["Tu l'ignores", "Tu vérifies la transaction immédiatement", "Tu attends le lendemain", "Tu modifies le rapport sans vérifier"],
+      "correct": 1,
+      "explanation": "Un remboursement absent des rapports doit être vérifié immédiatement."
+    },
+    {
+      "q": "Tu trouves un écart de 20 $. Peux-tu simplement partir ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non : un écart de 20 $ doit d'abord être vérifié et documenté avant de quitter."
+    },
+    {
+      "q": "Pourquoi ne peux-tu pas simplement partir avec un écart de 20 $ ?",
+      "choices": ["Parce que l'écart doit être vérifié et documenté", "Parce que 20 $ est un petit montant", "Parce que personne ne le remarquera", "Parce que c'est permis"],
+      "correct": 0,
+      "explanation": "L'écart doit être vérifié et documenté avant le départ, peu importe le montant."
+    },
+    {
+      "q": "Tu réalises qu'une réservation de demain n'est pas bien classée. Que fais-tu ?",
+      "choices": ["Tu laisses le problème", "Tu corriges la situation avant de quitter", "Tu annules la réservation", "Tu attends que quelqu'un d'autre le fasse"],
+      "correct": 1,
+      "explanation": "On corrige la situation avant de quitter pour faciliter le travail du lendemain."
+    },
+    {
+      "q": "Pourquoi la fermeture est-elle une responsabilité importante ?",
+      "choices": ["Parce qu'elle garantit l'exactitude des opérations financières", "Parce qu'elle est facultative", "Parce qu'elle remplace l'ouverture", "Parce qu'elle augmente les ventes"],
+      "correct": 0,
+      "explanation": "La fermeture est importante car elle garantit l'exactitude des opérations financières."
+    },
+    {
+      "q": "Quel est le lien entre une bonne fermeture et une bonne ouverture ?",
+      "choices": ["Aucun lien", "Une fermeture bien faite facilite le travail du lendemain", "L'ouverture annule la fermeture", "La fermeture nuit à l'ouverture"],
+      "correct": 1,
+      "explanation": "Une fermeture bien faite facilite directement le travail à l'ouverture du lendemain."
+    },
+    {
+      "q": "Quelle erreur est la plus grave ?",
+      "choices": ["Oublier une poubelle", "Oublier un appel", "Quitter avec une caisse incorrecte", "Oublier un stylo"],
+      "correct": 2,
+      "explanation": "Quitter avec une caisse incorrecte est l'erreur la plus grave car elle touche les finances."
+    },
+    {
+      "q": "Quel est l'objectif principal de tous les contrôles de fermeture ?",
+      "choices": ["Assurer que la journée est correctement documentée et complétée", "Permettre de partir plus tôt", "Réduire le nombre de clients", "Éviter le nettoyage"],
+      "correct": 0,
+      "explanation": "Tous les contrôles visent à assurer que la journée est correctement documentée et complétée."
+    },
+    {
+      "q": "Un employé qui maîtrise parfaitement la fermeture contribue à :",
+      "choices": ["Réduire les erreurs", "Faciliter l'ouverture", "Protéger les finances de l'entreprise", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Maîtriser la fermeture réduit les erreurs, facilite l'ouverture et protège les finances de l'entreprise."
+    },
+    {
+      "q": "Combien d'argent doit-il rester dans le tiroir après le dépôt de l'excédent ?",
+      "choices": ["0 $", "250 $", "500 $", "Tout l'argent de la journée"],
+      "correct": 2,
+      "explanation": "Après avoir préparé l'excédent pour le dépôt, le tiroir conserve le fonds de caisse de 500 $."
+    },
+    {
+      "q": "Que doit-on faire lorsqu'on découvre un surplus après recomptage ?",
+      "choices": ["Le garder discrètement", "Le noter et l'expliquer comme tout écart", "Le distribuer en pourboires", "L'ajouter au fonds de caisse"],
+      "correct": 1,
+      "explanation": "Un surplus est un écart : il se note et s'explique au même titre qu'un manque."
+    },
+    {
+      "q": "Avant de quitter, le site doit être propre afin d'accueillir les clients dès le lendemain.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le nettoyage garantit que le site est prêt pour la clientèle du lendemain."
+    },
+    {
+      "q": "Pourquoi recompte-t-on la caisse plutôt que de corriger directement les chiffres ?",
+      "choices": ["Pour gagner du temps", "Pour confirmer l'écart réel avant de le documenter", "Pour éviter le nettoyage", "Pour fermer plus vite"],
+      "correct": 1,
+      "explanation": "Le recomptage confirme l'écart réel avant qu'il soit noté et expliqué."
+    },
+    {
+      "q": "Quelle attitude assure une fermeture fiable même en fin de quart fatigant ?",
+      "choices": ["Faire les étapes au hasard", "Suivre la procédure avec rigueur et précision", "Sauter le comptage", "Reporter les rapports au lendemain"],
+      "correct": 1,
+      "explanation": "Suivre la procédure avec rigueur et précision garantit une fermeture fiable, même fatigué."
+    }
+  ]
+}

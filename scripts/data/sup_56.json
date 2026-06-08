@@ -1,0 +1,158 @@
+{
+  "category": "Superviseur du service à la clientèle",
+  "sort_order": 56,
+  "title": "Leadership et culture d'excellence",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Quelle culture le manuel demande-t-il au superviseur d'instaurer dans l'équipe ?",
+      "choices": ["Une culture de productivité minimale", "Une culture d'excellence", "Une culture de tolérance aux écarts", "Une culture axée uniquement sur la rapidité"],
+      "correct": 1,
+      "explanation": "Le manuel vise une culture d'excellence, pas le simple respect des seuils minimaux."
+    },
+    {
+      "q": "D'après le manuel, quelles qualités un bon leader doit-il démontrer auprès de son équipe ?",
+      "choices": ["Être visible sur le plancher", "Être exigeant envers les standards", "Être positif au quotidien", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Un leader efficace combine présence, exigence et attitude positive."
+    },
+    {
+      "q": "Quels rôles le superviseur doit-il assumer auprès de ses employés ?",
+      "choices": ["Inspirer son équipe", "Motiver son équipe", "Corriger les écarts", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Le superviseur inspire, motive et corrige à la fois pour faire progresser l'équipe."
+    },
+    {
+      "q": "Quelle attitude le superviseur doit-il adopter face à la médiocrité ?",
+      "choices": ["L'accepter pour préserver l'harmonie", "La tolérer si c'est occasionnel", "La refuser et la corriger", "L'ignorer pour éviter les conflits"],
+      "correct": 2,
+      "explanation": "La médiocrité doit être refusée afin de protéger la culture d'excellence."
+    },
+    {
+      "q": "Comment le manuel décrit-il l'excellence ?",
+      "choices": ["Un coup de chance ponctuel", "Un état d'esprit constant", "Une règle imposée d'en haut", "Une récompense réservée aux meilleurs"],
+      "correct": 1,
+      "explanation": "L'excellence est présentée comme un état d'esprit, et non un événement isolé."
+    },
+    {
+      "q": "Le superviseur doit faire preuve d'une attitude positive devant son équipe.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une attitude positive du superviseur soutient le moral et la performance de l'équipe."
+    },
+    {
+      "q": "Les bons comportements des employés doivent être reconnus.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Reconnaître les bons comportements les renforce et les rend durables."
+    },
+    {
+      "q": "Le leadership repose uniquement sur l'autorité hiérarchique.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Le leadership s'appuie surtout sur l'exemple et la reconnaissance, pas seulement sur l'autorité."
+    },
+    {
+      "q": "Les employés doivent se sentir importants au sein de l'équipe.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Des employés qui se sentent valorisés s'engagent davantage envers l'excellence."
+    },
+    {
+      "q": "Le superviseur doit demander de la rétroaction à son équipe.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Demander de la rétroaction permet au superviseur de s'améliorer et de mobiliser l'équipe."
+    },
+    {
+      "q": "Pourquoi le superviseur devrait-il reconnaître les bons coups de ses employés ?",
+      "choices": ["Pour passer le temps durant les périodes calmes", "Pour renforcer les comportements souhaités", "Pour favoriser certains employés au détriment des autres", "Parce que la reconnaissance n'a aucune utilité réelle"],
+      "correct": 1,
+      "explanation": "Souligner les bons coups encourage la répétition des comportements souhaités."
+    },
+    {
+      "q": "Pourquoi le superviseur devrait-il discuter des avis clients (reviews) avec son équipe ?",
+      "choices": ["Pour blâmer les responsables des mauvais commentaires", "Pour apprendre des situations et s'améliorer ensemble", "Pour faire peur à l'équipe", "Pour gagner du temps sur les réunions"],
+      "correct": 1,
+      "explanation": "Analyser les avis en équipe transforme la rétroaction en occasion d'amélioration."
+    },
+    {
+      "q": "Quel est le rôle du leader pendant une période de rush ?",
+      "choices": ["Se retirer pour laisser l'équipe gérer seule", "Garder l'équipe concentrée et organisée", "Paniquer avec le reste de l'équipe", "Profiter du moment pour prendre une pause"],
+      "correct": 1,
+      "explanation": "Durant un rush, le leader maintient le calme, la concentration et l'organisation."
+    },
+    {
+      "q": "Pourquoi l'excellence doit-elle être constante plutôt qu'occasionnelle ?",
+      "choices": ["Pour impressionner les clients une seule fois", "Pour maintenir une expérience client uniforme", "Parce que la constance n'a pas vraiment d'importance", "Uniquement en prévision des inspections"],
+      "correct": 1,
+      "explanation": "Une excellence constante garantit une expérience client fiable à chaque visite."
+    },
+    {
+      "q": "Comment une culture d'excellence se développe-t-elle dans l'équipe ?",
+      "choices": ["En instaurant un climat de peur", "En valorisant les bonnes actions", "En la laissant apparaître par hasard", "En ignorant les erreurs commises"],
+      "correct": 1,
+      "explanation": "Valoriser concrètement les bonnes actions fait grandir la culture d'excellence."
+    },
+    {
+      "q": "Quel est le principal danger de l'attitude « c'est assez bon » ?",
+      "choices": ["Une hausse de la motivation", "Une baisse progressive des standards", "Aucun effet notable", "Une meilleure efficacité globale"],
+      "correct": 1,
+      "explanation": "Se contenter du « assez bon » érode peu à peu les standards de l'équipe."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il célébrer les succès de son équipe ?",
+      "choices": ["Parce que c'est une perte de temps assumée", "Pour maintenir la motivation de l'équipe", "Uniquement pour faire la fête", "Parce que ça n'a pas vraiment d'importance"],
+      "correct": 1,
+      "explanation": "Célébrer les succès nourrit la motivation et l'engagement à long terme."
+    },
+    {
+      "q": "Quel rôle le superviseur joue-t-il dans la culture d'entreprise ?",
+      "choices": ["Rester invisible et discret", "Donner l'exemple à suivre", "Critiquer les autres équipes", "Suivre passivement les autres"],
+      "correct": 1,
+      "explanation": "Le superviseur façonne la culture d'entreprise d'abord en donnant l'exemple."
+    },
+    {
+      "q": "Pourquoi faut-il corriger rapidement les mauvaises habitudes ?",
+      "choices": ["Pour punir les employés fautifs", "Pour éviter qu'elles deviennent la norme", "Simplement pour gagner du temps", "Parce que ce n'est pas vraiment nécessaire"],
+      "correct": 1,
+      "explanation": "Corriger tôt empêche une mauvaise habitude de s'installer comme norme."
+    },
+    {
+      "q": "Quel est l'objectif ultime du leadership selon le manuel ?",
+      "choices": ["Réduire les coûts d'exploitation", "Créer une équipe performante et engagée", "Imposer son autorité sur l'équipe", "Terminer les quarts de travail plus tôt"],
+      "correct": 1,
+      "explanation": "Le but du leadership est de bâtir une équipe à la fois performante et engagée."
+    },
+    {
+      "q": "Lorsqu'un employé adopte un comportement exemplaire, comment le superviseur devrait-il réagir ?",
+      "choices": ["Le reconnaître pour encourager sa répétition", "Ne rien dire pour rester neutre", "Attendre l'évaluation annuelle pour en parler", "Garder la reconnaissance pour les cas exceptionnels seulement"],
+      "correct": 0,
+      "explanation": "Reconnaître un bon comportement sur-le-champ en favorise la répétition."
+    },
+    {
+      "q": "Quelle attitude reflète le mieux le leadership par l'exemple ?",
+      "choices": ["Exiger des standards qu'on ne respecte pas soi-même", "Appliquer soi-même les standards qu'on demande à l'équipe", "Déléguer entièrement la culture d'excellence aux employés", "Rester invisible et intervenir seulement en cas de problème"],
+      "correct": 1,
+      "explanation": "Donner l'exemple signifie respecter soi-même les standards exigés de l'équipe."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il maintenir des standards élevés même durant les périodes occupées ?",
+      "choices": ["Parce que la qualité peut être mise de côté quand c'est occupé", "Pour préserver une expérience client constante en tout temps", "Uniquement quand un gestionnaire est présent", "Parce que les standards ne s'appliquent pas durant un rush"],
+      "correct": 1,
+      "explanation": "Maintenir les standards même sous pression assure une expérience client constante."
+    },
+    {
+      "q": "En quoi la rétroaction demandée à l'équipe contribue-t-elle à la culture d'excellence ?",
+      "choices": ["Elle sert surtout à repérer les coupables", "Elle aide le superviseur et l'équipe à s'améliorer", "Elle ralentit inutilement le travail", "Elle n'a aucun lien avec l'excellence"],
+      "correct": 1,
+      "explanation": "La rétroaction nourrit l'amélioration continue, au cœur de la culture d'excellence."
+    },
+    {
+      "q": "Que risque une équipe dont le superviseur tolère de petits écarts aux standards ?",
+      "choices": ["Une amélioration spontanée des résultats", "Une dérive progressive vers la médiocrité", "Aucune conséquence à long terme", "Une motivation accrue de l'équipe"],
+      "correct": 1,
+      "explanation": "Tolérer de petits écarts mène peu à peu l'équipe vers la médiocrité."
+    }
+  ]
+}

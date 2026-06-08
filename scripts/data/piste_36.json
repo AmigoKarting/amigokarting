@@ -1,0 +1,158 @@
+{
+  "category": "Piste",
+  "sort_order": 36,
+  "title": "Les puits, gestion des groupes et opérations de piste",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Lorsqu'un groupe termine sa course, combien de groupes au maximum doivent se trouver dans les puits en même temps ?",
+      "choices": ["Un seul groupe à la fois", "Deux groupes à la fois", "Trois groupes à la fois", "Aucune limite tant qu'il reste de la place"],
+      "correct": 0,
+      "explanation": "On ne garde qu'un seul groupe à la fois dans les puits pour éviter la confusion et les risques d'accident."
+    },
+    {
+      "q": "Pourquoi ne doit-on jamais laisser deux groupes se trouver dans les puits en même temps ?",
+      "choices": ["Pour économiser de l'essence", "Pour éviter la confusion et les risques d'accident", "Pour améliorer les temps de course", "Pour réduire le bruit dans la bâtisse"],
+      "correct": 1,
+      "explanation": "Avoir deux groupes ensemble crée de la confusion et augmente les risques d'accident dans les puits."
+    },
+    {
+      "q": "Si un groupe termine moins de trois minutes après un autre groupe, comment doit-on les arrêter ?",
+      "choices": ["Les arrêter chacun de leur côté", "Ajouter du temps au deuxième groupe", "Les arrêter ensemble", "Les diriger vers un autre puits"],
+      "correct": 2,
+      "explanation": "Quand l'écart est de moins de trois minutes, on arrête les deux groupes ensemble pour fluidifier les opérations."
+    },
+    {
+      "q": "Dans quel ordre doit-on immobiliser les karts lorsqu'on les arrête dans les puits ?",
+      "choices": ["De l'avant vers l'arrière", "Du milieu vers l'extérieur", "De l'arrière vers l'avant", "Dans n'importe quel ordre"],
+      "correct": 2,
+      "explanation": "On immobilise les karts de l'arrière vers l'avant pour qu'aucun kart ne fonce dans ceux dont les pilotes se lèvent."
+    },
+    {
+      "q": "Pourquoi faut-il arrêter les karts de l'arrière vers l'avant ?",
+      "choices": ["Pour empêcher un kart de foncer dans ceux dont les pilotes se lèvent", "Pour accélérer la sortie des clients", "Pour faciliter le nettoyage de la piste", "Pour mieux voir les numéros des karts"],
+      "correct": 0,
+      "explanation": "Cet ordre empêche un kart arrivant derrière de heurter un kart déjà immobilisé dont le pilote se relève."
+    },
+    {
+      "q": "Comment les karts doivent-ils être placés les uns par rapport aux autres dans les puits ?",
+      "choices": ["En laissant un espace d'un kart entre eux", "Placés en diagonale", "Bumper à bumper", "Placés face à face"],
+      "correct": 2,
+      "explanation": "Les karts sont placés bumper à bumper pour garder l'ordre et la compacité dans les puits."
+    },
+    {
+      "q": "Peut-on laisser les clients sortir de leur kart avant que tout le groupe soit immobilisé ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Aucun client ne sort de son kart tant que tout le groupe n'est pas complètement immobilisé, pour éviter les blessures."
+    },
+    {
+      "q": "Que dois-tu faire si un client tente de sortir de son kart trop tôt ?",
+      "choices": ["L'ignorer et continuer", "Lui demander de se rasseoir immédiatement", "Arrêter complètement toute la piste", "Lui retirer du temps de course"],
+      "correct": 1,
+      "explanation": "On lui demande aussitôt de se rasseoir afin de protéger sa sécurité tant que le groupe n'est pas immobilisé."
+    },
+    {
+      "q": "Pourquoi la règle de rester assis jusqu'à l'arrêt complet existe-t-elle ?",
+      "choices": ["Pour accélérer les opérations", "Pour protéger les chevilles et éviter les blessures", "Pour économiser l'essence des karts", "Uniquement pour des raisons d'assurance"],
+      "correct": 1,
+      "explanation": "Rester assis jusqu'à l'arrêt complet protège les chevilles et évite les blessures."
+    },
+    {
+      "q": "Qui a le droit de traverser la clôture des puits ?",
+      "choices": ["N'importe quelle personne présente", "Les spectateurs qui le souhaitent", "Les personnes qui vont faire du kart", "Les amis des clients"],
+      "correct": 2,
+      "explanation": "Seules les personnes qui vont effectivement faire du kart peuvent traverser la clôture des puits."
+    },
+    {
+      "q": "Un ami d'un client veut aller prendre une photo sur le bord de la piste. Quelle est la bonne réponse à lui donner ?",
+      "choices": ["Oui, sans condition", "Oui, à condition de porter un casque", "Non, c'est trop dangereux", "Oui, mais seulement 30 secondes"],
+      "correct": 2,
+      "explanation": "On refuse l'accès au bord de la piste car c'est trop dangereux pour une personne qui ne pilote pas."
+    },
+    {
+      "q": "À quelle distance minimale les spectateurs doivent-ils rester de la piste ?",
+      "choices": ["2 mètres", "5 mètres", "10 mètres", "20 mètres"],
+      "correct": 2,
+      "explanation": "Les spectateurs doivent rester à au moins 10 mètres de la piste pour leur sécurité."
+    },
+    {
+      "q": "Que doit faire un raccompagnateur lorsqu'il retire les casques des clients ?",
+      "choices": ["Les empiler au hasard", "Vérifier que les clients ne partent pas avec l'équipement", "Les laisser aux clients", "Les déposer sur la piste"],
+      "correct": 1,
+      "explanation": "Le raccompagnateur s'assure que les clients ne quittent pas avec l'équipement en récupérant les casques."
+    },
+    {
+      "q": "Que doit-on faire des cagoules sales une fois récupérées ?",
+      "choices": ["Les jeter à la poubelle", "Les laisser sur une table", "Les remettre directement aux clients", "Les rapporter à l'endroit prévu"],
+      "correct": 3,
+      "explanation": "Les cagoules sales sont rapportées à l'endroit prévu pour être nettoyées et réutilisées."
+    },
+    {
+      "q": "Quel est l'objectif de demander aux clients s'ils ont aimé leur course ?",
+      "choices": ["Créer une expérience positive jusqu'à la fin", "Gagner du temps sur les opérations", "Réduire le nombre de plaintes", "Vendre des casques supplémentaires"],
+      "correct": 0,
+      "explanation": "Cette question vise à offrir une expérience positive jusqu'au tout dernier moment de la visite."
+    },
+    {
+      "q": "Que doit faire un employé lorsqu'il change un client de kart ?",
+      "choices": ["Ne rien signaler", "Informer les collègues par radio selon la procédure prévue", "Écrire le numéro sur un papier seulement", "Attendre la fin de la course"],
+      "correct": 1,
+      "explanation": "Tout changement de kart doit être communiqué aux collègues par radio selon la procédure prévue."
+    },
+    {
+      "q": "Lors d'un changement de kart, le message radio doit-il être répété jusqu'à la confirmation du préposé au temps ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le message radio se répète jusqu'à ce que le préposé au temps confirme l'avoir bien reçu."
+    },
+    {
+      "q": "En quoi consiste la règle de 3 mentionnée dans le manuel ?",
+      "choices": ["Donner trois avertissements avant l'expulsion", "Avoir trois employés minimum dans les puits", "Limiter la piste à trois groupes maximum", "Avancer les karts immédiatement dès que trois karts sont partis dans la même rangée"],
+      "correct": 3,
+      "explanation": "La règle de 3 veut qu'on avance les karts dès que trois sont partis dans une même rangée."
+    },
+    {
+      "q": "Si la piste est vide et qu'un nouveau groupe arrive dans cinq minutes, que doit faire le préposé au fond ?",
+      "choices": ["Replacer les pneus ou aider aux puits", "Utiliser son téléphone en attendant", "Quitter son poste", "Attendre sans rien faire"],
+      "correct": 0,
+      "explanation": "Pendant ce temps mort, le préposé au fond replace les pneus ou va prêter main-forte aux puits."
+    },
+    {
+      "q": "Quelle est la priorité générale qui guide toutes les opérations dans les puits ?",
+      "choices": ["La rapidité", "L'apparence des lieux", "La sécurité", "La productivité"],
+      "correct": 2,
+      "explanation": "La sécurité passe avant tout dans les puits, avant la rapidité ou la productivité."
+    },
+    {
+      "q": "Dans une rangée de karts, à partir de combien de karts partis faut-il avancer les karts immédiatement ?",
+      "choices": ["Dès le premier kart parti", "Dès deux karts partis", "Dès trois karts partis", "Dès quatre karts partis"],
+      "correct": 2,
+      "explanation": "Selon la règle de 3, on avance les karts dès que trois karts sont partis dans la même rangée."
+    },
+    {
+      "q": "Un spectateur se tient à 5 mètres de la piste pour mieux voir. Respecte-t-il la distance minimale exigée ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non, la distance minimale exigée est de 10 mètres; 5 mètres est trop proche de la piste."
+    },
+    {
+      "q": "Pourquoi place-t-on les karts bumper à bumper dans les puits ?",
+      "choices": ["Pour garder l'ordre et la compacité du groupe", "Pour économiser de l'essence", "Pour faciliter la prise de photos", "Pour accélérer le ravitaillement"],
+      "correct": 0,
+      "explanation": "Le placement bumper à bumper garde le groupe ordonné et compact dans les puits."
+    },
+    {
+      "q": "Deux groupes terminent à six minutes d'intervalle. Doit-on les arrêter ensemble ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non, on arrête les groupes ensemble seulement si l'écart est de moins de trois minutes; ici il faut les arrêter séparément."
+    },
+    {
+      "q": "Quel comportement adopter avec un client qui se lève de son kart avant l'immobilisation complète du groupe ?",
+      "choices": ["Le laisser faire pour gagner du temps", "Lui demander de se rasseoir immédiatement", "Arrêter toute la piste sur-le-champ", "Lui retirer un tour de course"],
+      "correct": 1,
+      "explanation": "On lui demande aussitôt de se rasseoir, car personne ne sort tant que le groupe n'est pas complètement immobilisé."
+    }
+  ]
+}

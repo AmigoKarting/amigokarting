@@ -1,0 +1,98 @@
+{
+  "category": "Piste",
+  "sort_order": 39,
+  "title": "Grand Prix et opérations avancées",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Avant d'asseoir les clients pour un Grand Prix, qu'est-ce que le préposé doit vérifier en priorité sur chaque kart ?",
+      "choices": ["L'usure des pneus", "La pression des freins", "Que les karts ont assez d'essence", "L'état des sièges"],
+      "correct": 2,
+      "explanation": "Il faut s'assurer que les karts ont suffisamment d'essence pour compléter toute la durée du Grand Prix sans tomber en panne."
+    },
+    {
+      "q": "À quel moment du Grand Prix faut-il changer la session dans le logiciel Apex ?",
+      "choices": ["Avant la qualification", "Après la qualification", "Après la finale", "À la fermeture de la piste"],
+      "correct": 0,
+      "explanation": "On change la session dans Apex avant la qualification pour que le chronométrage soit prêt dès le début de l'épreuve."
+    },
+    {
+      "q": "Une fois la qualification terminée, quelle est la tâche du préposé pour établir la grille de départ ?",
+      "choices": ["Nettoyer les karts un par un", "Faire le plein de tous les karts", "Imprimer la feuille de temps", "Fermer la piste au public"],
+      "correct": 2,
+      "explanation": "Le préposé doit imprimer la feuille de temps de la qualification afin de connaître l'ordre de classement des pilotes."
+    },
+    {
+      "q": "Après la qualification, quel équipement le préposé ne doit surtout pas oublier de récupérer auprès des pilotes ?",
+      "choices": ["Les casques", "Le souffleur", "Le drapeau jaune", "Les radios"],
+      "correct": 0,
+      "explanation": "Il ne faut pas oublier les casques, un élément de sécurité essentiel à gérer entre les sessions du Grand Prix."
+    },
+    {
+      "q": "À quel endroit doit-on arrêter les coureurs lorsque la qualification est terminée ?",
+      "choices": ["Au fond de la piste", "Dans les puits", "À l'entrée de la piste", "Dans le garage"],
+      "correct": 1,
+      "explanation": "Les coureurs doivent être arrêtés dans les puits pour pouvoir les replacer ensuite selon la grille de départ."
+    },
+    {
+      "q": "Selon quel critère les pilotes sont-ils replacés sur la grille pour le départ de la finale ?",
+      "choices": ["Au hasard", "Selon l'âge des pilotes", "Selon l'ordre de qualification", "Selon l'ordre d'arrivée aux puits"],
+      "correct": 2,
+      "explanation": "La grille de départ est établie selon l'ordre de qualification : le pilote le plus rapide en qualification part en première position."
+    },
+    {
+      "q": "Quelle couleur de drapeau est utilisée pour donner le départ de la course ?",
+      "choices": ["Le drapeau rouge", "Le drapeau vert", "Le drapeau jaune", "Le drapeau noir"],
+      "correct": 1,
+      "explanation": "Le drapeau vert signale le départ officiel de la course aux pilotes."
+    },
+    {
+      "q": "Pourquoi faut-il surveiller attentivement les passages des pilotes sur la ligne après avoir démarré la course ?",
+      "choices": ["Pour compter les spectateurs présents", "Pour chronométrer les arrêts aux puits", "Pour s'assurer qu'aucun pilote ne complète un tour de façon incorrecte avant le départ officiel", "Pour vérifier le niveau d'essence des karts"],
+      "correct": 2,
+      "explanation": "Cette surveillance permet de s'assurer qu'aucun pilote ne complète un tour de façon incorrecte avant que le départ officiel ne soit donné."
+    },
+    {
+      "q": "Les karts personnels peuvent-ils rouler sur la piste en même temps que les karts de location ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non, les karts personnels ne peuvent pas rouler avec les karts de location pour des raisons de sécurité et d'équité."
+    },
+    {
+      "q": "Si les deux pistes sont déjà utilisées par les clients, que doit faire le propriétaire d'un kart personnel ?",
+      "choices": ["Rouler quand même avec prudence", "Attendre qu'une piste se libère", "Rouler plus lentement que les clients", "Payer un supplément pour accéder à la piste"],
+      "correct": 1,
+      "explanation": "Le propriétaire d'un kart personnel doit attendre qu'une des deux pistes se libère avant de pouvoir rouler."
+    },
+    {
+      "q": "Dans quel ordre se déroulent les principales étapes d'un Grand Prix ?",
+      "choices": ["Finale, puis qualification", "Qualification, puis finale", "Départ, puis qualification", "Finale, puis départ"],
+      "correct": 1,
+      "explanation": "Un Grand Prix commence par la qualification, qui détermine la grille, et se termine par la finale (la course)."
+    },
+    {
+      "q": "Quel document sert de référence pour replacer les pilotes selon leur classement de qualification ?",
+      "choices": ["La feuille de temps imprimée", "Le registre des casques", "La fiche d'entretien des karts", "La liste des réservations"],
+      "correct": 0,
+      "explanation": "La feuille de temps imprimée à la fin de la qualification indique le classement servant à établir la grille de départ."
+    },
+    {
+      "q": "Le logiciel utilisé pour gérer le chronométrage et les sessions d'un Grand Prix se nomme Apex.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "C'est dans le logiciel Apex que l'on change la session avant la qualification et que se gère le chronométrage."
+    },
+    {
+      "q": "Lors du replacement des pilotes avant la finale, où doivent-ils se trouver pour reprendre la grille ?",
+      "choices": ["Dans le garage", "À l'entrée de la piste", "Dans les puits", "Au fond de la piste"],
+      "correct": 2,
+      "explanation": "Les pilotes sont arrêtés dans les puits après la qualification, ce qui permet de les replacer dans l'ordre de la grille."
+    },
+    {
+      "q": "Que doit faire le préposé immédiatement après le drapeau vert pour assurer un départ équitable ?",
+      "choices": ["Imprimer une nouvelle feuille de temps", "Surveiller les passages sur la ligne", "Récupérer les casques des pilotes", "Faire le plein des karts"],
+      "correct": 1,
+      "explanation": "Après le départ donné au drapeau vert, le préposé surveille les passages sur la ligne pour détecter tout tour complété incorrectement."
+    }
+  ]
+}

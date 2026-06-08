@@ -1,0 +1,328 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 21,
+  "title": "FAQ et questions fréquentes des clients",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Un client demande : « Avez-vous besoin d'une réservation ? » Pour un groupe de moins de 10 personnes, la réponse est :",
+      "choices": ["Oui, obligatoire", "Non, ce n'est pas nécessaire", "Seulement la fin de semaine", "Seulement pour les adultes"],
+      "correct": 1,
+      "explanation": "Pour moins de 10 personnes, la réservation n'est pas requise : c'est premier arrivé, premier servi."
+    },
+    {
+      "q": "À partir de combien de personnes les réservations sont-elles généralement offertes ?",
+      "choices": ["2 personnes", "5 personnes", "10 personnes ou plus", "20 personnes ou plus"],
+      "correct": 2,
+      "explanation": "Les réservations s'adressent généralement aux groupes de 10 personnes ou plus."
+    },
+    {
+      "q": "Comment les prix des courses sont-ils généralement calculés ?",
+      "choices": ["Par personne", "Par kart", "Par groupe", "Par heure"],
+      "correct": 1,
+      "explanation": "Le prix est établi par kart, et non par personne."
+    },
+    {
+      "q": "Par rapport aux prix affichés, les taxes sont :",
+      "choices": ["Incluses dans le prix", "En supplément", "Facultatives", "Variables selon le client"],
+      "correct": 1,
+      "explanation": "Les taxes s'ajoutent au prix affiché : elles ne sont pas incluses."
+    },
+    {
+      "q": "Un client demande : « Est-ce que vous êtes ouverts quand il pleut ? » La réponse est :",
+      "choices": ["Non, jamais", "Oui, généralement", "Seulement le matin", "Seulement l'été"],
+      "correct": 1,
+      "explanation": "L'établissement reste généralement ouvert même sous la pluie."
+    },
+    {
+      "q": "Un groupe veut réserver. Quelle information faut-il obtenir ?",
+      "choices": ["Le nombre de personnes", "La date", "L'heure", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Une réservation de groupe exige le nombre de personnes, la date et l'heure."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier les réservations déjà prévues ?",
+      "choices": [
+        "Pour informer correctement les clients de l'achalandage",
+        "Pour fixer un prix différent selon l'heure",
+        "Pour fermer la piste plus tôt",
+        "Pour refuser les nouveaux clients"
+      ],
+      "correct": 0,
+      "explanation": "Connaître les réservations permet d'informer les clients de l'achalandage réel."
+    },
+    {
+      "q": "Un client demande les prix. Quelle question poser en premier ?",
+      "choices": ["Adulte ou famille ?", "Couleur préférée ?", "Ville d'origine ?", "Taille de souliers ?"],
+      "correct": 0,
+      "explanation": "Savoir s'il s'agit d'un adulte ou d'une famille permet de donner le bon tarif."
+    },
+    {
+      "q": "Que faut-il faire avec les appels manqués ?",
+      "choices": ["Les ignorer", "Les rappeler", "Les supprimer", "Les archiver sans suite"],
+      "correct": 1,
+      "explanation": "Les appels manqués doivent être rappelés pour ne pas perdre de clients."
+    },
+    {
+      "q": "Pourquoi faut-il rappeler un client qui a laissé un appel manqué ?",
+      "choices": [
+        "Pour offrir un bon service",
+        "Pour lui vendre un abonnement",
+        "Pour vérifier son identité",
+        "Pour annuler sa réservation"
+      ],
+      "correct": 0,
+      "explanation": "Rappeler le client démontre un bon service et de la considération."
+    },
+    {
+      "q": "Vrai ou Faux : les prix sont négociables.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Les prix ne sont pas négociables; ils sont fixes pour tous les clients."
+    },
+    {
+      "q": "Vrai ou Faux : les réservations influencent les temps d'attente.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les réservations occupent la piste et influencent donc les temps d'attente."
+    },
+    {
+      "q": "Vrai ou Faux : les clients apprécient des informations précises.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Des informations précises rassurent et satisfont les clients."
+    },
+    {
+      "q": "Vrai ou Faux : le téléphone est un outil important pour le service à la clientèle.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le téléphone est souvent le premier point de contact avec le client."
+    },
+    {
+      "q": "Vrai ou Faux : les taxes doivent être mentionnées au client.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Comme les taxes s'ajoutent au prix, il faut les mentionner pour éviter les surprises."
+    },
+    {
+      "q": "Vrai ou Faux : les réservations de groupe doivent être bien documentées.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une réservation de groupe bien documentée évite les erreurs et les malentendus."
+    },
+    {
+      "q": "Vrai ou Faux : la météo peut influencer les attentes des clients.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "La météo peut modifier l'achalandage et donc les attentes des clients."
+    },
+    {
+      "q": "Vrai ou Faux : les messages vocaux doivent être vérifiés régulièrement.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vérifier les messages vocaux permet de rappeler les clients rapidement."
+    },
+    {
+      "q": "Vrai ou Faux : le service à la clientèle commence souvent au téléphone.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le premier contact se fait souvent par téléphone, avant même la visite."
+    },
+    {
+      "q": "Vrai ou Faux : une mauvaise réponse peut créer de la frustration chez le client.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une information erronée déçoit le client et crée de la frustration."
+    },
+    {
+      "q": "Un client demande : « Combien de temps vais-je attendre ? » Quelle est la meilleure réponse ?",
+      "choices": [
+        "« Aucune idée, ça dépend »",
+        "Donner une estimation réaliste",
+        "« Il n'y a jamais d'attente »",
+        "Lui dire de revenir un autre jour"
+      ],
+      "correct": 1,
+      "explanation": "Il faut donner une estimation réaliste basée sur l'achalandage et les réservations."
+    },
+    {
+      "q": "Un client demande : « Puis-je réserver pour 4 personnes ? » Quelle est la réponse appropriée ?",
+      "choices": [
+        "Oui, toujours sur réservation",
+        "Généralement non : c'est premier arrivé, premier servi",
+        "Seulement en semaine",
+        "Seulement avec un dépôt"
+      ],
+      "correct": 1,
+      "explanation": "Pour moins de 10 personnes, on ne réserve pas : c'est premier arrivé, premier servi."
+    },
+    {
+      "q": "Un client demande : « Est-ce que les prix incluent les taxes ? » La réponse est :",
+      "choices": ["Oui, tout est inclus", "Non, les taxes s'ajoutent", "Seulement pour les groupes", "Cela dépend du jour"],
+      "correct": 1,
+      "explanation": "Les taxes ne sont pas incluses; elles s'ajoutent au prix affiché."
+    },
+    {
+      "q": "Un client demande : « Puis-je obtenir un rabais ? » La réponse correcte est :",
+      "choices": [
+        "Oui, on peut négocier",
+        "Les prix ne sont pas négociables",
+        "Seulement pour les habitués",
+        "Seulement en payant comptant"
+      ],
+      "correct": 1,
+      "explanation": "Les prix sont fixes et ne sont pas négociables."
+    },
+    {
+      "q": "Un client demande : « Est-ce que vous êtes ouverts sous la pluie ? » La réponse est :",
+      "choices": ["Non, on ferme", "Oui, généralement", "Seulement si c'est une averse légère", "Cela dépend du nombre de clients"],
+      "correct": 1,
+      "explanation": "L'établissement demeure généralement ouvert même sous la pluie."
+    },
+    {
+      "q": "Un client demande : « Est-ce que les prix sont par personne ? » La réponse est :",
+      "choices": ["Oui, par personne", "Non, par kart", "Oui, par groupe", "Non, par heure"],
+      "correct": 1,
+      "explanation": "Le prix est calculé par kart, et non par personne."
+    },
+    {
+      "q": "Un client demande : « Dois-je appeler avant de venir ? » La réponse est :",
+      "choices": [
+        "Oui, c'est obligatoire",
+        "Ce n'est pas obligatoire, mais on peut vérifier l'achalandage",
+        "Non, ne jamais appeler",
+        "Seulement la fin de semaine"
+      ],
+      "correct": 1,
+      "explanation": "Appeler n'est pas obligatoire, mais permet de vérifier l'achalandage à l'avance."
+    },
+    {
+      "q": "Un client demande : « Est-ce qu'il y a beaucoup de monde aujourd'hui ? » Que faut-il faire ?",
+      "choices": [
+        "Répondre « non » sans vérifier",
+        "Vérifier les réservations et donner une estimation honnête",
+        "Lui dire de venir voir par lui-même",
+        "Refuser de répondre"
+      ],
+      "correct": 1,
+      "explanation": "Il faut vérifier les réservations et donner une estimation honnête de l'achalandage."
+    },
+    {
+      "q": "Un client demande : « Puis-je obtenir un remboursement ? » Que faut-il faire ?",
+      "choices": [
+        "Refuser systématiquement",
+        "Expliquer la politique applicable",
+        "Rembourser sans poser de question",
+        "Lui dire de revenir plus tard"
+      ],
+      "correct": 1,
+      "explanation": "Il faut expliquer clairement la politique de remboursement applicable."
+    },
+    {
+      "q": "Un client demande : « Pourquoi dois-je attendre ? » Quelle est la bonne approche ?",
+      "choices": [
+        "Lui dire que c'est ainsi",
+        "Expliquer l'achalandage et les réservations prévues",
+        "Ignorer la question",
+        "Lui offrir un rabais"
+      ],
+      "correct": 1,
+      "explanation": "Il faut expliquer l'attente par l'achalandage et les réservations déjà prévues."
+    },
+    {
+      "q": "Quelle est la qualité la plus importante lorsqu'on répond aux questions des clients ?",
+      "choices": ["La rapidité", "L'exactitude", "L'humour", "L'improvisation"],
+      "correct": 1,
+      "explanation": "L'exactitude des réponses est primordiale pour bien informer le client."
+    },
+    {
+      "q": "Pourquoi faut-il répondre de façon uniforme aux questions des clients ?",
+      "choices": [
+        "Pour que tous les clients reçoivent la même information",
+        "Pour répondre plus vite",
+        "Pour éviter de parler aux clients",
+        "Pour augmenter les prix"
+      ],
+      "correct": 0,
+      "explanation": "Des réponses uniformes garantissent que tous les clients reçoivent la même information."
+    },
+    {
+      "q": "Quel est le principal objectif d'une FAQ bien maîtrisée ?",
+      "choices": [
+        "Vendre plus de produits",
+        "Réduire les malentendus",
+        "Remplacer les employés",
+        "Allonger les appels"
+      ],
+      "correct": 1,
+      "explanation": "Une FAQ maîtrisée vise avant tout à réduire les malentendus avec les clients."
+    },
+    {
+      "q": "Pourquoi un employé doit-il bien connaître les réponses aux questions fréquentes ?",
+      "choices": [
+        "Pour inspirer confiance aux clients",
+        "Pour travailler moins",
+        "Pour éviter de répondre au téléphone",
+        "Pour fixer ses propres prix"
+      ],
+      "correct": 0,
+      "explanation": "Un employé qui maîtrise les réponses inspire confiance aux clients."
+    },
+    {
+      "q": "Un employé qui maîtrise la FAQ contribue à :",
+      "choices": ["Améliorer le service", "Réduire les plaintes", "Répondre rapidement", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Maîtriser la FAQ améliore le service, réduit les plaintes et accélère les réponses."
+    },
+    {
+      "q": "Un client demande : « Combien coûte une course pour deux personnes ? » Comment répondre correctement ?",
+      "choices": [
+        "Donner un prix au hasard",
+        "Préciser que le prix est par kart, plus les taxes",
+        "Dire que c'est gratuit",
+        "Dire que le prix change chaque jour"
+      ],
+      "correct": 1,
+      "explanation": "Il faut préciser que le tarif est calculé par kart et que les taxes s'ajoutent."
+    },
+    {
+      "q": "Un client demande : « Mon groupe de 12 personnes a-t-il besoin de réserver ? » La réponse est :",
+      "choices": [
+        "Non, jamais",
+        "Oui, car les réservations s'appliquent aux groupes de 10 personnes ou plus",
+        "Seulement s'il y a des enfants",
+        "Seulement le dimanche"
+      ],
+      "correct": 1,
+      "explanation": "Un groupe de 10 personnes ou plus, comme 12, devrait réserver."
+    },
+    {
+      "q": "Vrai ou Faux : un employé peut accorder un prix différent à un client qui insiste.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Les prix sont fixes et ne sont pas négociables, même si le client insiste."
+    },
+    {
+      "q": "Un client demande : « Pouvez-vous me garantir qu'il n'y aura aucune attente ? » Quelle est la bonne réponse ?",
+      "choices": [
+        "Garantir qu'il n'y aura aucune attente",
+        "Donner une estimation honnête selon l'achalandage et les réservations",
+        "Refuser de répondre",
+        "Lui dire de réserver pour 2 personnes"
+      ],
+      "correct": 1,
+      "explanation": "On ne peut pas garantir l'absence d'attente; il faut donner une estimation honnête."
+    },
+    {
+      "q": "Pourquoi est-il important de mentionner les taxes en supplément dès le début ?",
+      "choices": [
+        "Pour éviter les surprises et la frustration du client",
+        "Pour rendre le prix plus bas",
+        "Pour gagner du temps",
+        "Parce que c'est facultatif"
+      ],
+      "correct": 0,
+      "explanation": "Mentionner les taxes dès le départ évite les mauvaises surprises au moment de payer."
+    }
+  ]
+}

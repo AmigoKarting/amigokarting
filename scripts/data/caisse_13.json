@@ -1,0 +1,278 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 13,
+  "title": "Téléphone et communication client",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Où le téléphone doit-il se trouver pendant votre quart de travail ?",
+      "choices": ["Dans la caisse", "Dans le bureau", "Branché seulement", "Toujours sur vous"],
+      "correct": 3,
+      "explanation": "Le téléphone doit toujours être sur vous afin d'entendre les appels entrants en tout temps."
+    },
+    {
+      "q": "Pourquoi est-il important d'avoir le téléphone sur soi ?",
+      "choices": ["Pour écouter de la musique", "Pour entendre les appels entrants", "Pour vérifier l'heure", "Pour parler aux employés"],
+      "correct": 1,
+      "explanation": "Garder le téléphone sur soi permet d'entendre et de répondre aux appels entrants sans en manquer."
+    },
+    {
+      "q": "Quand devez-vous prendre les messages vocaux ?",
+      "choices": ["À la fermeture seulement", "Une fois par semaine", "Dès que vous en avez la chance", "Seulement si le gérant le demande"],
+      "correct": 2,
+      "explanation": "Les messages vocaux doivent être écoutés dès que vous en avez la chance pour répondre rapidement aux clients."
+    },
+    {
+      "q": "Si un appel est manqué sans message vocal, vous devez :",
+      "choices": ["L'ignorer", "Rappeler le client", "Attendre un autre appel", "Supprimer l'appel"],
+      "correct": 1,
+      "explanation": "Un appel manqué sans message doit être rappelé, car le client a probablement besoin d'information."
+    },
+    {
+      "q": "Pourquoi est-il important de rappeler même sans message ?",
+      "choices": ["Pour augmenter les ventes", "Pour remplir la journée", "Parce que le client a probablement besoin d'information", "Pour réduire les réservations"],
+      "correct": 2,
+      "explanation": "On rappelle même sans message parce que le client a probablement besoin d'information avant de se déplacer."
+    },
+    {
+      "q": "Lorsqu'un client dit vouloir venir dans quelques jours, vous devez :",
+      "choices": ["Lui souhaiter bonne journée", "Lui vendre immédiatement un billet", "Lui parler du prix seulement", "Lui demander la date prévue"],
+      "correct": 3,
+      "explanation": "Demander la date prévue permet de vérifier l'achalandage et les réservations pour bien informer le client."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier les réservations futures avec ce client ?",
+      "choices": ["Pour éviter qu'il soit surpris par une longue attente", "Pour remplir le calendrier", "Pour vendre plus", "Pour faire plaisir au gérant"],
+      "correct": 0,
+      "explanation": "On vérifie les réservations futures pour éviter que le client soit surpris par une longue attente lors de sa visite."
+    },
+    {
+      "q": "Quel risque existe lorsqu'on ne mentionne pas une grosse réservation prévue ?",
+      "choices": ["Aucun", "Le téléphone pourrait sonner", "Le client pourrait devoir attendre longtemps sans le savoir", "Le prix pourrait changer"],
+      "correct": 2,
+      "explanation": "Sans cette information, le client pourrait devoir attendre longtemps sans le savoir et être déçu."
+    },
+    {
+      "q": "Une bonne communication téléphonique permet :",
+      "choices": ["De réduire les malentendus", "De vendre moins de billets", "D'éviter le travail", "D'accélérer les courses"],
+      "correct": 0,
+      "explanation": "Une bonne communication téléphonique réduit les malentendus et améliore l'expérience du client."
+    },
+    {
+      "q": "Le téléphone est un outil :",
+      "choices": ["Facultatif", "Administratif seulement", "Peu utilisé", "Essentiel au service client"],
+      "correct": 3,
+      "explanation": "Le téléphone est essentiel au service client, car il est souvent le premier contact avec l'entreprise."
+    },
+    {
+      "q": "Est-il acceptable de laisser plusieurs messages vocaux non écoutés ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non : les messages vocaux doivent être écoutés dès que possible pour répondre rapidement aux clients."
+    },
+    {
+      "q": "Les appels manqués doivent-ils être suivis ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : chaque appel manqué doit faire l'objet d'un rappel, car il peut représenter une réservation potentielle."
+    },
+    {
+      "q": "Les réservations importantes doivent-elles être mentionnées aux clients qui prévoient venir ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : mentionner les grosses réservations évite au client de subir une longue attente sans le savoir."
+    },
+    {
+      "q": "Un client qui appelle a-t-il souvent besoin d'information avant de se déplacer ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : la plupart des clients appellent pour obtenir de l'information avant de décider de se déplacer."
+    },
+    {
+      "q": "Le téléphone doit-il être accessible durant le quart de travail ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : le téléphone doit rester accessible et sur soi durant tout le quart pour ne manquer aucun appel."
+    },
+    {
+      "q": "Les clients apprécient-ils recevoir des informations claires avant leur visite ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : des informations claires permettent au client de bien planifier sa visite et d'éviter les déceptions."
+    },
+    {
+      "q": "Un appel manqué peut-il représenter une réservation potentielle ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : derrière un appel manqué se cache souvent un client prêt à réserver, d'où l'importance de rappeler."
+    },
+    {
+      "q": "La communication téléphonique influence-t-elle l'expérience client ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : le téléphone étant souvent le premier contact, il influence directement l'expérience du client."
+    },
+    {
+      "q": "Un client qui appelle de loin doit-il être bien informé de l'achalandage ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : un client venant de loin doit connaître l'achalandage pour éviter un long déplacement inutile."
+    },
+    {
+      "q": "Le téléphone n'a-t-il aucun impact sur la satisfaction client ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : le téléphone a un impact direct sur la satisfaction, puisqu'il façonne les attentes du client."
+    },
+    {
+      "q": "Un client demande : « Êtes-vous ouverts aujourd'hui ? » Quelle est la meilleure réponse ?",
+      "choices": ["« Je pense que oui. »", "« Oui, nous sommes ouverts. »", "« Regardez sur Internet. »", "« Je ne sais pas. »"],
+      "correct": 1,
+      "explanation": "Une réponse claire et affirmative comme « Oui, nous sommes ouverts » rassure le client et projette le professionnalisme."
+    },
+    {
+      "q": "Un client demande les prix. Que devez-vous faire avant de répondre ?",
+      "choices": ["Lui demander si c'est pour adultes ou pour une famille", "Donner immédiatement le premier prix", "Lui demander son âge", "Lui parler des réservations"],
+      "correct": 0,
+      "explanation": "Demander si c'est pour adultes ou pour une famille permet de donner le tarif approprié au bon type de kart."
+    },
+    {
+      "q": "Un client demande : « Est-ce que les prix sont par personne ou par kart ? »",
+      "choices": ["Les prix sont par personne", "Les prix sont par kart", "Les prix sont par groupe", "Les prix sont par heure"],
+      "correct": 1,
+      "explanation": "Les prix sont établis par kart, ce qu'il faut préciser clairement au client pour éviter toute confusion."
+    },
+    {
+      "q": "Un client demande : « Avons-nous besoin d'une réservation ? » Pour un groupe de moins de 10 personnes, quelle est la réponse ?",
+      "choices": ["Oui, une réservation est obligatoire", "Oui, mais seulement la fin de semaine", "Non. Premier arrivé, premier servi.", "Non, sauf en haute saison"],
+      "correct": 2,
+      "explanation": "Pour un groupe de moins de 10 personnes, aucune réservation n'est requise : c'est premier arrivé, premier servi."
+    },
+    {
+      "q": "Pour quel type de groupe les réservations sont-elles généralement offertes ?",
+      "choices": ["2 personnes", "5 personnes", "Tout le monde", "10 personnes ou plus"],
+      "correct": 3,
+      "explanation": "Les réservations sont généralement offertes pour les groupes de 10 personnes ou plus."
+    },
+    {
+      "q": "Un client veut faire une réservation. Quelle est la première chose à vérifier ?",
+      "choices": ["Le nombre de personnes", "Le prix", "La météo", "Le mode de paiement"],
+      "correct": 0,
+      "explanation": "On vérifie d'abord le nombre de personnes, car cela détermine si une réservation est nécessaire."
+    },
+    {
+      "q": "Pourquoi faut-il déterminer si le groupe est composé d'adultes ou d'enfants ?",
+      "choices": ["Pour proposer le type de kart approprié", "Pour ajuster les heures d'ouverture", "Pour choisir la couleur des karts", "Pour décider du mode de paiement"],
+      "correct": 0,
+      "explanation": "Connaître l'âge du groupe permet de proposer le type de kart approprié à chaque participant."
+    },
+    {
+      "q": "Lorsqu'un client veut réserver une fin de semaine, quelle restriction particulière doit être mentionnée ?",
+      "choices": ["Aucune réservation n'est possible la fin de semaine", "Il n'y a généralement pas de réservations entre 13 h et 16 h les fins de semaine", "Les réservations coûtent plus cher la fin de semaine", "Les réservations doivent être faites un mois à l'avance"],
+      "correct": 1,
+      "explanation": "Les fins de semaine, il n'y a généralement pas de réservations entre 13 h et 16 h en raison de l'achalandage."
+    },
+    {
+      "q": "Avant de confirmer une réservation, vous devez :",
+      "choices": ["Encaisser immédiatement", "Donner un rabais", "Expliquer les conditions", "Faire signer un contrat"],
+      "correct": 2,
+      "explanation": "On explique les conditions avant de confirmer pour que le client comprenne bien ce qui est prévu."
+    },
+    {
+      "q": "Un client demande si les autres activités sont ouvertes. Quelle réponse doit être donnée selon le manuel ?",
+      "choices": ["Elles sont fermées toute l'année", "Elles rouvrent généralement autour du 20 mai", "Elles ouvrent seulement sur réservation", "Elles ferment autour du 20 mai"],
+      "correct": 1,
+      "explanation": "Selon le manuel, les autres activités rouvrent généralement autour du 20 mai."
+    },
+    {
+      "q": "Tu remarques trois appels manqués datant d'une heure. Que fais-tu ?",
+      "choices": ["Tu attends qu'ils rappellent", "Tu supprimes les appels", "Tu rappelles les trois numéros dès que possible", "Tu en informes seulement le gérant"],
+      "correct": 2,
+      "explanation": "Tu rappelles les trois numéros dès que possible, car chaque appel manqué peut être une réservation potentielle."
+    },
+    {
+      "q": "Un client appelle de très loin et veut savoir s'il risque d'attendre. Que fais-tu ?",
+      "choices": ["Tu lui dis simplement de venir", "Tu vérifies les réservations et l'achalandage prévu avant de répondre", "Tu lui demandes de réserver en ligne", "Tu lui dis qu'il n'y a jamais d'attente"],
+      "correct": 1,
+      "explanation": "Tu vérifies les réservations et l'achalandage prévu avant de répondre pour donner une information fiable."
+    },
+    {
+      "q": "Un client se présente mécontent parce qu'une réservation importante n'avait pas été mentionnée lors de son appel. Quelle erreur a été commise ?",
+      "choices": ["Une erreur de prix", "Un mauvais encaissement", "Une mauvaise communication de l'achalandage prévu", "Un oubli de réservation"],
+      "correct": 2,
+      "explanation": "L'erreur est une mauvaise communication de l'achalandage prévu, qui a laissé le client mal informé."
+    },
+    {
+      "q": "Un client appelle pendant une période très occupée. Quelle est la priorité ?",
+      "choices": ["Raccrocher rapidement", "Le transférer automatiquement", "Ignorer l'appel", "Fournir une information claire et exacte"],
+      "correct": 3,
+      "explanation": "Même occupé, la priorité reste de fournir une information claire et exacte au client."
+    },
+    {
+      "q": "Pourquoi la qualité des réponses au téléphone est-elle importante pour Amigo Karting ?",
+      "choices": ["Parce qu'elle influence les attentes, la satisfaction et la décision de visiter du client", "Parce qu'elle réduit le nombre d'appels", "Parce qu'elle accélère les courses", "Parce qu'elle remplace les réservations"],
+      "correct": 0,
+      "explanation": "La qualité des réponses influence directement les attentes du client, sa satisfaction et sa décision de visiter le site."
+    },
+    {
+      "q": "Quel est le principal objectif d'un appel de retour après un appel manqué ?",
+      "choices": ["Remplir la journée de travail", "Offrir le service que le client cherchait et éviter de perdre une occasion d'affaire", "Vérifier le numéro du client", "Tester le téléphone"],
+      "correct": 1,
+      "explanation": "Le rappel vise à offrir le service que le client cherchait et à éviter de perdre une occasion d'affaire."
+    },
+    {
+      "q": "Pourquoi faut-il être précis lorsqu'on parle des réservations à venir ?",
+      "choices": ["Pour vendre plus de billets", "Pour réduire le nombre d'appels", "Pour permettre au client de planifier sa visite correctement", "Pour faire plaisir au gérant"],
+      "correct": 2,
+      "explanation": "La précision permet au client de planifier correctement sa visite et d'éviter les mauvaises surprises."
+    },
+    {
+      "q": "Quel impact peut avoir une mauvaise information donnée au téléphone ?",
+      "choices": ["Aucun", "Plus de ventes", "Une expérience client négative", "Une fermeture temporaire"],
+      "correct": 2,
+      "explanation": "Une mauvaise information crée une expérience client négative et peut nuire à la réputation de l'entreprise."
+    },
+    {
+      "q": "Quel est le lien entre le téléphone et le service à la clientèle ?",
+      "choices": ["Le téléphone est souvent le premier contact du client avec l'entreprise", "Le téléphone sert surtout à l'administration", "Le téléphone n'a aucun lien avec le service", "Le téléphone remplace l'accueil en personne"],
+      "correct": 0,
+      "explanation": "Le téléphone est souvent le premier contact du client avec l'entreprise, ce qui en fait un outil clé du service."
+    },
+    {
+      "q": "Une excellente communication téléphonique permet :",
+      "choices": ["De créer de la confiance", "De réduire les attentes irréalistes", "D'améliorer l'expérience client", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Une excellente communication téléphonique crée de la confiance, gère les attentes et améliore l'expérience client."
+    },
+    {
+      "q": "Comment devez-vous répondre lorsqu'un client vous pose une question dont vous ignorez la réponse ?",
+      "choices": ["Inventer une réponse pour aller plus vite", "Lui dire de rappeler plus tard", "Vérifier l'information avant de répondre clairement", "Raccrocher poliment"],
+      "correct": 2,
+      "explanation": "Mieux vaut vérifier l'information avant de répondre, car une réponse exacte évite les malentendus et les déceptions."
+    },
+    {
+      "q": "Combien de personnes un groupe doit-il généralement compter pour qu'une réservation soit nécessaire ?",
+      "choices": ["2 personnes ou plus", "5 personnes ou plus", "10 personnes ou plus", "20 personnes ou plus"],
+      "correct": 2,
+      "explanation": "Une réservation devient généralement nécessaire à partir de 10 personnes ou plus."
+    },
+    {
+      "q": "Quelle information faut-il obtenir du client pour proposer le bon type de kart ?",
+      "choices": ["Son mode de paiement", "S'il s'agit d'adultes ou d'enfants", "Sa ville de résidence", "L'heure de son appel"],
+      "correct": 1,
+      "explanation": "Savoir s'il s'agit d'adultes ou d'enfants permet de proposer le type de kart approprié au groupe."
+    },
+    {
+      "q": "Un client de moins de 10 personnes demande s'il doit réserver une journée de semaine. Que répondez-vous ?",
+      "choices": ["Qu'une réservation est obligatoire", "Que c'est premier arrivé, premier servi", "Qu'il doit appeler le gérant", "Qu'il n'y a pas de places disponibles"],
+      "correct": 1,
+      "explanation": "Pour un petit groupe, aucune réservation n'est requise : c'est premier arrivé, premier servi."
+    },
+    {
+      "q": "Pourquoi est-il important d'informer un client de l'achalandage avant sa visite ?",
+      "choices": ["Pour qu'il planifie sa visite et évite une attente surprise", "Pour le décourager de venir", "Pour vendre des billets plus chers", "Pour remplir le calendrier de réservations"],
+      "correct": 0,
+      "explanation": "Informer le client de l'achalandage lui permet de planifier sa visite et d'éviter une attente surprise."
+    }
+  ]
+}

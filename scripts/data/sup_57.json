@@ -1,0 +1,167 @@
+{
+  "category": "Superviseur du service à la clientèle",
+  "sort_order": 57,
+  "title": "Sécurité du site et prévention des risques",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Avant l'ouverture, quels éléments le superviseur doit-il inspecter sur la piste ?",
+      "choices": [
+        "Le total des ventes de la veille",
+        "Les pneus de protection, le béton exposé et les accès entre les pistes",
+        "Uniquement la propreté des uniformes des employés",
+        "Seulement les prévisions météo de la journée"
+      ],
+      "correct": 1,
+      "explanation": "L'inspection d'ouverture vise les éléments physiques de la piste (pneus, béton exposé, accès) pour s'assurer que tout est sécuritaire avant l'arrivée des clients."
+    },
+    {
+      "q": "Pourquoi les pneus de protection doivent-ils être correctement positionnés sur la piste ?",
+      "choices": [
+        "Pour assurer la protection des pilotes et la sécurité en cas d'impact",
+        "Pour décorer la piste et améliorer son apparence",
+        "Pour réduire le bruit produit par les karts",
+        "Pour permettre aux karts d'aller plus vite"
+      ],
+      "correct": 0,
+      "explanation": "Les pneus servent de barrière de protection qui absorbe les chocs et protège les pilotes lors d'un impact."
+    },
+    {
+      "q": "Qui porte la responsabilité de la sécurité globale du site durant son quart ?",
+      "choices": [
+        "Le client qui pilote sur la piste",
+        "Le mécanicien uniquement",
+        "Le superviseur en poste",
+        "Personne en particulier, c'est partagé sans responsable"
+      ],
+      "correct": 2,
+      "explanation": "Le superviseur est le responsable désigné de la sécurité globale du site pendant son quart de travail."
+    },
+    {
+      "q": "Que doit faire le superviseur lorsqu'il constate un danger non corrigé sur le site ?",
+      "choices": [
+        "Attendre la fermeture pour le noter dans un rapport",
+        "Le signaler et le corriger immédiatement",
+        "Ne rien faire tant qu'il n'y a pas de blessé",
+        "L'ignorer si la piste est peu achalandée"
+      ],
+      "correct": 1,
+      "explanation": "Un danger doit être signalé et corrigé sans délai afin de prévenir un accident."
+    },
+    {
+      "q": "À quel moment les règlements de piste doivent-ils être appliqués ?",
+      "choices": [
+        "Seulement la fin de semaine quand c'est plus occupé",
+        "Uniquement lorsque le superviseur observe la piste",
+        "Seulement durant les périodes de fort achalandage",
+        "En tout temps, sans exception"
+      ],
+      "correct": 3,
+      "explanation": "Les règlements de piste s'appliquent en tout temps pour garantir une sécurité constante."
+    },
+    {
+      "q": "Un employé peut-il tolérer la présence d'alcool ou de cannabis sur le site ?",
+      "choices": [
+        "Oui",
+        "Non"
+      ],
+      "correct": 1,
+      "explanation": "L'alcool et le cannabis ne sont jamais tolérés sur le site, car ils compromettent directement la sécurité."
+    },
+    {
+      "q": "En quoi la sécurité du site influence-t-elle l'expérience client ?",
+      "choices": [
+        "Elle n'a aucun effet sur l'expérience du client",
+        "Les clients doivent se sentir en sécurité pour vivre une bonne expérience",
+        "Elle ralentit le service et nuit à l'expérience",
+        "Elle ne sert qu'à satisfaire les exigences des assurances"
+      ],
+      "correct": 1,
+      "explanation": "Un client qui se sent en sécurité profite pleinement de son expérience, ce qui en fait un élément clé du service."
+    },
+    {
+      "q": "Comment réagir face à un client blessé sur le site ?",
+      "choices": [
+        "Remplir le rapport d'incident avant toute autre chose",
+        "Attendre la fin de la course en cours pour intervenir",
+        "Intervenir rapidement et assurer une supervision immédiate",
+        "L'ignorer s'il est capable de marcher seul"
+      ],
+      "correct": 2,
+      "explanation": "Un client blessé exige une intervention rapide et une supervision immédiate avant toute autre démarche."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il inspecter le site plusieurs fois durant la journée ?",
+      "choices": [
+        "Pour détecter rapidement les problèmes et les corriger",
+        "Pour occuper le temps mort entre les courses",
+        "Parce qu'une seule inspection en début de journée suffit",
+        "Uniquement lorsque des clients VIP sont présents"
+      ],
+      "correct": 0,
+      "explanation": "Des inspections répétées permettent de repérer et corriger rapidement les nouveaux dangers qui surviennent en cours de journée."
+    },
+    {
+      "q": "Quel est l'objectif principal de la sécurité du site ?",
+      "choices": [
+        "Augmenter le volume des ventes",
+        "Accélérer la fermeture en fin de soirée",
+        "Réduire le nombre d'employés requis",
+        "Prévenir les accidents"
+      ],
+      "correct": 3,
+      "explanation": "La sécurité du site vise avant tout à prévenir les accidents pour protéger clients et employés."
+    },
+    {
+      "q": "Si un pneu de protection est déplacé pendant une course, que doit faire le superviseur ?",
+      "choices": [
+        "Attendre la fin de la journée avant de le repositionner",
+        "Le remettre en place sans délai pour rétablir la protection",
+        "Le laisser ainsi tant qu'aucun pilote ne se plaint",
+        "Retirer complètement le pneu de la piste"
+      ],
+      "correct": 1,
+      "explanation": "Un pneu déplacé réduit la protection des pilotes et doit être repositionné immédiatement."
+    },
+    {
+      "q": "La feuille d'inspection du site fait-elle partie des responsabilités de sécurité du superviseur ?",
+      "choices": [
+        "Oui",
+        "Non"
+      ],
+      "correct": 0,
+      "explanation": "Vérifier et inspecter le site en tout temps relève des responsabilités de sécurité du superviseur en poste."
+    },
+    {
+      "q": "Si un client se présente visiblement intoxiqué et veut piloter, quelle est la bonne attitude ?",
+      "choices": [
+        "Le laisser piloter pour éviter un conflit",
+        "Lui demander de signer une décharge avant de piloter",
+        "Refuser l'accès à la piste pour préserver la sécurité",
+        "L'autoriser s'il pilote lentement"
+      ],
+      "correct": 2,
+      "explanation": "Puisque l'intoxication n'est jamais tolérée sur le site, un client intoxiqué ne doit pas avoir accès à la piste."
+    },
+    {
+      "q": "Pourquoi est-il important de surveiller le béton exposé sur la piste ?",
+      "choices": [
+        "Parce qu'il représente un risque pour la sécurité des pilotes",
+        "Parce qu'il nuit à l'apparence de la piste seulement",
+        "Parce qu'il ralentit inutilement les karts",
+        "Parce qu'il augmente le bruit sur le circuit"
+      ],
+      "correct": 0,
+      "explanation": "Le béton exposé fait partie des éléments à inspecter avant l'ouverture parce qu'il constitue un danger pour les pilotes."
+    },
+    {
+      "q": "Une fois un danger corrigé, le superviseur doit-il quand même rester vigilant pour le reste de la journée ?",
+      "choices": [
+        "Oui",
+        "Non"
+      ],
+      "correct": 0,
+      "explanation": "La vigilance demeure constante, car de nouveaux dangers peuvent apparaître à tout moment, ce qui justifie les inspections répétées."
+    }
+  ]
+}

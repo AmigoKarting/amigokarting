@@ -1,0 +1,158 @@
+{
+  "category": "Superviseur du service à la clientèle",
+  "sort_order": 51,
+  "title": "Ouverture du site et inspection de sécurité",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Lors de l'ouverture du site, quelle portion le superviseur doit-il inspecter ?",
+      "choices": ["Uniquement la caisse et la cabane", "Uniquement les karts et les garages", "L'ensemble du site", "Uniquement la piste principale"],
+      "correct": 2,
+      "explanation": "Le superviseur est responsable de l'état général du site, il doit donc inspecter l'ensemble des installations avant l'ouverture."
+    },
+    {
+      "q": "Pourquoi faut-il inspecter la piste avant l'ouverture ?",
+      "choices": ["Pour gagner du temps durant la journée", "Pour identifier les dangers potentiels avant l'arrivée des clients", "Pour augmenter le volume des ventes", "Pour planifier l'horaire des pauses"],
+      "correct": 1,
+      "explanation": "L'inspection préouverture sert à repérer et corriger les dangers avant que les clients ne soient exposés aux risques."
+    },
+    {
+      "q": "Parmi ces éléments, lesquels doivent être vérifiés lors de l'inspection préouverture ?",
+      "choices": ["Les pneus de protection seulement", "Le béton exposé seulement", "Les chemins entre les pistes seulement", "Les pneus, le béton exposé et les chemins entre les pistes"],
+      "correct": 3,
+      "explanation": "Une inspection complète couvre les pneus, le béton exposé et les chemins entre les pistes, car chacun représente un risque de sécurité."
+    },
+    {
+      "q": "Comment les chemins entre les pistes doivent-ils être aménagés à l'ouverture ?",
+      "choices": ["Fermés par des pneus", "Laissés ouverts pour la circulation", "Barrés uniquement par une chaîne", "Signalés par un cône orange"],
+      "correct": 0,
+      "explanation": "Les chemins entre les pistes doivent être fermés par des pneus afin d'empêcher l'accès à des zones non sécurisées."
+    },
+    {
+      "q": "Quelle condition doit être remplie avant de programmer l'ordinateur du garage ?",
+      "choices": ["Le mécanicien doit être présent sur place", "L'ordinateur de la cabane doit déjà être ouvert", "La caisse du jour doit être fermée", "Les premiers clients doivent être arrivés"],
+      "correct": 1,
+      "explanation": "L'ordinateur de la cabane doit être ouvert avant de pouvoir programmer celui du garage, selon la séquence d'ouverture."
+    },
+    {
+      "q": "Une inspection visuelle rapide du site est-elle suffisante avant l'ouverture ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Une inspection complète et rigoureuse est requise; un simple coup d'oeil rapide ne permet pas de détecter tous les dangers."
+    },
+    {
+      "q": "Un bloc de béton exposé sur le site représente-t-il un risque de sécurité ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le béton exposé constitue un risque de blessure et doit être corrigé ou isolé avant l'ouverture."
+    },
+    {
+      "q": "Le superviseur est responsable de l'inspection du site à l'ouverture.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le superviseur demeure responsable de l'inspection du site et de l'état des installations à l'ouverture."
+    },
+    {
+      "q": "L'ouverture aux clients peut-elle débuter même si certains dangers n'ont pas encore été vérifiés ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Tous les dangers doivent être vérifiés et la sécurité validée avant l'arrivée des clients."
+    },
+    {
+      "q": "La sécurité du site doit être validée avant l'arrivée des clients.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "La validation de la sécurité précède l'arrivée des clients afin d'éviter toute exposition à un danger."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier les pneus de la piste lors de l'inspection ?",
+      "choices": ["Pour s'assurer qu'ils sont bien positionnés et protègent les zones dangereuses", "Pour en faire l'inventaire et les compter", "Pour vérifier leur pression d'air", "Pour confirmer qu'ils sont propres"],
+      "correct": 0,
+      "explanation": "Les pneus servent de protection; leur bon positionnement assure qu'ils couvrent les zones dangereuses de la piste."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier les chemins entre les pistes ?",
+      "choices": ["Pour faciliter le passage des karts", "Pour empêcher l'accès à des zones non sécurisées", "Pour accélérer la circulation du personnel", "Pour réserver un accès aux clients VIP"],
+      "correct": 1,
+      "explanation": "Vérifier les chemins permet de confirmer qu'ils bloquent bien l'accès aux zones non sécurisées."
+    },
+    {
+      "q": "Quel est l'objectif principal de l'inspection préouverture ?",
+      "choices": ["Augmenter le chiffre des ventes", "Assurer la sécurité du personnel et des clients", "Organiser l'horaire des pauses", "Faire l'essai de tous les karts"],
+      "correct": 1,
+      "explanation": "L'inspection préouverture vise avant tout à garantir la sécurité du personnel et des clients."
+    },
+    {
+      "q": "Tu découvres un bloc de béton exposé durant l'inspection. Quelle est la bonne action ?",
+      "choices": ["Noter le problème et ouvrir quand même", "Attendre que le mécanicien s'en occupe plus tard", "Corriger immédiatement ou empêcher l'accès à la zone", "Déplacer les clients vers une autre piste"],
+      "correct": 2,
+      "explanation": "Un danger comme le béton exposé doit être corrigé immédiatement ou la zone isolée avant toute ouverture."
+    },
+    {
+      "q": "Un employé affirme que la vérification n'est pas nécessaire aujourd'hui. Que fais-tu ?",
+      "choices": ["Lui faire confiance et passer à autre chose", "Exiger que l'inspection complète soit effectuée", "Réduire l'inspection aux points essentiels", "Reporter l'inspection à la fermeture"],
+      "correct": 1,
+      "explanation": "L'inspection complète demeure obligatoire chaque jour, peu importe l'avis d'un employé."
+    },
+    {
+      "q": "Tu observes plusieurs pneus de protection déplacés sur la piste. Que fais-tu ?",
+      "choices": ["Les laisser ainsi pour la journée", "Les replacer avant l'ouverture", "Les retirer complètement de la piste", "Attendre la fermeture pour les replacer"],
+      "correct": 1,
+      "explanation": "Les pneus déplacés doivent être remis en place avant l'ouverture pour rétablir la protection des zones dangereuses."
+    },
+    {
+      "q": "Pourquoi la qualité de l'ouverture influence-t-elle toute la journée ?",
+      "choices": ["Les erreurs non détectées peuvent créer des problèmes toute la journée", "Parce que l'ouverture est la tâche la plus longue", "Parce que les clients arrivent toujours très tôt", "Parce qu'elle détermine l'horaire des employés"],
+      "correct": 0,
+      "explanation": "Un danger ou une erreur non corrigé à l'ouverture peut générer des problèmes de sécurité tout au long de la journée."
+    },
+    {
+      "q": "Quel risque principal découle d'une inspection incomplète ?",
+      "choices": ["Une hausse des coûts d'entretien", "Un accident, une blessure ou une mauvaise expérience client", "Un retard dans l'ouverture de la caisse", "Une surcharge de travail pour le mécanicien"],
+      "correct": 1,
+      "explanation": "Une inspection incomplète laisse passer des dangers qui peuvent causer accidents, blessures ou insatisfaction des clients."
+    },
+    {
+      "q": "Le superviseur peut-il déléguer l'inspection du site ?",
+      "choices": ["Non, il doit toujours la faire lui-même", "Oui, mais il demeure responsable du résultat final", "Oui, et il se décharge alors de toute responsabilité", "Oui, mais uniquement au mécanicien"],
+      "correct": 1,
+      "explanation": "L'inspection peut être déléguée, mais la responsabilité du résultat final revient toujours au superviseur."
+    },
+    {
+      "q": "Quel est le lien entre la sécurité et l'expérience client ?",
+      "choices": ["La sécurité et l'expérience client sont indépendantes", "Une expérience sécuritaire améliore la satisfaction globale", "Les mesures de sécurité ralentissent le service", "La sécurité n'intéresse pas la clientèle"],
+      "correct": 1,
+      "explanation": "Un environnement sécuritaire contribue directement à une meilleure satisfaction et à une expérience client positive."
+    },
+    {
+      "q": "Pour que l'accès des clients soit empêché aux zones non sécurisées, comment doit-on fermer les chemins entre les pistes ?",
+      "choices": ["Avec des pneus", "Avec un ruban de signalisation", "Avec une affiche d'avertissement", "Avec un cône de chantier"],
+      "correct": 0,
+      "explanation": "La fermeture des chemins entre les pistes se fait avec des pneus, conformément à la procédure d'inspection."
+    },
+    {
+      "q": "Dans quel ordre faut-il ouvrir les ordinateurs lors de l'ouverture ?",
+      "choices": ["D'abord celui du garage, puis celui de la cabane", "D'abord celui de la cabane, puis celui du garage", "Les deux en même temps, peu importe l'ordre", "D'abord celui du garage, la cabane n'étant pas requise"],
+      "correct": 1,
+      "explanation": "L'ordinateur de la cabane doit être ouvert avant de programmer celui du garage."
+    },
+    {
+      "q": "Le superviseur a délégué l'inspection à un employé qui rapporte que tout est conforme. Que doit-il faire ?",
+      "choices": ["Accepter le rapport sans autre vérification", "Demeurer responsable et s'assurer que le résultat est réellement conforme", "Refaire entièrement l'inspection chaque fois", "Transférer la responsabilité à l'employé"],
+      "correct": 1,
+      "explanation": "Même après délégation, le superviseur reste responsable du résultat final et doit s'assurer de sa conformité."
+    },
+    {
+      "q": "Quelle conséquence un bloc de béton exposé non corrigé peut-il entraîner ?",
+      "choices": ["Une amélioration de l'adhérence des karts", "Un risque de blessure pour les clients ou le personnel", "Un avantage pour la circulation sur la piste", "Aucun effet sur la sécurité"],
+      "correct": 1,
+      "explanation": "Le béton exposé représente un risque de blessure, c'est pourquoi il doit être corrigé ou isolé avant l'ouverture."
+    },
+    {
+      "q": "Quelle attitude le superviseur doit-il adopter face à l'inspection préouverture chaque jour ?",
+      "choices": ["L'effectuer seulement les journées achalandées", "L'effectuer de façon complète et constante chaque jour", "L'effectuer uniquement après une plainte", "L'alléger lorsque le temps manque"],
+      "correct": 1,
+      "explanation": "L'inspection doit être réalisée de façon complète et constante chaque jour pour garantir la sécurité en tout temps."
+    }
+  ]
+}

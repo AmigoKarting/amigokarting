@@ -1,0 +1,98 @@
+{
+  "category": "Piste",
+  "sort_order": 40,
+  "title": "Service client avancé et gestion des plaintes",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Dans le contexte du service à la clientèle chez Amigo, est-ce que le client a toujours raison ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Le client n'a pas toujours raison, car il n'est pas l'expert en matière de sécurité sur la piste."
+    },
+    {
+      "q": "Pour quelle raison principale dit-on que le client n'a pas toujours raison chez Amigo ?",
+      "choices": ["Parce qu'il connaît mal nos prix", "Parce qu'il n'est pas l'expert en sécurité", "Parce qu'il conduit moins bien que nos employés", "Parce qu'il paie moins cher qu'avant"],
+      "correct": 1,
+      "explanation": "Sur les enjeux de sécurité, c'est l'employé formé qui détient l'expertise, pas le client."
+    },
+    {
+      "q": "Lorsqu'un transpondeur cesse de fonctionner pendant une course, quelle est la bonne action à poser ?",
+      "choices": ["Attendre la fin de la course pour vérifier", "Redémarrer la course au complet", "Retirer le kart de la piste immédiatement", "Ignorer le problème si le client n'a rien remarqué"],
+      "correct": 2,
+      "explanation": "Un transpondeur défectueux fausse le chronométrage, alors on retire le kart immédiatement pour corriger la situation."
+    },
+    {
+      "q": "Un kart est clairement plus lent que les autres durant une course. Quelle est la meilleure réaction ?",
+      "choices": ["Ne rien faire puisque la course est commencée", "Offrir un autre kart au client", "Réduire simplement le temps de course des autres", "Avertir le client que c'est normal"],
+      "correct": 1,
+      "explanation": "Offrir un autre kart corrige l'iniquité et démontre notre souci d'une expérience équitable."
+    },
+    {
+      "q": "Que signifie l'expression « Over Deliver » dans notre approche de service ?",
+      "choices": ["Vendre davantage de produits au client", "Faire rouler les karts plus vite", "Dépasser les attentes du client", "Augmenter notre publicité"],
+      "correct": 2,
+      "explanation": "« Over Deliver » veut dire dépasser les attentes du client pour créer une expérience mémorable."
+    },
+    {
+      "q": "Lequel des éléments suivants peut être offert comme forme de compensation à un client ?",
+      "choices": ["Uniquement un breuvage", "Uniquement du temps de piste", "Uniquement un rabais futur", "Du temps de piste, un breuvage ou un rabais futur"],
+      "correct": 3,
+      "explanation": "Plusieurs options de compensation existent : temps de piste, breuvage ou rabais sur une visite future."
+    },
+    {
+      "q": "Comment doit-on réagir face à un client fâché ?",
+      "choices": ["En s'énervant aussi pour montrer notre fermeté", "En argumentant point par point avec lui", "En restant calme et rationnel", "En l'ignorant jusqu'à ce qu'il se calme"],
+      "correct": 2,
+      "explanation": "Rester calme et rationnel permet de désamorcer la tension et de trouver une solution."
+    },
+    {
+      "q": "Pourquoi utilise-t-on des exemples de la vraie vie quand on explique les consignes ?",
+      "choices": ["Pour mieux faire comprendre les risques", "Pour impressionner le client", "Pour gagner du temps", "Pour divertir les clients en attente"],
+      "correct": 0,
+      "explanation": "Les exemples concrets aident le client à mieux saisir les risques réels liés à la sécurité."
+    },
+    {
+      "q": "Que faut-il faire lorsqu'un incident implique un client mécontent ?",
+      "choices": ["L'oublier si le client est parti", "Le cacher pour éviter les problèmes", "Le rapporter au superviseur", "Attendre qu'une plainte officielle soit déposée"],
+      "correct": 2,
+      "explanation": "Tout incident avec un client mécontent doit être rapporté au superviseur pour un suivi adéquat."
+    },
+    {
+      "q": "Pourquoi est-il important de comprendre la raison de l'insatisfaction d'un client ?",
+      "choices": ["Seulement pour trouver une solution immédiate", "Seulement pour améliorer le service", "Seulement pour éviter que ça se reproduise", "Pour trouver une solution, améliorer le service et éviter que ça se reproduise"],
+      "correct": 3,
+      "explanation": "Comprendre la cause permet à la fois de résoudre, d'améliorer le service et de prévenir une récidive."
+    },
+    {
+      "q": "Quelle attitude un employé doit-il adopter en tout temps face à un client, même difficile ?",
+      "choices": ["Une attitude calme et rationnelle", "Une attitude indifférente", "Une attitude défensive", "Une attitude pressée"],
+      "correct": 0,
+      "explanation": "Garder son calme et sa rationalité est la base d'une bonne gestion de plainte."
+    },
+    {
+      "q": "Offrir un rabais sur une visite future fait partie des compensations possibles chez Amigo.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le rabais sur une visite future est l'une des compensations reconnues, au même titre que le temps de piste ou un breuvage."
+    },
+    {
+      "q": "Quel est le but premier d'une compensation offerte à un client insatisfait ?",
+      "choices": ["Réduire les coûts du centre", "Dépasser ses attentes et regagner sa satisfaction", "Le faire patienter plus longtemps", "Éviter de rapporter l'incident"],
+      "correct": 1,
+      "explanation": "La compensation vise à dépasser les attentes du client (« Over Deliver ») et à rétablir sa satisfaction."
+    },
+    {
+      "q": "Un employé peut régler seul un incident avec un client mécontent sans jamais en informer son superviseur.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : tout incident impliquant un client mécontent doit être rapporté au superviseur."
+    },
+    {
+      "q": "Quelle est la bonne réaction immédiate lorsqu'un client se retrouve avec un kart défectueux ou plus lent ?",
+      "choices": ["Lui demander de terminer quand même sa course", "Lui offrir un autre kart", "Lui dire que tous les karts sont identiques", "Attendre qu'il se plaigne avant d'agir"],
+      "correct": 1,
+      "explanation": "On corrige la situation sans attendre en offrant immédiatement un autre kart au client."
+    }
+  ]
+}

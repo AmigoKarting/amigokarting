@@ -1,0 +1,158 @@
+{
+  "category": "Superviseur du service à la clientèle",
+  "sort_order": 52,
+  "title": "Huddle, gestion d'équipe et rotation des postes",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Selon le manuel, à quel moment le Huddle doit-il avoir lieu ?",
+      "choices": ["15 minutes avant l'ouverture", "30 minutes avant l'ouverture", "Au moment précis de l'ouverture", "Une fois les premiers clients arrivés"],
+      "correct": 0,
+      "explanation": "Le Huddle se tient 15 minutes avant l'ouverture afin de préparer l'équipe avant l'arrivée des clients."
+    },
+    {
+      "q": "Quel équipement de communication le superviseur doit-il remettre aux préposés pendant le Huddle ?",
+      "choices": ["Les uniformes propres", "Les walkie-talkies", "Les clés des garages", "Les horaires imprimés"],
+      "correct": 1,
+      "explanation": "Les walkie-talkies sont remis durant le Huddle pour assurer la coordination radio tout au long du quart."
+    },
+    {
+      "q": "Quels objets doivent être remis aux préposés lors du Huddle ?",
+      "choices": ["Uniquement les walkie-talkies", "Uniquement les calepins", "Les walkie-talkies, les calepins et les stylos", "Les clés et les uniformes"],
+      "correct": 2,
+      "explanation": "Le superviseur distribue les walkie-talkies, les calepins et les stylos pour que chaque préposé soit pleinement outillé."
+    },
+    {
+      "q": "Avant le début du quart, le superviseur doit s'assurer que chaque employé répond à quelles conditions ?",
+      "choices": ["Qu'il est punché in seulement", "Qu'il possède son équipement seulement", "Qu'il connaît sa position seulement", "Qu'il est punché in, possède son équipement et connaît sa position"],
+      "correct": 3,
+      "explanation": "Le superviseur vérifie à la fois le punch in, l'équipement et la position assignée de chaque employé."
+    },
+    {
+      "q": "Pourquoi la rotation des postes est-elle importante durant le quart ?",
+      "choices": ["Pour fermer le site plus tôt", "Pour répartir efficacement le travail entre les employés", "Pour éviter les inspections de sécurité", "Pour réduire le nombre de pauses"],
+      "correct": 1,
+      "explanation": "La rotation des postes permet de répartir le travail efficacement et d'éviter que des tâches soient négligées."
+    },
+    {
+      "q": "Le Huddle est facultatif lorsque l'équipe est expérimentée.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Le Huddle est obligatoire à chaque quart, peu importe l'expérience de l'équipe."
+    },
+    {
+      "q": "Chaque employé doit connaître son poste avant le début du quart.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Connaître sa position avant l'ouverture évite la confusion et les retards une fois les clients présents."
+    },
+    {
+      "q": "Les walkie-talkies sont essentiels à la communication entre les membres de l'équipe.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les walkie-talkies permettent de coordonner rapidement les opérations entre les différents postes."
+    },
+    {
+      "q": "Un préposé peut commencer son quart sans son oreillette.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "L'oreillette fait partie de l'équipement obligatoire pour rester en communication constante avec l'équipe."
+    },
+    {
+      "q": "Le superviseur doit vérifier que tout le monde est punché in avant de débuter.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "S'assurer que tous sont punchés in garantit un suivi exact des heures et une équipe complète au démarrage."
+    },
+    {
+      "q": "Quels sont les trois éléments principaux du Huddle ?",
+      "choices": ["Ventes, vitesse et profits", "Pauses, repas et départs", "Communication, préparation et répartition des tâches", "Karts, casques et pneus"],
+      "correct": 2,
+      "explanation": "Le Huddle repose sur la communication, la préparation et la répartition des tâches au sein de l'équipe."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier les positions de rotation pendant le Huddle ?",
+      "choices": ["Pour éviter la confusion durant le quart", "Pour réduire le nombre de pauses", "Pour gagner du temps à la fermeture", "Pour impressionner les clients"],
+      "correct": 0,
+      "explanation": "Clarifier les positions de rotation dès le Huddle évite la confusion et les chevauchements pendant le quart."
+    },
+    {
+      "q": "Pourquoi les communications radio sont-elles importantes durant les opérations ?",
+      "choices": ["Pour écouter de la musique", "Pour coordonner rapidement les opérations entre les postes", "Pour passer le temps entre les groupes", "Pour parler directement aux clients"],
+      "correct": 1,
+      "explanation": "La radio permet une coordination rapide entre les postes, surtout durant les périodes occupées."
+    },
+    {
+      "q": "Un employé ne connaît pas la position qui lui est assignée. Que fais-tu ?",
+      "choices": ["Le laisser deviner sur le terrain", "L'ignorer jusqu'à la première pause", "Lui expliquer immédiatement sa position avant l'ouverture", "Le renvoyer à la maison"],
+      "correct": 2,
+      "explanation": "On clarifie la position avant l'ouverture pour que l'employé soit opérationnel dès l'arrivée des clients."
+    },
+    {
+      "q": "Un préposé se présente sans son walkie-talkie. Que fais-tu ?",
+      "choices": ["Le laisser travailler sans appareil", "Lui fournir son équipement avant le début du quart", "Lui retirer une pause en guise de conséquence", "Attendre la fin du quart pour régler la situation"],
+      "correct": 1,
+      "explanation": "L'équipement de communication doit être fourni avant le début du quart pour garantir la coordination."
+    },
+    {
+      "q": "Le Huddle est commencé, mais deux employés ne sont pas encore punchés in. Que fais-tu ?",
+      "choices": ["Corriger la situation immédiatement", "Continuer le Huddle sans eux", "Les ignorer et régler ça plus tard", "Annuler complètement le Huddle"],
+      "correct": 0,
+      "explanation": "Il faut corriger le punch in sur-le-champ pour assurer un suivi exact des heures et une équipe complète."
+    },
+    {
+      "q": "Quel impact un Huddle mal exécuté peut-il avoir sur la journée ?",
+      "choices": ["Une augmentation des ventes", "Une meilleure ambiance d'équipe", "De la désorganisation et une baisse de performance", "Aucun impact notable"],
+      "correct": 2,
+      "explanation": "Un mauvais Huddle entraîne de la désorganisation et nuit à la performance de toute l'équipe."
+    },
+    {
+      "q": "Pourquoi la communication est-elle essentielle au bon déroulement du quart ?",
+      "choices": ["Elle ralentit inutilement le travail", "Elle permet une coordination efficace du personnel", "Elle dérange les clients sur la piste", "Elle n'est pas vraiment nécessaire"],
+      "correct": 1,
+      "explanation": "Une communication claire assure la coordination du personnel et un service fluide."
+    },
+    {
+      "q": "Quel est le rôle du superviseur pendant le Huddle ?",
+      "choices": ["Rester silencieux et observer", "Effectuer lui-même toutes les tâches", "Diriger, informer et préparer l'équipe", "Se concentrer uniquement sur la caisse"],
+      "correct": 2,
+      "explanation": "Le superviseur mène le Huddle en dirigeant, informant et préparant son équipe pour le quart."
+    },
+    {
+      "q": "À quoi reconnaît-on un Huddle efficace ?",
+      "choices": ["Il se termine en retard", "Tous les employés comprennent leurs responsabilités", "Personne ne pose de question", "Il est le plus court possible"],
+      "correct": 1,
+      "explanation": "Un Huddle est efficace quand chaque employé repart en comprenant clairement ses responsabilités."
+    },
+    {
+      "q": "Combien de temps avant l'ouverture l'équipe doit-elle être prête à la suite du Huddle ?",
+      "choices": ["Au plus tard 15 minutes avant l'ouverture", "Exactement à l'ouverture", "Cinq minutes après l'ouverture", "Trente minutes après l'ouverture"],
+      "correct": 0,
+      "explanation": "Comme le Huddle se tient 15 minutes avant l'ouverture, l'équipe doit être prête dès la fin de celui-ci, avant l'arrivée des clients."
+    },
+    {
+      "q": "Le superviseur constate qu'un préposé n'a pas son calepin ni son stylo. Que doit-il faire ?",
+      "choices": ["Lui demander de mémoriser l'information", "Lui remettre le matériel manquant avant le début du quart", "Reporter le problème à la prochaine pause", "Lui retirer son walkie-talkie"],
+      "correct": 1,
+      "explanation": "Le calepin et le stylo font partie du matériel remis au Huddle et doivent être fournis avant le début du quart."
+    },
+    {
+      "q": "Durant une période achalandée, deux préposés réclament la radio en même temps. Pourquoi la coordination radio aide-t-elle ?",
+      "choices": ["Elle remplace la rotation des postes", "Elle permet de coordonner rapidement les opérations entre les postes", "Elle sert surtout à divertir l'équipe", "Elle ralentit volontairement le service"],
+      "correct": 1,
+      "explanation": "La radio sert à coordonner rapidement les opérations entre les postes, ce qui est crucial quand l'achalandage augmente."
+    },
+    {
+      "q": "Pourquoi le superviseur attribue-t-il une position claire à chaque employé dès le Huddle ?",
+      "choices": ["Pour pouvoir partir plus tôt", "Pour réduire le nombre de walkie-talkies utilisés", "Pour assurer une répartition efficace du travail et éviter la confusion", "Pour limiter les communications radio"],
+      "correct": 2,
+      "explanation": "Attribuer une position claire à chacun assure une répartition efficace du travail et évite la confusion durant le quart."
+    },
+    {
+      "q": "Un nouveau préposé est gêné et ne dit pas qu'il n'a pas compris sa position durant le Huddle. Quelle est la meilleure pratique du superviseur ?",
+      "choices": ["Présumer que tout le monde a compris", "S'assurer que chaque employé comprend bien ses responsabilités avant l'ouverture", "Laisser le préposé apprendre sur le tas", "Reporter les explications après le rush"],
+      "correct": 1,
+      "explanation": "Un Huddle efficace exige que le superviseur confirme la compréhension de chacun avant l'ouverture, plutôt que de présumer."
+    }
+  ]
+}

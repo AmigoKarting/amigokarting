@@ -1,0 +1,371 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 20,
+  "title": "Propreté, entretien et image",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Pourquoi la propreté est-elle importante ?",
+      "choices": [
+        "Pour impressionner les employés",
+        "Pour offrir une bonne expérience client",
+        "Pour vendre moins",
+        "Pour fermer plus tôt"
+      ],
+      "correct": 1,
+      "explanation": "Un environnement propre est essentiel pour offrir une bonne expérience à la clientèle."
+    },
+    {
+      "q": "Les toilettes doivent être :",
+      "choices": [
+        "Vérifiées régulièrement",
+        "Ignorées toute la journée",
+        "Nettoyées une fois par semaine",
+        "Fermées au public"
+      ],
+      "correct": 0,
+      "explanation": "Les toilettes doivent être vérifiées régulièrement pour rester propres et bien approvisionnées."
+    },
+    {
+      "q": "Un client remarque des déchets au sol. Qu'est-ce que cela influence d'abord ?",
+      "choices": [
+        "La météo extérieure",
+        "La vitesse des karts",
+        "L'image de l'entreprise",
+        "Le prix des billets"
+      ],
+      "correct": 2,
+      "explanation": "Des déchets visibles nuisent directement à l'image de l'entreprise."
+    },
+    {
+      "q": "Les espaces clients doivent être :",
+      "choices": [
+        "Sécuritaires et propres",
+        "Le plus vides possible",
+        "Surchargés de décorations",
+        "Réservés au personnel"
+      ],
+      "correct": 0,
+      "explanation": "Les espaces clients doivent rester sécuritaires et propres en tout temps."
+    },
+    {
+      "q": "Qui est responsable de la propreté ?",
+      "choices": [
+        "Le gérant seulement",
+        "Les employés seulement",
+        "Les clients eux-mêmes",
+        "Toute l'équipe"
+      ],
+      "correct": 3,
+      "explanation": "La propreté est une responsabilité partagée par toute l'équipe."
+    },
+    {
+      "q": "Pourquoi faut-il ramasser les déchets rapidement ?",
+      "choices": [
+        "Pour maintenir un environnement propre et professionnel",
+        "Pour économiser des sacs à ordures",
+        "Pour réduire le nombre de poubelles",
+        "Parce que les clients aiment le désordre"
+      ],
+      "correct": 0,
+      "explanation": "Ramasser les déchets rapidement maintient un environnement propre et professionnel."
+    },
+    {
+      "q": "Les tables doivent être :",
+      "choices": [
+        "Collantes",
+        "Propres",
+        "Encombrées",
+        "Laissées sales entre les groupes"
+      ],
+      "correct": 1,
+      "explanation": "Les tables doivent toujours être propres pour les clients."
+    },
+    {
+      "q": "Une zone mal entretenue peut créer :",
+      "choices": [
+        "Une meilleure expérience client",
+        "Plus de ventes",
+        "Une mauvaise impression",
+        "Aucun effet"
+      ],
+      "correct": 2,
+      "explanation": "Une zone mal entretenue crée une mauvaise impression chez la clientèle."
+    },
+    {
+      "q": "L'image de l'entreprise dépend :",
+      "choices": [
+        "Seulement des karts",
+        "Seulement du prix",
+        "Seulement de la météo",
+        "De l'ensemble de l'expérience"
+      ],
+      "correct": 3,
+      "explanation": "L'image dépend de l'ensemble de l'expérience vécue par le client."
+    },
+    {
+      "q": "Que doit faire un employé professionnel à l'égard des lieux ?",
+      "choices": [
+        "Contribuer à garder les lieux propres",
+        "Attendre les consignes du gérant",
+        "Nettoyer uniquement à la fermeture",
+        "Laisser le ménage aux autres"
+      ],
+      "correct": 0,
+      "explanation": "Un employé professionnel contribue activement à garder les lieux propres."
+    },
+    {
+      "q": "Vrai ou faux : les clients remarquent la propreté.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Les clients remarquent rapidement l'état de propreté des lieux."
+    },
+    {
+      "q": "Vrai ou faux : les toilettes font partie de l'expérience client.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Les toilettes font partie intégrante de l'expérience client."
+    },
+    {
+      "q": "Vrai ou faux : le nettoyage est seulement une tâche de fermeture.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 1,
+      "explanation": "Le nettoyage se fait tout au long de la journée, pas seulement à la fermeture."
+    },
+    {
+      "q": "Vrai ou faux : une zone propre améliore l'image de l'entreprise.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Une zone propre renforce l'image positive de l'entreprise."
+    },
+    {
+      "q": "Vrai ou faux : les déchets doivent être ramassés rapidement.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Les déchets doivent être ramassés rapidement pour garder les lieux propres."
+    },
+    {
+      "q": "Vrai ou faux : la propreté contribue à la sécurité.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Un environnement propre réduit les risques et contribue à la sécurité."
+    },
+    {
+      "q": "Vrai ou faux : les employés doivent signaler les problèmes.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Les employés doivent signaler les problèmes pour qu'ils soient corrigés rapidement."
+    },
+    {
+      "q": "Vrai ou faux : un environnement propre inspire confiance.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Un environnement propre inspire confiance à la clientèle."
+    },
+    {
+      "q": "Vrai ou faux : les inspections visuelles sont utiles.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Les inspections visuelles aident à repérer rapidement les problèmes de propreté."
+    },
+    {
+      "q": "Vrai ou faux : la propreté n'influence pas les clients.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 1,
+      "explanation": "Au contraire, la propreté influence fortement la perception des clients."
+    },
+    {
+      "q": "Tu vois du papier au sol près de la caisse. Que fais-tu ?",
+      "choices": [
+        "Tu attends la fin de ton quart",
+        "Tu le ramasses immédiatement",
+        "Tu demandes au gérant la permission",
+        "Tu l'ignores, ce n'est pas ta tâche"
+      ],
+      "correct": 1,
+      "explanation": "Il faut ramasser le papier immédiatement pour garder l'espace propre."
+    },
+    {
+      "q": "Les toilettes manquent de papier. Que fais-tu ?",
+      "choices": [
+        "Tu les réapprovisionnes rapidement",
+        "Tu fermes les toilettes",
+        "Tu attends la fermeture",
+        "Tu laisses un client s'en occuper"
+      ],
+      "correct": 0,
+      "explanation": "Il faut réapprovisionner les toilettes rapidement pour maintenir le service."
+    },
+    {
+      "q": "Une table est sale après le départ d'un groupe. Que fais-tu ?",
+      "choices": [
+        "Tu la laisses pour le prochain quart",
+        "Tu attends qu'un client se plaigne",
+        "Tu la nettoies avant l'arrivée d'autres clients",
+        "Tu la recouvres d'une nappe"
+      ],
+      "correct": 2,
+      "explanation": "Il faut nettoyer la table avant l'arrivée d'autres clients."
+    },
+    {
+      "q": "Pourquoi faut-il agir rapidement face à un problème de propreté ?",
+      "choices": [
+        "Pour terminer son quart plus tôt",
+        "Pour éviter d'avoir à le signaler",
+        "Pour impressionner le gérant",
+        "Pour maintenir les standards de qualité"
+      ],
+      "correct": 3,
+      "explanation": "Agir rapidement permet de maintenir les standards de qualité."
+    },
+    {
+      "q": "Un client signale un problème de propreté. Que fais-tu ?",
+      "choices": [
+        "Tu le remercies et corriges la situation",
+        "Tu lui dis que ce n'est pas ta tâche",
+        "Tu lui demandes de le régler lui-même",
+        "Tu ignores son commentaire"
+      ],
+      "correct": 0,
+      "explanation": "Il faut remercier le client et corriger la situation sans tarder."
+    },
+    {
+      "q": "Tu remarques un danger potentiel au sol. Que fais-tu ?",
+      "choices": [
+        "Tu le contournes sans rien faire",
+        "Tu le corriges ou le signales immédiatement",
+        "Tu attends la fin de la journée",
+        "Tu préviens seulement les autres employés"
+      ],
+      "correct": 1,
+      "explanation": "Un danger au sol doit être corrigé ou signalé immédiatement pour la sécurité."
+    },
+    {
+      "q": "Une poubelle déborde. Quelle est la priorité ?",
+      "choices": [
+        "Ajouter d'autres déchets par-dessus",
+        "Attendre la fermeture",
+        "La vider rapidement",
+        "La déplacer hors de vue"
+      ],
+      "correct": 2,
+      "explanation": "La priorité est de vider rapidement la poubelle qui déborde."
+    },
+    {
+      "q": "Pourquoi la propreté aide-t-elle le service à la clientèle ?",
+      "choices": [
+        "Elle réduit le nombre d'employés requis",
+        "Elle accélère les transactions à la caisse",
+        "Elle diminue le prix des billets",
+        "Elle améliore l'expérience globale"
+      ],
+      "correct": 3,
+      "explanation": "La propreté améliore l'expérience globale offerte au client."
+    },
+    {
+      "q": "Un employé ignore plusieurs tâches de nettoyage. Quel risque cela crée-t-il ?",
+      "choices": [
+        "Une dégradation de l'image de l'entreprise",
+        "Une hausse des ventes",
+        "Une meilleure ambiance",
+        "Aucun risque particulier"
+      ],
+      "correct": 0,
+      "explanation": "Ignorer le nettoyage entraîne une dégradation de l'image de l'entreprise."
+    },
+    {
+      "q": "Quel est l'objectif principal de l'entretien quotidien ?",
+      "choices": [
+        "Réduire le nombre de clients",
+        "Occuper le temps des employés",
+        "Maintenir un environnement accueillant et sécuritaire",
+        "Remplacer les inspections visuelles"
+      ],
+      "correct": 2,
+      "explanation": "L'entretien quotidien vise à maintenir un environnement accueillant et sécuritaire."
+    },
+    {
+      "q": "À quel moment la propreté doit-elle être maintenue ?",
+      "choices": [
+        "Uniquement à l'ouverture",
+        "Uniquement à la fermeture",
+        "Seulement quand un client se plaint",
+        "Tout au long de la journée"
+      ],
+      "correct": 3,
+      "explanation": "La propreté doit être maintenue tout au long de la journée, pas seulement à des moments précis."
+    },
+    {
+      "q": "Vrai ou faux : un employé peut contribuer à l'image de l'entreprise simplement en gardant les lieux propres.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "En gardant les lieux propres, chaque employé contribue directement à l'image de l'entreprise."
+    },
+    {
+      "q": "Comment un employé devrait-il réagir devant un déchet, même si ce n'est pas dans sa zone habituelle ?",
+      "choices": [
+        "Le ramasser quand même pour garder les lieux propres",
+        "Attendre que l'employé responsable s'en occupe",
+        "Le signaler uniquement à la fin du quart",
+        "L'ignorer puisque ce n'est pas sa zone"
+      ],
+      "correct": 0,
+      "explanation": "La propreté est l'affaire de toute l'équipe : on ramasse un déchet même hors de sa zone."
+    },
+    {
+      "q": "Pourquoi des inspections visuelles régulières sont-elles utiles pendant la journée ?",
+      "choices": [
+        "Pour remplacer le travail de l'équipe de fermeture",
+        "Pour repérer et corriger rapidement les problèmes",
+        "Pour ralentir le service à la caisse",
+        "Pour réduire le nombre de poubelles"
+      ],
+      "correct": 1,
+      "explanation": "Les inspections visuelles régulières permettent de repérer et corriger rapidement les problèmes."
+    },
+    {
+      "q": "Quel lien existe-t-il entre la propreté et la sécurité des clients ?",
+      "choices": [
+        "Aucun, ce sont deux sujets distincts",
+        "La propreté nuit à la sécurité",
+        "Un environnement propre réduit les risques d'accident",
+        "La sécurité dépend uniquement des karts"
+      ],
+      "correct": 2,
+      "explanation": "Un environnement propre, sans déchets ni dangers au sol, réduit les risques d'accident."
+    }
+  ]
+}

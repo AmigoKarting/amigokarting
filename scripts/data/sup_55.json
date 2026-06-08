@@ -1,0 +1,158 @@
+{
+  "category": "Superviseur du service à la clientèle",
+  "sort_order": 55,
+  "title": "Service recovery et clients mécontents",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Dans un quart de travail, qui est principalement responsable de prendre en charge un client mécontent ?",
+      "choices": ["Le préposé à la caisse", "Le mécanicien de piste", "Le superviseur", "Le client lui-même"],
+      "correct": 2,
+      "explanation": "Le superviseur est le premier responsable de prendre en charge les clients mécontents et de récupérer l'expérience."
+    },
+    {
+      "q": "Selon le manuel, quel principe résume l'importance d'agir concrètement devant un client mécontent ?",
+      "choices": ["Les actions parlent plus fort que les mots", "Le silence règle tout", "Mieux vaut attendre que la plainte passe", "Une excuse écrite suffit toujours"],
+      "correct": 0,
+      "explanation": "Le manuel rappelle que les actions parlent plus fort que les mots : il faut poser un geste concret, pas seulement s'excuser."
+    },
+    {
+      "q": "Quel est l'objectif visé par le concept de Service Recovery ?",
+      "choices": ["Réparer plus vite les karts brisés", "Réduire le nombre de ventes risquées", "Éviter à tout prix les remboursements", "Corriger l'expérience vécue par le client"],
+      "correct": 3,
+      "explanation": "Le Service Recovery vise à corriger l'expérience client lorsqu'un problème est survenu, et non à régler un enjeu mécanique."
+    },
+    {
+      "q": "Selon le manuel, qu'est-ce qu'un petit geste offert à un client mécontent démontre ?",
+      "choices": ["Une faiblesse de l'entreprise", "De la confiance et du souci du client", "Une erreur à éviter", "Une perte d'argent inutile"],
+      "correct": 1,
+      "explanation": "Offrir une petite attention montre au client qu'on a confiance en notre service et qu'on se soucie réellement de lui."
+    },
+    {
+      "q": "Quel niveau d'autonomie le manuel recommande-t-il d'accorder aux employés face aux clients ?",
+      "choices": ["Aucune, tout passe par le gérant", "Être autorisés à résoudre certains problèmes eux-mêmes", "Se limiter à appeler la caisse", "Attendre la fin du quart pour agir"],
+      "correct": 1,
+      "explanation": "Les employés doivent être autorisés à résoudre certains problèmes courants afin d'agir rapidement auprès du client."
+    },
+    {
+      "q": "Un client frustré doit être ignoré jusqu'à ce qu'il se calme de lui-même.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : un client frustré doit être pris en charge rapidement, jamais ignoré."
+    },
+    {
+      "q": "Le superviseur doit intervenir rapidement lorsqu'un client est mécontent.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : une intervention rapide du superviseur est essentielle pour récupérer l'expérience client."
+    },
+    {
+      "q": "Une petite attention offerte au bon moment peut améliorer l'expérience d'un client mécontent.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : un petit geste bien placé peut transformer la perception d'un client insatisfait."
+    },
+    {
+      "q": "Le service recovery vise uniquement à accorder des remboursements.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : le service recovery vise à corriger l'expérience globale, le remboursement n'étant qu'une option parmi d'autres."
+    },
+    {
+      "q": "La satisfaction du client demeure une priorité, même lorsqu'un problème est survenu.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : la satisfaction client reste prioritaire et oriente toute la démarche de récupération."
+    },
+    {
+      "q": "Un client attend depuis longtemps et commence à être visiblement frustré. Quelle est la bonne réaction ?",
+      "choices": ["L'ignorer en espérant qu'il se calme", "Le faire patienter sans explication", "Aller lui parler et lui donner une estimation claire du délai", "Lui suggérer de revenir un autre jour"],
+      "correct": 2,
+      "explanation": "Aller vers le client et lui donner une estimation claire réduit son incertitude et sa frustration."
+    },
+    {
+      "q": "Un groupe est mécontent d'un délai d'attente trop long. Que fais-tu ?",
+      "choices": ["Les ignorer jusqu'à ce que la piste se libère", "Expliquer la situation et proposer une solution raisonnable", "Rembourser tout le groupe immédiatement", "Leur demander de revenir un autre jour"],
+      "correct": 1,
+      "explanation": "Expliquer honnêtement la situation et offrir une solution raisonnable permet de récupérer l'expérience du groupe."
+    },
+    {
+      "q": "Un client quitte le centre visiblement fâché. Quelle est la meilleure approche ?",
+      "choices": ["Le laisser partir sans rien tenter", "Chercher à comprendre et récupérer l'expérience si c'est possible", "Lui interdire de revenir", "Faire comme si de rien n'était"],
+      "correct": 1,
+      "explanation": "Il faut tenter de comprendre la cause et récupérer l'expérience tant qu'il reste une occasion d'agir."
+    },
+    {
+      "q": "Pourquoi est-il important d'informer les clients des temps d'attente ?",
+      "choices": ["Pour les décourager de rester", "Pour réduire l'incertitude et la frustration", "Pour gagner du temps sur la caisse", "Ce n'est pas vraiment utile"],
+      "correct": 1,
+      "explanation": "Informer les clients du temps d'attente réduit leur incertitude et donc leur frustration."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il aller vers les clients plutôt que d'attendre les plaintes ?",
+      "choices": ["Pour leur vendre davantage", "Pour exercer une communication proactive", "Pour les surveiller discrètement", "Par simple obligation légale"],
+      "correct": 1,
+      "explanation": "Aller vers les clients relève d'une communication proactive qui prévient l'escalade des frustrations."
+    },
+    {
+      "q": "Quel est l'objectif ultime de la démarche de service recovery ?",
+      "choices": ["Éviter d'avoir à payer quoi que ce soit", "Fermer le dossier le plus vite possible", "Transformer une mauvaise expérience en expérience acceptable ou positive", "Démontrer que le client a tort"],
+      "correct": 2,
+      "explanation": "Le but est de transformer une expérience négative en une expérience acceptable, voire positive."
+    },
+    {
+      "q": "Pourquoi l'autonomie des employés est-elle importante dans la récupération de service ?",
+      "choices": ["Pour réduire la charge de supervision", "Pour résoudre rapidement les problèmes fréquents", "Pour permettre aux employés d'en faire moins", "Ce n'est pas réellement important"],
+      "correct": 1,
+      "explanation": "L'autonomie permet de régler sur-le-champ les problèmes courants, sans faire attendre le client."
+    },
+    {
+      "q": "Quel message envoie-t-on au client lorsqu'on l'aide rapidement et efficacement ?",
+      "choices": ["Qu'on veut s'en débarrasser", "Qu'on est trop pressé pour bien faire", "Que son expérience compte vraiment", "Qu'on agit sans raison particulière"],
+      "correct": 2,
+      "explanation": "Une aide rapide montre au client que son expérience compte aux yeux de l'entreprise."
+    },
+    {
+      "q": "Selon le manuel, qui a le pouvoir de faire ou de briser l'expérience client ?",
+      "choices": ["Seulement le gérant", "Seulement le préposé à la caisse", "Chaque employé", "Le client lui-même"],
+      "correct": 2,
+      "explanation": "Chaque employé peut, par ses gestes, faire ou briser l'expérience vécue par le client."
+    },
+    {
+      "q": "Quel est le résultat final recherché par une bonne récupération de service ?",
+      "choices": ["Moins de plaintes écrites", "Des clients satisfaits malgré le problème initial", "Davantage de remboursements accordés", "Fermer le centre plus rapidement"],
+      "correct": 1,
+      "explanation": "Le résultat visé est d'avoir des clients satisfaits malgré le problème survenu au départ."
+    },
+    {
+      "q": "Lorsqu'un client signale un problème, quel est le réflexe à privilégier en premier ?",
+      "choices": ["Attendre qu'un autre employé s'en occupe", "Prendre en charge la situation rapidement", "Lui demander de mettre sa plainte par écrit", "Lui expliquer que ce n'est pas ta responsabilité"],
+      "correct": 1,
+      "explanation": "Prendre rapidement la situation en charge est le réflexe clé du service recovery."
+    },
+    {
+      "q": "Communiquer de façon proactive avec les clients aide surtout à :",
+      "choices": ["Augmenter le nombre de plaintes", "Prévenir et réduire la frustration", "Remplacer le travail des employés", "Allonger les temps d'attente"],
+      "correct": 1,
+      "explanation": "La communication proactive prévient les malentendus et réduit la frustration avant qu'elle ne monte."
+    },
+    {
+      "q": "Offrir une petite attention à un client mécontent est un geste réservé au gérant seulement.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : les employés autonomes peuvent aussi poser ces petits gestes pour récupérer l'expérience."
+    },
+    {
+      "q": "Devant un client mécontent, quelle attitude correspond le mieux à l'esprit du service recovery ?",
+      "choices": ["Chercher à prouver que le client se trompe", "Minimiser le problème pour passer à autre chose", "Écouter, comprendre et corriger l'expérience", "Reporter la réponse à un autre quart"],
+      "correct": 2,
+      "explanation": "Écouter, comprendre puis corriger l'expérience est au cœur même de la récupération de service."
+    },
+    {
+      "q": "Pourquoi est-il préférable d'agir tout de suite plutôt que de laisser un client repartir fâché ?",
+      "choices": ["Parce qu'agir vite préserve la chance de récupérer l'expérience", "Parce que c'est exigé par la loi", "Parce que ça permet de fermer plus vite", "Parce que ça évite de payer le client"],
+      "correct": 0,
+      "explanation": "Agir immédiatement maximise les chances de transformer l'expérience avant que le client ne parte insatisfait."
+    }
+  ]
+}

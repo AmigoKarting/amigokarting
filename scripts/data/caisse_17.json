@@ -1,0 +1,284 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 17,
+  "title": "Ouverture de la caisse",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Quelle est la première étape de l'ouverture ?",
+      "choices": ["Vendre des billets", "Démarrer l'ordinateur", "Nettoyer les toilettes", "Ouvrir la piste"],
+      "correct": 1,
+      "explanation": "Démarrer l'ordinateur est la première étape pour préparer le poste de travail avant toute opération."
+    },
+    {
+      "q": "Quel est le montant du fonds de caisse qui doit être présent ?",
+      "choices": ["300 $", "400 $", "500 $", "1000 $"],
+      "correct": 2,
+      "explanation": "Le fonds de caisse à l'ouverture doit toujours être de 500 $."
+    },
+    {
+      "q": "Pourquoi faut-il compter la caisse à l'ouverture ?",
+      "choices": ["Pour vérifier que le fonds est exact", "Pour perdre du temps", "Pour compter les profits", "Pour préparer les remboursements"],
+      "correct": 0,
+      "explanation": "On compte la caisse afin de confirmer que le fonds de 500 $ est complet et exact."
+    },
+    {
+      "q": "Si le montant n'est pas de 500 $, que faut-il faire en premier ?",
+      "choices": ["Ignorer le problème", "Recompter la caisse", "Fermer la caisse", "Appeler la banque"],
+      "correct": 1,
+      "explanation": "Avant tout, il faut recompter la caisse pour écarter une simple erreur de calcul."
+    },
+    {
+      "q": "Après avoir recompté, si l'écart demeure, il faut :",
+      "choices": ["Laisser la situation ainsi", "Aviser le gérant", "Fermer l'entreprise", "Recommencer demain"],
+      "correct": 1,
+      "explanation": "Un écart confirmé doit être signalé au gérant pour être traité correctement."
+    },
+    {
+      "q": "Les écarts de caisse doivent être :",
+      "choices": ["Cachés", "Inscrits au rapport", "Ignorés", "Déduits des ventes"],
+      "correct": 1,
+      "explanation": "Tout écart doit être inscrit au rapport pour assurer la traçabilité."
+    },
+    {
+      "q": "Que faut-il vérifier après la caisse ?",
+      "choices": ["Les pneus des karts", "Le stationnement", "Les messages vocaux", "Les uniformes"],
+      "correct": 2,
+      "explanation": "Après la caisse, on vérifie les messages vocaux laissés par les clients."
+    },
+    {
+      "q": "Pourquoi faut-il consulter les messages ?",
+      "choices": ["Pour retourner les appels des clients", "Pour remplir le temps", "Pour fermer le téléphone", "Pour faire la comptabilité"],
+      "correct": 0,
+      "explanation": "Les messages servent à rappeler les clients et à ne pas manquer de demandes."
+    },
+    {
+      "q": "Que faut-il consulter avant l'arrivée des clients ?",
+      "choices": ["Les profits du mois", "Les réservations du jour", "Les réseaux sociaux", "Les horaires des mécaniciens"],
+      "correct": 1,
+      "explanation": "On consulte les réservations du jour pour anticiper l'achalandage à venir."
+    },
+    {
+      "q": "Pourquoi faut-il connaître les réservations du jour ?",
+      "choices": ["Pour mieux gérer les attentes et l'achalandage", "Pour calculer les pourboires", "Pour fermer plus tôt", "Pour éviter de répondre au téléphone"],
+      "correct": 0,
+      "explanation": "Connaître les réservations permet de mieux gérer les attentes et l'achalandage."
+    },
+    {
+      "q": "La caisse doit contenir exactement 500 $ à l'ouverture.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le fonds de caisse à l'ouverture est fixé à exactement 500 $."
+    },
+    {
+      "q": "On peut vendre immédiatement sans compter la caisse.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Il faut d'abord compter la caisse avant de commencer les ventes."
+    },
+    {
+      "q": "Les messages vocaux font partie des tâches d'ouverture.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "La vérification des messages vocaux fait bel et bien partie de l'ouverture."
+    },
+    {
+      "q": "Les réservations du jour doivent être vérifiées.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les réservations du jour doivent toujours être vérifiées à l'ouverture."
+    },
+    {
+      "q": "Un écart de caisse doit être signalé.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Tout écart de caisse doit être signalé au gérant et noté."
+    },
+    {
+      "q": "Le rapport du soir peut servir à expliquer un écart constaté le matin.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le rapport de fermeture de la veille aide à expliquer un écart observé le matin."
+    },
+    {
+      "q": "Les appels manqués doivent être rappelés.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les appels manqués doivent être rappelés, car ils peuvent représenter des ventes."
+    },
+    {
+      "q": "Le téléphone est un outil important dès l'ouverture.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le téléphone est essentiel dès l'ouverture pour répondre aux clients."
+    },
+    {
+      "q": "Les réservations influencent la gestion de la journée.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les réservations influencent directement la gestion de l'achalandage de la journée."
+    },
+    {
+      "q": "Une bonne ouverture facilite tout le reste du quart de travail.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une ouverture bien faite rend le reste du quart de travail plus fluide."
+    },
+    {
+      "q": "Tu comptes la caisse et trouves 495 $. Que fais-tu ?",
+      "choices": ["Tu ignores l'écart", "Tu recomptes immédiatement", "Tu fermes la caisse", "Tu retires 5 $ des ventes"],
+      "correct": 1,
+      "explanation": "Devant un écart, on recompte d'abord la caisse pour vérifier le montant."
+    },
+    {
+      "q": "Après recomptage, il manque toujours 5 $. Que fais-tu ?",
+      "choices": ["Tu laisses passer", "Tu remets 5 $ de ta poche", "Tu avises le gérant et notes l'écart", "Tu recommences demain"],
+      "correct": 2,
+      "explanation": "Un écart confirmé doit être signalé au gérant et noté au rapport."
+    },
+    {
+      "q": "Tu arrives et vois plusieurs messages vocaux. Quelle est ta priorité ?",
+      "choices": ["Les supprimer", "Les écouter et rappeler les clients", "Attendre la fin de la journée", "Éteindre le téléphone"],
+      "correct": 1,
+      "explanation": "La priorité est d'écouter les messages et de rappeler les clients."
+    },
+    {
+      "q": "Un client laisse un message concernant une réservation. Que fais-tu ?",
+      "choices": ["Tu attends qu'il rappelle", "Tu le rappelles dès que possible", "Tu ignores le message", "Tu transfères au gérant seulement"],
+      "correct": 1,
+      "explanation": "On rappelle le client dès que possible pour confirmer sa réservation."
+    },
+    {
+      "q": "Pourquoi faut-il rappeler rapidement les clients ?",
+      "choices": ["Pour offrir un bon service à la clientèle", "Pour vider la boîte vocale", "Pour gagner du temps personnel", "Pour fermer le téléphone"],
+      "correct": 0,
+      "explanation": "Rappeler rapidement assure un bon service à la clientèle."
+    },
+    {
+      "q": "Tu remarques une réservation importante à 14 h. Pourquoi est-ce utile de le savoir dès le matin ?",
+      "choices": ["Pour fermer plus tôt", "Pour gérer les temps d'attente et les places disponibles", "Pour annuler les autres réservations", "Pour augmenter les prix"],
+      "correct": 1,
+      "explanation": "Le savoir tôt permet de gérer les temps d'attente et les places disponibles."
+    },
+    {
+      "q": "Tu oublies de consulter les réservations. Quel problème cela peut-il causer ?",
+      "choices": ["Une meilleure organisation", "Une mauvaise gestion de l'achalandage", "Plus de ventes", "Aucun problème"],
+      "correct": 1,
+      "explanation": "Oublier les réservations entraîne une mauvaise gestion de l'achalandage."
+    },
+    {
+      "q": "Tu oublies de compter la caisse. Quel risque cela crée-t-il ?",
+      "choices": ["Aucun risque", "Plus de profits", "Ne pas détecter un problème financier dès le début de la journée", "Un meilleur service"],
+      "correct": 2,
+      "explanation": "Ne pas compter la caisse empêche de détecter un problème financier dès le matin."
+    },
+    {
+      "q": "Un client se présente avant l'ouverture. Peut-on parfois le servir ?",
+      "choices": ["Oui, si les tâches d'ouverture sont déjà complétées", "Non, jamais", "Oui, dans tous les cas", "Seulement les groupes"],
+      "correct": 0,
+      "explanation": "On peut le servir seulement si les tâches d'ouverture sont déjà complétées."
+    },
+    {
+      "q": "Pourquoi faut-il terminer les tâches d'ouverture avant de vendre ?",
+      "choices": ["Pour s'assurer que les opérations sont prêtes et exactes", "Pour retarder les clients", "Pour éviter de compter la caisse", "Pour fermer plus tard"],
+      "correct": 0,
+      "explanation": "Terminer l'ouverture garantit que les opérations sont prêtes et exactes."
+    },
+    {
+      "q": "Quel est l'objectif principal du fonds de caisse ?",
+      "choices": ["Faire du profit", "Avoir suffisamment de monnaie pour les transactions", "Payer les employés", "Faire des remboursements seulement"],
+      "correct": 1,
+      "explanation": "Le fonds de caisse sert à disposer de suffisamment de monnaie pour les transactions."
+    },
+    {
+      "q": "Pourquoi les appels manqués sont-ils importants ?",
+      "choices": ["Ils font perdre du temps", "Ils peuvent représenter des ventes ou des réservations", "Ils doivent être effacés", "Ils sont sans intérêt"],
+      "correct": 1,
+      "explanation": "Les appels manqués peuvent représenter des ventes ou des réservations à ne pas perdre."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier les réservations chaque jour même si on les connaît déjà ?",
+      "choices": ["Pour perdre du temps", "Parce qu'il peut y avoir des changements ou des ajouts", "Pour fermer la caisse", "Ce n'est pas nécessaire"],
+      "correct": 1,
+      "explanation": "Il faut les revérifier car il peut y avoir des changements ou des ajouts."
+    },
+    {
+      "q": "Quel est le danger de négliger les tâches d'ouverture ?",
+      "choices": ["Retards", "Erreurs", "Mauvais service", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Négliger l'ouverture peut causer des retards, des erreurs et un mauvais service."
+    },
+    {
+      "q": "Quel document aide à expliquer un problème de caisse observé le matin ?",
+      "choices": ["La facture du fournisseur", "Le rapport de fermeture précédent", "L'horaire des employés", "Le calendrier des réservations"],
+      "correct": 1,
+      "explanation": "Le rapport de fermeture de la veille aide à expliquer un écart constaté le matin."
+    },
+    {
+      "q": "Pourquoi l'ouverture est-elle une étape critique de la journée ?",
+      "choices": ["Parce qu'elle prépare toutes les opérations qui suivront", "Parce qu'elle remplace la fermeture", "Parce qu'elle n'a aucune importance", "Parce qu'elle se fait à midi"],
+      "correct": 0,
+      "explanation": "L'ouverture est critique car elle prépare toutes les opérations de la journée."
+    },
+    {
+      "q": "Quelle qualité est la plus importante lors de l'ouverture ?",
+      "choices": ["La vitesse", "La rigueur", "L'humour", "La créativité"],
+      "correct": 1,
+      "explanation": "La rigueur est essentielle pour éviter les oublis lors de l'ouverture."
+    },
+    {
+      "q": "Pourquoi faut-il être méthodique lors de l'ouverture ?",
+      "choices": ["Pour impressionner les clients", "Pour éviter les oublis", "Pour aller plus vite à tout prix", "Pour réduire le fonds de caisse"],
+      "correct": 1,
+      "explanation": "Être méthodique permet d'éviter les oublis dans les tâches d'ouverture."
+    },
+    {
+      "q": "Quel est le principal avantage d'une ouverture bien faite ?",
+      "choices": ["Une journée plus fluide et moins de problèmes opérationnels", "Un fonds de caisse plus élevé", "Moins de clients", "Une fermeture plus tardive"],
+      "correct": 0,
+      "explanation": "Une ouverture bien faite assure une journée plus fluide et moins de problèmes."
+    },
+    {
+      "q": "Un employé qui maîtrise parfaitement l'ouverture contribue à :",
+      "choices": ["Réduire les erreurs", "Améliorer le service", "Faciliter la gestion de la journée", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Maîtriser l'ouverture réduit les erreurs, améliore le service et facilite la gestion."
+    },
+    {
+      "q": "Combien de dollars manque-t-il au fonds si la caisse contient 480 $ à l'ouverture ?",
+      "choices": ["5 $", "10 $", "20 $", "50 $"],
+      "correct": 2,
+      "explanation": "Le fonds devant être de 500 $, il manque 20 $ lorsque la caisse contient 480 $."
+    },
+    {
+      "q": "Quelle action vient en premier dans l'ordre des tâches d'ouverture ?",
+      "choices": ["Vérifier les réservations du jour", "Compter le fonds de caisse", "Écouter les messages vocaux", "Servir le premier client"],
+      "correct": 1,
+      "explanation": "On compte le fonds de caisse avant de passer aux messages et aux réservations."
+    },
+    {
+      "q": "Qui doit-on aviser lorsqu'un écart de caisse persiste après recomptage ?",
+      "choices": ["Le client", "Le gérant", "Le mécanicien", "Le fournisseur"],
+      "correct": 1,
+      "explanation": "C'est le gérant qu'on doit aviser lorsqu'un écart persiste après recomptage."
+    },
+    {
+      "q": "Si la caisse contient exactement 500 $, que peut-on conclure ?",
+      "choices": ["Le fonds est exact et conforme", "Il manque de l'argent", "Il y a un surplus", "Il faut aviser le gérant"],
+      "correct": 0,
+      "explanation": "Un montant de 500 $ confirme que le fonds de caisse est exact et conforme."
+    },
+    {
+      "q": "Que doit-on faire des appels et messages liés aux réservations reçus avant l'ouverture ?",
+      "choices": ["Les supprimer", "Les traiter et rappeler les clients", "Attendre le lendemain", "Les transférer à la piste"],
+      "correct": 1,
+      "explanation": "Ces messages doivent être traités et les clients rappelés dès l'ouverture."
+    },
+    {
+      "q": "Pourquoi note-t-on un écart au rapport plutôt que de le corriger en silence ?",
+      "choices": ["Pour ralentir le travail", "Pour assurer la traçabilité et le suivi", "Pour blâmer un collègue", "Pour augmenter le fonds"],
+      "correct": 1,
+      "explanation": "Inscrire l'écart au rapport assure la traçabilité et un suivi adéquat."
+    }
+  ]
+}

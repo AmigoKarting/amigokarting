@@ -1,0 +1,318 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 10,
+  "title": "Les réservations",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Quel est le délai minimal pour accepter une réservation ?",
+      "choices": ["Le jour même", "24 heures", "3 jours", "1 semaine"],
+      "correct": 2,
+      "explanation": "Une réservation doit être faite au moins 3 jours à l'avance."
+    },
+    {
+      "q": "Pourquoi la règle du délai minimal de réservation existe-t-elle ?",
+      "choices": [
+        "Pour réduire le travail administratif",
+        "Pour protéger les clients qui planifient leur visite à l'avance",
+        "Pour diminuer l'achalandage",
+        "Pour augmenter les prix"
+      ],
+      "correct": 1,
+      "explanation": "Le délai protège les clients qui s'organisent d'avance contre les réservations de dernière minute."
+    },
+    {
+      "q": "Lorsqu'un client demande une réservation à 13h, que faut-il clarifier ?",
+      "choices": [
+        "S'il veut arriver à 13h ou courir à 13h",
+        "Son âge",
+        "Son poids",
+        "Son adresse postale"
+      ],
+      "correct": 0,
+      "explanation": "Il faut distinguer l'heure d'arrivée de l'heure de la course pour éviter toute confusion."
+    },
+    {
+      "q": "Combien de temps avant le départ les participants doivent-ils arriver ?",
+      "choices": ["15 minutes", "20 minutes", "30 minutes", "45 minutes"],
+      "correct": 2,
+      "explanation": "Les participants doivent se présenter 30 minutes avant leur départ pour compléter les formalités."
+    },
+    {
+      "q": "Si un groupe est en retard, que doit-on lui expliquer ?",
+      "choices": [
+        "Qu'il sera remboursé",
+        "Qu'il passera lorsque de la place sera disponible",
+        "Qu'il peut dépasser son temps réservé",
+        "Que sa réservation devient prioritaire"
+      ],
+      "correct": 1,
+      "explanation": "Un groupe en retard perd sa priorité et passe quand de la place se libère."
+    },
+    {
+      "q": "Quel numéro de téléphone doit être demandé au client ?",
+      "choices": ["Résidence", "Travail", "Cellulaire", "Télécopieur"],
+      "correct": 2,
+      "explanation": "On demande le cellulaire pour pouvoir joindre rapidement le client le jour de l'événement."
+    },
+    {
+      "q": "Que faut-il faire avant de remplir une réservation ?",
+      "choices": [
+        "Encaisser le dépôt",
+        "Imprimer les billets",
+        "Expliquer les conditions au client",
+        "Faire signer le dégagement"
+      ],
+      "correct": 2,
+      "explanation": "Les conditions doivent être expliquées au client avant de compléter la réservation."
+    },
+    {
+      "q": "Lors d'une réservation, quels champs doivent être remplis ?",
+      "choices": [
+        "Seulement le nom",
+        "Seulement le téléphone",
+        "Tous les champs",
+        "Seulement le nombre de participants"
+      ],
+      "correct": 2,
+      "explanation": "Tous les champs de la réservation doivent être remplis pour qu'elle soit complète."
+    },
+    {
+      "q": "Pourquoi faut-il inscrire le jour de la semaine en plus de la date ?",
+      "choices": [
+        "Pour éviter les erreurs",
+        "Pour les statistiques de vente",
+        "Pour l'assurance",
+        "Pour le marketing"
+      ],
+      "correct": 0,
+      "explanation": "Inscrire le jour en plus de la date réduit le risque d'erreur de planification."
+    },
+    {
+      "q": "Après avoir reçu un dépôt par carte de crédit, que faut-il faire du reçu ?",
+      "choices": [
+        "Le jeter",
+        "Le remettre au client seulement",
+        "L'agrafer à la réservation",
+        "Le mettre dans la caisse"
+      ],
+      "correct": 2,
+      "explanation": "Le reçu doit être agrafé à la réservation pour documenter correctement la transaction."
+    },
+    {
+      "q": "Une réservation peut-elle être acceptée seulement 24 heures avant l'événement ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : le délai minimal est de 3 jours, pas de 24 heures."
+    },
+    {
+      "q": "Les clients doivent-ils arriver 30 minutes avant leur départ ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : les participants doivent se présenter 30 minutes avant le départ."
+    },
+    {
+      "q": "Une réservation est-elle prioritaire sur les clients réguliers ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : une réservation confirmée a priorité sur les clients sans réservation."
+    },
+    {
+      "q": "Peut-on omettre d'envoyer les conditions si le client semble déjà les comprendre ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : les conditions doivent toujours être communiquées, peu importe la perception du client."
+    },
+    {
+      "q": "Le mode de paiement du dépôt doit-il être inscrit ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : le mode de paiement du dépôt fait partie des informations à consigner."
+    },
+    {
+      "q": "Toutes les réservations doivent-elles être enregistrées dans Apex ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : chaque réservation doit être saisie dans Apex pour ne pas être perdue."
+    },
+    {
+      "q": "Est-il acceptable de ne pas demander de numéro cellulaire au client ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : le numéro cellulaire est requis pour joindre le client le jour de l'événement."
+    },
+    {
+      "q": "Les retards d'un groupe peuvent-ils créer de la frustration chez les autres clients ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : un retard bouscule l'horaire et peut frustrer les autres clients en attente."
+    },
+    {
+      "q": "Un client appelle jeudi pour réserver un groupe le dimanche. Peut-on accepter la réservation ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "Oui : de jeudi à dimanche, le délai de 3 jours est respecté."
+    },
+    {
+      "q": "Un client appelle vendredi pour réserver un groupe le samedi. Peut-on accepter la réservation ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non : le délai de 3 jours n'est pas respecté, ce sera premier arrivé, premier servi."
+    },
+    {
+      "q": "Un groupe arrive 10 minutes avant son départ prévu. Que dois-tu vérifier ?",
+      "choices": [
+        "Si les formalités sont déjà complétées et l'informer qu'il devait arriver 30 minutes avant",
+        "Si le groupe veut un remboursement immédiat",
+        "Si on peut retarder tous les autres clients",
+        "Si le groupe peut partir avant l'heure prévue"
+      ],
+      "correct": 0,
+      "explanation": "On vérifie l'état des formalités et on rappelle la règle des 30 minutes d'avance."
+    },
+    {
+      "q": "Un client affirme qu'on lui avait promis qu'il n'y aurait aucune attente. Que fais-tu ?",
+      "choices": [
+        "Tu lui donnes raison sans vérifier",
+        "Tu vérifies les réservations de la journée et expliques poliment la situation",
+        "Tu le fais passer devant tout le monde",
+        "Tu lui demandes de revenir un autre jour"
+      ],
+      "correct": 1,
+      "explanation": "On consulte les réservations du jour et on explique calmement la réalité au client."
+    },
+    {
+      "q": "Tu encaisses un dépôt mais oublies d'agrafer le reçu. Pourquoi est-ce un problème ?",
+      "choices": [
+        "La transaction n'est plus correctement documentée",
+        "Le client paie deux fois",
+        "Le dépôt change de montant",
+        "La réservation devient gratuite"
+      ],
+      "correct": 0,
+      "explanation": "Sans le reçu agrafé, la transaction n'est plus traçable ni correctement documentée."
+    },
+    {
+      "q": "Tu as rempli la réservation mais oublié de l'entrer dans Apex. Quel risque cela crée-t-il ?",
+      "choices": [
+        "La réservation pourrait être oubliée ou mal gérée",
+        "Le client recevra un rabais automatique",
+        "Le dépôt sera remboursé",
+        "Aucune conséquence possible"
+      ],
+      "correct": 0,
+      "explanation": "Une réservation absente d'Apex risque d'être oubliée ou mal gérée le jour venu."
+    },
+    {
+      "q": "Un client veut réserver pour demain parce qu'il fait 2 heures de route. Que lui réponds-tu ?",
+      "choices": [
+        "Que les réservations exigent 3 jours d'avance et que pour demain ce sera premier arrivé, premier servi",
+        "Qu'on lui réserve une place exclusive",
+        "Qu'il peut arriver à n'importe quelle heure",
+        "Qu'on annule d'autres clients pour lui"
+      ],
+      "correct": 0,
+      "explanation": "On applique la règle des 3 jours : pour le lendemain, c'est premier arrivé, premier servi."
+    },
+    {
+      "q": "Pourquoi les réservations de dernière minute peuvent-elles nuire à l'expérience client ?",
+      "choices": [
+        "Elles font baisser les prix",
+        "Elles peuvent créer de longues attentes imprévues pour des clients qui ont appelé plusieurs jours à l'avance",
+        "Elles obligent à fermer la piste",
+        "Elles annulent les dépôts"
+      ],
+      "correct": 1,
+      "explanation": "Les réservations tardives bousculent l'horaire et allongent l'attente des clients prévoyants."
+    },
+    {
+      "q": "Pourquoi est-il important d'expliquer les retards dès la prise de réservation ?",
+      "choices": [
+        "Pour vendre plus de billets",
+        "Pour établir des attentes claires et réduire les conflits",
+        "Pour augmenter le dépôt",
+        "Pour accélérer la course"
+      ],
+      "correct": 1,
+      "explanation": "Expliquer les conséquences d'un retard d'avance fixe des attentes claires et évite les conflits."
+    },
+    {
+      "q": "Pourquoi demande-t-on un numéro cellulaire plutôt qu'un téléphone résidentiel ?",
+      "choices": [
+        "Pour pouvoir communiquer rapidement avec le client le jour de l'événement",
+        "Pour envoyer de la publicité",
+        "Pour vérifier son adresse",
+        "Parce que c'est obligatoire par la loi"
+      ],
+      "correct": 0,
+      "explanation": "Le cellulaire permet de joindre le client rapidement le jour même de l'événement."
+    },
+    {
+      "q": "Quel est le principal objectif du processus de réservation ?",
+      "choices": [
+        "Assurer une expérience fluide et prévisible pour les clients et l'entreprise",
+        "Augmenter le chiffre d'affaires uniquement",
+        "Réduire le nombre d'employés requis",
+        "Limiter le nombre de clients par jour"
+      ],
+      "correct": 0,
+      "explanation": "Le processus vise une expérience fluide et prévisible autant pour le client que pour l'entreprise."
+    },
+    {
+      "q": "Quelle est l'erreur la plus grave dans le processus de réservation ?",
+      "choices": [
+        "Oublier le jour de la semaine",
+        "Oublier d'envoyer les conditions",
+        "Oublier d'inscrire la réservation dans Apex",
+        "Écrire en bleu au lieu de noir"
+      ],
+      "correct": 2,
+      "explanation": "Ne pas saisir la réservation dans Apex est le plus grave, car elle risque d'être complètement perdue."
+    },
+    {
+      "q": "Combien de jours minimum séparent l'appel du client et la date réservée pour qu'on accepte la réservation ?",
+      "choices": ["1 jour", "2 jours", "3 jours", "5 jours"],
+      "correct": 2,
+      "explanation": "Il faut au moins 3 jours entre l'appel et la date réservée."
+    },
+    {
+      "q": "Dans quel système informatique les réservations doivent-elles être saisies ?",
+      "choices": ["Excel", "Apex", "Le cahier papier seulement", "Le courriel"],
+      "correct": 1,
+      "explanation": "Toutes les réservations sont saisies dans Apex pour assurer leur suivi."
+    },
+    {
+      "q": "À quel document le reçu du dépôt payé par carte de crédit doit-il être agrafé ?",
+      "choices": [
+        "Au rapport de fermeture",
+        "À la réservation",
+        "Au cahier des horaires",
+        "Au dégagement de responsabilité"
+      ],
+      "correct": 1,
+      "explanation": "Le reçu de dépôt s'agrafe à la réservation pour garder la transaction documentée."
+    },
+    {
+      "q": "Que se passe-t-il pour un groupe qui arrive après l'heure de départ de sa réservation ?",
+      "choices": [
+        "Il est remboursé intégralement",
+        "Il passe lorsque de la place redevient disponible",
+        "Il conserve sa priorité absolue",
+        "Il peut prolonger gratuitement sa course"
+      ],
+      "correct": 1,
+      "explanation": "Un groupe en retard perd sa priorité et passe seulement quand de la place se libère."
+    },
+    {
+      "q": "Quelle information temporelle doit accompagner la date sur une réservation pour limiter les erreurs ?",
+      "choices": [
+        "L'heure de fermeture du centre",
+        "Le jour de la semaine",
+        "La météo prévue",
+        "La saison touristique"
+      ],
+      "correct": 1,
+      "explanation": "Inscrire le jour de la semaine en plus de la date aide à éviter les erreurs de planification."
+    }
+  ]
+}

@@ -1,0 +1,263 @@
+{
+  "category": "Piste",
+  "sort_order": 30,
+  "title": "Mission, standards de qualité et culture Amigo",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Quelle formule résume le mieux la philosophie d'Amigo Karting ?",
+      "choices": [
+        "Karts rapides + bas prix = clients heureux",
+        "Sécurité + marketing + bouche-à-oreille = croissance",
+        "Environnement sécuritaire + service à la clientèle + installations impeccables + processus appliqués = clients heureux",
+        "Vitesse maximale + temps de piste prolongé = clients heureux"
+      ],
+      "correct": 2,
+      "explanation": "La philosophie d'Amigo combine sécurité, service, installations impeccables et application des processus pour rendre les clients heureux."
+    },
+    {
+      "q": "Quel est l'objectif ultime que vise chaque employé d'Amigo ?",
+      "choices": [
+        "Créer des clients heureux",
+        "Faire rouler le plus de karts possible",
+        "Augmenter le chiffre de ventes du quart",
+        "Terminer les tâches le plus vite possible"
+      ],
+      "correct": 0,
+      "explanation": "Toutes les actions des employés convergent vers un seul but : créer des clients heureux."
+    },
+    {
+      "q": "Pourquoi les procédures doivent-elles être appliquées rigoureusement ?",
+      "choices": [
+        "Pour impressionner les nouveaux employés",
+        "Parce qu'elles contribuent à la sécurité et à la qualité de l'expérience",
+        "Pour faciliter la vente de produits additionnels",
+        "Pour réduire le temps de nettoyage en fin de quart"
+      ],
+      "correct": 1,
+      "explanation": "Les procédures existent d'abord pour garantir la sécurité et la qualité constante de l'expérience client."
+    },
+    {
+      "q": "La sécurité est uniquement la responsabilité du préposé de piste.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "La sécurité est la responsabilité de tous les employés, peu importe leur poste."
+    },
+    {
+      "q": "Lorsqu'un employé constate une situation dangereuse, que doit-il faire ?",
+      "choices": [
+        "Corriger la situation immédiatement",
+        "Attendre l'arrivée du superviseur",
+        "L'ignorer si ce n'est pas dans son département",
+        "En glisser un mot à la fin du quart de travail"
+      ],
+      "correct": 0,
+      "explanation": "Une situation dangereuse doit être corrigée immédiatement, sans attendre, car la sécurité passe avant tout."
+    },
+    {
+      "q": "Qu'est-ce qu'offrir un service à la clientèle hors pair chez Amigo ?",
+      "choices": [
+        "Accepter toutes les demandes du client sans exception",
+        "Respecter les standards de l'entreprise tout en offrant une excellente expérience",
+        "Accorder un rabais à chaque client mécontent",
+        "Éviter à tout prix les conflits avec le client"
+      ],
+      "correct": 1,
+      "explanation": "Un service hors pair consiste à offrir une excellente expérience tout en respectant les standards de l'entreprise."
+    },
+    {
+      "q": "Selon le manuel, le client a-t-il toujours raison ?",
+      "choices": [
+        "Oui, toujours",
+        "Non",
+        "Seulement les clients réguliers",
+        "Seulement lorsqu'il est mécontent"
+      ],
+      "correct": 1,
+      "explanation": "Le client n'a pas toujours raison, notamment parce qu'il n'est pas expert en sécurité et en karting."
+    },
+    {
+      "q": "Pourquoi le client n'a-t-il pas toujours raison chez Amigo ?",
+      "choices": [
+        "Parce qu'il conduit rarement de façon prudente",
+        "Parce qu'il paie un tarif réduit",
+        "Parce qu'il n'est pas expert en sécurité et en karting",
+        "Parce qu'il ne connaît pas le personnel"
+      ],
+      "correct": 2,
+      "explanation": "Le client n'est pas expert en sécurité ni en karting, ce qui justifie que le personnel garde le dernier mot sur ces aspects."
+    },
+    {
+      "q": "Un employé remarque qu'un kart est plus lent que les autres. Que doit-il faire ?",
+      "choices": [
+        "Ne rien faire et continuer ses tâches",
+        "Attendre que le client se plaigne",
+        "Intervenir rapidement et offrir un autre kart",
+        "Allonger le temps de course du client concerné"
+      ],
+      "correct": 2,
+      "explanation": "Il faut intervenir sans attendre et offrir un autre kart pour préserver la qualité de l'expérience."
+    },
+    {
+      "q": "Un client qui a payé cher pour son expérience devrait recevoir un kart en excellent état.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le client paie pour une expérience de qualité; il a donc droit à un kart en excellent état."
+    },
+    {
+      "q": "Que signifie l'expression « Over Deliver » dans la culture Amigo ?",
+      "choices": [
+        "Vendre davantage de produits au client",
+        "Dépasser les attentes du client",
+        "Travailler plus rapidement que prévu",
+        "Mettre plus de karts en piste"
+      ],
+      "correct": 1,
+      "explanation": "« Over Deliver » signifie aller au-delà des attentes du client pour le surprendre positivement."
+    },
+    {
+      "q": "Si une interruption survient pendant une course, que doit-on faire ?",
+      "choices": [
+        "Ignorer le temps perdu par les clients",
+        "Réduire le temps de tous les pilotes",
+        "Redonner le temps perdu aux clients",
+        "Offrir une bouteille d'eau à chaque pilote"
+      ],
+      "correct": 2,
+      "explanation": "Le temps perdu lors d'une interruption doit être redonné aux clients pour respecter ce qu'ils ont payé."
+    },
+    {
+      "q": "Lorsqu'un client est insatisfait, quelle est la meilleure approche ?",
+      "choices": [
+        "Argumenter pour défendre l'entreprise",
+        "Minimiser sa plainte poliment",
+        "Écouter et comprendre la raison de son insatisfaction",
+        "Lui démontrer qu'il a tort"
+      ],
+      "correct": 2,
+      "explanation": "Il faut d'abord écouter et comprendre la source de l'insatisfaction avant de chercher une solution."
+    },
+    {
+      "q": "Pourquoi faut-il rapporter les incidents de clients mécontents ?",
+      "choices": [
+        "Pour identifier le responsable de l'erreur",
+        "Pour trouver des solutions et éviter que la situation se reproduise",
+        "Pour constituer un dossier administratif",
+        "Pour limiter le nombre de remboursements accordés"
+      ],
+      "correct": 1,
+      "explanation": "Rapporter les incidents permet de trouver des solutions et d'éviter que le problème se répète."
+    },
+    {
+      "q": "Un employé calme aide souvent à calmer un client fâché.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le calme de l'employé influence positivement les émotions du client et aide à désamorcer la situation."
+    },
+    {
+      "q": "Que doit éviter un employé lorsqu'un client est frustré ?",
+      "choices": [
+        "Donner des exemples concrets de sécurité",
+        "Garder son calme",
+        "Réagir avec les mêmes émotions que le client",
+        "Expliquer les raisons liées à la sécurité"
+      ],
+      "correct": 2,
+      "explanation": "L'employé doit éviter de réagir avec les mêmes émotions que le client, car cela envenime la situation."
+    },
+    {
+      "q": "Comment les clients réagissent-ils généralement aux conseils de conduite ?",
+      "choices": [
+        "Ils détestent qu'on les conseille",
+        "Ils aiment recevoir des conseils et progresser",
+        "Ils quittent la piste avant la fin",
+        "Ils demandent aussitôt un remboursement"
+      ],
+      "correct": 1,
+      "explanation": "Les clients apprécient généralement recevoir des conseils, car cela les aide à progresser et améliore leur expérience."
+    },
+    {
+      "q": "Pourquoi faut-il engager la conversation avec les clients lorsqu'il y a moins d'achalandage ?",
+      "choices": [
+        "Pour faire passer le temps plus vite",
+        "Pour améliorer leur expérience",
+        "Pour vendre des produits additionnels",
+        "Pour éviter d'avoir à faire d'autres tâches"
+      ],
+      "correct": 1,
+      "explanation": "Engager la conversation pendant les périodes calmes sert à enrichir l'expérience du client."
+    },
+    {
+      "q": "Un transpondeur qui cesse de fonctionner doit être retiré rapidement afin d'éviter de nuire à l'expérience client.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Un transpondeur défectueux fausse les temps; il faut le retirer vite pour préserver l'expérience."
+    },
+    {
+      "q": "Quelle est la priorité numéro 1 dans toutes les décisions prises chez Amigo ?",
+      "choices": [
+        "Les profits",
+        "La rapidité du service",
+        "La sécurité",
+        "L'image de marque"
+      ],
+      "correct": 2,
+      "explanation": "La sécurité demeure la priorité numéro un dans chaque décision, avant tout autre considération."
+    },
+    {
+      "q": "Lequel des éléments suivants ne fait PAS partie de la formule de la philosophie d'Amigo ?",
+      "choices": [
+        "Un environnement sécuritaire",
+        "Des installations impeccables",
+        "Les prix les plus bas du marché",
+        "L'application des processus"
+      ],
+      "correct": 2,
+      "explanation": "La formule d'Amigo repose sur la sécurité, le service, les installations et les processus, jamais sur les prix les plus bas."
+    },
+    {
+      "q": "Lorsqu'un kart brise pendant la course d'un client, quelle est la bonne réaction de l'employé ?",
+      "choices": [
+        "Attendre que le client réclame une compensation",
+        "Intervenir rapidement et lui offrir un autre kart",
+        "Lui suggérer de terminer avec le kart défectueux",
+        "Reporter le problème au superviseur en fin de quart"
+      ],
+      "correct": 1,
+      "explanation": "Comme pour un kart trop lent, il faut intervenir rapidement et offrir un autre kart pour préserver l'expérience."
+    },
+    {
+      "q": "Quelle attitude un employé doit-il adopter face à un client fâché par une décision de sécurité ?",
+      "choices": [
+        "Rester calme et expliquer les raisons de sécurité",
+        "Hausser le ton pour s'imposer",
+        "Lui donner raison pour mettre fin à la discussion",
+        "Quitter la conversation sans explication"
+      ],
+      "correct": 0,
+      "explanation": "Rester calme désamorce la situation, et expliquer les raisons de sécurité justifie la décision auprès du client."
+    },
+    {
+      "q": "Pour quelle raison principale un employé doit-il aller au-delà des attentes (« Over Deliver ») ?",
+      "choices": [
+        "Pour augmenter ses ventes personnelles",
+        "Pour contribuer à créer des clients heureux",
+        "Pour terminer son quart plus rapidement",
+        "Pour éviter d'avoir à appliquer les procédures"
+      ],
+      "correct": 1,
+      "explanation": "Dépasser les attentes nourrit directement l'objectif ultime d'Amigo : créer des clients heureux."
+    },
+    {
+      "q": "Que doit faire un employé qui voit un danger dans un département qui n'est pas le sien ?",
+      "choices": [
+        "Le signaler seulement au responsable de ce département",
+        "Attendre la fin de son quart pour en parler",
+        "Corriger ou signaler la situation immédiatement, car la sécurité concerne tous",
+        "Ne pas intervenir puisque ce n'est pas sa responsabilité"
+      ],
+      "correct": 2,
+      "explanation": "La sécurité est l'affaire de tous; un danger doit être corrigé ou signalé sur-le-champ, peu importe le département."
+    }
+  ]
+}

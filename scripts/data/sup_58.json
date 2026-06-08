@@ -1,0 +1,98 @@
+{
+  "category": "Superviseur du service à la clientèle",
+  "sort_order": 58,
+  "title": "Gestion des opérations et efficacité",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Pourquoi le superviseur doit-il utiliser les outils déjà en place plutôt que d'en improviser de nouveaux ?",
+      "choices": ["Pour maintenir l'organisation et la constance des opérations", "Pour rendre le travail plus compliqué", "Pour impressionner la direction", "Parce que ce n'est pas vraiment nécessaire"],
+      "correct": 0,
+      "explanation": "Les outils en place existent justement pour garder les opérations organisées et constantes d'un quart à l'autre."
+    },
+    {
+      "q": "Comment la feuille de rotation doit-elle être utilisée durant un quart de travail ?",
+      "choices": ["Seulement une fois en début de quart", "Rangée hors de la vue des employés", "De façon constante tout au long du quart", "Uniquement quand un client se plaint"],
+      "correct": 2,
+      "explanation": "La feuille de rotation sert d'outil constant pour bien répartir les employés aux postes durant tout le quart."
+    },
+    {
+      "q": "Qu'est-ce qui se produit fréquemment chez les employés lors d'un rush ?",
+      "choices": ["Le service devient automatiquement plus rapide", "Les employés cessent de suivre les procédures", "Les ventes diminuent d'elles-mêmes", "Rien ne change dans leurs habitudes"],
+      "correct": 1,
+      "explanation": "Sous la pression d'un rush, les employés ont tendance à délaisser les procédures établies, d'où l'importance de la supervision."
+    },
+    {
+      "q": "Quel est le rôle du superviseur pendant un rush ?",
+      "choices": ["Prendre ses pauses pour éviter le stress", "Réduire le niveau de service offert", "Maintenir les processus et les procédures en place", "Se retirer et laisser l'équipe se débrouiller"],
+      "correct": 2,
+      "explanation": "Le superviseur doit garder le cap sur les processus afin que la qualité du service reste stable malgré l'affluence."
+    },
+    {
+      "q": "Pourquoi faut-il vérifier la checklist de caisse aux 3 heures ?",
+      "choices": ["Pour assurer le suivi des tâches à accomplir", "Pour déranger la caissière dans son travail", "Pour faire gagner du temps à l'équipe", "Parce que ce n'est pas réellement nécessaire"],
+      "correct": 0,
+      "explanation": "La vérification aux 3 heures permet de confirmer que les tâches de caisse sont bien suivies et complétées."
+    },
+    {
+      "q": "Selon le manuel, à quel moment les flats doivent-ils être terminés ?",
+      "choices": ["Dès l'ouverture du centre", "À midi, peu importe le reste", "Le lendemain au prochain quart", "Avant le départ du personnel"],
+      "correct": 3,
+      "explanation": "Les flats doivent être complétés avant que le personnel quitte, pour ne pas reporter la tâche au quart suivant."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il surveiller les fermetures ?",
+      "choices": ["Pour ralentir le rythme de l'équipe", "Pour éviter les oublis dans les tâches", "Pour critiquer le travail des employés", "Parce que c'est rarement utile"],
+      "correct": 1,
+      "explanation": "La surveillance des fermetures évite que des étapes importantes soient oubliées en fin de quart."
+    },
+    {
+      "q": "Quel est le risque d'une mauvaise organisation des opérations ?",
+      "choices": ["Une meilleure ambiance de travail", "Davantage de profits pour le centre", "Des retards et une baisse de la qualité du service", "Aucun impact notable"],
+      "correct": 2,
+      "explanation": "Une organisation déficiente entraîne des retards et nuit directement à la qualité du service à la clientèle."
+    },
+    {
+      "q": "Pourquoi la constance est-elle importante dans la gestion des opérations ?",
+      "choices": ["Pour varier les façons de faire", "Pour maintenir la qualité opérationnelle", "Pour surprendre l'équipe régulièrement", "Parce qu'elle a peu d'importance"],
+      "correct": 1,
+      "explanation": "La constance garantit que la qualité des opérations demeure la même d'un quart et d'un employé à l'autre."
+    },
+    {
+      "q": "Quel est l'objectif principal de la gestion des opérations chez Amigo Karting ?",
+      "choices": ["Réduire le nombre d'employés", "Fermer le centre plus tôt", "Augmenter les prix aux clients", "Offrir un service efficace et constant"],
+      "correct": 3,
+      "explanation": "La gestion des opérations vise avant tout à offrir aux clients un service à la fois efficace et constant."
+    },
+    {
+      "q": "Lorsque les employés délaissent les procédures pendant un rush, quelle est la première action du superviseur ?",
+      "choices": ["Attendre la fin du rush pour intervenir", "Ramener l'équipe vers les processus en place", "Réduire temporairement le niveau de service", "Prendre lui-même tous les postes en charge"],
+      "correct": 1,
+      "explanation": "Le rôle du superviseur durant un rush est justement de maintenir les processus, donc de recadrer l'équipe sans attendre."
+    },
+    {
+      "q": "Vrai ou faux : la feuille de rotation peut être rangée une fois le quart bien lancé.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : la feuille de rotation est un outil à utiliser de façon constante durant tout le quart."
+    },
+    {
+      "q": "À quelle fréquence le superviseur doit-il revoir la checklist de caisse durant un quart ?",
+      "choices": ["Aux 3 heures", "Une seule fois à l'ouverture", "Uniquement à la fermeture", "À chaque transaction"],
+      "correct": 0,
+      "explanation": "La checklist de caisse se vérifie aux 3 heures pour assurer le suivi continu des tâches."
+    },
+    {
+      "q": "Oui ou non : est-il acceptable de reporter les flats au lendemain si le centre a été occupé ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Non : selon le manuel, les flats doivent être terminés avant le départ du personnel, même après une journée chargée."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il s'appuyer sur les outils et procédures plutôt que sur l'improvisation pendant les périodes occupées ?",
+      "choices": ["Parce que l'improvisation est plus rapide", "Pour démontrer son autonomie à la direction", "Pour garder un service efficace et constant malgré la pression", "Parce que les outils ralentissent l'équipe"],
+      "correct": 2,
+      "explanation": "S'appuyer sur les outils en place permet de préserver l'efficacité et la constance du service, surtout quand l'affluence augmente."
+    }
+  ]
+}

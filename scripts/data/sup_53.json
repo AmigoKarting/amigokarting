@@ -1,0 +1,158 @@
+{
+  "category": "Superviseur du service à la clientèle",
+  "sort_order": 53,
+  "title": "Fermeture du site et checklist du gérant",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Selon le manuel, quelle est la première étape de la fermeture du site ?",
+      "choices": ["Fermer les lumières du bâtiment", "Ranger les caisses dans le coffre", "S'assurer que le site est propre", "Barrer la clôture du chemin"],
+      "correct": 2,
+      "explanation": "La fermeture débute par la vérification de la propreté du site avant toute autre tâche."
+    },
+    {
+      "q": "Lors de la fermeture, que doit vérifier le superviseur avant de quitter ?",
+      "choices": ["Seulement la checklist de la caissière", "Seulement l'état des garages", "Seulement les walkie-talkies", "La checklist de la caissière, les garages et les walkie-talkies"],
+      "correct": 3,
+      "explanation": "Le superviseur est responsable de vérifier l'ensemble des éléments : checklist, garages et walkie-talkies."
+    },
+    {
+      "q": "Combien de portes doivent être barrées à la cabane et aux salles de bain ?",
+      "choices": ["2 portes", "3 portes", "5 portes", "8 portes"],
+      "correct": 2,
+      "explanation": "Cinq portes doivent être barrées à la cabane et aux salles de bain lors de la fermeture."
+    },
+    {
+      "q": "À la fermeture, dans quel état les walkie-talkies doivent-ils être laissés ?",
+      "choices": ["Rangés à leur place", "Chargés pour le lendemain", "Vérifiés un par un", "Rangés, chargés et vérifiés"],
+      "correct": 3,
+      "explanation": "Les walkie-talkies doivent être à la fois rangés, mis en charge et vérifiés pour être prêts le lendemain."
+    },
+    {
+      "q": "Quelle est la dernière étape de la procédure de fermeture ?",
+      "choices": ["Fermer les lumières du bâtiment", "Barrer la clôture du chemin", "Ranger les rapports de la journée", "Faire un dernier tour de la piste"],
+      "correct": 1,
+      "explanation": "Barrer la clôture du chemin est la toute dernière étape qui sécurise complètement le site."
+    },
+    {
+      "q": "Vrai ou faux : la fermeture commence seulement lorsque le site est complètement vide de clients.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : le close devrait débuter environ une heure avant la fermeture, donc pendant qu'il y a encore des clients."
+    },
+    {
+      "q": "Vrai ou faux : le close devrait commencer environ une heure avant l'heure de fermeture.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : amorcer le close environ une heure à l'avance permet de tout compléter sans précipitation."
+    },
+    {
+      "q": "Vrai ou faux : la qualité du service aux clients ne doit jamais diminuer pendant le close.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : même durant le close, le service à la clientèle doit demeurer impeccable jusqu'au départ du dernier client."
+    },
+    {
+      "q": "Vrai ou faux : les employés peuvent cesser de surveiller la piste pour aller ranger les karts.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Faux : la surveillance de la piste ne doit jamais être abandonnée tant qu'il y a de l'activité, même pour ranger les karts."
+    },
+    {
+      "q": "Vrai ou faux : tous les walkie-talkies doivent être retournés à la fin de la journée.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Vrai : chaque walkie-talkie doit être retourné afin qu'aucun appareil ne manque pour la journée suivante."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il vérifier la checklist de la caissière ?",
+      "choices": ["Pour confirmer que toutes les tâches ont été réalisées correctement", "Pour critiquer le travail de la caissière", "Pour gagner du temps à la fermeture", "Pour remplir lui-même la caisse"],
+      "correct": 0,
+      "explanation": "La vérification de la checklist confirme que toutes les tâches de fermeture ont bel et bien été complétées."
+    },
+    {
+      "q": "Pourquoi faut-il fermer l'ordinateur du garage à la fermeture ?",
+      "choices": ["Uniquement pour économiser l'électricité", "Pour le forcer à se mettre à jour", "Pour terminer les opérations de façon sécuritaire", "Ce n'est pas vraiment obligatoire"],
+      "correct": 2,
+      "explanation": "Fermer l'ordinateur du garage permet de clore les opérations de manière sécuritaire et ordonnée."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il vérifier les garages avant de quitter ?",
+      "choices": ["Pour compter le nombre de karts restants", "Pour s'assurer qu'ils sont fermés et sécurisés", "Pour nettoyer le plancher des garages", "Pour faire le plein des karts"],
+      "correct": 1,
+      "explanation": "La vérification des garages garantit qu'ils sont bien fermés et sécurisés pour la nuit."
+    },
+    {
+      "q": "Tu remarques qu'un walkie-talkie manque à la fin de la journée. Que fais-tu ?",
+      "choices": ["Tu quittes le site quand même", "Tu en commandes un nouveau le lendemain", "Tu le localises avant de quitter le site", "Tu l'inscris comme perdu et tu pars"],
+      "correct": 2,
+      "explanation": "Un walkie-talkie manquant doit être retrouvé avant le départ, car tous les appareils doivent être retournés."
+    },
+    {
+      "q": "La piste est propre, mais plusieurs déchets traînent dans le stationnement. Que fais-tu ?",
+      "choices": ["Tu ignores le stationnement", "Tu fais nettoyer le stationnement avant de fermer", "Tu fermes le site quand même", "Tu attends au lendemain pour t'en occuper"],
+      "correct": 1,
+      "explanation": "La propreté du site inclut le stationnement, qui doit être nettoyé avant la fermeture."
+    },
+    {
+      "q": "La checklist de la caissière n'est pas terminée à la fermeture. Que fais-tu ?",
+      "choices": ["Tu la complètes toi-même en cachette", "Tu la laisses incomplète pour le lendemain", "Tu pars sans la vérifier", "Tu exiges qu'elle soit complétée avant le départ"],
+      "correct": 3,
+      "explanation": "La checklist doit être entièrement complétée par la caissière avant qu'elle ne quitte son poste."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il s'assurer que les karts brisés sont inscrits au tableau ?",
+      "choices": ["Pour faciliter le travail du mécanicien et assurer la sécurité", "Pour pouvoir compter les karts plus vite", "Pour pouvoir les vendre éventuellement", "Pour décorer le tableau du garage"],
+      "correct": 0,
+      "explanation": "Inscrire les karts brisés au tableau aide le mécanicien à les réparer et évite qu'ils soient remis en service de façon non sécuritaire."
+    },
+    {
+      "q": "Pourquoi un close mal exécuté crée-t-il des problèmes le lendemain ?",
+      "choices": ["Cela améliore en fait l'ouverture du lendemain", "Les erreurs et les oublis s'accumulent pour l'équipe suivante", "Cela n'a aucun effet sur la journée suivante", "Cela réduit seulement les ventes du soir"],
+      "correct": 1,
+      "explanation": "Un close bâclé transfère les erreurs et les oublis à l'équipe du lendemain, qui doit les rattraper."
+    },
+    {
+      "q": "Selon le manuel, à quelle fréquence faut-il vérifier que le site est propre ?",
+      "choices": ["Une seule fois en fin de journée", "À chaque heure de la journée", "Au moins deux fois durant la journée et avant la fermeture", "Jamais, c'est la tâche des employés"],
+      "correct": 2,
+      "explanation": "La propreté doit être vérifiée au moins deux fois durant la journée, puis une dernière fois avant la fermeture."
+    },
+    {
+      "q": "Quel est l'objectif principal d'une fermeture exemplaire ?",
+      "choices": ["Quitter le site le plus vite possible", "Économiser le maximum d'électricité", "Réduire uniquement les tâches du lendemain", "Laisser un site sécuritaire, propre, organisé et prêt pour la prochaine journée"],
+      "correct": 3,
+      "explanation": "Une fermeture exemplaire vise à remettre un site sécuritaire, propre et organisé, prêt pour la journée suivante."
+    },
+    {
+      "q": "Combien de temps avant la fermeture officielle le close devrait-il idéalement débuter ?",
+      "choices": ["Environ une heure avant", "Au moment exact de la fermeture", "Environ quinze minutes avant", "Seulement après le départ du dernier client"],
+      "correct": 0,
+      "explanation": "Le close doit débuter environ une heure avant la fermeture pour laisser le temps de tout compléter sans nuire au service."
+    },
+    {
+      "q": "Qui est responsable de vérifier que la checklist de la caissière a été complétée correctement ?",
+      "choices": ["La caissière elle-même seulement", "Le superviseur", "Le mécanicien", "Le premier employé disponible"],
+      "correct": 1,
+      "explanation": "C'est le superviseur qui doit vérifier la checklist de la caissière dans le cadre de ses responsabilités de fermeture."
+    },
+    {
+      "q": "Pendant le close, un employé propose de cesser le service aux clients encore présents pour finir plus vite. Que réponds-tu ?",
+      "choices": ["D'accord, ça nous fera gagner du temps", "On réduit le service de moitié", "Non, la qualité du service ne doit jamais diminuer pendant le close", "On ferme la cabane immédiatement"],
+      "correct": 2,
+      "explanation": "Le service aux clients doit rester complet jusqu'au bout, même lorsque le close est commencé."
+    },
+    {
+      "q": "Pourquoi est-il important de retourner et de mettre en charge tous les walkie-talkies à la fermeture ?",
+      "choices": ["Pour qu'ils soient prêts et fonctionnels dès l'ouverture suivante", "Pour réduire le bruit dans le garage", "Pour les vendre plus facilement", "Uniquement pour faire de l'ordre esthétique"],
+      "correct": 0,
+      "explanation": "Retourner et charger les walkie-talkies assure qu'ils sont disponibles et chargés pour l'équipe du lendemain."
+    },
+    {
+      "q": "Quel énoncé décrit le mieux la responsabilité globale du superviseur lors de la fermeture ?",
+      "choices": ["Il s'occupe uniquement de barrer la clôture", "Il délègue toute la fermeture à la caissière", "Il supervise la propreté, la sécurité, les checklists et le rangement de l'équipement", "Il se concentre seulement sur l'ordinateur du garage"],
+      "correct": 2,
+      "explanation": "Le superviseur chapeaute l'ensemble de la fermeture : propreté, sécurité, checklists et rangement de l'équipement."
+    }
+  ]
+}

@@ -1,0 +1,158 @@
+{
+  "category": "Piste",
+  "sort_order": 33,
+  "title": "Gestion de piste, supervision et sécurité",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "En un seul mot, comment peut-on résumer l'essentiel de la gestion de piste ?",
+      "choices": ["Vitesse", "Rapidité", "Sécurité", "Rendement"],
+      "correct": 2,
+      "explanation": "Tout ce qu'on fait sur la piste vise d'abord à garder les clients et les employés en sécurité."
+    },
+    {
+      "q": "À quel rôle le manuel compare-t-il le préposé de piste ?",
+      "choices": ["À un arbitre", "À un mécanicien", "À un garde de sécurité", "À un instructeur de conduite"],
+      "correct": 2,
+      "explanation": "Comme un garde de sécurité, le préposé veille en tout temps à prévenir les comportements dangereux."
+    },
+    {
+      "q": "Pourquoi le préposé doit-il demeurer bien visible lorsqu'il surveille la piste ?",
+      "choices": ["Pour paraître occupé devant le superviseur", "Pour réduire les comportements dangereux des pilotes", "Pour mieux voir les temps de course", "Pour impressionner les clients"],
+      "correct": 1,
+      "explanation": "Quand les pilotes sentent qu'ils sont surveillés, ils adoptent spontanément une conduite plus prudente."
+    },
+    {
+      "q": "Le simple fait de surveiller activement la piste réduit les comportements dangereux.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une présence attentive et visible suffit souvent à décourager les conduites à risque."
+    },
+    {
+      "q": "Quelle position est recommandée pour surveiller la piste ?",
+      "choices": ["Assis sur un kart", "Debout", "Adossé à la clôture", "Accroupi près des pneus"],
+      "correct": 1,
+      "explanation": "Rester debout assure une meilleure visibilité sur l'ensemble de la piste et un temps de réaction plus rapide."
+    },
+    {
+      "q": "Des pneus de bordure ont été déplacés et créent un danger. Que dois-tu faire ?",
+      "choices": ["Attendre la fin du groupe en cours", "Aviser un client de les replacer", "Les replacer toi-même immédiatement", "Attendre l'arrivée du mécanicien"],
+      "correct": 2,
+      "explanation": "Un danger immédiat se corrige sans délai pour éviter qu'un pilote ne se blesse."
+    },
+    {
+      "q": "Dans quelle situation faut-il arrêter une course ?",
+      "choices": ["Lorsqu'un client roule trop lentement", "Lorsqu'un danger important risque de blesser quelqu'un", "Lorsqu'il pleut légèrement", "Lorsqu'un kart est plus rapide que les autres"],
+      "correct": 1,
+      "explanation": "On interrompt la course dès qu'un danger sérieux menace l'intégrité physique de quelqu'un."
+    },
+    {
+      "q": "Un préposé seul au fond de la piste perd le contrôle de la situation. Que doit-il faire ?",
+      "choices": ["Continuer à gérer seul", "Demander du renfort", "Ignorer les incidents mineurs", "Fermer la piste de son propre chef"],
+      "correct": 1,
+      "explanation": "Demander du renfort permet de reprendre le contrôle sans laisser de danger sans surveillance."
+    },
+    {
+      "q": "Quel est le rôle principal du renfort envoyé au fond de la piste ?",
+      "choices": ["Faire le plein des karts", "Remplacer le superviseur au comptoir", "Utiliser le drapeau rouge au besoin", "Imprimer les temps de course"],
+      "correct": 2,
+      "explanation": "Le renfort peut brandir le drapeau rouge pour arrêter la course quand la situation l'exige."
+    },
+    {
+      "q": "Quelle est la priorité absolue lorsqu'on déprend un client coincé ?",
+      "choices": ["Le temps de course", "L'état du kart", "La sécurité", "La rapidité de l'intervention"],
+      "correct": 2,
+      "explanation": "On agit toujours en plaçant la sécurité du client et de l'intervenant avant tout le reste."
+    },
+    {
+      "q": "Quel geste faut-il poser avant d'aller aider un client coincé sur la piste ?",
+      "choices": ["Sortir le drapeau jaune", "Courir immédiatement vers le client", "Arrêter tous les groupes", "Déplacer d'abord le kart"],
+      "correct": 0,
+      "explanation": "Le drapeau jaune avertit les autres pilotes de ralentir avant qu'on s'engage sur la piste."
+    },
+    {
+      "q": "Pourquoi faut-il attendre que le trafic passe avant d'intervenir sur la piste ?",
+      "choices": ["Pour économiser son énergie", "Pour sa propre sécurité", "Pour éviter les plaintes des clients", "Pour gagner du temps"],
+      "correct": 1,
+      "explanation": "S'engager pendant que des karts circulent expose l'intervenant à un risque d'être frappé."
+    },
+    {
+      "q": "Un client se coince une première fois dans les pneus. Quelle est l'intervention normale ?",
+      "choices": ["L'expulser de la piste", "Fermer la piste", "Jogger pour aller le déprendre", "Changer son kart"],
+      "correct": 2,
+      "explanation": "À la première fois, on se rend simplement le déprendre pour qu'il reprenne la course."
+    },
+    {
+      "q": "Un même client se coince une deuxième fois. Que doit-on ajouter à l'intervention ?",
+      "choices": ["Une expulsion immédiate", "Une explication sur sa conduite", "Une récompense", "Un changement de piste"],
+      "correct": 1,
+      "explanation": "On profite de la deuxième fois pour lui expliquer comment corriger sa conduite."
+    },
+    {
+      "q": "Pourquoi doit-on coacher les clients qui conduisent mal ?",
+      "choices": ["Pour améliorer leur sécurité", "Pour réduire les accidents", "Pour faciliter le travail du personnel", "Pour toutes ces raisons"],
+      "correct": 3,
+      "explanation": "Le coaching améliore la sécurité, réduit les accidents et facilite le travail de l'équipe à la fois."
+    },
+    {
+      "q": "Un client qui n'a pas le contrôle de son kart devient encore plus dangereux lorsque des employés sont présents sur la piste.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Un pilote incontrôlé représente un risque accru pour les employés qui interviennent dans la piste."
+    },
+    {
+      "q": "Un client mentionne que son kart fonctionne mal. Que dois-tu faire ?",
+      "choices": ["Lui demander de continuer quand même", "Ignorer sa plainte", "Lui fournir un autre kart", "Attendre la fin de la course"],
+      "correct": 2,
+      "explanation": "Un kart défectueux se remplace pour assurer une expérience sécuritaire et de qualité."
+    },
+    {
+      "q": "Quelle visibilité minimale est nécessaire pour garder la piste ouverte ?",
+      "choices": ["50 mètres", "75 mètres", "100 mètres", "125 mètres"],
+      "correct": 3,
+      "explanation": "En deçà de 125 mètres de visibilité, on ne peut plus surveiller la piste de façon sécuritaire."
+    },
+    {
+      "q": "Que doit-on faire en présence d'éclairs ?",
+      "choices": ["Continuer normalement", "Réduire la vitesse des karts", "Ajouter un surveillant", "Fermer la piste"],
+      "correct": 3,
+      "explanation": "Les éclairs représentent un danger immédiat qui impose la fermeture de la piste."
+    },
+    {
+      "q": "Un groupe complet devient agressif et dangereux. Quelle est la bonne procédure ?",
+      "choices": ["Expulser tout le monde immédiatement", "Réduire le temps de course du groupe", "Arrêter tout le groupe, expliquer le problème et donner un dernier avertissement général", "Ignorer la situation"],
+      "correct": 2,
+      "explanation": "On arrête le groupe, on explique le problème et on donne un dernier avertissement avant toute autre mesure."
+    },
+    {
+      "q": "Pourquoi le préposé de piste doit-il rester en mouvement et bien positionné durant la surveillance ?",
+      "choices": ["Pour faire de l'exercice", "Pour garder une bonne visibilité et réagir vite", "Pour discuter avec les clients", "Pour vérifier les temps de course"],
+      "correct": 1,
+      "explanation": "Une bonne position et un préposé mobile assurent une vue dégagée et un temps de réaction rapide en cas de danger."
+    },
+    {
+      "q": "Qui peut décider d'arrêter une course lorsqu'un danger important survient ?",
+      "choices": ["Uniquement le superviseur", "Aucun employé sans autorisation écrite", "Le préposé ou le renfort présent sur la piste", "Seulement le mécanicien"],
+      "correct": 2,
+      "explanation": "Le préposé ou le renfort sur place peut arrêter la course, notamment à l'aide du drapeau rouge, dès qu'un danger l'exige."
+    },
+    {
+      "q": "Avant d'intervenir auprès d'un client coincé, dans quel ordre faut-il agir ?",
+      "choices": ["Courir d'abord, sortir le drapeau ensuite", "Sortir le drapeau jaune, attendre que le trafic passe, puis intervenir", "Déplacer le kart avant de sortir le drapeau", "Arrêter toute la piste avant chaque intervention"],
+      "correct": 1,
+      "explanation": "On signale d'abord avec le drapeau jaune, on laisse passer le trafic, puis on intervient en sécurité."
+    },
+    {
+      "q": "Quelle est la conséquence d'une visibilité réduite par le brouillard ou la pluie sur la piste ?",
+      "choices": ["Aucune, on continue toujours", "On ferme la piste si la visibilité passe sous le seuil minimal", "On augmente la vitesse pour finir plus vite", "On retire un surveillant"],
+      "correct": 1,
+      "explanation": "Sous le seuil de visibilité minimal requis, la piste doit être fermée pour des raisons de sécurité."
+    },
+    {
+      "q": "Pourquoi est-il important d'intervenir tôt auprès d'un client qui conduit mal plutôt que d'attendre ?",
+      "choices": ["Pour le punir rapidement", "Pour éviter qu'il devienne un danger pour les autres et pour les employés", "Pour accélérer la course", "Pour vendre une autre course"],
+      "correct": 1,
+      "explanation": "Corriger tôt une mauvaise conduite réduit le risque d'accident pour tout le monde sur la piste."
+    }
+  ]
+}

@@ -1,0 +1,293 @@
+{
+  "category": "Superviseur du service à la clientèle",
+  "sort_order": 50,
+  "title": "Rôle et responsabilités du superviseur",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Quel est l'objectif ultime du superviseur sur le terrain ?",
+      "choices": [
+        "Maximiser le nombre de tours de karting vendus chaque heure",
+        "Assurer la sécurité, le service à la clientèle, la propreté des installations et l'application des processus",
+        "Garder la caisse équilibrée jusqu'à la fermeture",
+        "Réduire le temps d'attente des clients à l'accueil"
+      ],
+      "correct": 1,
+      "explanation": "Le rôle du superviseur ne se limite pas aux ventes : il garantit l'ensemble de l'expérience, soit la sécurité, le service, la propreté et le respect des processus."
+    },
+    {
+      "q": "Selon le manuel, sur quoi repose la satisfaction des clients ?",
+      "choices": [
+        "Sur la combinaison de la sécurité, du service, des installations et des processus appliqués",
+        "Sur la rapidité du service à l'accueil et à la caisse",
+        "Sur la qualité de l'accueil offert par les préposés",
+        "Sur la performance et la vitesse des karts mis à disposition"
+      ],
+      "correct": 0,
+      "explanation": "La satisfaction client est le résultat de quatre éléments combinés, et non d'un seul aspect comme l'accueil ou les karts."
+    },
+    {
+      "q": "Quels manuels le superviseur doit-il maîtriser pour bien faire son travail ?",
+      "choices": [
+        "Uniquement le manuel du superviseur",
+        "Le manuel du superviseur et celui de la caisse seulement",
+        "Son manuel, celui des préposés et celui de la caisse",
+        "Le manuel des préposés et les procédures d'ouverture"
+      ],
+      "correct": 2,
+      "explanation": "Le superviseur doit connaître les trois manuels pour superviser tous les postes et vérifier le travail de chacun."
+    },
+    {
+      "q": "Qui est responsable de vérifier que les employés effectuent correctement leur travail ?",
+      "choices": [
+        "Le mécanicien en poste durant le quart",
+        "Le superviseur",
+        "Chaque préposé pour son propre poste",
+        "La caissière responsable de l'accueil"
+      ],
+      "correct": 1,
+      "explanation": "La vérification du travail des employés relève directement de la responsabilité du superviseur."
+    },
+    {
+      "q": "Pourquoi le superviseur doit-il connaître les procédures de tous les postes ?",
+      "choices": [
+        "Pour effectuer lui-même les tâches à la place des employés",
+        "Pour réduire le nombre d'employés nécessaires par quart",
+        "Pour pouvoir remplacer un employé au besoin et vérifier la qualité de son travail",
+        "Pour accélérer la fermeture du site en fin de journée"
+      ],
+      "correct": 2,
+      "explanation": "Connaître chaque poste permet au superviseur de dépanner au besoin et de juger si le travail est bien fait."
+    },
+    {
+      "q": "Le superviseur peut ignorer les erreurs mineures des employés.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Même les erreurs mineures doivent être corrigées, car elles finissent par faire baisser les standards si on les laisse passer."
+    },
+    {
+      "q": "Le superviseur doit maintenir les standards même lors des périodes occupées.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les standards de sécurité et de service doivent être tenus en tout temps, surtout quand l'achalandage augmente la pression."
+    },
+    {
+      "q": "La sécurité est aussi importante que le service à la clientèle.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "La sécurité fait partie intégrante de la formule du succès, au même titre que le service."
+    },
+    {
+      "q": "Les processus doivent être appliqués de façon constante.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "C'est la constance dans l'application des processus qui assure une qualité uniforme à chaque visite."
+    },
+    {
+      "q": "Une bonne expérience client dépend seulement de la qualité du karting.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "L'expérience dépend de l'ensemble des opérations (sécurité, service, installations, processus) et pas uniquement du karting."
+    },
+    {
+      "q": "Quels sont les quatre éléments de la formule du succès décrite dans le manuel ?",
+      "choices": [
+        "Le prix, la vitesse, le marketing et les profits",
+        "La sécurité, le service à la clientèle, des installations impeccables et des processus appliqués",
+        "Les karts, les casques, la piste et le carburant",
+        "Les ventes, la rapidité, la publicité et les rabais"
+      ],
+      "correct": 1,
+      "explanation": "La formule du succès combine sécurité, service, installations impeccables et processus appliqués."
+    },
+    {
+      "q": "Pourquoi la maîtrise des manuels est-elle essentielle pour le superviseur ?",
+      "choices": [
+        "Pour superviser efficacement et corriger les erreurs des employés",
+        "Pour impressionner la direction lors des évaluations",
+        "Pour remplacer la formation pratique des nouveaux employés",
+        "Pour rédiger de nouvelles procédures internes"
+      ],
+      "correct": 0,
+      "explanation": "Maîtriser les manuels donne au superviseur l'autorité et les repères nécessaires pour encadrer et corriger son équipe."
+    },
+    {
+      "q": "Un employé affirme connaître sa tâche et refuse tes corrections. Que dois-tu faire ?",
+      "choices": [
+        "Le laisser travailler à sa façon pour éviter un conflit",
+        "Lui rappeler les procédures et exiger le respect des standards",
+        "Le réaffecter à un autre poste sans explication",
+        "Attendre la fin du quart pour aborder la situation"
+      ],
+      "correct": 1,
+      "explanation": "Le superviseur doit faire respecter les standards en rappelant les procédures, peu importe la confiance de l'employé."
+    },
+    {
+      "q": "Un client se plaint de la propreté du site. Qui en demeure responsable ?",
+      "choices": [
+        "Uniquement la caissière de l'accueil",
+        "Le mécanicien chargé de l'entretien",
+        "Le superviseur, qui demeure responsable de l'état général du site",
+        "Le préposé affecté à la zone concernée"
+      ],
+      "correct": 2,
+      "explanation": "La propreté fait partie des installations impeccables; le superviseur en reste responsable même s'il délègue la tâche."
+    },
+    {
+      "q": "La caisse fonctionne bien, mais la piste est mal entretenue. L'objectif est-il atteint ?",
+      "choices": [
+        "Oui, puisque la gestion de la caisse est la priorité",
+        "Non : tous les éléments de la formule doivent être respectés simultanément",
+        "Oui, tant que les clients ne se plaignent pas",
+        "Cela dépend du volume de ventes de la journée"
+      ],
+      "correct": 1,
+      "explanation": "Un seul élément réussi ne suffit pas : la formule du succès exige que tous les éléments soient respectés en même temps."
+    },
+    {
+      "q": "Pourquoi un superviseur ne peut-il pas se limiter à son propre département ?",
+      "choices": [
+        "Parce que l'expérience client dépend de l'ensemble des opérations du site",
+        "Parce qu'il doit augmenter les ventes de chaque secteur",
+        "Parce que les autres postes manquent souvent de personnel",
+        "Parce que la direction l'exige pour les statistiques"
+      ],
+      "correct": 0,
+      "explanation": "L'expérience client est globale; le superviseur doit donc veiller sur l'ensemble des opérations, pas seulement sur un secteur."
+    },
+    {
+      "q": "Quel est le principal danger d'un manque de supervision ?",
+      "choices": [
+        "Une augmentation des coûts de carburant",
+        "Une baisse des standards de sécurité et de service",
+        "Une surcharge de travail pour le mécanicien",
+        "Une diminution du nombre de clients à l'accueil"
+      ],
+      "correct": 1,
+      "explanation": "Sans supervision active, les standards se relâchent progressivement et la qualité de l'expérience diminue."
+    },
+    {
+      "q": "Pourquoi les procédures existent-elles ?",
+      "choices": [
+        "Pour répartir les responsabilités entre les postes",
+        "Pour assurer la constance et la qualité du service",
+        "Pour mesurer la rapidité de chaque employé",
+        "Pour limiter le nombre de décisions à prendre sur le terrain"
+      ],
+      "correct": 1,
+      "explanation": "Les procédures garantissent que chaque tâche est faite de la même façon, assurant constance et qualité."
+    },
+    {
+      "q": "Quel est le rôle principal d'un leader sur le terrain ?",
+      "choices": [
+        "Surveiller l'équipe sans intervenir directement",
+        "Effectuer lui-même les tâches les plus importantes",
+        "Guider, corriger et soutenir son équipe",
+        "Gérer les horaires depuis le bureau"
+      ],
+      "correct": 2,
+      "explanation": "Un bon leader est présent sur le terrain pour guider, corriger et soutenir activement son équipe."
+    },
+    {
+      "q": "Quelle responsabilité ne peut jamais être déléguée complètement par le superviseur ?",
+      "choices": [
+        "L'entretien et le nettoyage du site",
+        "La gestion de la caisse",
+        "La supervision globale du site",
+        "La gestion des pauses des employés"
+      ],
+      "correct": 2,
+      "explanation": "Certaines tâches se délèguent, mais la supervision globale du site reste toujours la responsabilité du superviseur."
+    },
+    {
+      "q": "Un excellent service à la clientèle peut-il compenser un manque de sécurité ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "La sécurité est non négociable : aucun niveau de service ne peut compenser une lacune en matière de sécurité."
+    },
+    {
+      "q": "Une piste impeccable compense-t-elle un mauvais service à la clientèle ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Chaque élément de la formule compte; des installations parfaites ne rachètent pas un service déficient."
+    },
+    {
+      "q": "Le superviseur doit-il vérifier le travail déjà effectué par les employés ?",
+      "choices": ["Oui", "Non"],
+      "correct": 0,
+      "explanation": "Vérifier le travail accompli fait partie du rôle du superviseur pour garantir le maintien des standards."
+    },
+    {
+      "q": "Peut-on considérer une journée comme réussie malgré plusieurs procédures oubliées ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Le respect constant des processus fait partie de la formule du succès : une journée avec des oublis n'est pas réussie."
+    },
+    {
+      "q": "Quel est le principal indicateur de succès d'un quart de travail ?",
+      "choices": [
+        "Le nombre de karts utilisés durant la journée",
+        "Des clients heureux et satisfaits",
+        "Le total des heures travaillées par l'équipe",
+        "La rapidité avec laquelle le site est fermé"
+      ],
+      "correct": 1,
+      "explanation": "Le but ultime de la formule du succès est la satisfaction des clients, qui est donc le meilleur indicateur de réussite."
+    },
+    {
+      "q": "Un préposé bien intentionné saute une étape d'un processus pour servir les clients plus vite durant une période occupée. Comment doit réagir le superviseur ?",
+      "choices": [
+        "Le féliciter d'avoir réduit le temps d'attente",
+        "Exiger qu'il applique le processus complet, car la constance prime sur la rapidité",
+        "Sauter la même étape lui aussi tant que c'est occupé",
+        "Attendre la fin de la période achalandée pour décider"
+      ],
+      "correct": 1,
+      "explanation": "Les standards doivent être maintenus même en période occupée; la constance des processus passe avant un gain de vitesse."
+    },
+    {
+      "q": "Pendant un quart, la sécurité et le service sont impeccables, mais la propreté des installations a été négligée. Quel élément de la formule du succès fait défaut ?",
+      "choices": [
+        "Les processus appliqués",
+        "Le service à la clientèle",
+        "Des installations impeccables",
+        "La sécurité"
+      ],
+      "correct": 2,
+      "explanation": "La propreté du site correspond à l'élément « installations impeccables » de la formule du succès."
+    },
+    {
+      "q": "Un nouveau superviseur connaît bien la caisse, mais pas le poste des préposés. Quelle est la conséquence directe sur son rôle ?",
+      "choices": [
+        "Aucune, tant qu'il maîtrise la caisse",
+        "Il ne pourra pas vérifier correctement le travail des préposés ni les remplacer au besoin",
+        "Il devra se concentrer uniquement sur les ventes",
+        "Il pourra déléguer sa responsabilité de supervision aux préposés"
+      ],
+      "correct": 1,
+      "explanation": "Sans maîtriser le poste des préposés, le superviseur ne peut ni vérifier leur travail ni les dépanner, ce qui est au cœur de son rôle."
+    },
+    {
+      "q": "Quelle attitude reflète le mieux le rôle d'un superviseur en tant que leader sur le terrain ?",
+      "choices": [
+        "Rester en retrait et n'intervenir qu'en cas de problème grave",
+        "Être présent, guider l'équipe, corriger les écarts et soutenir les employés",
+        "Confier entièrement la supervision aux employés les plus expérimentés",
+        "Se concentrer sur ses propres tâches pour donner l'exemple"
+      ],
+      "correct": 1,
+      "explanation": "Le superviseur exerce un leadership actif : il guide, corrige et soutient son équipe plutôt que d'attendre les problèmes."
+    },
+    {
+      "q": "Pourquoi le superviseur demeure-t-il responsable d'une tâche même après l'avoir déléguée à un employé ?",
+      "choices": [
+        "Parce que la délégation est interdite dans le manuel",
+        "Parce que la supervision globale du site lui revient en tout temps",
+        "Parce qu'il doit refaire lui-même chaque tâche déléguée",
+        "Parce que les employés n'ont pas le droit de prendre de décisions"
+      ],
+      "correct": 1,
+      "explanation": "Déléguer une tâche n'enlève pas la responsabilité finale : la supervision globale du site reste celle du superviseur."
+    }
+  ]
+}

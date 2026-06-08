@@ -1,0 +1,164 @@
+{
+  "category": "Piste",
+  "sort_order": 35,
+  "title": "Avertissements, expulsions et clients difficiles",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Pourquoi faut-il donner les avertissements rapidement plutôt que d'attendre ?",
+      "choices": ["Pour démontrer son autorité aux autres clients", "Parce qu'un comportement dangereux a tendance à empirer s'il n'est pas corrigé", "Pour terminer la course plus rapidement", "Pour mieux respecter l'horaire des groupes"],
+      "correct": 1,
+      "explanation": "Un comportement dangereux laissé sans intervention dégénère généralement, alors on agit dès le premier signe."
+    },
+    {
+      "q": "Comment doit-on traiter un léger contact (bumping) entre deux karts ?",
+      "choices": ["Le tolérer puisqu'il est léger", "L'ignorer pour ne pas déranger la course", "Le considérer sérieusement et intervenir", "Le récompenser comme une bonne manœuvre"],
+      "correct": 2,
+      "explanation": "Même un léger contact doit être pris au sérieux, car il peut rapidement mener à un incident plus grave."
+    },
+    {
+      "q": "Quelle approche est recommandée lorsqu'on donne un avertissement à un client ?",
+      "choices": ["Une approche basée sur la menace", "Une approche conseil qui guide le client", "Une approche de moquerie pour le ramener à l'ordre", "Une approche de confrontation directe"],
+      "correct": 1,
+      "explanation": "L'approche conseil corrige le comportement tout en gardant le client réceptif et de bonne humeur."
+    },
+    {
+      "q": "Quel est l'ordre normal des interventions menant à une expulsion ?",
+      "choices": ["Expulsion immédiate dès le premier écart", "Avertissement, puis dernier avis, puis expulsion", "Suspension, puis remboursement du client", "Changement de kart, puis expulsion"],
+      "correct": 1,
+      "explanation": "On gradue l'intervention : un avertissement, ensuite un dernier avis, et seulement après l'expulsion."
+    },
+    {
+      "q": "Un employé qui est témoin d'un incident devrait normalement donner lui-même l'avertissement au client concerné.",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "L'employé témoin de l'incident est le mieux placé pour intervenir, car il a vu le comportement en question."
+    },
+    {
+      "q": "Peut-on simplement demander par radio à un collègue de donner tous nos avertissements à notre place ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "Chaque employé doit assumer ses propres interventions; on ne délègue pas systématiquement ses avertissements par radio."
+    },
+    {
+      "q": "Pourquoi faut-il utiliser le drapeau jaune lorsqu'on donne un avertissement sur la piste ?",
+      "choices": ["Pour être plus visible et intervenir de façon sécuritaire", "Pour forcer tous les pilotes à ralentir complètement", "Pour décorer la piste pendant la course", "Pour aider la transmission de la radio"],
+      "correct": 0,
+      "explanation": "Le drapeau jaune rend l'employé visible et signale aux pilotes qu'il faut redoubler de prudence dans la zone."
+    },
+    {
+      "q": "Que doit-on vérifier avant d'entrer sur la piste pour parler à un pilote ?",
+      "choices": ["Le trafic des karts qui approchent", "Rien, on court immédiatement vers le pilote", "Que tous les karts sont arrêtés", "Que son casque est bien enlevé"],
+      "correct": 0,
+      "explanation": "On vérifie toujours le trafic avant d'entrer sur la piste afin de ne pas se faire frapper par un kart en mouvement."
+    },
+    {
+      "q": "Un client refuse d'écouter ton avertissement. Quelle est la première action recommandée ?",
+      "choices": ["L'ignorer et continuer la course", "Éteindre le moteur de son kart", "Le rembourser immédiatement", "Appeler la police sans délai"],
+      "correct": 1,
+      "explanation": "Couper le moteur de son kart force l'arrêt et permet de reprendre le contrôle de la situation."
+    },
+    {
+      "q": "Pourquoi ne faut-il jamais laisser repartir un client avant qu'il ait compris l'intervention ?",
+      "choices": ["Pour gagner du temps sur l'horaire", "Pour éviter de remplir de la paperasse", "Pour conserver sa crédibilité et le contrôle de la piste", "Pour respecter un règlement municipal"],
+      "correct": 2,
+      "explanation": "Tant que le client n'a pas compris, l'employé perd sa crédibilité et le contrôle de la piste s'il le laisse repartir."
+    },
+    {
+      "q": "À quoi le manuel compare-t-il le danger d'un client qui pousse volontairement les autres karts ?",
+      "choices": ["À une partie de hockey", "À une chute de vélo", "À une voiture poussée à 70 km/h", "À une randonnée de motoneige"],
+      "correct": 2,
+      "explanation": "Le manuel compare ce geste à une voiture poussée à 70 km/h pour faire saisir la force réelle de l'impact."
+    },
+    {
+      "q": "Que doit-on expliquer à un client qui pousse volontairement les autres karts ?",
+      "choices": ["Que c'est une manœuvre amusante", "Que les protections d'un kart sont limitées", "Que les pneus sont assez solides pour absorber les chocs", "Que ce comportement est permis sur la piste"],
+      "correct": 1,
+      "explanation": "Les karts n'offrent qu'une protection limitée, donc un contact volontaire peut réellement blesser quelqu'un."
+    },
+    {
+      "q": "Quelles sont les quatre causes principales d'un spin-out mentionnées dans le manuel ?",
+      "choices": ["Uniquement des pneus usés", "Courbe prise trop vite, freinage en courbe, brake/gaz simultané et blocage de l'essieu", "Uniquement un moteur défectueux", "Uniquement une mauvaise météo"],
+      "correct": 1,
+      "explanation": "Le manuel cite la courbe trop rapide, le freinage en courbe, le brake/gaz simultané et le blocage de l'essieu."
+    },
+    {
+      "q": "Un client effectue constamment des spin-out. Quelle doit être ton intervention ?",
+      "choices": ["L'ignorer puisque ça ne dérange personne", "Le coacher et lui expliquer comment corriger sa conduite", "Lui donner un kart plus rapide", "Le féliciter pour son audace"],
+      "correct": 1,
+      "explanation": "On coache le client en lui expliquant comment corriger sa conduite pour éliminer les spin-out répétés."
+    },
+    {
+      "q": "Pourquoi les spin-out sont-ils considérés comme dangereux sur la piste ?",
+      "choices": ["Ils ralentissent simplement la course", "Ils augmentent la consommation d'essence", "Ils peuvent provoquer des collisions majeures", "Ils usent prématurément les pneus"],
+      "correct": 2,
+      "explanation": "Un kart immobilisé en travers de la piste après un spin-out peut être heurté de plein fouet par les autres."
+    },
+    {
+      "q": "Peut-on demander à un client lent mais sécuritaire d'aller plus vite ?",
+      "choices": ["Oui", "Non"],
+      "correct": 1,
+      "explanation": "On ne pousse jamais un client à accélérer; la sécurité prime sur la vitesse, peu importe son rythme."
+    },
+    {
+      "q": "Que doit-on demander à un client très lent mais sécuritaire ?",
+      "choices": ["De quitter la piste immédiatement", "D'augmenter sa vitesse pour suivre le groupe", "De garder la droite pour laisser passer les autres", "D'arrêter complètement la course"],
+      "correct": 2,
+      "explanation": "On lui demande de garder la droite afin que les pilotes plus rapides puissent le dépasser en sécurité."
+    },
+    {
+      "q": "Combien d'avertissements minimum faut-il généralement donner avant une expulsion ?",
+      "choices": ["Aucun, l'expulsion peut être immédiate", "Au moins un, sauf en cas de faute très grave", "Trois avertissements obligatoires", "Cinq avertissements obligatoires"],
+      "correct": 1,
+      "explanation": "On donne au moins un avertissement avant d'expulser, sauf si la faute est suffisamment grave pour justifier une expulsion immédiate."
+    },
+    {
+      "q": "Lorsqu'un client est expulsé, où doit-on l'arrêter ?",
+      "choices": ["Dans une courbe pour le ralentir", "À l'autre bout de la piste", "Dans les puits", "Directement sur la ligne de course"],
+      "correct": 2,
+      "explanation": "On arrête le client expulsé dans les puits, un endroit sécuritaire et à l'écart de la course."
+    },
+    {
+      "q": "Un client est blessé à cause d'un geste dangereux d'un autre pilote clairement identifié. Quelle est la conséquence pour le pilote fautif ?",
+      "choices": ["Un simple avertissement verbal", "Un changement de kart", "Une réduction de son temps de course", "L'expulsion automatique"],
+      "correct": 3,
+      "explanation": "Un geste dangereux ayant causé une blessure entraîne l'expulsion automatique du pilote fautif clairement identifié."
+    },
+    {
+      "q": "Combien d'avis distincts un client reçoit-il normalement avant d'être expulsé selon la séquence d'interventions ?",
+      "choices": ["Un seul, l'expulsion suit immédiatement", "Deux : un avertissement, puis un dernier avis", "Quatre avis successifs", "Aucun, l'expulsion est toujours immédiate"],
+      "correct": 1,
+      "explanation": "La séquence prévoit deux avis, soit un avertissement puis un dernier avis, avant de procéder à l'expulsion."
+    },
+    {
+      "q": "Quel outil l'employé utilise-t-il pour rester visible et sécuritaire lorsqu'il intervient sur la piste ?",
+      "choices": ["Le drapeau jaune", "Le drapeau à damier", "Un cône orange", "Un sifflet"],
+      "correct": 0,
+      "explanation": "Le drapeau jaune est l'outil de signalisation utilisé pour intervenir de façon visible et sécuritaire sur la piste."
+    },
+    {
+      "q": "Quel moyen concret permet d'arrêter un client qui refuse d'écouter un avertissement ?",
+      "choices": ["Lui retirer son casque", "Éteindre le moteur de son kart", "Lui parler plus fort à la radio", "Lui offrir un remboursement"],
+      "correct": 1,
+      "explanation": "Éteindre le moteur de son kart est le moyen concret pour immobiliser un client récalcitrant et reprendre le contrôle."
+    },
+    {
+      "q": "Quel type de faute justifie une expulsion sans qu'un avertissement préalable soit nécessaire ?",
+      "choices": ["Une faute très grave, comme blesser un autre pilote par un geste dangereux", "Un simple dépassement maladroit", "Une conduite trop lente", "Un spin-out involontaire"],
+      "correct": 0,
+      "explanation": "Une faute très grave, comme blesser un autre pilote par un geste dangereux, justifie une expulsion immédiate sans avertissement préalable."
+    },
+    {
+      "q": "Pourquoi compare-t-on le geste de pousser un kart à une voiture lancée à 70 km/h ?",
+      "choices": ["Pour impressionner le client avec des chiffres", "Pour faire comprendre la force réelle de l'impact malgré la protection limitée du kart", "Parce que les karts roulent à 70 km/h", "Pour justifier d'augmenter la vitesse des karts"],
+      "correct": 1,
+      "explanation": "Cette comparaison aide le client à saisir la force réelle de l'impact, alors que le kart n'offre qu'une protection limitée."
+    },
+    {
+      "q": "Pourquoi un client qui multiplie les spin-out mérite-t-il du coaching plutôt qu'une expulsion immédiate ?",
+      "choices": ["Parce qu'on ne peut jamais expulser un client", "Parce que les spin-out ne sont pas dangereux", "Parce qu'on peut corriger sa conduite pour éliminer la cause du problème", "Parce que cela accélère la course"],
+      "correct": 2,
+      "explanation": "Le coaching corrige la conduite à la source et élimine les spin-out, ce qui est préférable à une expulsion immédiate."
+    }
+  ]
+}

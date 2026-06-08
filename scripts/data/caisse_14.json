@@ -1,0 +1,284 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 14,
+  "title": "Tarifs, ventes et présentation des prix",
+  "passing_score": 0.80,
+  "questions": [
+    {
+      "q": "Lorsque vous donnez un prix à un client, vous devez toujours préciser que :",
+      "choices": ["Les taxes sont incluses", "Les taxes ne sont pas incluses", "Le prix peut changer selon l'heure", "Le prix dépend du caissier"],
+      "correct": 1,
+      "explanation": "Il faut toujours annoncer le prix avec la mention « taxes en supplément » pour éviter toute confusion."
+    },
+    {
+      "q": "Pourquoi est-il important de mentionner que les taxes ne sont pas incluses ?",
+      "choices": ["Pour augmenter les ventes", "Pour accélérer le service", "Pour éviter les malentendus à la caisse", "Pour faire plaisir au client"],
+      "correct": 2,
+      "explanation": "Préciser que les taxes sont en sus évite que le client soit surpris par le total à payer."
+    },
+    {
+      "q": "Les prix d'Amigo Karting sont-ils négociables ?",
+      "choices": ["Oui, toujours", "Seulement pour les groupes", "Seulement avec le gérant", "Non"],
+      "correct": 3,
+      "explanation": "Les prix sont fixes selon la structure de l'entreprise et ne sont jamais négociables."
+    },
+    {
+      "q": "Lorsqu'un client dit « Pouvez-vous me faire un meilleur prix ? », que devez-vous répondre ?",
+      "choices": ["Que les prix ne sont pas négociables", "Que vous allez demander au gérant", "Que c'est possible pour un gros groupe", "Qu'il peut revenir un autre jour"],
+      "correct": 0,
+      "explanation": "On explique poliment que les prix sont fixes et ne sont pas négociables."
+    },
+    {
+      "q": "Quel argument peut être utilisé pour expliquer et justifier les prix ?",
+      "choices": ["Les prix changent selon le client", "Nous sommes parmi les moins chers de la région et avons une très grande piste", "Les prix sont temporaires", "Nous pouvons négocier au besoin"],
+      "correct": 1,
+      "explanation": "La qualité de l'installation et la grandeur de la piste justifient les tarifs officiels."
+    },
+    {
+      "q": "Un client demande un tarif. Quelle question devez-vous poser en premier selon la FAQ ?",
+      "choices": ["Quel âge avez-vous ?", "Est-ce pour des adultes ou une famille ?", "Avez-vous réservé ?", "Combien pesez-vous ?"],
+      "correct": 1,
+      "explanation": "Savoir si c'est pour des adultes ou une famille permet d'orienter le client vers le bon tarif."
+    },
+    {
+      "q": "Comment les prix réguliers sont-ils généralement calculés ?",
+      "choices": ["Par personne", "Par groupe", "Par kart", "Par famille"],
+      "correct": 2,
+      "explanation": "Les prix d'Amigo Karting sont établis par kart."
+    },
+    {
+      "q": "Lorsqu'un client demande les tarifs, à quelle source officielle pouvez-vous aussi le diriger ?",
+      "choices": ["Le site web", "Facebook seulement", "Le bureau municipal", "Google Maps"],
+      "correct": 0,
+      "explanation": "Le site web est une source officielle où le client peut consulter les tarifs."
+    },
+    {
+      "q": "Quel est le risque de donner un prix taxes incluses ?",
+      "choices": ["Accélérer le paiement", "Créer de la confusion lorsqu'un autre employé donne les prix avant taxes", "Augmenter le pourboire", "Réduire les files d'attente"],
+      "correct": 1,
+      "explanation": "Annoncer un prix taxes incluses crée des incohérences avec les collègues qui annoncent le prix avant taxes."
+    },
+    {
+      "q": "Quel est votre rôle lorsque vous annoncez un tarif ?",
+      "choices": ["Donner une information exacte et uniforme", "Trouver le meilleur prix pour le client", "Estimer rapidement le montant", "Laisser le client deviner"],
+      "correct": 0,
+      "explanation": "L'employé doit transmettre une information exacte et identique pour tous les clients."
+    },
+    {
+      "q": "Tous les employés doivent-ils annoncer les prix de la même façon ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Une annonce uniforme garantit une expérience cohérente pour tous les clients."
+    },
+    {
+      "q": "Faut-il toujours mentionner les taxes au client ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les taxes doivent toujours être mentionnées, car elles s'ajoutent au prix affiché."
+    },
+    {
+      "q": "Peut-on accorder un rabais à un ami ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Aucun rabais personnel n'est permis, car les prix sont fixes pour tous."
+    },
+    {
+      "q": "Les prix affichés sont-ils les prix officiels ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les prix affichés correspondent aux tarifs officiels de l'entreprise."
+    },
+    {
+      "q": "Le client doit-il connaître le coût réel avant de payer ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le client doit connaître le total réel, taxes comprises, avant de procéder au paiement."
+    },
+    {
+      "q": "Les tarifs de groupe sont-ils différents des tarifs réguliers ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Les tarifs de groupe suivent une structure distincte des tarifs réguliers."
+    },
+    {
+      "q": "Le prix dépend-il du caissier qui travaille ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "Le prix est fixe et ne change jamais selon l'employé en poste."
+    },
+    {
+      "q": "Un client peut-il négocier simplement parce que son groupe est grand ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 1,
+      "explanation": "La taille du groupe ne permet pas de négocier; seuls les tarifs de groupe officiels s'appliquent."
+    },
+    {
+      "q": "Le site web est-il une source officielle de prix ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Le site web affiche les tarifs officiels et peut être consulté par le client."
+    },
+    {
+      "q": "Un employé doit-il être capable d'expliquer les tarifs ?",
+      "choices": ["Vrai", "Faux"],
+      "correct": 0,
+      "explanation": "Un employé bien informé peut expliquer les tarifs et inspirer confiance au client."
+    },
+    {
+      "q": "Un client dit « Mon ami a payé moins cher la semaine passée. » Que faites-vous ?",
+      "choices": ["Vous lui accordez le même prix", "Vous expliquez les tarifs actuels et les prix officiels", "Vous appelez le gérant", "Vous offrez un rabais de bienvenue"],
+      "correct": 1,
+      "explanation": "On rassure le client en présentant calmement les tarifs officiels en vigueur."
+    },
+    {
+      "q": "Un client insiste pour obtenir un rabais parce qu'il vient souvent. Que faites-vous ?",
+      "choices": ["Vous lui donnez un rabais de fidélité", "Vous expliquez poliment que les prix ne sont pas négociables", "Vous lui offrez un tour gratuit", "Vous baissez le prix une seule fois"],
+      "correct": 1,
+      "explanation": "On reste courtois mais ferme : les prix sont fixes pour tous, même les habitués."
+    },
+    {
+      "q": "Un client demande « Est-ce que le prix affiché inclut les taxes ? » Quelle est la bonne réponse ?",
+      "choices": ["Oui, tout est inclus", "Non, les taxes sont en supplément", "Cela dépend du montant", "Seulement les fins de semaine"],
+      "correct": 1,
+      "explanation": "Le prix affiché est avant taxes; celles-ci s'ajoutent au total."
+    },
+    {
+      "q": "Un groupe de clients veut connaître les options disponibles. Que faites-vous ?",
+      "choices": ["Vous présentez les différents types de karts et leurs tarifs", "Vous donnez seulement le prix le plus bas", "Vous les dirigez vers la sortie", "Vous leur dites de réserver en ligne"],
+      "correct": 0,
+      "explanation": "Présenter les types de karts et leurs tarifs aide le groupe à faire un choix éclairé."
+    },
+    {
+      "q": "Un client semble surpris par le total à payer. Quelle est probablement la cause ?",
+      "choices": ["Le kart était défectueux", "Les taxes n'ont peut-être pas été clairement mentionnées", "Le client a trop joué", "Le système a planté"],
+      "correct": 1,
+      "explanation": "Une surprise au total vient souvent du fait que les taxes en sus n'ont pas été bien annoncées."
+    },
+    {
+      "q": "Tu réalises qu'un collègue annonce les prix taxes incluses. Pourquoi cela pose-t-il problème ?",
+      "choices": ["Cela ralentit la caisse", "Les clients reçoivent des informations incohérentes", "Cela augmente les taxes", "Cela bloque le système"],
+      "correct": 1,
+      "explanation": "Des méthodes différentes entre employés donnent au client des informations contradictoires."
+    },
+    {
+      "q": "Un client affirme avoir vu un prix différent en ligne. Que fais-tu ?",
+      "choices": ["Tu appliques le prix qu'il dit avoir vu", "Tu vérifies l'information et consultes les tarifs officiels", "Tu refuses de le servir", "Tu lui dis qu'il se trompe"],
+      "correct": 1,
+      "explanation": "On vérifie toujours auprès des tarifs officiels avant de confirmer un prix."
+    },
+    {
+      "q": "Un client compare vos prix à ceux d'un concurrent. Que peux-tu mettre de l'avant ?",
+      "choices": ["Un rabais immédiat", "La qualité de l'installation et la grandeur de la piste", "Que le concurrent est mauvais", "Que vos prix vont baisser bientôt"],
+      "correct": 1,
+      "explanation": "On valorise la qualité de l'installation et la grande piste pour justifier les tarifs."
+    },
+    {
+      "q": "Pourquoi faut-il rester confiant lorsqu'on annonce les prix ?",
+      "choices": ["Parce que les tarifs sont officiels et justifiés", "Parce qu'on peut les changer", "Pour vendre plus vite", "Pour impressionner le gérant"],
+      "correct": 0,
+      "explanation": "La confiance vient du fait que les tarifs sont officiels et pleinement justifiés."
+    },
+    {
+      "q": "Quel est l'objectif d'une bonne présentation des prix ?",
+      "choices": ["Faire payer plus", "Être transparent avec le client", "Aller plus vite", "Réduire les questions"],
+      "correct": 1,
+      "explanation": "Une bonne présentation vise avant tout la transparence envers le client."
+    },
+    {
+      "q": "Un client demande le prix d'une activité et tu n'es pas certain du tarif exact. Que fais-tu ?",
+      "choices": ["Inventer un prix", "Vérifier avant de répondre", "Donner une estimation approximative", "Ignorer la question"],
+      "correct": 1,
+      "explanation": "En cas de doute, on vérifie toujours le tarif officiel avant de répondre."
+    },
+    {
+      "q": "Pourquoi est-il important d'être précis avec les prix ?",
+      "choices": ["Pour aller plus vite", "Parce que les erreurs peuvent créer des plaintes ou des pertes financières", "Pour impressionner le client", "Pour éviter les pourboires"],
+      "correct": 1,
+      "explanation": "Une erreur de prix peut entraîner des plaintes clients et des pertes financières."
+    },
+    {
+      "q": "Entre ces deux options, que vaut-il mieux faire ?",
+      "choices": ["Donner une mauvaise réponse rapidement", "Vérifier et donner la bonne réponse", "Laisser le client chercher seul", "Reporter la question à un collègue absent"],
+      "correct": 1,
+      "explanation": "Mieux vaut prendre le temps de vérifier que de donner une réponse rapide mais fausse."
+    },
+    {
+      "q": "Quel est le danger de promettre un prix incorrect à un client ?",
+      "choices": ["Le client pourrait exiger ce prix à son arrivée", "Le client va partir content", "Cela accélère la vente", "Cela n'a aucun effet"],
+      "correct": 0,
+      "explanation": "Un prix promis par erreur peut être réclamé par le client à son arrivée."
+    },
+    {
+      "q": "Une erreur de tarification peut affecter quoi ?",
+      "choices": ["La confiance du client seulement", "La réputation de l'entreprise seulement", "Les revenus seulement", "Toutes ces réponses"],
+      "correct": 3,
+      "explanation": "Une erreur de prix touche à la fois la confiance du client, la réputation et les revenus."
+    },
+    {
+      "q": "Pourquoi tous les employés doivent-ils suivre la même méthode lorsqu'ils annoncent les prix ?",
+      "choices": ["Pour assurer une expérience uniforme à tous les clients", "Pour gagner du temps", "Pour faire plaisir au gérant", "Pour éviter de parler aux clients"],
+      "correct": 0,
+      "explanation": "Une méthode commune garantit une expérience uniforme pour chaque client."
+    },
+    {
+      "q": "Pourquoi les prix ne doivent-ils pas être négociés individuellement ?",
+      "choices": ["Pour garantir l'équité entre tous les clients", "Pour vendre plus vite", "Pour simplifier la caisse", "Pour éviter les taxes"],
+      "correct": 0,
+      "explanation": "Des prix fixes assurent un traitement équitable entre tous les clients."
+    },
+    {
+      "q": "Quel est le principal avantage d'une politique de prix claire ?",
+      "choices": ["Augmenter les profits", "Réduire les conflits et les malentendus", "Accélérer la fermeture", "Diminuer les taxes"],
+      "correct": 1,
+      "explanation": "Une politique claire limite les conflits et les malentendus avec les clients."
+    },
+    {
+      "q": "Quel lien existe-t-il entre la connaissance des tarifs et le service à la clientèle ?",
+      "choices": ["Aucun lien réel", "Un employé bien informé inspire confiance", "Cela ralentit le service", "Cela complique les transactions"],
+      "correct": 1,
+      "explanation": "Bien connaître les tarifs permet d'inspirer confiance et d'offrir un meilleur service."
+    },
+    {
+      "q": "Quelle est la qualité la plus importante lorsqu'on présente les prix ?",
+      "choices": ["La rapidité", "La transparence", "L'humour", "La persuasion"],
+      "correct": 1,
+      "explanation": "La transparence est la qualité essentielle pour présenter les prix correctement."
+    },
+    {
+      "q": "Comment annonce-t-on correctement un prix selon le manuel ?",
+      "choices": ["« Le prix est de X $ par kart, taxes en supplément »", "« C'est environ X $ tout inclus »", "« Le prix change selon l'achalandage »", "« Donnez-moi une minute pour improviser »"],
+      "correct": 0,
+      "explanation": "Le manuel exige d'annoncer le prix par kart en précisant que les taxes sont en supplément."
+    },
+    {
+      "q": "Quels modes de paiement les clients peuvent-ils utiliser ?",
+      "choices": ["Argent comptant seulement", "Argent comptant, carte de débit et carte de crédit", "Carte de crédit seulement", "Chèque et comptant"],
+      "correct": 1,
+      "explanation": "Les clients peuvent payer en argent comptant, par carte de débit ou par carte de crédit."
+    },
+    {
+      "q": "Que doit-on toujours remettre au client après une transaction ?",
+      "choices": ["Un reçu", "Un coupon-rabais", "Une carte de membre", "Un certificat-cadeau"],
+      "correct": 0,
+      "explanation": "Remettre un reçu fait partie des transactions correctes selon le manuel."
+    },
+    {
+      "q": "Un client veut 3 karts. Que faut-il faire selon la mise en situation du manuel ?",
+      "choices": ["Calculer le prix exact et confirmer avant de prendre le paiement", "Encaisser d'abord et calculer ensuite", "Donner un prix arrondi", "Demander au client de calculer"],
+      "correct": 0,
+      "explanation": "On calcule le montant exact et on le confirme au client avant d'encaisser."
+    },
+    {
+      "q": "Que doit-on faire avec un certificat-cadeau lors d'une vente ?",
+      "choices": ["L'accepter sans le noter", "Le comptabiliser, l'entrer dans le système et le vérifier", "Le refuser systématiquement", "Le garder sans l'inscrire"],
+      "correct": 1,
+      "explanation": "Les certificats-cadeaux doivent être comptabilisés, entrés dans le système et vérifiés."
+    },
+    {
+      "q": "Si tu fais une erreur de montant pendant une transaction, que dois-tu faire ?",
+      "choices": ["Attendre la fin du quart pour corriger", "Corriger immédiatement et informer le client", "Ignorer l'erreur si elle est petite", "Demander au client de revenir plus tard"],
+      "correct": 1,
+      "explanation": "Toute erreur de montant doit être corrigée immédiatement et le client doit en être informé."
+    }
+  ]
+}

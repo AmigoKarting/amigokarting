@@ -1,0 +1,273 @@
+{
+  "category": "Piste",
+  "sort_order": 31,
+  "title": "Service à la clientèle et expérience client",
+  "passing_score": 0.70,
+  "questions": [
+    {
+      "q": "Dès que les clients reviennent aux puits après une course, quelle est la première action à poser ?",
+      "choices": [
+        "Leur demander de quitter immédiatement les lieux",
+        "Imprimer et afficher les temps de course",
+        "Les aider rapidement à enlever leur casque",
+        "Fermer la piste pour le prochain groupe"
+      ],
+      "correct": 2,
+      "explanation": "On accueille les clients de retour des puits en les libérant rapidement de leur casque."
+    },
+    {
+      "q": "Pourquoi faut-il aider rapidement les clients à retirer leur casque après la course ?",
+      "choices": [
+        "Pour accélérer leur sortie des puits",
+        "Pour nettoyer les casques sur-le-champ",
+        "Pour préparer la piste plus vite",
+        "Pour réduire les tâches administratives"
+      ],
+      "correct": 0,
+      "explanation": "Retirer rapidement le casque fluidifie et accélère la sortie des clients des puits."
+    },
+    {
+      "q": "Que doit-on faire avec les cagoules usagées une fois retirées par les clients ?",
+      "choices": [
+        "Les jeter à la poubelle",
+        "Les laisser sur un banc à proximité",
+        "Les redonner aux clients en souvenir",
+        "Les déposer dans le bac prévu à cet effet"
+      ],
+      "correct": 3,
+      "explanation": "Les cagoules usagées vont dans le bac prévu pour être lavées et réutilisées."
+    },
+    {
+      "q": "Pourquoi demande-t-on au client comment il a aimé sa course ?",
+      "choices": [
+        "Pour combler le temps en attendant",
+        "Pour augmenter son enthousiasme et terminer son expérience sur une note positive",
+        "Pour lui vendre une autre course",
+        "Pour compiler des statistiques de satisfaction"
+      ],
+      "correct": 1,
+      "explanation": "Cette question rehausse l'enthousiasme du client et conclut son expérience de façon positive."
+    },
+    {
+      "q": "Que doit-on remettre au client après sa course ?",
+      "choices": [
+        "Un casque souvenir",
+        "Une combinaison de course",
+        "Sa feuille de temps",
+        "Une photo obligatoire"
+      ],
+      "correct": 2,
+      "explanation": "On remet au client sa feuille de temps pour qu'il reparte avec le résultat de sa course."
+    },
+    {
+      "q": "Quel est le rôle du raccompagnateur à la sortie ?",
+      "choices": [
+        "Ignorer les clients qui partent",
+        "Remercier les clients et leur souhaiter une bonne journée",
+        "Nettoyer les karts avant le prochain groupe",
+        "Vérifier le niveau d'essence des karts"
+      ],
+      "correct": 1,
+      "explanation": "Le raccompagnateur remercie les clients et leur souhaite une bonne journée pour clore l'expérience."
+    },
+    {
+      "q": "Il faut s'assurer que les clients ne repartent pas avec de l'équipement appartenant à l'entreprise.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "On vérifie que les clients ne quittent pas les lieux avec de l'équipement de l'entreprise."
+    },
+    {
+      "q": "Un client signale en cours de course que son kart fonctionne mal. Quelle est la bonne réaction ?",
+      "choices": [
+        "Lui demander de retourner sur la piste sans rien faire",
+        "Lui demander de continuer jusqu'à la fin de la séance",
+        "Lui fournir un autre kart et vérifier celui qui est signalé",
+        "Lui dire que ce n'est probablement rien d'important"
+      ],
+      "correct": 2,
+      "explanation": "On remet au client un autre kart et on inspecte celui qu'il a signalé."
+    },
+    {
+      "q": "Pourquoi doit-on tester le kart signalé par un client ?",
+      "choices": [
+        "Parce que le client a toujours raison",
+        "Pour confirmer son état avant de le remettre en service",
+        "Pour gagner du temps sur l'entretien",
+        "Pour rassurer les autres employés"
+      ],
+      "correct": 1,
+      "explanation": "On teste le kart signalé afin de confirmer son état avant de le réutiliser."
+    },
+    {
+      "q": "Même si plusieurs plaintes au sujet d'un kart sont causées par le pilote, le kart doit quand même être vérifié.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "On vérifie toujours le kart signalé, même si la cause est souvent le pilote."
+    },
+    {
+      "q": "Lorsqu'un kart brise et que son changement prend plus d'une minute, quelle compensation est prévue ?",
+      "choices": [
+        "Aucune compensation",
+        "Cinq minutes de course gratuites",
+        "Un remboursement complet de la séance",
+        "Un certificat-cadeau de dix minutes"
+      ],
+      "correct": 3,
+      "explanation": "Un changement de kart de plus d'une minute donne droit à un certificat-cadeau de dix minutes."
+    },
+    {
+      "q": "Si un client manque de gaz ou que son kart brise sans qu'il en soit responsable, quelle compensation lui offre-t-on ?",
+      "choices": [
+        "Aucune compensation",
+        "Une course gratuite de quinze minutes",
+        "Une simple réduction de prix",
+        "Un casque gratuit"
+      ],
+      "correct": 1,
+      "explanation": "Une panne sans faute du client lui donne droit à une course gratuite de quinze minutes."
+    },
+    {
+      "q": "Lorsqu'on retire du temps à un client avant la fin de sa séance, il faut compenser ce temps perdu.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Tout temps retiré au client avant la fin de sa séance doit lui être compensé."
+    },
+    {
+      "q": "Pourquoi faut-il toujours faire preuve d'empathie avec un client insatisfait ?",
+      "choices": [
+        "Pour éviter toute discussion",
+        "Pour redresser son expérience",
+        "Pour obtenir une meilleure évaluation",
+        "Pour lui vendre davantage de services"
+      ],
+      "correct": 1,
+      "explanation": "L'empathie permet de redresser l'expérience d'un client insatisfait."
+    },
+    {
+      "q": "Un client est très fâché à propos d'une décision de sécurité. Quelle est la meilleure attitude à adopter ?",
+      "choices": [
+        "Hausser le ton pour s'imposer",
+        "Rester calme et expliquer les raisons de sécurité",
+        "Quitter la conversation sans répondre",
+        "Le contredire immédiatement"
+      ],
+      "correct": 1,
+      "explanation": "On reste calme et on explique les raisons de sécurité qui motivent la décision."
+    },
+    {
+      "q": "Pourquoi utiliser des exemples de la vraie vie en parlant avec les clients ?",
+      "choices": [
+        "Pour les divertir pendant l'attente",
+        "Pour leur faire mieux comprendre les risques",
+        "Pour paraître plus expert qu'eux",
+        "Pour écourter la conversation"
+      ],
+      "correct": 1,
+      "explanation": "Les exemples concrets aident les clients à mieux comprendre les risques."
+    },
+    {
+      "q": "Les émotions d'un employé peuvent influencer les émotions d'un client.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "L'état émotionnel de l'employé déteint sur celui du client, d'où l'importance de rester positif."
+    },
+    {
+      "q": "Lorsqu'un client est satisfait de son expérience, à quel comportement est-il le plus enclin ?",
+      "choices": [
+        "Revenir au centre",
+        "Déposer une plainte",
+        "Demander un remboursement",
+        "Éviter l'entreprise à l'avenir"
+      ],
+      "correct": 0,
+      "explanation": "Un client satisfait est plus susceptible de revenir au centre."
+    },
+    {
+      "q": "Quel est l'objectif principal du service à la clientèle ?",
+      "choices": [
+        "Créer une expérience mémorable et sécuritaire",
+        "Vendre le plus de courses possible",
+        "Terminer les séances le plus vite possible",
+        "Réduire la charge de travail des employés"
+      ],
+      "correct": 0,
+      "explanation": "Le service à la clientèle vise à offrir une expérience à la fois mémorable et sécuritaire."
+    },
+    {
+      "q": "Que doit faire un employé lorsqu'il n'est pas occupé par une tâche précise ?",
+      "choices": [
+        "Consulter son téléphone personnel",
+        "Aider les clients et améliorer leur expérience",
+        "Attendre qu'on lui assigne une tâche",
+        "Quitter temporairement son poste"
+      ],
+      "correct": 1,
+      "explanation": "Un employé libre profite du temps pour aider les clients et bonifier leur expérience."
+    },
+    {
+      "q": "Combien de minutes de course gratuites accorde-t-on à un client dont le kart brise sans sa faute ?",
+      "choices": [
+        "Cinq minutes",
+        "Dix minutes",
+        "Quinze minutes",
+        "Vingt minutes"
+      ],
+      "correct": 2,
+      "explanation": "Une panne sans faute du client lui vaut une course gratuite de quinze minutes."
+    },
+    {
+      "q": "Quelle valeur du certificat-cadeau remet-on lorsqu'un changement de kart dépasse une minute ?",
+      "choices": [
+        "Un certificat de cinq minutes",
+        "Un certificat de dix minutes",
+        "Un certificat de quinze minutes",
+        "Un certificat de vingt minutes"
+      ],
+      "correct": 1,
+      "explanation": "Un changement de kart de plus d'une minute donne droit à un certificat-cadeau de dix minutes."
+    },
+    {
+      "q": "Quelle est la bonne façon de gérer la sortie d'un client à la fin de sa séance ?",
+      "choices": [
+        "Le laisser partir sans lui adresser la parole",
+        "Le remercier, lui souhaiter une bonne journée et vérifier qu'il ne part pas avec de l'équipement de l'entreprise",
+        "Lui demander de ranger lui-même son équipement",
+        "L'inviter à patienter jusqu'au prochain groupe"
+      ],
+      "correct": 1,
+      "explanation": "Le raccompagnateur remercie le client, lui souhaite une bonne journée et s'assure qu'aucun équipement de l'entreprise ne quitte les lieux."
+    },
+    {
+      "q": "Garder son calme et expliquer les raisons de sécurité est la bonne attitude face à un client fâché d'une décision de sécurité.",
+      "choices": [
+        "Vrai",
+        "Faux"
+      ],
+      "correct": 0,
+      "explanation": "Devant un client fâché, on demeure calme et on explique les motifs de sécurité de la décision."
+    },
+    {
+      "q": "Pourquoi est-il important de rester positif et empathique tout au long de l'expérience du client ?",
+      "choices": [
+        "Parce que les émotions de l'employé influencent celles du client et favorisent son retour",
+        "Parce que cela permet d'écourter chaque séance",
+        "Parce que cela évite d'avoir à vérifier les karts",
+        "Parce que cela dispense de remettre la feuille de temps"
+      ],
+      "correct": 0,
+      "explanation": "Les émotions de l'employé déteignent sur le client, et un client satisfait est plus susceptible de revenir."
+    }
+  ]
+}
