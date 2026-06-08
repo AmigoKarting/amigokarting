@@ -1,6 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import {
+  mockTrainerTurn,
+  pickFirstQuestion,
+  phraseQuestion,
+  trainerFindCurrent,
+  trainerHint,
+} from "@/lib/ai/trainer";
 // OpenAI désactivé — chargé dynamiquement seulement si la clé existe
 let _openaiModule: any = null;
 async function getOpenAIModule() {
@@ -289,7 +296,7 @@ export async function POST(req: NextRequest) {
 
     // ─── Envoyer un message ────────────────────────────────
     if (action === "message") {
-      const { sessionId, message, history = [], simulationId } = body;
+      const { sessionId, message, history = [], simulationId, topicId } = body;
 
       if (!sessionId || !message) {
         return NextResponse.json({ error: "sessionId et message requis" }, { status: 400 });
@@ -496,19 +503,13 @@ async function thinkAboutEmployee(ctx: AIContext | null): Promise<SessionStrateg
 // ─── Greeting intelligent — adapté au profil ────────────────────
 async function buildSmartGreeting(ctx: AIContext | null, topicId?: string): Promise<string> {
   const strategy = await thinkAboutEmployee(ctx);
-  
-  // Si un sujet est choisi, adapter la première question
-  if (topicId && topicId !== "all") {
-    const topicQuestions: Record<string, string> = {
-      casques: "Parlons casques. C'est quoi la première chose à vérifier quand tu en donnes un à un client ?",
-      securite: "On parle sécurité. C'est quoi les 3 règles de base sur la piste ?",
-      urgence: "On parle urgences. Quelles sont les étapes en cas d'accident sur la piste ?",
-      operations: "Parlons opérations. C'est quoi la procédure d'ouverture du centre le matin ?",
-      caisse: "On parle caisse. Comment tu fais la fermeture en fin de journée ?",
-      clients: "Parlons service client. Comment tu accueilles un nouveau client qui arrive ?",
-    };
-    strategy.firstQuestion = topicQuestions[topicId] || strategy.firstQuestion;
-    strategy.focus = topicId;
+
+  // Première question tirée du banc réel (tout le contenu des manuels/quiz),
+  // priorisée selon les points faibles de l'employé.
+  const firstQ = pickFirstQuestion(topicId, ctx?.weakSubjects);
+  if (firstQ) {
+    strategy.firstQuestion = phraseQuestion(firstQ);
+    if (topicId && topicId !== "all") strategy.focus = topicId;
   }
 
   if (!ctx) return `Hey ! C'est ton chef formateur chez Amigo Karting. On va réviser ensemble. ${strategy.firstQuestion}`;
@@ -588,6 +589,10 @@ async function buildSmartGreeting(ctx: AIContext | null, topicId?: string): Prom
 
 // ─── Indices — l'employé dit "aide-moi" ─────────────────────────
 async function getHintForCurrentQuestion(questionContext: string): Promise<string> {
+  // Indice basé sur la vraie question du banc (mots-clés de la bonne réponse)
+  const bankQ = trainerFindCurrent(questionContext);
+  if (bankQ) return trainerHint(bankQ);
+
   // Chercher dans le manuel d'abord
   const manualContent = await searchManual(questionContext);
   if (manualContent) {
@@ -629,6 +634,16 @@ async function getHintForCurrentQuestion(questionContext: string): Promise<strin
 async function getSmartMockResponseWithQuality(
   message: string, history: any[], ctx: AIContext | null, topicId?: string
 ): Promise<{ response: string; quality: "excellent" | "average" | "bad" }> {
+  // ─── Moteur intelligent : vraies questions du banc + évaluation + explication ──
+  const turn = mockTrainerTurn({
+    history,
+    topicId,
+    answer: message,
+    weakSubjects: ctx?.weakSubjects || [],
+  });
+  if (turn) return turn;
+
+  // ─── Repli : ancienne logique (salutations, hors-sujet, etc.) ──────────────
   const m = message.toLowerCase();
   const questionNumber = Math.floor(history.length / 2);
 
@@ -636,7 +651,7 @@ async function getSmartMockResponseWithQuality(
   const lastAI = history.filter((h: any) => h.role === "assistant").pop();
   const currentQ = lastAI?.content || "";
   const manual = await analyzeWithManual(currentQ, message);
-  
+
   let quality: "excellent" | "average" | "bad";
   if (manual) {
     quality = manual.quality;
