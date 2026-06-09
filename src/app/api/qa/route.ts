@@ -184,7 +184,7 @@ function humanReply(message: string): string | null {
   return null;
 }
 
-function buildSmartResponse(query: string, docs: any[]): { response: string; sources: string[]; category: string } {
+function buildSmartResponse(query: string, docs: any[], full = false): { response: string; sources: string[]; category: string } {
   const keywords = expandKeywords(extractKeywords(query));
   if (keywords.length === 0) {
     return { response: "Dis-m'en un peu plus 🙂 Pose ta question en quelques mots et je te trouve la réponse dans le manuel.", sources: [], category: "général" };
@@ -238,23 +238,30 @@ function buildSmartResponse(query: string, docs: any[]): { response: string; sou
   const topSentences = rankedSentences.filter((s) => s.score > 0).slice(0, 4);
 
   // Intro conversationnelle (varie pour un ton plus humain)
-  const intro = pickOne([
-    "Bonne question ! 👇",
-    "Voici ce que je trouve dans le manuel 👇",
-    "Ok, voilà l'info :",
-    "D'après le manuel :",
-  ]);
-
+  let intro: string;
   let body: string;
-  if (topSentences.length >= 2) {
-    body = topSentences.map((s) => s.text.trim()).join("\n\n");
-  } else if (topSentences.length === 1) {
-    const parts = [topSentences[0].text.trim()];
-    const idx = sentences.indexOf(topSentences[0].text);
-    if (idx >= 0 && idx < sentences.length - 1) parts.push(sentences[idx + 1].trim());
-    body = parts.join("\n\n");
+
+  if (full) {
+    // Mode « plus de détails » : on donne toute la section
+    intro = pickOne(["Avec plaisir, plus de détails 👇", "Ok, je développe :", "Bien sûr, voici plus de détails 👇"]);
+    body = (best.content as string).trim();
   } else {
-    body = sentences.slice(0, 3).join(" ");
+    intro = pickOne([
+      "Bonne question ! 👇",
+      "Voici ce que je trouve dans le manuel 👇",
+      "Ok, voilà l'info :",
+      "D'après le manuel :",
+    ]);
+    if (topSentences.length >= 2) {
+      body = topSentences.map((s) => s.text.trim()).join("\n\n");
+    } else if (topSentences.length === 1) {
+      const parts = [topSentences[0].text.trim()];
+      const idx = sentences.indexOf(topSentences[0].text);
+      if (idx >= 0 && idx < sentences.length - 1) parts.push(sentences[idx + 1].trim());
+      body = parts.join("\n\n");
+    } else {
+      body = sentences.slice(0, 3).join(" ");
+    }
   }
 
   let response = `${intro}\n\n${body}`;
@@ -345,18 +352,40 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ response: "Vas-y, pose-moi ta question 🙂", nextSuggestions: FOLLOW_UP["général"] });
       }
 
-      // Suite à une proposition « Veux-tu que je t'en dise plus sur « X » ? »
+      // Contexte conversationnel (proposition précédente, suivi, petite discussion)
       let effectiveQuery = message;
+      let wantFull = false;
+      const mNorm = norm(message).trim();
       const lastAi = [...history].reverse().find((h: any) => h.role === "ai" || h.role === "assistant");
       const offerMatch = lastAi ? String(lastAi.content).match(/dise plus sur\s*«\s*(.+?)\s*»/) : null;
-      const affirm = /^(oui|ouais|yes|yep|ok|okay|vas[- ]?y|continue|explique|dis[- ]?moi|je veux|carrement|bien sur|certain|sure|svp|s'il te plait)\b/.test(norm(message).trim());
-      const decline = /^(non|nope|pas besoin|non merci|ca va|c'est bon)\b/.test(norm(message).trim());
+      const affirm = /^(oui|ouais|yes|yep|ok|okay|vas[- ]?y|continue|explique|dis[- ]?moi|je veux|carrement|bien sur|certain|sure|svp|s'il te plait)\b/.test(mNorm);
+      const decline = /^(non|nope|pas besoin|non merci|ca va|c'est bon)\b/.test(mNorm);
+      const moreRx = /^(plus de detail|plus de details|plus d info|plus dinfo|en savoir plus|dis m en plus|explique|explique moi|explique mieux|un exemple|donne un exemple|et apres|et ensuite|ensuite|encore|continue|developpe)\b/;
+      const wantsMore = mNorm.split(" ").filter(Boolean).length <= 6 && moreRx.test(mNorm);
+      const lastUserTopic = () => {
+        const u = [...history].reverse().find((h: any) =>
+          h.role === "user" &&
+          norm(h.content).split(" ").filter(Boolean).length > 2 &&
+          humanReply(h.content) === null &&
+          !moreRx.test(norm(h.content).trim()));
+        return u ? String(u.content) : null;
+      };
 
       if (offerMatch && affirm) {
         // L'employé a dit oui → on enchaîne sur le sujet proposé
         effectiveQuery = offerMatch[1];
       } else if (offerMatch && decline) {
         return NextResponse.json({ response: "Pas de souci 🙂 Pose-moi autre chose quand tu veux — caisse, piste ou service client.", sources: [], nextSuggestions: FOLLOW_UP["général"] });
+      } else if (wantsMore) {
+        // « plus de détails », « explique mieux », « et après »… → développe le dernier sujet
+        const lq = lastUserTopic();
+        if (lq) {
+          effectiveQuery = lq;
+          wantFull = true;
+        } else {
+          const human = humanReply(message);
+          if (human) return NextResponse.json({ response: human, sources: [], nextSuggestions: FOLLOW_UP["général"] });
+        }
       } else {
         // Réponse humaine pour les salutations / petites discussions
         const human = humanReply(message);
@@ -378,7 +407,7 @@ export async function POST(req: NextRequest) {
       }
 
       // Construire la réponse
-      const { response, sources, category } = buildSmartResponse(effectiveQuery, docs);
+      const { response, sources, category } = buildSmartResponse(effectiveQuery, docs, wantFull);
 
       // Suggestions dynamiques basées sur le contexte de la conversation
       let nextSuggestions: string[] = [];

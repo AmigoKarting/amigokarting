@@ -302,6 +302,13 @@ export function mockTrainerTurn(opts: {
       quality: null,
     };
   }
+  if (current && short && /\b(explique|explique moi|pourquoi|comment ca|je comprends pas|comprends pas)\b/.test(a)) {
+    const next = nextQuestion(opts, current);
+    return {
+      response: `La réponse, c'est : ${current.correct}. ${current.explanation}${next ? ` ${rnd(NEXTLEAD)} ${phraseQuestion(next)}` : ""}`,
+      quality: null,
+    };
+  }
   if (current && short && RX_REPEAT.test(a)) {
     return { response: `Pas de souci, je répète. ${phraseQuestion(current)}`, quality: null };
   }
