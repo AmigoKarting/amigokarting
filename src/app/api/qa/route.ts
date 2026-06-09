@@ -24,58 +24,58 @@ function extractKeywords(text: string): string[] {
 // ─── Suggestions dynamiques par sujet ───────────────────────────
 const FOLLOW_UP: Record<string, string[]> = {
   accueil: [
-    "Quels sont les 4 forfaits ?",
-    "Comment gérer une file d'attente ?",
-    "Si un client a pas de réservation ?",
-    "Comment proposer un forfait supérieur ?",
+    "Comment accueillir un client ?",
+    "Comment présenter les prix ?",
+    "Peut-on donner un rabais ?",
+    "Comment gérer une réservation de groupe ?",
   ],
   casque: [
-    "Comment savoir la bonne taille ?",
-    "Quoi faire si un casque est fissuré ?",
-    "Comment désinfecter les casques ?",
-    "La jugulaire, c'est quoi la règle ?",
+    "Comment se déroule le briefing avant la course ?",
+    "Que faut-il vérifier avant le départ ?",
+    "Que faire si un client enlève sa ceinture ?",
+    "Quels sont les règlements de piste ?",
   ],
   sécurité: [
-    "C'est quoi le briefing pré-course ?",
-    "Distance minimale entre karts ?",
-    "Que signifient les drapeaux ?",
-    "Quoi faire si un client enlève son casque ?",
+    "Que veut dire le drapeau jaune ?",
+    "Que veut dire le drapeau rouge ?",
+    "Pourquoi utiliser les drapeaux ?",
+    "Quand demander du back-up ?",
   ],
   urgence: [
-    "Quels sont les numéros d'urgence ?",
-    "Étapes en cas d'accident ?",
-    "Où est la trousse de premiers soins ?",
-    "On bouge un blessé ou non ?",
+    "Que faire en cas d'accident ?",
+    "Comment réagir avec un client blessé ?",
+    "C'est quoi la règle du jogging ?",
+    "Quand expulser un client dangereux ?",
   ],
   opérations: [
-    "Checklist d'ouverture le matin ?",
-    "Comment fermer le centre ?",
-    "Inspection des karts, on check quoi ?",
-    "C'est quoi le fond de caisse ?",
+    "Les étapes d'ouverture de la caisse ?",
+    "Comment inspecter un kart ?",
+    "Comment faire le plein d'essence en sécurité ?",
+    "Comment gérer les puits et les groupes ?",
   ],
   caisse: [
-    "Comment faire le Rapport Z ?",
-    "Qui peut autoriser un remboursement ?",
-    "Combien de fond de caisse ?",
-    "Quels modes de paiement ?",
+    "Combien dans le fonds de caisse ?",
+    "Que faire s'il manque de l'argent dans la caisse ?",
+    "Où inscrire la raison d'un remboursement ?",
+    "Comment faire le rapprochement Apex ?",
   ],
   drapeau: [
-    "Que signifie le drapeau jaune ?",
-    "Différence rouge vs jaune ?",
-    "C'est quoi le damier ?",
-    "Quand utiliser le drapeau vert ?",
+    "Que veut dire le drapeau jaune ?",
+    "Que veut dire le drapeau rouge ?",
+    "Comment entretenir les drapeaux ?",
+    "Que faire si un client ignore le drapeau ?",
   ],
   fermeture: [
-    "La dernière course, c'est quand ?",
-    "Faut-il activer l'alarme ?",
-    "Quoi faire avec les karts le soir ?",
-    "Comment faire la caisse de fermeture ?",
+    "Les étapes de fermeture de la caisse ?",
+    "Comment fermer le site en fin de journée ?",
+    "Que vérifier sur la checklist de fermeture ?",
+    "Quand commence le close ?",
   ],
   général: [
     "Comment accueillir un client ?",
-    "Les règles de sécurité de base ?",
-    "Procédure d'urgence ?",
-    "Comment ouvrir le centre ?",
+    "Que faire en cas d'accident ?",
+    "Combien dans le fonds de caisse ?",
+    "Comment gérer un client mécontent ?",
   ],
 };
 
@@ -209,13 +209,13 @@ export async function GET(req: NextRequest) {
         }
 
         if (suggestions.length < 4) {
-          const defaults = ["Comment accueillir un client ?", "Procédure casque fissuré", "Numéros d'urgence", "Drapeaux de course"];
+          const defaults = ["Combien dans le fonds de caisse ?", "Que veut dire le drapeau jaune ?", "Que faire en cas d'accident ?", "Comment accueillir un client ?"];
           defaults.forEach((d) => { if (!suggestions.includes(d)) suggestions.push(d); });
         }
 
         return NextResponse.json({ weaknessSuggestions: [...new Set(suggestions)].slice(0, 6) });
       } catch {
-        return NextResponse.json({ weaknessSuggestions: ["Comment accueillir un client ?", "Procédure casque fissuré", "Numéros d'urgence"] });
+        return NextResponse.json({ weaknessSuggestions: ["Combien dans le fonds de caisse ?", "Que veut dire le drapeau jaune ?", "Comment accueillir un client ?"] });
       }
     }
 

@@ -18,6 +18,18 @@ interface HistoryItem {
   created_at: string;
 }
 
+// Questions de départ — ancrées dans le contenu réel des manuels
+const STARTERS: { icon: string; q: string }[] = [
+  { icon: "💰", q: "Combien dans le fonds de caisse ?" },
+  { icon: "🏁", q: "Que veut dire le drapeau jaune ?" },
+  { icon: "🚨", q: "Que faire en cas d'accident ?" },
+  { icon: "🌧️", q: "Rembourse-t-on à cause de la pluie ?" },
+  { icon: "🙋", q: "Comment accueillir un client ?" },
+  { icon: "😤", q: "Gérer un client mécontent ?" },
+  { icon: "🔧", q: "Comment inspecter un kart ?" },
+  { icon: "🔒", q: "Les étapes de fermeture de la caisse ?" },
+];
+
 export default function QAPage() {
   const [tab, setTab] = useState<"chat" | "history">("chat");
   const [messages, setMessages] = useState<Message[]>([]);
@@ -38,10 +50,10 @@ export default function QAPage() {
       const res = await fetch("/api/qa?action=suggestions");
       const data = await res.json();
       const weak = data.weaknessSuggestions || [];
-      const defaults = ["C'est quoi les forfaits ?", "Comment ouvrir le centre ?", "Procédure casque fissuré", "Numéros d'urgence", "Drapeaux de course", "Fermeture de caisse"];
+      const defaults = STARTERS.map((s) => s.q);
       setSuggestions([...weak, ...defaults.filter((d) => !weak.includes(d))].slice(0, 6));
     } catch {
-      setSuggestions(["Casques", "Sécurité piste", "Urgences", "Forfaits", "Ouverture centre", "Fermeture caisse"]);
+      setSuggestions(STARTERS.map((s) => s.q).slice(0, 6));
     }
   }
 
@@ -129,12 +141,31 @@ export default function QAPage() {
         <>
           <div className="flex-1 overflow-y-auto rounded-2xl bg-gray-50 px-4 py-4">
             {messages.length === 0 && (
-              <div className="flex h-full flex-col items-center justify-center text-center">
+              <div className="flex min-h-full flex-col items-center justify-center py-4">
                 <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-100">
                   <svg className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
                 </div>
-                <p className="mt-4 text-sm font-medium text-gray-700">Demande-moi n'importe quoi</p>
+                <p className="mt-4 text-sm font-semibold text-gray-800">Demande-moi n'importe quoi</p>
                 <p className="mt-1 text-xs text-gray-400">Je cherche dans le manuel et je t'explique</p>
+
+                <p className="mt-6 mb-2 self-start text-[11px] font-semibold uppercase tracking-wide text-gray-400">
+                  Pour commencer
+                </p>
+                <div className="grid w-full grid-cols-2 gap-2.5">
+                  {STARTERS.map((s) => (
+                    <button
+                      key={s.q}
+                      onClick={() => sendMessage(s.q)}
+                      disabled={loading}
+                      className="flex items-center gap-2.5 rounded-2xl border border-gray-100 bg-white p-3 text-left shadow-sm transition hover:border-orange-200 hover:shadow-md active:scale-[0.98] disabled:opacity-50"
+                    >
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-lg">
+                        {s.icon}
+                      </span>
+                      <span className="text-[12.5px] font-medium leading-snug text-gray-700">{s.q}</span>
+                    </button>
+                  ))}
+                </div>
               </div>
             )}
             <div className="space-y-3">
@@ -163,17 +194,19 @@ export default function QAPage() {
             </div>
           </div>
 
-          {/* Suggestions */}
-          <div className="shrink-0 overflow-x-auto py-2">
-            <div className="flex gap-2">
-              {suggestions.map((s, i) => (
-                <button key={i} onClick={() => sendMessage(s)} disabled={loading}
-                  className="shrink-0 rounded-full border border-orange-200 bg-orange-50 px-3 py-1.5 text-xs font-medium text-orange-700 active:scale-95 disabled:opacity-50">
-                  {s}
-                </button>
-              ))}
+          {/* Suggestions de suivi — pendant la conversation */}
+          {messages.length > 0 && suggestions.length > 0 && (
+            <div className="shrink-0 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              <div className="flex gap-2">
+                {suggestions.map((s, i) => (
+                  <button key={i} onClick={() => sendMessage(s)} disabled={loading}
+                    className="shrink-0 rounded-full border border-orange-200 bg-white px-3.5 py-2 text-[13px] font-medium text-orange-700 shadow-sm transition hover:bg-orange-50 active:scale-95 disabled:opacity-50">
+                    {s}
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Input */}
           <div className="shrink-0 pb-2">
