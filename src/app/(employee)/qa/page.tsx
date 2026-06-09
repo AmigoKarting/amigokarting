@@ -18,44 +18,15 @@ interface HistoryItem {
   created_at: string;
 }
 
-// Suggestions de départ — organisées par thème, ancrées dans les manuels
-const STARTER_GROUPS: { cat: string; icon: string; qs: string[] }[] = [
-  {
-    cat: "Caisse",
-    icon: "💰",
-    qs: [
-      "Combien dans le fonds de caisse ?",
-      "Les étapes de fermeture de la caisse ?",
-      "Rembourse-t-on à cause de la pluie ?",
-      "Où inscrire la raison d'un remboursement ?",
-      "Comment présenter les prix à un client ?",
-    ],
-  },
-  {
-    cat: "Piste",
-    icon: "🏁",
-    qs: [
-      "Que veut dire le drapeau jaune ?",
-      "Que veut dire le drapeau rouge ?",
-      "Que faire en cas d'accident ?",
-      "Comment inspecter un kart ?",
-      "Comment se déroule le briefing avant la course ?",
-    ],
-  },
-  {
-    cat: "Service & supervision",
-    icon: "🤝",
-    qs: [
-      "Comment accueillir un client ?",
-      "Comment gérer un client mécontent ?",
-      "Les étapes d'ouverture du site ?",
-      "Quand demander du back-up ?",
-      "Que faire avec un client à expulser ?",
-    ],
-  },
+// Suggestions de départ — sobres, ancrées dans les manuels
+const SUGGESTIONS: string[] = [
+  "Combien dans le fonds de caisse ?",
+  "Que veut dire le drapeau jaune ?",
+  "Que faire en cas d'accident ?",
+  "Comment accueillir un client ?",
+  "Comment gérer un client mécontent ?",
+  "Comment inspecter un kart ?",
 ];
-
-const ALL_STARTERS: string[] = STARTER_GROUPS.flatMap((g) => g.qs);
 
 export default function QAPage() {
   const [tab, setTab] = useState<"chat" | "history">("chat");
@@ -77,9 +48,9 @@ export default function QAPage() {
       const res = await fetch("/api/qa?action=suggestions");
       const data = await res.json();
       const weak = data.weaknessSuggestions || [];
-      setSuggestions([...weak, ...ALL_STARTERS.filter((d) => !weak.includes(d))].slice(0, 6));
+      setSuggestions([...weak, ...SUGGESTIONS.filter((d) => !weak.includes(d))].slice(0, 6));
     } catch {
-      setSuggestions(ALL_STARTERS.slice(0, 6));
+      setSuggestions(SUGGESTIONS.slice(0, 6));
     }
   }
 
@@ -167,45 +138,26 @@ export default function QAPage() {
         <>
           <div className="flex-1 overflow-y-auto rounded-2xl bg-gray-50 px-4 py-4">
             {messages.length === 0 && (
-              <div className="py-1">
-                {/* En-tête */}
-                <div className="flex flex-col items-center pb-1 text-center">
-                  <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-100">
-                    <svg className="h-8 w-8 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
-                  </div>
-                  <p className="mt-3 text-base font-bold text-gray-900">Assistant Manuel Amigo</p>
-                  <p className="mt-1 max-w-xs text-xs leading-relaxed text-gray-500">
-                    Pose n'importe quelle question sur les procédures. Je cherche dans tous les manuels — caisse, piste, supervision — et je t'explique.
-                  </p>
+              <div className="flex min-h-full flex-col items-center justify-center px-2 py-6 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50">
+                  <svg className="h-6 w-6 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
                 </div>
-
-                {/* Suggestions par thème */}
-                <div className="mt-4 space-y-4">
-                  {STARTER_GROUPS.map((g) => (
-                    <div key={g.cat}>
-                      <div className="mb-2 flex items-center gap-2">
-                        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-orange-50 text-base">{g.icon}</span>
-                        <h3 className="text-[13px] font-semibold text-gray-800">{g.cat}</h3>
-                      </div>
-                      <div className="flex flex-wrap gap-2">
-                        {g.qs.map((q) => (
-                          <button
-                            key={q}
-                            onClick={() => sendMessage(q)}
-                            disabled={loading}
-                            className="rounded-full border border-gray-200 bg-white px-3 py-1.5 text-[12.5px] font-medium text-gray-700 shadow-sm transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700 active:scale-95 disabled:opacity-50"
-                          >
-                            {q}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+                <p className="mt-3 text-sm font-semibold text-gray-800">Pose ta question sur le manuel</p>
+                <p className="mt-1 max-w-xs text-xs text-gray-500">
+                  Réponses tirées des manuels caisse, piste et supervision.
+                </p>
+                <div className="mt-5 flex flex-wrap justify-center gap-2">
+                  {SUGGESTIONS.map((q) => (
+                    <button
+                      key={q}
+                      onClick={() => sendMessage(q)}
+                      disabled={loading}
+                      className="rounded-full border border-gray-200 bg-white px-3.5 py-1.5 text-[13px] text-gray-600 shadow-sm transition hover:border-orange-300 hover:bg-orange-50 hover:text-orange-700 active:scale-95 disabled:opacity-50"
+                    >
+                      {q}
+                    </button>
                   ))}
                 </div>
-
-                <p className="mt-5 text-center text-[11px] text-gray-400">
-                  💡 Tu peux aussi écrire ta propre question en bas
-                </p>
               </div>
             )}
             <div className="space-y-3">
