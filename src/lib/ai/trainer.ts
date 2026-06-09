@@ -221,25 +221,41 @@ export function evaluateAnswer(q: BankQ, answer: string): Evaluation {
   return { ...base, quality: "bad" };
 }
 
-// ─── Composer la rétroaction (style vocal québécois, court) ───────────────────
-const PRAISE = ["Exactement !", "C'est ça !", "Parfait !", "En plein dans le mille !", "Boom, t'as raison !"];
-const PARTIAL = ["Bonne piste, mais pas complet.", "T'es proche, manque un bout.", "Pas mal, mais on précise."];
-const WRONG = ["Pas tout à fait.", "Non, attention.", "C'est pas ça, mais c'est correct d'essayer."];
+// ─── Rétroaction de coach (style vocal québécois — lu à voix haute, sans emoji) ─
+const PRAISE = ["Exactement, c'est ça !", "Parfait, t'as bien compris.", "Excellent, bravo !", "En plein dans le mille !", "Boom, t'as raison !", "Nickel, c'est exactement ça.", "T'as l'affaire !"];
+const PARTIAL = ["T'es sur la bonne voie, mais c'est pas complet.", "Bonne idée, manque juste un petit bout.", "Presque ! On précise un peu."];
+const WRONG = ["Pas tout à fait, mais c'est correct d'essayer.", "Pas exactement, je te montre.", "Hmm, c'est pas ça cette fois, regarde.", "Bonne tentative, mais non."];
+const NEXTLEAD = ["Prochaine.", "On continue.", "Suivante.", "Ok, celle-ci.", "Bon, dis-moi :", "Allez, une autre."];
+const STREAK = ["Deux de suite, t'es en feu !", "Encore une bonne, tu enchaînes !", "Belle série, continue comme ça !"];
+const PRAISE_STEMS = ["exactement", "parfait", "excellent", "bravo", "mille", "boom", "nickel", "affaire", "suite", "enchaine", "serie", "feu"];
 
-function pick<T>(arr: T[], seed: number): T {
-  return arr[seed % arr.length];
+function rnd<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function feedback(ev: Evaluation, q: BankQ): string {
-  const seed = hash(q.id);
+// Nombre de bonnes réponses d'affilée juste avant (détecté via les marques d'éloge)
+function goodStreak(history: HistItem[]): number {
+  let n = 0;
+  for (let i = history.length - 1; i >= 0; i--) {
+    const h = history[i];
+    if (h.role !== "assistant" && h.role !== "ai") continue;
+    const t = strip(h.content);
+    if (PRAISE_STEMS.some((p) => t.startsWith(p))) n++;
+    else break;
+  }
+  return n;
+}
+
+function feedback(ev: Evaluation, streak: number): string {
   const expl = ev.explanation ? ` ${ev.explanation}` : "";
   if (ev.quality === "excellent") {
-    return `${pick(PRAISE, seed)}${expl}`;
+    const lead = streak >= 2 ? rnd(STREAK) : rnd(PRAISE);
+    return `${lead}${expl}`;
   }
   if (ev.quality === "average") {
-    return `${pick(PARTIAL, seed)} La bonne réponse : ${ev.correct}.${expl}`;
+    return `${rnd(PARTIAL)} La bonne réponse : ${ev.correct}.${expl}`;
   }
-  return `${pick(WRONG, seed)} La bonne réponse, c'est : ${ev.correct}.${expl}`;
+  return `${rnd(WRONG)} La bonne réponse, c'est : ${ev.correct}.${expl}`;
 }
 
 // ─── Indice pour la question en cours ────────────────────────────────────────
@@ -249,10 +265,23 @@ export function trainerHint(q: BankQ): string {
   return "Indice : repense à la procédure, étape par étape.";
 }
 
-// ─── Tour complet : évaluer la réponse + poser la suivante ───────────────────
+// ─── Commandes parlées (ne comptent pas comme une réponse) ───────────────────
+const RX_GREET = /\b(salut|allo|allô|bonjour|bonsoir|coucou|hey|yo|hello|bon matin)\b/;
+const RX_REPEAT = /\b(repete|repeter|redis|redire|pas compris|comprends pas|comprend pas|pardon|hein|peux tu repeter|encore une fois)\b/;
+const RX_REVEAL = /\b(la reponse|donne moi la reponse|donne la reponse|dis moi la reponse|dis la reponse|je veux la reponse|tu peux me la dire)\b/;
+const RX_SKIP = /\b(on passe|passe|change|autre question|suivant|suivante|skip|next|change de sujet|autre chose)\b/;
+const RX_THANKS = /\b(merci|cool|nice|genial|trop bien)\b/;
+
+// ─── Tour complet : commandes, évaluation, et question suivante ──────────────
 export interface TrainerTurn {
   response: string;
-  quality: Quality;
+  quality: Quality | null;
+}
+
+function nextQuestion(opts: { history: HistItem[]; topicId?: string; weakSubjects?: string[] }, current: BankQ | null): BankQ | null {
+  const asked = askedIds(opts.history);
+  if (current) asked.add(current.id);
+  return pickQuestion(opts.topicId, asked, opts.weakSubjects);
 }
 
 export function mockTrainerTurn(opts: {
@@ -262,16 +291,42 @@ export function mockTrainerTurn(opts: {
   weakSubjects?: string[];
 }): TrainerTurn | null {
   const current = trainerFindCurrent(lastAi(opts.history));
+  const a = strip(opts.answer);
+  const short = a.split(" ").filter(Boolean).length <= 5;
+
+  // ─── Commandes conversationnelles ───────────────────────────────
+  if (current && RX_REVEAL.test(a)) {
+    const next = nextQuestion(opts, current);
+    return {
+      response: `La réponse, c'est : ${current.correct}. ${current.explanation}${next ? ` ${rnd(NEXTLEAD)} ${phraseQuestion(next)}` : ""}`,
+      quality: null,
+    };
+  }
+  if (current && short && RX_REPEAT.test(a)) {
+    return { response: `Pas de souci, je répète. ${phraseQuestion(current)}`, quality: null };
+  }
+  if (current && short && RX_SKIP.test(a)) {
+    const next = nextQuestion(opts, current);
+    return { response: next ? `Ok, on passe à une autre. ${phraseQuestion(next)}` : "Ok ! Tu peux choisir un autre sujet quand tu veux.", quality: null };
+  }
+  if (short && RX_GREET.test(a)) {
+    if (current) return { response: `Salut ! On continue. ${phraseQuestion(current)}`, quality: null };
+    const next = nextQuestion(opts, null);
+    return { response: `Salut ! On y va. ${next ? phraseQuestion(next) : ""}`.trim(), quality: null };
+  }
+  if (current && short && RX_THANKS.test(a)) {
+    return { response: `Avec plaisir ! On continue. ${phraseQuestion(current)}`, quality: null };
+  }
+
   if (!current) return null; // pas de question identifiée → laisser le fallback gérer
 
+  // ─── Sinon : évaluer comme une vraie réponse ────────────────────
   const ev = evaluateAnswer(current, opts.answer);
-  const asked = askedIds(opts.history);
-  asked.add(current.id);
-  const next = pickQuestion(opts.topicId, asked, opts.weakSubjects);
-
-  const fb = feedback(ev, current);
+  const next = nextQuestion(opts, current);
+  const streak = ev.quality === "excellent" ? goodStreak(opts.history) + 1 : 0;
+  const fb = feedback(ev, streak);
   const response = next
-    ? `${fb} Prochaine question : ${phraseQuestion(next)}`
+    ? `${fb} ${rnd(NEXTLEAD)} ${phraseQuestion(next)}`
     : `${fb} On a fait pas mal le tour de ce sujet ! Tu peux en choisir un autre quand tu veux.`;
 
   return { response, quality: ev.quality };

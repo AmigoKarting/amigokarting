@@ -633,7 +633,7 @@ async function getHintForCurrentQuestion(questionContext: string): Promise<strin
 // ─── Wrapper qui retourne la qualité avec la réponse ────────────
 async function getSmartMockResponseWithQuality(
   message: string, history: any[], ctx: AIContext | null, topicId?: string
-): Promise<{ response: string; quality: "excellent" | "average" | "bad" }> {
+): Promise<{ response: string; quality: "excellent" | "average" | "bad" | null }> {
   // ─── Moteur intelligent : vraies questions du banc + évaluation + explication ──
   const turn = mockTrainerTurn({
     history,
