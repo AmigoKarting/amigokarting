@@ -45,6 +45,11 @@ type QuizPhase = "intro" | "question" | "correction" | "submitting" | "results";
 
 const CHOICE_LETTERS = ["A", "B", "C", "D", "E", "F"] as const;
 
+// Messages fun et variés (effet « jeu » plutôt que « devoir »)
+const PRAISE = ["Exactement ! 🎯", "Boom ! 💥", "T'es bon ! 💪", "Parfait ! ⭐", "En plein dans le mille ! 🎯", "Nickel ! ✨", "Tu gères ! 🙌"];
+const WRONG_MSG = ["Pas grave, tu vas l'avoir 💪", "Presque ! Continue 👊", "C'est en se trompant qu'on apprend 📚", "Pas cette fois, mais lâche pas 🙌"];
+const pickMsg = (arr: string[], i: number) => arr[i % arr.length];
+
 // ─── Composant principal ───────────────────────────────────────
 export function QuizForm({
   quizId,
@@ -87,6 +92,37 @@ export function QuizForm({
 
   // Score courant (pendant le quiz)
   const correctSoFar = answers.filter((a) => a.isCorrect).length;
+
+  // ─── Gamification : série, meilleure série, points ─────────
+  const currentStreak = useMemo(() => {
+    let n = 0;
+    for (let i = answers.length - 1; i >= 0; i--) {
+      if (answers[i].isCorrect) n++;
+      else break;
+    }
+    return n;
+  }, [answers]);
+  const bestStreak = useMemo(() => {
+    let best = 0, run = 0;
+    for (const a of answers) {
+      run = a.isCorrect ? run + 1 : 0;
+      best = Math.max(best, run);
+    }
+    return best;
+  }, [answers]);
+  const points = correctSoFar * 10;
+
+  // Palier de résultat (message + célébration selon le score)
+  const tier = useMemo(() => {
+    if (!result) return null;
+    if (result.correct === result.total)
+      return { emoji: "🏆", title: "Parfait, sans faute !", sub: "T'es une machine 🌟", celebrate: true };
+    if (result.score >= 90)
+      return { emoji: "🌟", title: "Excellent !", sub: "Presque parfait, bravo", celebrate: true };
+    if (result.passed)
+      return { emoji: "🎉", title: "Réussi, bravo !", sub: "Tu maîtrises le sujet", celebrate: true };
+    return { emoji: "💪", title: "Pas loin !", sub: "Réessaie, tu vas l'avoir", celebrate: false };
+  }, [result]);
 
   // ─── Charger la progression sauvegardée (au montage) ──────
   useEffect(() => {
@@ -279,7 +315,7 @@ export function QuizForm({
               onClick={startQuiz}
               className="mt-8 w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-orange-500/25 transition-all hover:shadow-lg active:scale-[0.98]"
             >
-              Commencer le quiz
+              Relever le défi 🚀
             </button>
           )}
         </div>
@@ -295,8 +331,13 @@ export function QuizForm({
                 Question {currentIdx + 1} sur {totalQuestions}
               </span>
               <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400">
-                  {correctSoFar}/{answers.length} correcte{correctSoFar > 1 ? "s" : ""}
+                {currentStreak >= 2 && (
+                  <span className="animate-pulse rounded-full bg-orange-100 px-2 py-0.5 text-xs font-bold text-orange-600">
+                    🔥 {currentStreak} de suite
+                  </span>
+                )}
+                <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-600">
+                  {points} pts
                 </span>
               </div>
             </div>
@@ -405,7 +446,12 @@ export function QuizForm({
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-green-800">Bonne réponse !</p>
+                    <p className="text-sm font-semibold text-green-800">
+                      {pickMsg(PRAISE, currentIdx)}
+                      {currentStreak >= 3 && (
+                        <span className="ml-1 text-orange-600">🔥 {currentStreak} de suite !</span>
+                      )}
+                    </p>
                     {question.explanation && (
                       <p className="mt-1 text-sm text-green-700">{question.explanation}</p>
                     )}
@@ -420,8 +466,11 @@ export function QuizForm({
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-red-800">
-                      Mauvaise réponse — la bonne était{" "}
-                      <span className="text-green-700">
+                      {pickMsg(WRONG_MSG, currentIdx)}
+                    </p>
+                    <p className="mt-0.5 text-sm text-red-700">
+                      La bonne réponse :{" "}
+                      <span className="font-medium text-green-700">
                         « {correctChoice?.choice_text} »
                       </span>
                     </p>
@@ -486,29 +535,32 @@ export function QuizForm({
       {/* ═══ RÉSULTATS ═══════════════════════════════════════ */}
       {phase === "results" && result && (
         <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-          {/* Score principal */}
-          <div className={`px-8 py-10 text-center ${result.passed ? "bg-green-50" : "bg-red-50"}`}>
-            <div
-              className={`mx-auto flex h-20 w-20 items-center justify-center rounded-full ${
-                result.passed ? "bg-green-500" : "bg-red-400"
-              }`}
-            >
-              {result.passed ? (
-                <svg className="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
-              ) : (
-                <span className="text-2xl font-bold text-white">{result.score}%</span>
+          {/* Score principal + célébration */}
+          <div className={`relative overflow-hidden px-8 py-10 text-center ${result.passed ? "bg-green-50" : "bg-red-50"}`}>
+            {tier?.celebrate && <Confetti />}
+            <div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-white text-4xl shadow-sm">
+              {tier?.emoji}
+            </div>
+            <h2 className={`relative mt-4 text-2xl font-extrabold ${result.passed ? "text-green-800" : "text-red-800"}`}>
+              {tier?.title}
+            </h2>
+            <p className={`relative mt-1 text-sm font-medium ${result.passed ? "text-green-600" : "text-red-600"}`}>
+              {tier?.sub}
+            </p>
+            <div className="relative mt-4 inline-flex items-center gap-3 rounded-full bg-white/70 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm">
+              <span>{result.score}%</span>
+              <span className="text-gray-300">·</span>
+              <span>{result.correct}/{result.total} bonnes</span>
+              {bestStreak >= 3 && (
+                <>
+                  <span className="text-gray-300">·</span>
+                  <span className="text-orange-600">🔥 {bestStreak} de suite</span>
+                </>
               )}
             </div>
-            <h2 className={`mt-4 text-xl font-bold ${result.passed ? "text-green-800" : "text-red-800"}`}>
-              {result.passed ? "Quiz réussi !" : "Quiz échoué"}
-            </h2>
-            <p className={`mt-1 text-sm ${result.passed ? "text-green-600" : "text-red-600"}`}>
-              {result.correct} bonne{result.correct > 1 ? "s" : ""} réponse{result.correct > 1 ? "s" : ""} sur{" "}
-              {result.total} — Score : {result.score}%
-              {!result.passed && ` (minimum ${Math.round(passingScore * 100)}%)`}
-            </p>
+            {!result.passed && (
+              <p className="relative mt-2 text-xs text-red-500">Minimum {Math.round(passingScore * 100)}% pour réussir</p>
+            )}
           </div>
 
           {/* Résumé par question */}
@@ -564,17 +616,38 @@ export function QuizForm({
             <p className="text-xs text-gray-400">
               Résultats sauvegardés dans ton dossier
             </p>
-            {!result.passed && (
-              <button
-                onClick={startQuiz}
-                className="rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
-              >
-                Réessayer le quiz
-              </button>
-            )}
+            <button
+              onClick={startQuiz}
+              className="rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
+            >
+              {result.passed ? "Refaire pour battre ton score" : "Réessayer le quiz"}
+            </button>
           </div>
         </div>
       )}
+    </div>
+  );
+}
+
+// ─── Effet festif (burst d'emojis) ─────────────────────────────
+function Confetti() {
+  const items = ["🎉", "🎊", "⭐", "🔥", "🏆", "✨", "🎉", "⭐", "💥"];
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      {items.map((e, i) => (
+        <span
+          key={i}
+          className="absolute animate-bounce text-xl"
+          style={{
+            left: `${(i * 11 + 5) % 96}%`,
+            top: `${(i % 3) * 22 + 2}%`,
+            animationDelay: `${(i % 4) * 0.15}s`,
+            animationDuration: `${1 + (i % 3) * 0.3}s`,
+          }}
+        >
+          {e}
+        </span>
+      ))}
     </div>
   );
 }
