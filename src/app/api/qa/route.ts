@@ -92,10 +92,48 @@ function detectCategory(text: string): string {
   return "général";
 }
 
+// ─── Couche « humaine » : salutations et petites discussions ────
+function humanReply(message: string): string | null {
+  const norm = message
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .replace(/[^a-z0-9\s']/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const words = norm.split(" ").filter(Boolean);
+  // On ne traite comme « discussion » que les messages courts,
+  // pour ne pas détourner une vraie question.
+  if (words.length > 6) return null;
+
+  const has = (re: RegExp) => re.test(norm);
+
+  if (has(/\b(salut|bonjour|bonsoir|allo|allo+|coucou|hey|yo|hello|hi|bon matin|re)\b/) &&
+      !has(/\b(combien|comment|pourquoi|quoi|quel|quelle|que|ou|drapeau|caisse|kart|client|accident)\b/)) {
+    return "Salut ! 👋 Moi c'est l'assistant d'Amigo Karting. Pose-moi une question sur les procédures et je t'aide — par exemple « Combien dans le fonds de caisse ? » ou « Que veut dire le drapeau jaune ? ». De quoi t'as besoin ?";
+  }
+  if (has(/\b(ca va|comment ca va|comment vas|tu vas bien|comment tu vas|ca roule|quoi de neuf)\b/)) {
+    return "Ça va super, merci ! 😊 Et toi, ça va ? Si t'as une question sur le manuel, je suis là pour t'aider.";
+  }
+  if (has(/\b(merci|thanks|thank you|nice|cool|super|parfait|genial|trop bien)\b/) && words.length <= 3) {
+    return "Ça me fait plaisir ! 😊 N'hésite pas si t'as d'autres questions.";
+  }
+  if (has(/\b(qui es tu|tu es qui|t es qui|comment tu t'appelles|c'est quoi ton nom|tu fais quoi|tu sers a quoi|tu peux faire quoi|que peux tu faire|comment ca marche|aide|help)\b/)) {
+    return "Je suis l'assistant d'Amigo Karting. Je connais les manuels — caisse, piste et service client — et je réponds à tes questions sur les procédures. Pose ta question en mots simples, comme « Que faire en cas d'accident ? » et je te trouve la réponse. 🙂";
+  }
+  if (has(/\b(au revoir|bye|a plus|a tantot|a bientot|bonne journee|bonne soiree|ciao|salut bye)\b/)) {
+    return "À bientôt ! Bon karting 🏁";
+  }
+  if (has(/^(oui|non|ok|okay|d'accord|daccord|parfait)$/)) {
+    return "Parfait 🙂 Pose-moi ta question quand tu veux — sur la caisse, la piste ou le service client.";
+  }
+  return null;
+}
+
 function buildSmartResponse(query: string, docs: any[]): { response: string; sources: string[]; category: string } {
   const keywords = extractKeywords(query);
   if (keywords.length === 0) {
-    return { response: "Pose-moi une question plus précise sur les procédures d'Amigo Karting.", sources: [], category: "général" };
+    return { response: "Dis-m'en un peu plus 🙂 Pose ta question en quelques mots et je te trouve la réponse dans le manuel.", sources: [], category: "général" };
   }
 
   // Scorer les documents
@@ -119,7 +157,7 @@ function buildSmartResponse(query: string, docs: any[]): { response: string; sou
 
   if (relevant.length === 0) {
     return {
-      response: "J'ai pas trouvé ça dans le manuel. Essaie de reformuler ou demande-moi un sujet précis comme les casques, la sécurité ou les urgences.",
+      response: "Hmm, je ne trouve pas ça précisément dans le manuel. 🤔 Essaie de reformuler, ou pose-moi une question sur la caisse, la piste ou le service client — par exemple « Que faire en cas d'accident ? » ou « Comment accueillir un client ? ».",
       sources: [],
       category: detectCategory(query),
     };
@@ -243,7 +281,13 @@ export async function POST(req: NextRequest) {
       const history = body.history || [];
 
       if (!message.trim()) {
-        return NextResponse.json({ response: "Pose-moi une question !", nextSuggestions: FOLLOW_UP["général"] });
+        return NextResponse.json({ response: "Vas-y, pose-moi ta question 🙂", nextSuggestions: FOLLOW_UP["général"] });
+      }
+
+      // Réponse humaine pour les salutations / petites discussions
+      const human = humanReply(message);
+      if (human) {
+        return NextResponse.json({ response: human, sources: [], nextSuggestions: FOLLOW_UP["général"] });
       }
 
       // Charger le manuel
