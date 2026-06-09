@@ -345,10 +345,24 @@ export async function POST(req: NextRequest) {
         return NextResponse.json({ response: "Vas-y, pose-moi ta question 🙂", nextSuggestions: FOLLOW_UP["général"] });
       }
 
-      // Réponse humaine pour les salutations / petites discussions
-      const human = humanReply(message);
-      if (human) {
-        return NextResponse.json({ response: human, sources: [], nextSuggestions: FOLLOW_UP["général"] });
+      // Suite à une proposition « Veux-tu que je t'en dise plus sur « X » ? »
+      let effectiveQuery = message;
+      const lastAi = [...history].reverse().find((h: any) => h.role === "ai" || h.role === "assistant");
+      const offerMatch = lastAi ? String(lastAi.content).match(/dise plus sur\s*«\s*(.+?)\s*»/) : null;
+      const affirm = /^(oui|ouais|yes|yep|ok|okay|vas[- ]?y|continue|explique|dis[- ]?moi|je veux|carrement|bien sur|certain|sure|svp|s'il te plait)\b/.test(norm(message).trim());
+      const decline = /^(non|nope|pas besoin|non merci|ca va|c'est bon)\b/.test(norm(message).trim());
+
+      if (offerMatch && affirm) {
+        // L'employé a dit oui → on enchaîne sur le sujet proposé
+        effectiveQuery = offerMatch[1];
+      } else if (offerMatch && decline) {
+        return NextResponse.json({ response: "Pas de souci 🙂 Pose-moi autre chose quand tu veux — caisse, piste ou service client.", sources: [], nextSuggestions: FOLLOW_UP["général"] });
+      } else {
+        // Réponse humaine pour les salutations / petites discussions
+        const human = humanReply(message);
+        if (human) {
+          return NextResponse.json({ response: human, sources: [], nextSuggestions: FOLLOW_UP["général"] });
+        }
       }
 
       // Charger le manuel
@@ -364,7 +378,7 @@ export async function POST(req: NextRequest) {
       }
 
       // Construire la réponse
-      const { response, sources, category } = buildSmartResponse(message, docs);
+      const { response, sources, category } = buildSmartResponse(effectiveQuery, docs);
 
       // Suggestions dynamiques basées sur le contexte de la conversation
       let nextSuggestions: string[] = [];
