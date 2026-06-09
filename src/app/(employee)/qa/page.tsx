@@ -40,7 +40,7 @@ export default function QAPage() {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => { loadInitialSuggestions(); }, []);
-  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth" }); }, [messages, loading]);
+  useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" }); }, [messages, loading]);
   useEffect(() => { if (tab === "history") loadHistory(); }, [tab]);
 
   async function loadInitialSuggestions() {
@@ -119,7 +119,7 @@ export default function QAPage() {
   }
 
   return (
-    <div className="mx-auto flex h-[calc(100vh-6rem)] max-w-lg flex-col">
+    <div className="mx-auto flex h-[calc(100dvh-6rem)] max-w-lg flex-col overflow-hidden">
       {/* Header + onglets */}
       <div className="shrink-0 pb-3">
         <h1 className="text-xl font-bold text-gray-900">Q&A Manuel</h1>
@@ -136,7 +136,7 @@ export default function QAPage() {
       {/* ─── TAB CHAT ──────────────────────────────────── */}
       {tab === "chat" && (
         <>
-          <div className="flex-1 overflow-y-auto rounded-2xl bg-gray-50 px-4 py-4">
+          <div className="min-h-0 flex-1 overflow-y-auto rounded-2xl bg-gray-50 px-4 py-4">
             {messages.length === 0 && (
               <div className="flex min-h-full flex-col items-center justify-center px-2 py-6 text-center">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange-50">
@@ -219,7 +219,7 @@ export default function QAPage() {
 
       {/* ─── TAB HISTORIQUE ────────────────────────────── */}
       {tab === "history" && (
-        <div className="flex-1 overflow-y-auto">
+        <div className="min-h-0 flex-1 overflow-y-auto">
           {historyLoading && (
             <div className="flex justify-center py-12">
               <div className="h-8 w-8 animate-spin rounded-full border-4 border-orange-200 border-t-orange-500" />
