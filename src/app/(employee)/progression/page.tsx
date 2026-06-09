@@ -9,8 +9,59 @@ interface ProgressData {
   stats: { totalQuestions: number; correctRate: number; streak: number; lastActive: string };
 }
 
+interface GamStats {
+  points: number;
+  rank: number;
+  total_players: number;
+  quizzes_total: number;
+  quizzes_passed: number;
+  perfect_count: number;
+  attempts: number;
+  finals_passed: number;
+  daily_streak: number;
+  by_category: Record<string, { total: number; passed: number }>;
+  leaderboard: { name: string; points: number; rank: number; is_me: boolean }[];
+}
+
+const LEVEL_LABELS = ["Recrue", "Apprenti", "Régulier", "Pro", "Vétéran", "Expert", "Maître", "Légende"];
+const PTS_PER_LEVEL = 150;
+
+function levelFromPoints(p: number) {
+  const level = Math.floor(p / PTS_PER_LEVEL) + 1;
+  return {
+    level,
+    label: LEVEL_LABELS[Math.min(level - 1, LEVEL_LABELS.length - 1)],
+    pct: Math.round(((p % PTS_PER_LEVEL) / PTS_PER_LEVEL) * 100),
+    toNext: PTS_PER_LEVEL - (p % PTS_PER_LEVEL),
+  };
+}
+
+function medal(rank: number): string {
+  return rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `#${rank}`;
+}
+
+function computeBadges(g: GamStats) {
+  const cat = g.by_category || {};
+  const catDone = (n: string) => !!cat[n] && cat[n].total > 0 && cat[n].passed >= cat[n].total;
+  return [
+    { icon: "🎬", label: "Premiers pas", desc: "1er quiz complété", earned: g.attempts >= 1 },
+    { icon: "✋", label: "Sur la lancée", desc: "5 quiz réussis", earned: g.quizzes_passed >= 5 },
+    { icon: "🎯", label: "Sans faute", desc: "1 quiz parfait", earned: g.perfect_count >= 1 },
+    { icon: "🌟", label: "Perfectionniste", desc: "5 quiz parfaits", earned: g.perfect_count >= 5 },
+    { icon: "💰", label: "Expert Caisse", desc: "Tous les quiz Caisse", earned: catDone("Caisse - Amigo Karting") },
+    { icon: "🏁", label: "Expert Piste", desc: "Tous les quiz Piste", earned: catDone("Piste") },
+    { icon: "🤝", label: "Expert Sup.", desc: "Tous les quiz Superviseur", earned: catDone("Superviseur du service à la clientèle") },
+    { icon: "🎓", label: "Certifié", desc: "Un examen final réussi", earned: g.finals_passed >= 1 },
+    { icon: "🔥", label: "Assidu", desc: "3 jours d'affilée", earned: g.daily_streak >= 3 },
+    { icon: "⚡", label: "Inarrêtable", desc: "7 jours d'affilée", earned: g.daily_streak >= 7 },
+    { icon: "🏆", label: "Tout réussi", desc: "Tous les quiz réussis", earned: g.quizzes_total > 0 && g.quizzes_passed >= g.quizzes_total },
+    { icon: "🤖", label: "Machine", desc: "1000 points", earned: g.points >= 1000 },
+  ];
+}
+
 export default function ProgressionPage() {
   const [data, setData] = useState<ProgressData | null>(null);
+  const [gam, setGam] = useState<GamStats | null>(null);
   const [loading, setLoading] = useState(true);
   const [reviewMode, setReviewMode] = useState(false);
   const [currentCard, setCurrentCard] = useState(0);
@@ -21,9 +72,16 @@ export default function ProgressionPage() {
 
   async function loadProgress() {
     try {
-      const res = await fetch("/api/training/progression");
+      const [res, resGam] = await Promise.all([
+        fetch("/api/training/progression"),
+        fetch("/api/training/stats"),
+      ]);
       const d = await res.json();
       setData(d);
+      try {
+        const g = await resGam.json();
+        if (g && typeof g.points === "number") setGam(g);
+      } catch {}
     } catch {}
     setLoading(false);
   }
@@ -144,6 +202,56 @@ export default function ProgressionPage() {
         )}
       </div>
 
+      {/* ─── Gamification : points, rang, niveau ─── */}
+      {gam && (() => {
+        const lvl = levelFromPoints(gam.points);
+        return (
+          <>
+            <div className="rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 p-5 text-white shadow-sm">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-xs text-orange-100">Mes points</p>
+                  <p className="text-3xl font-extrabold leading-tight">
+                    {gam.points}<span className="ml-1 text-base font-semibold">pts</span>
+                  </p>
+                  <p className="mt-0.5 text-xs font-medium text-orange-100">Niveau {lvl.level} · {lvl.label}</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-orange-100">Classement</p>
+                  <p className="text-2xl font-extrabold leading-tight">
+                    #{gam.rank || "—"}<span className="text-sm font-medium">/{gam.total_players}</span>
+                  </p>
+                </div>
+              </div>
+              <div className="mt-3">
+                <div className="mb-1 flex justify-between text-[11px] text-orange-100">
+                  <span>Niveau {lvl.level}</span>
+                  <span>{lvl.toNext} pts → niveau {lvl.level + 1}</span>
+                </div>
+                <div className="h-2 overflow-hidden rounded-full bg-orange-400/40">
+                  <div className="h-full rounded-full bg-white transition-all" style={{ width: `${lvl.pct}%` }} />
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm">
+              <span className="text-3xl">{gam.daily_streak > 0 ? "🔥" : "🎯"}</span>
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-gray-900">
+                  {gam.daily_streak > 0 ? `${gam.daily_streak} jour${gam.daily_streak > 1 ? "s" : ""} d'affilée !` : "Défi du jour"}
+                </p>
+                <p className="text-xs text-gray-500">
+                  {gam.daily_streak > 0 ? "Reviens demain pour garder ta série 🔥" : "Fais un quiz aujourd'hui pour lancer ta série"}
+                </p>
+              </div>
+              <a href="/training" className="shrink-0 rounded-full bg-orange-500 px-3.5 py-1.5 text-xs font-semibold text-white active:scale-95">
+                Jouer
+              </a>
+            </div>
+          </>
+        );
+      })()}
+
       {/* Cartes à revoir */}
       {dueCards.length > 0 && (
         <button onClick={() => { setReviewMode(true); setCurrentCard(0); setShowAnswer(false); }}
@@ -203,6 +311,47 @@ export default function ProgressionPage() {
           ))}
         </div>
       </div>
+
+      {/* ─── Badges ─── */}
+      {gam && (() => {
+        const badges = computeBadges(gam);
+        const earned = badges.filter((b) => b.earned).length;
+        return (
+          <div>
+            <p className="mb-3 text-sm font-semibold text-gray-700">
+              Badges <span className="font-normal text-gray-400">({earned}/{badges.length})</span>
+            </p>
+            <div className="grid grid-cols-3 gap-2.5">
+              {badges.map((b) => (
+                <div key={b.label} className={`rounded-xl p-3 text-center ${b.earned ? "bg-white shadow-sm" : "bg-gray-100"}`}>
+                  <div className={`text-2xl ${b.earned ? "" : "opacity-40 grayscale"}`}>{b.earned ? b.icon : "🔒"}</div>
+                  <p className={`mt-1 text-[11px] font-semibold leading-tight ${b.earned ? "text-gray-800" : "text-gray-400"}`}>{b.label}</p>
+                  <p className="mt-0.5 text-[9px] leading-tight text-gray-400">{b.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })()}
+
+      {/* ─── Classement ─── */}
+      {gam && gam.leaderboard && gam.leaderboard.length > 0 && (
+        <div>
+          <p className="mb-3 text-sm font-semibold text-gray-700">Classement</p>
+          <div className="divide-y divide-gray-50 overflow-hidden rounded-2xl bg-white shadow-sm">
+            {gam.leaderboard.map((p, i) => (
+              <div key={i} className={`flex items-center gap-3 px-4 py-3 ${p.is_me ? "bg-orange-50" : ""}`}>
+                <span className="w-7 text-center text-sm font-bold text-gray-500">{medal(p.rank)}</span>
+                <span className="flex-1 text-sm font-medium text-gray-900">
+                  {p.name}
+                  {p.is_me && <span className="ml-1 text-xs font-semibold text-orange-600">(toi)</span>}
+                </span>
+                <span className="text-sm font-bold text-gray-700">{p.points} pts</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* Dernière activité */}
       {stats.lastActive && (

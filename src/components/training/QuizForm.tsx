@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useMemo, useEffect } from "react";
+import { useState, useCallback, useMemo, useEffect, useRef } from "react";
 
 // ─── Types ─────────────────────────────────────────────────────
 interface QuizChoice {
@@ -49,6 +49,7 @@ const CHOICE_LETTERS = ["A", "B", "C", "D", "E", "F"] as const;
 const PRAISE = ["Exactement ! 🎯", "Boom ! 💥", "T'es bon ! 💪", "Parfait ! ⭐", "En plein dans le mille ! 🎯", "Nickel ! ✨", "Tu gères ! 🙌"];
 const WRONG_MSG = ["Pas grave, tu vas l'avoir 💪", "Presque ! Continue 👊", "C'est en se trompant qu'on apprend 📚", "Pas cette fois, mais lâche pas 🙌"];
 const pickMsg = (arr: string[], i: number) => arr[i % arr.length];
+const fmtTime = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
 
 // ─── Composant principal ───────────────────────────────────────
 export function QuizForm({
@@ -72,8 +73,14 @@ export function QuizForm({
   const [error, setError] = useState("");
   const [savedAnswers, setSavedAnswers] = useState<AnswerRecord[] | null>(null);
 
+  // Mode chrono (optionnel)
+  const [chrono, setChrono] = useState(false);
+  const [elapsed, setElapsed] = useState(0);
+  const startMsRef = useRef<number | null>(null);
+
   // Clé de sauvegarde de la progression (par employé + quiz)
   const storageKey = `quiz-progress:${employeeId || "anon"}:${quizId}`;
+  const bestTimeKey = `quiz-best-time:${employeeId || "anon"}:${quizId}`;
 
   const question = sortedQuestions[currentIdx];
   const totalQuestions = sortedQuestions.length;
@@ -168,6 +175,29 @@ export function QuizForm({
     }
   }, [phase, storageKey]);
 
+  // ─── Chrono : tick chaque seconde ─────────────────────────
+  const [bestTime, setBestTime] = useState<number | null>(null);
+  useEffect(() => {
+    if (!chrono || (phase !== "question" && phase !== "correction")) return;
+    const t = setInterval(() => {
+      if (startMsRef.current) setElapsed(Math.floor((Date.now() - startMsRef.current) / 1000));
+    }, 1000);
+    return () => clearInterval(t);
+  }, [chrono, phase]);
+
+  // ─── Chrono : meilleur temps personnel à la fin ───────────
+  useEffect(() => {
+    if (phase === "results" && chrono) {
+      try {
+        const prev = parseInt(window.localStorage.getItem(bestTimeKey) || "0", 10);
+        setBestTime(prev > 0 ? prev : null);
+        if (!prev || elapsed < prev) window.localStorage.setItem(bestTimeKey, String(elapsed));
+      } catch {
+        /* ignore */
+      }
+    }
+  }, [phase, chrono, bestTimeKey]);
+
   // ─── Démarrer le quiz (à zéro) ────────────────────────────
   const startQuiz = useCallback(() => {
     try {
@@ -176,6 +206,8 @@ export function QuizForm({
       /* ignore */
     }
     setSavedAnswers(null);
+    startMsRef.current = Date.now();
+    setElapsed(0);
     setPhase("question");
     setCurrentIdx(0);
     setAnswers([]);
@@ -187,6 +219,8 @@ export function QuizForm({
   // ─── Reprendre où on s'était arrêté ───────────────────────
   const resumeQuiz = useCallback(() => {
     if (!savedAnswers) return;
+    startMsRef.current = Date.now();
+    setElapsed(0);
     const resumeIdx = Math.min(savedAnswers.length, totalQuestions - 1);
     setAnswers(savedAnswers.slice(0, resumeIdx));
     setCurrentIdx(resumeIdx);
@@ -295,6 +329,16 @@ export function QuizForm({
             <InfoRow icon="save" text="Ta progression est gardée — tu peux arrêter et revenir plus tard" />
           </div>
 
+          <button
+            onClick={() => setChrono((c) => !c)}
+            className={`mt-4 flex w-full items-center justify-between rounded-xl border-2 px-4 py-3 text-sm font-medium transition ${chrono ? "border-orange-400 bg-orange-50 text-orange-700" : "border-gray-200 text-gray-500"}`}
+          >
+            <span>⏱️ Mode chrono {chrono ? "(activé)" : "— bats ton record"}</span>
+            <span className={`flex h-5 w-9 items-center rounded-full p-0.5 transition ${chrono ? "bg-orange-500" : "bg-gray-300"}`}>
+              <span className={`block h-4 w-4 rounded-full bg-white transition-transform ${chrono ? "translate-x-4" : ""}`} />
+            </span>
+          </button>
+
           {savedAnswers ? (
             <div className="mt-8 space-y-3">
               <button
@@ -331,6 +375,11 @@ export function QuizForm({
                 Question {currentIdx + 1} sur {totalQuestions}
               </span>
               <div className="flex items-center gap-2">
+                {chrono && (
+                  <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-600">
+                    ⏱ {fmtTime(elapsed)}
+                  </span>
+                )}
                 {currentStreak >= 2 && (
                   <span className="animate-pulse rounded-full bg-orange-100 px-2 py-0.5 text-xs font-bold text-orange-600">
                     🔥 {currentStreak} de suite
@@ -558,6 +607,12 @@ export function QuizForm({
                 </>
               )}
             </div>
+            {chrono && (
+              <p className="relative mt-2 text-xs font-medium text-gray-600">
+                ⏱ {fmtTime(elapsed)}
+                {bestTime == null ? "" : elapsed < bestTime ? " · Nouveau record ! 🏅" : ` · ton record : ${fmtTime(bestTime)}`}
+              </p>
+            )}
             {!result.passed && (
               <p className="relative mt-2 text-xs text-red-500">Minimum {Math.round(passingScore * 100)}% pour réussir</p>
             )}
