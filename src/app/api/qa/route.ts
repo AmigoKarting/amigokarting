@@ -13,12 +13,66 @@ const STOP_WORDS = new Set([
   "merci", "ok", "oui", "non", "svp", "stp",
 ]);
 
+// Enlève les accents et met en minuscules (recherche robuste)
+function norm(s: string): string {
+  return (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+}
+
+const STOP_NORM = new Set([...STOP_WORDS].map(norm));
+
 function extractKeywords(text: string): string[] {
-  return text
-    .toLowerCase()
-    .replace(/[^a-zàâäéèêëïîôùûüç0-9\s-]/g, " ")
+  return norm(text)
+    .replace(/[^a-z0-9\s-]/g, " ")
     .split(/\s+/)
-    .filter((w) => w.length > 2 && !STOP_WORDS.has(w));
+    .filter((w) => w.length > 2 && !STOP_NORM.has(w));
+}
+
+// Synonymes : aide à relier les mots de l'employé au vocabulaire des manuels
+const SYNONYMS: Record<string, string[]> = {
+  argent: ["caisse", "fonds", "paiement", "comptant"],
+  cash: ["caisse", "fonds", "comptant"],
+  monnaie: ["caisse", "fonds"],
+  fond: ["fonds", "caisse"],
+  prix: ["prix", "tarif", "forfait", "cout"],
+  tarif: ["prix", "tarif", "forfait"],
+  cout: ["prix", "tarif"],
+  coute: ["prix", "tarif"],
+  rabais: ["rabais", "prix", "negociable"],
+  rembourser: ["remboursement", "rembourse"],
+  remboursement: ["remboursement", "rembourse"],
+  feu: ["drapeau"],
+  lumiere: ["drapeau"],
+  blesse: ["blessure", "accident", "urgence"],
+  blessure: ["blessure", "accident", "urgence"],
+  urgence: ["accident", "urgence", "secours"],
+  accident: ["accident", "urgence"],
+  ouvrir: ["ouverture"],
+  ouverture: ["ouverture"],
+  fermer: ["fermeture"],
+  fermeture: ["fermeture", "close"],
+  pluie: ["pluie", "mouille", "meteo"],
+  mouille: ["pluie"],
+  fache: ["mecontent", "plainte"],
+  mecontent: ["mecontent", "plainte"],
+  plainte: ["plainte", "mecontent"],
+  vehicule: ["kart"],
+  voiture: ["kart"],
+  essence: ["essence", "carburant", "gaz"],
+  gaz: ["essence", "carburant"],
+  reservation: ["reservation", "groupe"],
+  groupe: ["groupe", "reservation"],
+  pause: ["pause", "repas"],
+  casque: ["casque", "equipement", "ceinture"],
+};
+
+function expandKeywords(kws: string[]): string[] {
+  const out = new Set(kws);
+  for (const k of kws) (SYNONYMS[k] || []).forEach((s) => out.add(s));
+  return [...out];
+}
+
+function pickOne(arr: string[]): string {
+  return arr[Math.floor(Math.random() * arr.length)];
 }
 
 // ─── Suggestions dynamiques par sujet ───────────────────────────
@@ -131,22 +185,22 @@ function humanReply(message: string): string | null {
 }
 
 function buildSmartResponse(query: string, docs: any[]): { response: string; sources: string[]; category: string } {
-  const keywords = extractKeywords(query);
+  const keywords = expandKeywords(extractKeywords(query));
   if (keywords.length === 0) {
     return { response: "Dis-m'en un peu plus 🙂 Pose ta question en quelques mots et je te trouve la réponse dans le manuel.", sources: [], category: "général" };
   }
 
-  // Scorer les documents
+  // Scorer les documents (recherche sans accents)
   const scored = docs.map((doc: any) => {
-    const titleLower = doc.title.toLowerCase();
-    const contentLower = doc.content.toLowerCase();
-    const categoryLower = (doc.category || "").toLowerCase();
+    const titleN = norm(doc.title);
+    const contentN = norm(doc.content);
+    const categoryN = norm(doc.category || "");
 
     let score = 0;
     for (const kw of keywords) {
-      if (titleLower.includes(kw)) score += 3;
-      if (categoryLower.includes(kw)) score += 2;
-      const matches = (contentLower.match(new RegExp(kw, "g")) || []).length;
+      if (titleN.includes(kw)) score += 3;
+      if (categoryN.includes(kw)) score += 2;
+      const matches = contentN.split(kw).length - 1;
       score += Math.min(matches, 3);
     }
 
@@ -172,35 +226,42 @@ function buildSmartResponse(query: string, docs: any[]): { response: string; sou
 
   // Trouver les phrases les plus pertinentes
   const rankedSentences = sentences.map((s: string) => {
+    const sn = norm(s);
     let score = 0;
     for (const kw of keywords) {
-      if (s.toLowerCase().includes(kw)) score += 1;
+      if (sn.includes(kw)) score += 1;
     }
     return { text: s, score };
   }).sort((a, b) => b.score - a.score);
 
-  // Prendre les 3-5 meilleures phrases
-  const topSentences = rankedSentences.filter((s) => s.score > 0).slice(0, 5);
+  // Prendre les meilleures phrases
+  const topSentences = rankedSentences.filter((s) => s.score > 0).slice(0, 4);
 
-  let response: string;
+  // Intro conversationnelle (varie pour un ton plus humain)
+  const intro = pickOne([
+    "Bonne question ! 👇",
+    "Voici ce que je trouve dans le manuel 👇",
+    "Ok, voilà l'info :",
+    "D'après le manuel :",
+  ]);
 
+  let body: string;
   if (topSentences.length >= 2) {
-    // Résumé intelligent
-    response = `Selon le manuel (${best.title}) :\n\n${topSentences.map((s) => s.text.trim()).join("\n\n")}`;
+    body = topSentences.map((s) => s.text.trim()).join("\n\n");
   } else if (topSentences.length === 1) {
-    response = `Selon le manuel (${best.title}) :\n\n${topSentences[0].text.trim()}`;
-    // Ajouter du contexte avec la phrase avant et après
+    const parts = [topSentences[0].text.trim()];
     const idx = sentences.indexOf(topSentences[0].text);
-    if (idx > 0) response += `\n\n${sentences[idx - 1].trim()}`;
-    if (idx < sentences.length - 1) response += `\n\n${sentences[idx + 1].trim()}`;
+    if (idx >= 0 && idx < sentences.length - 1) parts.push(sentences[idx + 1].trim());
+    body = parts.join("\n\n");
   } else {
-    // Prendre le début du document
-    response = `Voici ce que le manuel dit sur ${best.title} :\n\n${sentences.slice(0, 3).join(" ")}`;
+    body = sentences.slice(0, 3).join(" ");
   }
 
-  // Si un deuxième document est pertinent, ajouter une note
+  let response = `${intro}\n\n${body}`;
+
+  // Si un deuxième document est pertinent, le proposer
   if (relevant.length > 1 && relevant[1].score >= 3) {
-    response += `\n\nÀ voir aussi : ${relevant[1].title}.`;
+    response += `\n\nVeux-tu que je t'en dise plus sur « ${relevant[1].title} » ?`;
   }
 
   const sources = relevant.slice(0, 2).map((d: any) => d.title);
