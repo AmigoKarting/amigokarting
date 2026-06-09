@@ -2,6 +2,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { VideoPlayer } from "@/components/training/VideoPlayer";
 import { QuizForm } from "@/components/training/QuizForm";
+import { FormationContent } from "@/components/training/FormationContent";
 import { notFound } from "next/navigation";
 
 export default async function ChapterPage({
@@ -55,11 +56,7 @@ export default async function ChapterPage({
         </a>
       )}
 
-      {chapter.content && (
-        <div className="whitespace-pre-wrap rounded-xl bg-white p-6 leading-relaxed text-gray-800 shadow-sm">
-          {chapter.content}
-        </div>
-      )}
+      {chapter.content && <FormationContent content={chapter.content} />}
 
       <div className="space-y-6">
         {chapter.training_videos
