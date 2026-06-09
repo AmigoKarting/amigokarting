@@ -194,13 +194,13 @@ export default function QAPage() {
             </div>
           </div>
 
-          {/* Suggestions de suivi — pendant la conversation */}
+          {/* Suggestions de suivi — pendant la conversation (retour à la ligne, sans défilement) */}
           {messages.length > 0 && suggestions.length > 0 && (
-            <div className="shrink-0 overflow-x-auto py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              <div className="flex gap-2">
-                {suggestions.map((s, i) => (
+            <div className="shrink-0 py-2">
+              <div className="flex flex-wrap gap-2">
+                {suggestions.slice(0, 4).map((s, i) => (
                   <button key={i} onClick={() => sendMessage(s)} disabled={loading}
-                    className="shrink-0 rounded-full border border-orange-200 bg-white px-3.5 py-2 text-[13px] font-medium text-orange-700 shadow-sm transition hover:bg-orange-50 active:scale-95 disabled:opacity-50">
+                    className="rounded-full border border-orange-200 bg-white px-3.5 py-2 text-[13px] font-medium text-orange-700 shadow-sm transition hover:bg-orange-50 active:scale-95 disabled:opacity-50">
                     {s}
                   </button>
                 ))}
