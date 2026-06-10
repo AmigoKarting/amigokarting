@@ -33,13 +33,15 @@ const { data: score }: any = await supabase
       <h1 className="text-2xl font-bold">Ma note</h1>
 
       {/* Score principal */}
-      <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
+      <div className="animate-pop-in rounded-2xl bg-white p-8 text-center shadow-sm">
         <div className="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-gray-100">
           <span className={`text-4xl font-bold ${getScoreColor(globalScore)}`}>
             {globalScore}
           </span>
         </div>
-        <p className="mt-3 text-sm text-gray-500">{getScoreLabel(globalScore)}</p>
+        <p className="mt-3 text-base font-semibold text-gray-800">
+          {globalScore >= 80 ? "🏆" : globalScore >= 60 ? "💪" : globalScore >= 40 ? "📈" : "🌱"} {getScoreLabel(globalScore)}
+        </p>
         <div className="mx-auto mt-4 h-3 w-48 sm:w-64 overflow-hidden rounded-full bg-gray-200">
           <div
             className={`h-full rounded-full transition-all ${
@@ -56,7 +58,7 @@ const { data: score }: any = await supabase
       {/* Détail par catégorie */}
       <div className="grid gap-3 sm:grid-cols-2">
         {/* Formation (40%) */}
-        <div className="rounded-xl bg-white p-5 shadow-sm">
+        <div className="animate-fade-in-up rounded-xl bg-white p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <p className="text-xs font-medium uppercase text-gray-400">Formation</p>
             <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-medium text-orange-700">40% du score</span>
@@ -69,7 +71,7 @@ const { data: score }: any = await supabase
         </div>
 
         {/* Quiz (30%) */}
-        <div className="rounded-xl bg-white p-5 shadow-sm">
+        <div className="animate-fade-in-up rounded-xl bg-white p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <p className="text-xs font-medium uppercase text-gray-400">Quiz</p>
             <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-medium text-orange-700">30% du score</span>
@@ -84,7 +86,7 @@ const { data: score }: any = await supabase
         </div>
 
         {/* Conversations (20%) */}
-        <div className="rounded-xl bg-white p-5 shadow-sm">
+        <div className="animate-fade-in-up rounded-xl bg-white p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <p className="text-xs font-medium uppercase text-gray-400">Conversations IA</p>
             <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-medium text-orange-700">20% du score</span>
@@ -101,7 +103,7 @@ const { data: score }: any = await supabase
         </div>
 
         {/* Q&A (10%) */}
-        <div className="rounded-xl bg-white p-5 shadow-sm">
+        <div className="animate-fade-in-up rounded-xl bg-white p-5 shadow-sm">
           <div className="flex items-center justify-between">
             <p className="text-xs font-medium uppercase text-gray-400">Q&A Manuel</p>
             <span className="rounded-full bg-orange-100 px-2 py-0.5 text-[10px] font-medium text-orange-700">10% du score</span>

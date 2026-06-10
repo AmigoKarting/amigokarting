@@ -119,12 +119,12 @@ export default function HistoriquePage() {
 
       {/* Vide */}
       {!loading && filtered.length === 0 && (
-        <div className="rounded-xl bg-white p-10 text-center shadow-sm">
-          <p className="text-4xl">📭</p>
-          <p className="mt-3 text-sm font-medium text-gray-700">
-            {filter === "all" ? "Aucune activité encore" : `Aucune activité de type ${filters.find((f) => f.id === filter)?.label}`}
+        <div className="animate-pop-in rounded-xl bg-white p-10 text-center shadow-sm">
+          <p className="text-5xl">🚀</p>
+          <p className="mt-3 text-sm font-semibold text-gray-800">
+            {filter === "all" ? "Ton aventure commence ici !" : `Rien en « ${filters.find((f) => f.id === filter)?.label} » pour l'instant`}
           </p>
-          <p className="mt-1 text-xs text-gray-400">Commence par une conversation ou un quiz</p>
+          <p className="mt-1 text-xs text-gray-400">Lance-toi avec un quiz ou une conversation — ça apparaîtra ici 😊</p>
         </div>
       )}
 
@@ -134,7 +134,7 @@ export default function HistoriquePage() {
           <p className="mb-2 text-xs font-semibold text-gray-400">{label}</p>
           <div className="space-y-2">
             {items.map((item) => (
-              <div key={item.id} className="rounded-xl bg-white p-4 shadow-sm">
+              <div key={item.id} className="animate-fade-in-up rounded-xl bg-white p-4 shadow-sm">
                 <div className="flex items-start gap-3">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gray-50 text-lg">
                     {item.icon}
