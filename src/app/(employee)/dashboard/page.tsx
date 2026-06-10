@@ -84,7 +84,7 @@ export default async function DashboardPage() {
   ];
 
   return (
-    <div className="mx-auto max-w-lg space-y-5">
+    <div className="mx-auto w-full max-w-lg space-y-5 lg:max-w-5xl">
       <AnnouncementPopup />
 
       {/* ─── Bienvenue + résumé de jeu ─── */}
@@ -110,6 +110,10 @@ export default async function DashboardPage() {
           )}
         </div>
       </div>
+
+      {/* ─── Sections (2 colonnes sur grand écran pour remplir l'espace) ─── */}
+      <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:items-start">
+        <div className="space-y-5">
 
       {/* ─── Rappel : série / défi du jour ─── */}
       <Link
@@ -145,6 +149,10 @@ export default async function DashboardPage() {
           <span className="shrink-0 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white">{next.cta}</span>
         </div>
       </Link>
+
+        </div>
+
+        <div className="space-y-5">
 
       {/* ─── Reconnaissance : en tête du classement ─── */}
       {leader && (
@@ -192,6 +200,9 @@ export default async function DashboardPage() {
                 ? "Tu as tout réussi ! Refais tes quiz pour viser le 100 % et les badges « sans faute »."
                 : "Tu es une machine ! Garde ta série et aide tes collègues à te rattraper 😏"}
         </p>
+      </div>
+
+        </div>
       </div>
     </div>
   );
