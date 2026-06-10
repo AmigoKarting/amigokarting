@@ -176,8 +176,11 @@ export default function ProgressionPage() {
 
   // ─── Page principale ──────────────────────────────────
   return (
-    <div className="mx-auto max-w-lg space-y-6">
+    <div className="mx-auto w-full max-w-lg space-y-6 lg:max-w-5xl">
       <h1 className="text-2xl font-bold">Ma progression</h1>
+
+      <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start">
+        <div className="space-y-6">
 
       {/* Niveau actuel */}
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 p-6 text-white">
@@ -285,6 +288,10 @@ export default function ProgressionPage() {
         </div>
       </div>
 
+        </div>
+
+        <div className="space-y-6">
+
       {/* Progression par sujet */}
       <div>
         <p className="mb-3 text-sm font-semibold text-gray-700">Progression par sujet</p>
@@ -357,6 +364,9 @@ export default function ProgressionPage() {
       {stats.lastActive && (
         <p className="text-center text-xs text-gray-400">Dernière activité : {stats.lastActive}</p>
       )}
+
+        </div>
+      </div>
     </div>
   );
 }

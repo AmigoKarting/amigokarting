@@ -70,7 +70,7 @@ export default function HistoriquePage() {
   }
 
   return (
-    <div className="mx-auto max-w-lg space-y-5">
+    <div className="mx-auto w-full max-w-lg space-y-5 lg:max-w-3xl">
       <div>
         <h1 className="text-2xl font-bold">Mon historique</h1>
         <p className="mt-1 text-sm text-gray-500">Tout ce que tu as fait dans l'app</p>
@@ -132,7 +132,7 @@ export default function HistoriquePage() {
       {Object.entries(grouped).map(([label, items]) => (
         <div key={label}>
           <p className="mb-2 text-xs font-semibold text-gray-400">{label}</p>
-          <div className="space-y-2">
+          <div className="grid gap-2 lg:grid-cols-2">
             {items.map((item) => (
               <div key={item.id} className="animate-fade-in-up rounded-xl bg-white p-4 shadow-sm">
                 <div className="flex items-start gap-3">

@@ -25,6 +25,7 @@ export const employeeNav: NavItem[] = [
 
 export const managerBaseNav: NavItem[] = [
   // Section Gestion
+  { label: "Accueil", href: "/admin/accueil", icon: "Home" },
   { label: "Tableau de bord", href: "/admin", icon: "LayoutDashboard" },
   { label: "Approbations", href: "/admin/approbations", icon: "UserCheck", patronOnly: true },
   { label: "Employés", href: "/admin/employees", icon: "Users" },

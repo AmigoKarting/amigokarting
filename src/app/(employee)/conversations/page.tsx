@@ -39,19 +39,19 @@ export default function ConversationsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-lg space-y-6">
+    <div className="mx-auto w-full max-w-lg space-y-6 lg:max-w-4xl">
       <div className="flex items-center gap-2">
         <h1 className="text-2xl font-bold">Conversations IA</h1>
         <span className="rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700">BÊTA</span>
       </div>
       <p className="text-sm text-gray-500">Choisis un sujet ou laisse l'IA décider selon tes faiblesses.</p>
 
-      <div className="space-y-3">
+      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {topics.map((topic) => (
           <button
             key={topic.id}
             onClick={() => setSelectedTopic(topic.id)}
-            className={`w-full rounded-xl bg-white p-4 text-left shadow-sm transition active:scale-[0.99] ${topic.id === "all" ? "ring-2 ring-orange-300" : ""}`}
+            className={`w-full rounded-xl bg-white p-4 text-left shadow-sm transition active:scale-[0.99] ${topic.id === "all" ? "ring-2 ring-orange-300 sm:col-span-2" : ""}`}
           >
             <div className="flex items-center gap-4">
               <span className="text-2xl">{topic.icon}</span>
