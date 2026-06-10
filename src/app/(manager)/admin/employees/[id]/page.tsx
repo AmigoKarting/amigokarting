@@ -1,5 +1,6 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
+import { ChevronLeft, Crown } from "lucide-react";
 import Link from "next/link";
 
 export default async function EmployeeDetailPage({ params }: { params: { id: string } }) {
@@ -59,37 +60,37 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
       {/* En-tête */}
       <div className="flex items-start justify-between">
         <div>
-          <Link href="/admin/employees" className="mb-2 inline-flex items-center gap-1 text-sm text-gray-400 hover:text-gray-600">
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-            </svg>
+          <Link href="/admin/employees" className="mb-2 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700">
+            <ChevronLeft className="h-4 w-4" strokeWidth={2} />
             Retour aux employés
           </Link>
-          <h1 className="text-2xl font-bold text-gray-900">
+          <h1 className="text-2xl font-semibold tracking-tight text-gray-900">
             {employee.first_name} {employee.last_name}
           </h1>
           <div className="mt-1 flex items-center gap-2">
-            <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
+            <span className={`inline-flex items-center gap-1 rounded-md px-2.5 py-0.5 text-xs font-medium ${
               employee.role === "patron"
-                ? "bg-yellow-100 text-yellow-700"
+                ? "bg-amber-50 text-amber-600"
                 : employee.role === "manager"
-                  ? "bg-purple-100 text-purple-700"
+                  ? "bg-gray-100 text-gray-600"
                   : "bg-gray-100 text-gray-600"
             }`}>
-              {employee.role === "patron" ? "👑 Patron" : employee.role === "manager" ? "Gérant" : "Employé"}
+              {employee.role === "patron"
+                ? <><Crown className="h-3 w-3" strokeWidth={2} /> Patron</>
+                : employee.role === "manager" ? "Gérant" : "Employé"}
             </span>
             {missingFields.length > 0 ? (
-              <span className="rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-700">
+              <span className="rounded-md bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-600">
                 {missingFields.length} info{missingFields.length > 1 ? "s" : ""} manquante{missingFields.length > 1 ? "s" : ""}
               </span>
             ) : (
-              <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700">
+              <span className="rounded-md bg-green-50 px-2.5 py-0.5 text-xs font-medium text-green-600">
                 Fiche complète
               </span>
             )}
           </div>
         </div>
-        <div className="text-right text-xs text-gray-400">
+        <div className="text-right text-xs text-gray-500">
           <p>ID : {employee.id.slice(0, 8)}...</p>
           <p>Code : {employee.phone_last4}</p>
         </div>
@@ -98,14 +99,14 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
       {/* Alerte champs manquants */}
       {missingFields.length > 0 && (
         <div className="rounded-xl border border-red-200 bg-red-50 p-4">
-          <p className="text-sm font-medium text-red-800">Informations manquantes :</p>
+          <p className="text-sm font-medium text-red-600">Informations manquantes :</p>
           <p className="mt-1 text-sm text-red-600">{missingFields.join(", ")}</p>
         </div>
       )}
 
       {/* Toutes les informations personnelles */}
-      <div className="rounded-xl bg-white shadow-sm">
-        <div className="border-b border-gray-100 px-6 py-4">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="border-b border-gray-200 px-6 py-4">
           <h2 className="font-semibold text-gray-900">Informations personnelles complètes</h2>
         </div>
         <div className="grid grid-cols-1 gap-0 divide-y sm:grid-cols-2 sm:divide-y-0 sm:divide-x">
@@ -146,30 +147,30 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
 
       {/* Stats */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div className="rounded-xl bg-white p-5 shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
           <p className="text-xs text-gray-500">Vidéos complétées</p>
-          <p className="mt-1 text-2xl font-bold text-orange-600">
+          <p className="mt-1 text-2xl font-semibold text-gray-900">
             {watchLogs?.filter((w) => w.completed).length || 0}
           </p>
         </div>
-        <div className="rounded-xl bg-white p-5 shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
           <p className="text-xs text-gray-500">Quiz réussis</p>
-          <p className="mt-1 text-2xl font-bold text-orange-600">
+          <p className="mt-1 text-2xl font-semibold text-gray-900">
             {quizAttempts?.filter((q) => q.passed).length || 0}
             <span className="text-sm font-normal text-gray-400">
               /{quizAttempts?.length || 0}
             </span>
           </p>
         </div>
-        <div className="rounded-xl bg-white p-5 shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
           <p className="text-xs text-gray-500">Heures conversation</p>
-          <p className="mt-1 text-2xl font-bold text-orange-600">
+          <p className="mt-1 text-2xl font-semibold text-gray-900">
             {(totalConvSeconds / 3600).toFixed(1)}h
           </p>
         </div>
-        <div className="rounded-xl bg-white p-5 shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
           <p className="text-xs text-gray-500">Note moyenne</p>
-          <p className="mt-1 text-2xl font-bold text-orange-600">
+          <p className="mt-1 text-2xl font-semibold text-gray-900">
             {avgRating ? avgRating.toFixed(1) : "—"}
             <span className="text-sm font-normal text-gray-400">/10</span>
           </p>
@@ -178,14 +179,14 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
 
       {/* Progression vidéos */}
       {watchLogs && watchLogs.length > 0 && (
-        <div className="rounded-xl bg-white shadow-sm">
-          <div className="border-b border-gray-100 px-6 py-4">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+          <div className="border-b border-gray-200 px-6 py-4">
             <h2 className="font-semibold text-gray-900">Progression des vidéos</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
+                <tr className="border-b border-gray-200 bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
                   <th className="px-4 py-2">Vidéo</th>
                   <th className="px-4 py-2">Regardé</th>
                   <th className="px-4 py-2">Statut</th>
@@ -194,19 +195,19 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
               </thead>
               <tbody>
                 {watchLogs.map((w: any) => (
-                  <tr key={w.id} className="border-b last:border-0">
+                  <tr key={w.id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                     <td className="px-4 py-2">{w.training_videos?.title || "—"}</td>
                     <td className="px-4 py-2 font-mono text-xs">
                       {Math.floor(w.watched_sec / 60)}:{String(w.watched_sec % 60).padStart(2, "0")}
                     </td>
                     <td className="px-4 py-2">
                       {w.completed ? (
-                        <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">Complétée</span>
+                        <span className="rounded-md bg-green-50 px-2 py-0.5 text-xs font-medium text-green-600">Complétée</span>
                       ) : (
-                        <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700">En cours</span>
+                        <span className="rounded-md bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-600">En cours</span>
                       )}
                     </td>
-                    <td className="px-4 py-2 text-xs text-gray-400">
+                    <td className="px-4 py-2 text-xs text-gray-500">
                       {w.completed_at
                         ? new Date(w.completed_at).toLocaleDateString("fr-CA")
                         : new Date(w.started_at).toLocaleDateString("fr-CA")}
@@ -220,15 +221,15 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
       )}
 
       {/* Historique quiz */}
-      <div className="rounded-xl bg-white shadow-sm">
-        <div className="border-b border-gray-100 px-6 py-4">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="border-b border-gray-200 px-6 py-4">
           <h2 className="font-semibold text-gray-900">Historique des quiz</h2>
         </div>
         {quizAttempts && quizAttempts.length > 0 ? (
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
+                <tr className="border-b border-gray-200 bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
                   <th className="px-4 py-2">Quiz</th>
                   <th className="px-4 py-2">Score</th>
                   <th className="px-4 py-2">Résultat</th>
@@ -238,25 +239,25 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
               </thead>
               <tbody>
                 {quizAttempts.map((a: any) => (
-                  <tr key={a.id} className="border-b last:border-0">
+                  <tr key={a.id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                     <td className="px-4 py-2">{a.quizzes?.title || "—"}</td>
                     <td className="px-4 py-2 font-medium">{Math.round((a.score || 0) * 100)}%</td>
                     <td className="px-4 py-2">
-                      <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                        a.passed ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"
+                      <span className={`rounded-md px-2 py-0.5 text-xs font-medium ${
+                        a.passed ? "bg-green-50 text-green-600" : "bg-red-50 text-red-600"
                       }`}>
                         {a.passed ? "Réussi" : "Échoué"}
                       </span>
                     </td>
-                    <td className="px-4 py-2 text-xs text-gray-400">
+                    <td className="px-4 py-2 text-xs text-gray-500">
                       {new Date(a.started_at).toLocaleDateString("fr-CA")}
                     </td>
                     <td className="px-4 py-2 text-right">
                       <Link
                         href={`/training/resultat/${a.id}?from=/admin/employees/${params.id}`}
-                        className="rounded-full bg-orange-50 px-2.5 py-1 text-xs font-medium text-orange-600 hover:bg-orange-100"
+                        className="rounded-md bg-orange-50 px-2.5 py-1 text-xs font-medium text-brand-700 hover:bg-orange-100"
                       >
-                        Voir le détail →
+                        Voir le détail
                       </Link>
                     </td>
                   </tr>
@@ -265,20 +266,20 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
             </table>
           </div>
         ) : (
-          <p className="p-6 text-center text-sm text-gray-400">Aucun quiz complété</p>
+          <p className="p-6 text-center text-sm text-gray-500">Aucun quiz complété</p>
         )}
       </div>
 
       {/* Historique conversations */}
       {conversations.length > 0 && (
-        <div className="rounded-xl bg-white shadow-sm">
-          <div className="border-b border-gray-100 px-6 py-4">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+          <div className="border-b border-gray-200 px-6 py-4">
             <h2 className="font-semibold text-gray-900">Historique des conversations</h2>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
+                <tr className="border-b border-gray-200 bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
                   <th className="px-4 py-2">Date</th>
                   <th className="px-4 py-2">Durée</th>
                   <th className="px-4 py-2">Note</th>
@@ -287,7 +288,7 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
               </thead>
               <tbody>
                 {conversations.map((c: any) => (
-                  <tr key={c.id} className="border-b last:border-0">
+                  <tr key={c.id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                     <td className="px-4 py-2 text-xs">
                       {new Date(c.started_at).toLocaleString("fr-CA")}
                     </td>
@@ -298,7 +299,7 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
                     </td>
                     <td className="px-4 py-2">
                       {c.rating ? (
-                        <span className="font-medium text-orange-600">{c.rating}/10</span>
+                        <span className="font-medium text-brand-600">{c.rating}/10</span>
                       ) : "—"}
                     </td>
                     <td className="max-w-xs truncate px-4 py-2 text-xs text-gray-500">

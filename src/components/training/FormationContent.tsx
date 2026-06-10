@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { CheckCircle2, Lightbulb, AlertTriangle, Timer } from "lucide-react";
 
 // Rendu interactif et agréable d'une formation (texte brut structuré) :
 // sections stylées, encadrés « À retenir » et « Exemple », avertissements,
@@ -61,9 +62,9 @@ function renderLines(lines: string[], variant: "check" | "dot" | "plain") {
         {bullets.map((b, i) => (
           <li key={i} className="flex gap-2 text-[15px] leading-relaxed text-gray-700">
             {variant === "check" ? (
-              <span className="mt-0.5 shrink-0 text-green-600">✓</span>
+              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-green-600" strokeWidth={2} />
             ) : (
-              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-orange-400" />
+              <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-brand-600" />
             )}
             <span>{b}</span>
           </li>
@@ -85,8 +86,8 @@ function renderLines(lines: string[], variant: "check" | "dot" | "plain") {
     flush(`u${idx}`);
     if (/^(avertissement|attention|danger|important)\b/i.test(noAccent(t))) {
       blocks.push(
-        <p key={`w${idx}`} className="my-2 flex gap-2 rounded-lg bg-amber-50 px-3 py-2 text-[15px] leading-relaxed text-amber-900">
-          <span className="shrink-0">⚠️</span>
+        <p key={`w${idx}`} className="my-2 flex gap-2 rounded-lg border border-amber-200 bg-amber-50 px-3 py-2 text-[15px] leading-relaxed text-amber-900">
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" strokeWidth={2} />
           <span>{t}</span>
         </p>
       );
@@ -145,20 +146,20 @@ export function FormationContent({ content }: { content: string }) {
   }, []);
 
   return (
-    <div ref={rootRef} className="overflow-hidden rounded-2xl bg-white shadow-sm">
+    <div ref={rootRef} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
       {/* Barre de progression de lecture */}
       <div className="sticky top-0 z-10 h-1.5 bg-gray-100">
         <div
-          className="h-full rounded-r-full bg-gradient-to-r from-orange-400 to-orange-600 transition-all duration-150"
+          className="h-full rounded-r-full bg-brand-600 transition-all duration-150"
           style={{ width: `${progress}%` }}
         />
       </div>
 
       <div className="p-5 sm:p-6">
         {/* Méta : temps de lecture */}
-        <div className="mb-4 flex items-center gap-2 text-xs font-medium text-gray-400">
-          <span className="inline-flex items-center gap-1 rounded-full bg-orange-50 px-2.5 py-1 text-orange-600">
-            ⏱ ~{minutes} min de lecture
+        <div className="mb-4 flex items-center gap-2 text-xs font-medium text-gray-500">
+          <span className="inline-flex items-center gap-1 rounded-md bg-orange-50 px-2.5 py-1 text-brand-700">
+            <Timer className="h-3.5 w-3.5" strokeWidth={2} /> ~{minutes} min de lecture
           </span>
           <span>{sections.filter((s) => s.heading).length} sections</span>
         </div>
@@ -172,8 +173,8 @@ export function FormationContent({ content }: { content: string }) {
             if (sec.type === "retenir") {
               return (
                 <div key={i} className="rounded-xl border border-green-200 bg-green-50 p-4">
-                  <h3 className="mb-1 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-green-700">
-                    <span>✅</span> {nice(sec.heading || "À retenir")}
+                  <h3 className="mb-1 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-green-700">
+                    <CheckCircle2 className="h-4 w-4" strokeWidth={2} /> {nice(sec.heading || "À retenir")}
                   </h3>
                   {renderLines(sec.lines, "check")}
                 </div>
@@ -182,8 +183,8 @@ export function FormationContent({ content }: { content: string }) {
             if (sec.type === "exemple") {
               return (
                 <div key={i} className="rounded-xl border border-blue-200 bg-blue-50 p-4">
-                  <h3 className="mb-1 flex items-center gap-2 text-sm font-bold uppercase tracking-wide text-blue-700">
-                    <span>💡</span> {nice(sec.heading || "Exemple")}
+                  <h3 className="mb-1 flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-blue-700">
+                    <Lightbulb className="h-4 w-4" strokeWidth={2} /> {nice(sec.heading || "Exemple")}
                   </h3>
                   {renderLines(sec.lines, "dot")}
                 </div>
@@ -192,8 +193,8 @@ export function FormationContent({ content }: { content: string }) {
             if (sec.type === "section") {
               return (
                 <div key={i}>
-                  <h3 className="mb-1 flex items-center gap-2 border-b border-gray-100 pb-1.5 text-base font-bold text-gray-900">
-                    <span className="inline-block h-4 w-1 rounded-full bg-orange-500" />
+                  <h3 className="mb-1 flex items-center gap-2 border-b border-gray-100 pb-1.5 text-base font-semibold text-gray-900">
+                    <span className="inline-block h-4 w-1 rounded-full bg-brand-600" />
                     {sec.heading}
                   </h3>
                   {renderLines(sec.lines, "dot")}

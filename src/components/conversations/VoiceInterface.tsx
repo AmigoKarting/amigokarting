@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { AlertCircle, Mic, Check, CheckCircle2, X, HelpCircle, Send, Flame } from "lucide-react";
 
 interface Message {
   id: string;
@@ -328,42 +329,42 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
   return (
     <div className="mx-auto max-w-lg">
       {!browserSupported && (
-        <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-100">
-            <svg className="h-7 w-7 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" /></svg>
+        <div className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-red-50 text-red-600">
+            <AlertCircle className="h-6 w-6" strokeWidth={2} />
           </div>
-          <h2 className="text-lg font-bold text-gray-900">Navigateur non supporté</h2>
+          <h2 className="text-lg font-semibold text-gray-900">Navigateur non supporté</h2>
           <p className="mt-2 text-sm text-gray-500">Utilise <strong>Google Chrome</strong> ou <strong>Microsoft Edge</strong>.</p>
         </div>
       )}
 
       {browserSupported && phase === "idle" && (
-        <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
-          <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full bg-orange-100">
-            <svg className="h-10 w-10 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+        <div className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-lg bg-orange-50 text-brand-600">
+            <Mic className="h-7 w-7" strokeWidth={2} />
           </div>
-          <h2 className="text-xl font-bold text-gray-900">Conversation IA</h2>
+          <h2 className="text-xl font-semibold text-gray-900">Conversation IA</h2>
           <p className="mt-2 text-sm text-gray-500">Parle ou écris. L'IA s'adapte à ton niveau.</p>
           <div className="mt-5 space-y-2 text-left">
             {["Dis 'aide-moi' pour un indice", "Le micro s'active automatiquement", "Score en temps réel", "100% gratuit"].map((t) => (
               <div key={t} className="flex items-center gap-3 rounded-lg bg-gray-50 px-4 py-2.5">
-                <svg className="h-4 w-4 shrink-0 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <CheckCircle2 className="h-4 w-4 shrink-0 text-brand-600" strokeWidth={2} />
                 <span className="text-sm text-gray-600">{t}</span>
               </div>
             ))}
           </div>
-          <button onClick={startSession} className="mt-6 w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-orange-500/25 active:scale-[0.98]">Démarrer la conversation</button>
+          <button onClick={startSession} className="mt-6 w-full rounded-lg bg-brand-600 px-6 py-3.5 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700">Démarrer la conversation</button>
         </div>
       )}
 
       {isActive && phase !== "rating" && (
-        <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           {/* Header avec score */}
-          <div className="bg-gradient-to-r from-gray-900 to-gray-800 px-4 py-3">
+          <div className="border-b border-gray-100 px-4 py-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                {isRec ? <span className="h-2 w-2 animate-pulse rounded-full bg-red-400" /> : <span className="h-2 w-2 rounded-full bg-green-400" />}
-                <span className="text-xs text-gray-300">Chef Formateur</span>
+                {isRec ? <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" /> : <span className="h-2 w-2 rounded-full bg-green-500" />}
+                <span className="text-xs font-medium text-gray-700">Chef Formateur</span>
               </div>
               <span className="font-mono text-xs tabular-nums text-gray-400">{fmt(elapsedSec)}</span>
             </div>
@@ -372,19 +373,18 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
             {totalAnswers > 0 && (
               <div className="mt-2 flex items-center gap-3">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-xs text-green-400">{score.good}</span>
-                  <span className="text-[10px] text-gray-500">✓</span>
-                  <span className="text-xs text-yellow-400">{score.partial}</span>
-                  <span className="text-[10px] text-gray-500">~</span>
-                  <span className="text-xs text-red-400">{score.bad}</span>
-                  <span className="text-[10px] text-gray-500">✗</span>
+                  <span className="text-xs font-medium text-green-600">{score.good}</span>
+                  <Check className="h-3 w-3 text-gray-400" strokeWidth={2} />
+                  <span className="text-xs font-medium text-amber-600">{score.partial}</span>
+                  <span className="text-[10px] text-gray-400">~</span>
+                  <span className="text-xs font-medium text-red-600">{score.bad}</span>
+                  <X className="h-3 w-3 text-gray-400" strokeWidth={2} />
                 </div>
-                <div className="flex-1 h-1.5 rounded-full bg-gray-700 overflow-hidden">
-                  <div className="h-full rounded-full bg-gradient-to-r from-green-500 to-green-400 transition-all" style={{ width: `${scorePercent}%` }} />
+                <div className="flex-1 h-1.5 rounded-full bg-gray-100 overflow-hidden">
+                  <div className="h-full rounded-full bg-green-600 transition-all" style={{ width: `${scorePercent}%` }} />
                 </div>
-                <span className="text-xs font-semibold text-white">{scorePercent}%</span>
-                {streak >= 3 && <span className="text-sm" title={`${streak} bonnes de suite !`}>🔥</span>}
-                {streak >= 5 && <span className="text-sm">⚡</span>}
+                <span className="text-xs font-semibold text-gray-900">{scorePercent}%</span>
+                {streak >= 3 && <Flame className="h-4 w-4 text-brand-600" strokeWidth={2} aria-label={`${streak} bonnes de suite`} />}
               </div>
             )}
           </div>
@@ -396,14 +396,14 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
                 <div key={msg.id} className={`flex ${msg.role === "employee" ? "justify-end" : "justify-start"}`}>
                   <div className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
                     msg.role === "employee"
-                      ? "rounded-br-md bg-orange-500 text-white"
-                      : "rounded-bl-md bg-white text-gray-800 shadow-sm"
+                      ? "rounded-br-md bg-brand-600 text-white"
+                      : "rounded-bl-md border border-gray-200 bg-white text-gray-800 shadow-sm"
                   }`}>{msg.content}</div>
                 </div>
               ))}
               {(liveTranscript || (transcript && phase === "processing")) && (
                 <div className="flex justify-end">
-                  <div className="max-w-[85%] rounded-2xl rounded-br-md bg-orange-300 px-4 py-2.5 text-sm text-white">
+                  <div className="max-w-[85%] rounded-2xl rounded-br-md bg-brand-400 px-4 py-2.5 text-sm text-white">
                     {liveTranscript || transcript}{isRec && <span className="ml-1 animate-pulse">|</span>}
                   </div>
                 </div>
@@ -431,27 +431,27 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
           {/* Zone de saisie */}
           <div className="border-t border-gray-100 px-4 py-3">
             <div className="flex items-end gap-2">
-             <button onClick={() => { stopMic(); setPhase("rating"); }} disabled={phase === "connecting" || phase === "processing"} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-red-500 text-white active:scale-95 disabled:opacity-50" aria-label="Terminer">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+             <button onClick={() => { stopMic(); setPhase("rating"); }} disabled={phase === "connecting" || phase === "processing"} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-500 text-white transition hover:bg-red-600 disabled:opacity-50" aria-label="Terminer">
+                <X className="h-4 w-4" strokeWidth={2.5} />
               </button>
-              <button onClick={() => { stopMic(); sendToAI("aide-moi"); }} disabled={!canSend || phase === "processing"} className="flex h-11 shrink-0 items-center justify-center gap-1 rounded-full bg-blue-50 px-3 text-blue-600 active:bg-blue-100 disabled:opacity-40" aria-label="Aide">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" /></svg>
-                <span className="text-xs font-semibold">Aide</span>
+              <button onClick={() => { stopMic(); sendToAI("aide-moi"); }} disabled={!canSend || phase === "processing"} className="flex h-11 shrink-0 items-center justify-center gap-1 rounded-lg border border-gray-200 bg-white px-3 text-gray-700 transition hover:bg-gray-50 disabled:opacity-40" aria-label="Aide">
+                <HelpCircle className="h-4 w-4" strokeWidth={2} />
+                <span className="text-xs font-medium">Aide</span>
               </button>
               <div className="relative flex-1">
                 <textarea value={textInput} onChange={(e) => setTextInput(e.target.value)} onKeyDown={handleKeyDown}
                   placeholder={isRec ? "Le micro écoute... ou tape ici" : "Tape ta réponse (ou dis 'aide-moi')"}
                   rows={1} disabled={phase === "processing" || phase === "connecting"}
-                  className="w-full resize-none rounded-xl border-2 border-gray-200 bg-white px-4 py-2.5 pr-12 text-sm transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100 disabled:bg-gray-50 disabled:opacity-60"
+                  className="w-full resize-none rounded-lg border border-gray-200 bg-white px-4 py-2.5 pr-12 text-sm transition focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100 disabled:bg-gray-50 disabled:opacity-60"
                   style={{ minHeight: 44, maxHeight: 100 }} />
               </div>
               <button onMouseDown={manualStart} onMouseUp={manualStop} onTouchStart={(e) => { e.preventDefault(); manualStart(); }} onTouchEnd={(e) => { e.preventDefault(); manualStop(); }} disabled={!canSend}
-                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all ${isRec ? "bg-red-500 text-white animate-pulse" : canSend ? "bg-gray-100 text-gray-600 active:bg-gray-200" : "bg-gray-100 text-gray-300"}`} aria-label="Micro">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" /></svg>
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg transition ${isRec ? "bg-red-500 text-white animate-pulse" : canSend ? "bg-gray-100 text-gray-600 hover:bg-gray-200" : "bg-gray-100 text-gray-300"}`} aria-label="Micro">
+                <Mic className="h-5 w-5" strokeWidth={2} />
               </button>
               <button onClick={sendText} disabled={!textInput.trim() || phase === "processing" || phase === "connecting"}
-                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all ${textInput.trim() && canSend ? "bg-orange-500 text-white active:scale-95" : "bg-gray-100 text-gray-300"}`} aria-label="Envoyer">
-                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" /></svg>
+                className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg transition ${textInput.trim() && canSend ? "bg-brand-600 text-white hover:bg-brand-700" : "bg-gray-100 text-gray-300"}`} aria-label="Envoyer">
+                <Send className="h-5 w-5" strokeWidth={2} />
               </button>
             </div>
             {phase === "speaking" && (
@@ -462,7 +462,7 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
       )}
 
       {phase === "rating" && (
-        <div className="rounded-2xl bg-white shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
           {/* Rapport de session */}
           <div className="border-b border-gray-100 px-6 py-5">
             <h3 className="text-center text-lg font-semibold text-gray-900">Rapport de session</h3>
@@ -502,9 +502,9 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
 
                 {/* Meilleure série */}
                 {bestStreak >= 2 && (
-                  <div className="flex items-center justify-center gap-2 rounded-lg bg-orange-50 px-4 py-2">
-                    <span>🔥</span>
-                    <span className="text-sm font-medium text-orange-700">Meilleure série : {bestStreak} bonnes de suite</span>
+                  <div className="flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-orange-50 px-4 py-2">
+                    <Flame className="h-4 w-4 text-brand-600" strokeWidth={2} />
+                    <span className="text-sm font-medium text-brand-700">Meilleure série : {bestStreak} bonnes de suite</span>
                   </div>
                 )}
 
@@ -522,26 +522,28 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
           {/* Note */}
           <div className="px-6 py-5">
             <p className="text-center text-sm font-medium text-gray-700 mb-4">Comment était cette session ?</p>
-            <input type="range" min={1} max={10} value={rating} onChange={(e) => setRating(Number(e.target.value))} className="w-full accent-orange-500" />
-            <div className="mt-2 text-center"><span className="text-4xl font-bold text-orange-600">{rating}</span><span className="text-lg text-gray-400">/10</span></div>
-            <textarea value={ratingComment} onChange={(e) => setRatingComment(e.target.value)} placeholder="Commentaire (optionnel)" rows={2} className="mt-4 w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-sm focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100" />
+            <input type="range" min={1} max={10} value={rating} onChange={(e) => setRating(Number(e.target.value))} className="w-full accent-brand-600" />
+            <div className="mt-2 text-center"><span className="text-4xl font-semibold text-brand-600">{rating}</span><span className="text-lg text-gray-400">/10</span></div>
+            <textarea value={ratingComment} onChange={(e) => setRatingComment(e.target.value)} placeholder="Commentaire (optionnel)" rows={2} className="mt-4 w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100" />
             <div className="mt-5 flex gap-3">
-              <button onClick={() => { setPhase("listening"); setTimeout(() => autoListen(), 600); }} className="flex-1 rounded-xl border-2 border-gray-200 px-4 py-3 text-sm font-medium text-gray-600 active:bg-gray-50">Continuer</button>
-              <button onClick={submitRating} className="flex-1 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-4 py-3 text-sm font-semibold text-white active:scale-[0.98]">Terminer</button>
+              <button onClick={() => { setPhase("listening"); setTimeout(() => autoListen(), 600); }} className="flex-1 rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50">Continuer</button>
+              <button onClick={submitRating} className="flex-1 rounded-lg bg-brand-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-brand-700">Terminer</button>
             </div>
           </div>
         </div>
       )}
 
       {phase === "ended" && (
-        <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
-            <svg className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+        <div className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-green-50 text-green-600">
+            <CheckCircle2 className="h-6 w-6" strokeWidth={2} />
           </div>
           <h3 className="text-lg font-semibold text-gray-900">Session terminée</h3>
           <p className="mt-1 text-sm text-gray-500">{fmt(elapsedSec)} · {scorePercent}% · {totalAnswers} questions</p>
-          {bestStreak >= 3 && <p className="mt-2 text-sm text-orange-600">🔥 Meilleure série : {bestStreak} bonnes de suite</p>}
-          <button onClick={() => { setPhase("idle"); setSessionId(null); setMessages([]); setElapsedSec(0); setHasAskedRating(false); setRating(7); setRatingComment(""); startTimeRef.current = null; finalRef.current = ""; setTextInput(""); setScore({ good: 0, partial: 0, bad: 0 }); setStreak(0); setBestStreak(0); }} className="mt-6 rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-8 py-3 text-sm font-semibold text-white active:scale-[0.98]">Nouvelle conversation</button>
+          {bestStreak >= 3 && <p className="mt-2 inline-flex items-center gap-1 text-sm text-brand-600"><Flame className="h-4 w-4" strokeWidth={2} /> Meilleure série : {bestStreak} bonnes de suite</p>}
+          <div>
+            <button onClick={() => { setPhase("idle"); setSessionId(null); setMessages([]); setElapsedSec(0); setHasAskedRating(false); setRating(7); setRatingComment(""); startTimeRef.current = null; finalRef.current = ""; setTextInput(""); setScore({ good: 0, partial: 0, bad: 0 }); setStreak(0); setBestStreak(0); }} className="mt-6 rounded-lg bg-brand-600 px-8 py-3 text-sm font-medium text-white transition hover:bg-brand-700">Nouvelle conversation</button>
+          </div>
         </div>
       )}
     </div>

@@ -1,6 +1,10 @@
 "use client";
 
 import { useState, useCallback, useMemo, useEffect, useRef } from "react";
+import {
+  CheckCircle2, Check, X, Flame, Timer, BookOpen, Save, Trophy,
+  Star, ThumbsUp, RotateCcw, type LucideIcon,
+} from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────────────
 interface QuizChoice {
@@ -45,9 +49,9 @@ type QuizPhase = "intro" | "question" | "correction" | "submitting" | "results";
 
 const CHOICE_LETTERS = ["A", "B", "C", "D", "E", "F"] as const;
 
-// Messages fun et variés (effet « jeu » plutôt que « devoir »)
-const PRAISE = ["Exactement ! 🎯", "Boom ! 💥", "T'es bon ! 💪", "Parfait ! ⭐", "En plein dans le mille ! 🎯", "Nickel ! ✨", "Tu gères ! 🙌"];
-const WRONG_MSG = ["Pas grave, tu vas l'avoir 💪", "Presque ! Continue 👊", "C'est en se trompant qu'on apprend 📚", "Pas cette fois, mais lâche pas 🙌"];
+// Messages d'encouragement (sobres)
+const PRAISE = ["Exactement.", "Bien vu.", "C'est ça.", "Parfait.", "En plein dans le mille.", "Nickel.", "Tu gères."];
+const WRONG_MSG = ["Pas grave, tu vas l'avoir.", "Presque ! Continue.", "C'est en se trompant qu'on apprend.", "Pas cette fois, mais lâche pas."];
 const pickMsg = (arr: string[], i: number) => arr[i % arr.length];
 const fmtTime = (s: number) => `${Math.floor(s / 60)}:${(s % 60).toString().padStart(2, "0")}`;
 
@@ -120,15 +124,15 @@ export function QuizForm({
   const points = correctSoFar * 10;
 
   // Palier de résultat (message + célébration selon le score)
-  const tier = useMemo(() => {
+  const tier = useMemo<{ Icon: LucideIcon; title: string; sub: string; celebrate: boolean } | null>(() => {
     if (!result) return null;
     if (result.correct === result.total)
-      return { emoji: "🏆", title: "Parfait, sans faute !", sub: "T'es une machine 🌟", celebrate: true };
+      return { Icon: Trophy, title: "Parfait, sans faute !", sub: "Tu maîtrises parfaitement le sujet", celebrate: true };
     if (result.score >= 90)
-      return { emoji: "🌟", title: "Excellent !", sub: "Presque parfait, bravo", celebrate: true };
+      return { Icon: Star, title: "Excellent !", sub: "Presque parfait, bravo", celebrate: true };
     if (result.passed)
-      return { emoji: "🎉", title: "Réussi, bravo !", sub: "Tu maîtrises le sujet", celebrate: true };
-    return { emoji: "💪", title: "Pas loin !", sub: "Réessaie, tu vas l'avoir", celebrate: false };
+      return { Icon: ThumbsUp, title: "Réussi, bravo !", sub: "Tu maîtrises le sujet", celebrate: true };
+    return { Icon: RotateCcw, title: "Pas loin !", sub: "Réessaie, tu vas l'avoir", celebrate: false };
   }, [result]);
 
   // ─── Charger la progression sauvegardée (au montage) ──────
@@ -312,13 +316,11 @@ export function QuizForm({
     <div className="mx-auto max-w-2xl">
       {/* ═══ INTRO ═══════════════════════════════════════════ */}
       {phase === "intro" && (
-        <div className="rounded-2xl bg-white p-8 text-center shadow-sm">
-          <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-orange-100">
-            <svg className="h-8 w-8 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
+        <div className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+          <div className="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-lg bg-orange-50 text-brand-600">
+            <CheckCircle2 className="h-7 w-7" strokeWidth={2} />
           </div>
-          <h2 className="text-xl font-bold text-gray-900">{quizTitle}</h2>
+          <h2 className="text-xl font-semibold text-gray-900">{quizTitle}</h2>
           <p className="mt-2 text-sm text-gray-500">
             {totalQuestions} question{totalQuestions > 1 ? "s" : ""} — Tu dois obtenir{" "}
             {Math.round(passingScore * 100)}% pour réussir.
@@ -331,10 +333,13 @@ export function QuizForm({
 
           <button
             onClick={() => setChrono((c) => !c)}
-            className={`mt-4 flex w-full items-center justify-between rounded-xl border-2 px-4 py-3 text-sm font-medium transition ${chrono ? "border-orange-400 bg-orange-50 text-orange-700" : "border-gray-200 text-gray-500"}`}
+            className={`mt-4 flex w-full items-center justify-between rounded-lg border px-4 py-3 text-sm font-medium transition ${chrono ? "border-brand-400 bg-orange-50 text-brand-700" : "border-gray-200 text-gray-500"}`}
           >
-            <span>⏱️ Mode chrono {chrono ? "(activé)" : "— bats ton record"}</span>
-            <span className={`flex h-5 w-9 items-center rounded-full p-0.5 transition ${chrono ? "bg-orange-500" : "bg-gray-300"}`}>
+            <span className="flex items-center gap-2">
+              <Timer className="h-4 w-4" strokeWidth={2} />
+              Mode chrono {chrono ? "(activé)" : "— bats ton record"}
+            </span>
+            <span className={`flex h-5 w-9 items-center rounded-full p-0.5 transition ${chrono ? "bg-brand-600" : "bg-gray-300"}`}>
               <span className={`block h-4 w-4 rounded-full bg-white transition-transform ${chrono ? "translate-x-4" : ""}`} />
             </span>
           </button>
@@ -343,13 +348,13 @@ export function QuizForm({
             <div className="mt-8 space-y-3">
               <button
                 onClick={resumeQuiz}
-                className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-orange-500/25 transition-all hover:shadow-lg active:scale-[0.98]"
+                className="w-full rounded-lg bg-brand-600 px-6 py-3.5 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700"
               >
                 Reprendre où tu étais ({Math.min(savedAnswers.length, totalQuestions) + 1}/{totalQuestions})
               </button>
               <button
                 onClick={startQuiz}
-                className="w-full rounded-xl border border-gray-200 px-6 py-3 text-sm font-medium text-gray-600 transition-all hover:bg-gray-50 active:scale-[0.98]"
+                className="w-full rounded-lg border border-gray-200 bg-white px-6 py-3 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
               >
                 Recommencer à zéro
               </button>
@@ -357,9 +362,9 @@ export function QuizForm({
           ) : (
             <button
               onClick={startQuiz}
-              className="mt-8 w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3.5 text-sm font-semibold text-white shadow-md shadow-orange-500/25 transition-all hover:shadow-lg active:scale-[0.98]"
+              className="mt-8 w-full rounded-lg bg-brand-600 px-6 py-3.5 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700"
             >
-              Relever le défi 🚀
+              Commencer le quiz
             </button>
           )}
         </div>
@@ -367,7 +372,7 @@ export function QuizForm({
 
       {/* ═══ QUESTION / CORRECTION ═══════════════════════════ */}
       {(phase === "question" || phase === "correction") && question && (
-        <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
           {/* En-tête avec progression */}
           <div className="border-b border-gray-100 px-6 py-4">
             <div className="mb-3 flex items-center justify-between">
@@ -376,16 +381,16 @@ export function QuizForm({
               </span>
               <div className="flex items-center gap-2">
                 {chrono && (
-                  <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-600">
-                    ⏱ {fmtTime(elapsed)}
+                  <span className="inline-flex items-center gap-1 rounded-md bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+                    <Timer className="h-3.5 w-3.5" strokeWidth={2} /> {fmtTime(elapsed)}
                   </span>
                 )}
                 {currentStreak >= 2 && (
-                  <span className="animate-pulse rounded-full bg-orange-100 px-2 py-0.5 text-xs font-bold text-orange-600">
-                    🔥 {currentStreak} de suite
+                  <span className="inline-flex items-center gap-1 rounded-md bg-orange-50 px-2 py-0.5 text-xs font-medium text-brand-700">
+                    <Flame className="h-3.5 w-3.5" strokeWidth={2} /> {currentStreak} de suite
                   </span>
                 )}
-                <span className="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-bold text-gray-600">
+                <span className="rounded-md bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
                   {points} pts
                 </span>
               </div>
@@ -446,10 +451,10 @@ export function QuizForm({
                 }
               } else {
                 if (isSelected) {
-                  containerStyle = "border-orange-400 bg-orange-50";
-                  letterStyle = "bg-orange-500 text-white";
+                  containerStyle = "border-brand-400 bg-orange-50";
+                  letterStyle = "bg-brand-600 text-white";
                 } else {
-                  containerStyle = "border-gray-200 hover:border-orange-200 hover:bg-orange-50/30";
+                  containerStyle = "border-gray-200 hover:border-gray-300 hover:bg-gray-50";
                   letterStyle = "bg-gray-100 text-gray-600";
                 }
               }
@@ -459,20 +464,16 @@ export function QuizForm({
                   key={choice.id}
                   onClick={() => selectChoice(choice.id)}
                   disabled={inCorrection}
-                  className={`flex w-full items-start gap-3 rounded-xl border-2 px-4 py-3.5 text-left transition-all duration-200 ${containerStyle} disabled:cursor-default`}
+                  className={`flex w-full items-start gap-3 rounded-lg border px-4 py-3.5 text-left transition ${containerStyle} disabled:cursor-default`}
                 >
                   {/* Lettre (A, B, C, D) */}
                   <span
                     className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-xs font-bold transition-colors ${letterStyle}`}
                   >
                     {inCorrection && isCorrectChoice ? (
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                      </svg>
+                      <Check className="h-4 w-4" strokeWidth={3} />
                     ) : inCorrection && isSelected && !isCorrectChoice ? (
-                      <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                      </svg>
+                      <X className="h-4 w-4" strokeWidth={3} />
                     ) : (
                       letter
                     )}
@@ -488,17 +489,17 @@ export function QuizForm({
           {phase === "correction" && (
             <div className="px-6 pb-2">
               {isCorrectAnswer ? (
-                <div className="flex items-start gap-3 rounded-xl bg-green-50 p-4">
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-500">
-                    <svg className="h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
+                <div className="flex items-start gap-3 rounded-lg bg-green-50 p-4">
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-green-600">
+                    <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-green-800">
                       {pickMsg(PRAISE, currentIdx)}
                       {currentStreak >= 3 && (
-                        <span className="ml-1 text-orange-600">🔥 {currentStreak} de suite !</span>
+                        <span className="ml-1 inline-flex items-center gap-1 align-middle text-brand-600">
+                          <Flame className="h-3.5 w-3.5" strokeWidth={2} /> {currentStreak} de suite
+                        </span>
                       )}
                     </p>
                     {question.explanation && (
@@ -507,11 +508,9 @@ export function QuizForm({
                   </div>
                 </div>
               ) : (
-                <div className="flex items-start gap-3 rounded-xl bg-red-50 p-4">
-                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-400">
-                    <svg className="h-3.5 w-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
+                <div className="flex items-start gap-3 rounded-lg bg-red-50 p-4">
+                  <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-red-500">
+                    <X className="h-3.5 w-3.5 text-white" strokeWidth={3} />
                   </div>
                   <div>
                     <p className="text-sm font-semibold text-red-800">
@@ -557,14 +556,14 @@ export function QuizForm({
               <button
                 onClick={confirmAnswer}
                 disabled={!selectedChoiceId}
-                className="rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-[0.98] disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none"
+                className="rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700 disabled:bg-gray-300"
               >
                 Confirmer
               </button>
             ) : (
               <button
                 onClick={nextStep}
-                className="rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
+                className="rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700"
               >
                 {isLastQuestion ? "Voir mes résultats" : "Question suivante"}
               </button>
@@ -575,46 +574,48 @@ export function QuizForm({
 
       {/* ═══ SUBMITTING ══════════════════════════════════════ */}
       {phase === "submitting" && (
-        <div className="rounded-2xl bg-white p-12 text-center shadow-sm">
-          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-[3px] border-gray-200 border-t-orange-500" />
+        <div className="rounded-xl border border-gray-200 bg-white p-12 text-center shadow-sm">
+          <div className="mx-auto h-8 w-8 animate-spin rounded-full border-[3px] border-gray-200 border-t-brand-600" />
           <p className="mt-4 text-sm text-gray-500">Sauvegarde des résultats...</p>
         </div>
       )}
 
       {/* ═══ RÉSULTATS ═══════════════════════════════════════ */}
       {phase === "results" && result && (
-        <div className="overflow-hidden rounded-2xl bg-white shadow-sm">
-          {/* Score principal + célébration */}
-          <div className={`relative overflow-hidden px-8 py-10 text-center ${result.passed ? "bg-green-50" : "bg-red-50"}`}>
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+          {/* Score principal */}
+          <div className="relative overflow-hidden border-b border-gray-100 px-8 py-10 text-center">
             {tier?.celebrate && <Confetti />}
-            <div className="relative mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-white text-4xl shadow-sm">
-              {tier?.emoji}
+            <div className={`relative mx-auto flex h-16 w-16 items-center justify-center rounded-lg ${result.passed ? "bg-green-50 text-green-600" : "bg-orange-50 text-brand-600"}`}>
+              {tier && <tier.Icon className="h-8 w-8" strokeWidth={2} />}
             </div>
-            <h2 className={`relative mt-4 text-2xl font-extrabold ${result.passed ? "text-green-800" : "text-red-800"}`}>
+            <h2 className="relative mt-4 text-2xl font-semibold tracking-tight text-gray-900">
               {tier?.title}
             </h2>
-            <p className={`relative mt-1 text-sm font-medium ${result.passed ? "text-green-600" : "text-red-600"}`}>
+            <p className="relative mt-1 text-sm text-gray-500">
               {tier?.sub}
             </p>
-            <div className="relative mt-4 inline-flex items-center gap-3 rounded-full bg-white/70 px-4 py-2 text-sm font-semibold text-gray-700 shadow-sm">
+            <div className="relative mt-4 inline-flex items-center gap-3 rounded-md border border-gray-200 bg-white px-4 py-2 text-sm font-medium text-gray-700">
               <span>{result.score}%</span>
               <span className="text-gray-300">·</span>
               <span>{result.correct}/{result.total} bonnes</span>
               {bestStreak >= 3 && (
                 <>
                   <span className="text-gray-300">·</span>
-                  <span className="text-orange-600">🔥 {bestStreak} de suite</span>
+                  <span className="inline-flex items-center gap-1 text-brand-600">
+                    <Flame className="h-3.5 w-3.5" strokeWidth={2} /> {bestStreak} de suite
+                  </span>
                 </>
               )}
             </div>
             {chrono && (
-              <p className="relative mt-2 text-xs font-medium text-gray-600">
-                ⏱ {fmtTime(elapsed)}
-                {bestTime == null ? "" : elapsed < bestTime ? " · Nouveau record ! 🏅" : ` · ton record : ${fmtTime(bestTime)}`}
+              <p className="relative mt-2 inline-flex items-center justify-center gap-1 text-xs font-medium text-gray-500">
+                <Timer className="h-3.5 w-3.5" strokeWidth={2} /> {fmtTime(elapsed)}
+                {bestTime == null ? "" : elapsed < bestTime ? " · Nouveau record !" : ` · ton record : ${fmtTime(bestTime)}`}
               </p>
             )}
             {!result.passed && (
-              <p className="relative mt-2 text-xs text-red-500">Minimum {Math.round(passingScore * 100)}% pour réussir</p>
+              <p className="relative mt-2 text-xs text-gray-500">Minimum {Math.round(passingScore * 100)}% pour réussir</p>
             )}
           </div>
 
@@ -628,7 +629,7 @@ export function QuizForm({
                 return (
                   <div
                     key={q.id}
-                    className={`flex items-start gap-3 rounded-xl border p-4 ${
+                    className={`flex items-start gap-3 rounded-lg border p-4 ${
                       wasCorrect
                         ? "border-green-200 bg-green-50/50"
                         : "border-red-200 bg-red-50/50"
@@ -636,17 +637,13 @@ export function QuizForm({
                   >
                     <div
                       className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-white ${
-                        wasCorrect ? "bg-green-500" : "bg-red-400"
+                        wasCorrect ? "bg-green-600" : "bg-red-500"
                       }`}
                     >
                       {wasCorrect ? (
-                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                        </svg>
+                        <Check className="h-3.5 w-3.5" strokeWidth={3} />
                       ) : (
-                        <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
+                        <X className="h-3.5 w-3.5" strokeWidth={3} />
                       )}
                     </div>
                     <div className="flex-1">
@@ -673,7 +670,7 @@ export function QuizForm({
             </p>
             <button
               onClick={startQuiz}
-              className="rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-2.5 text-sm font-semibold text-white shadow-sm transition-all hover:shadow-md active:scale-[0.98]"
+              className="rounded-lg bg-brand-600 px-6 py-2.5 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700"
             >
               {result.passed ? "Refaire pour battre ton score" : "Réessayer le quiz"}
             </button>
@@ -710,21 +707,9 @@ function Confetti() {
 // ─── Petit composant info pour l'intro ─────────────────────────
 function InfoRow({ icon, text }: { icon: "check" | "book" | "save"; text: string }) {
   const icons = {
-    check: (
-      <svg className="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-    book: (
-      <svg className="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-      </svg>
-    ),
-    save: (
-      <svg className="h-4 w-4 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375" />
-      </svg>
-    ),
+    check: <CheckCircle2 className="h-4 w-4 text-brand-600" strokeWidth={2} />,
+    book: <BookOpen className="h-4 w-4 text-brand-600" strokeWidth={2} />,
+    save: <Save className="h-4 w-4 text-brand-600" strokeWidth={2} />,
   };
 
   return (

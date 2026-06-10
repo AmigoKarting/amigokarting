@@ -21,19 +21,19 @@ export function ChapterList({ chapters, moduleId }: { chapters: Chapter[]; modul
 
         return (
           <Link key={ch.id} href={`/training/${moduleId}/${ch.id}`}>
-            <div className="flex items-center gap-4 rounded-xl bg-white p-5 shadow-sm transition hover:shadow-md">
-              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-orange-100 text-orange-600">
-                {isQuiz ? <FileText className="h-5 w-5" /> : <Video className="h-5 w-5" />}
+            <div className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-gray-300">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50 text-brand-600">
+                {isQuiz ? <FileText className="h-5 w-5" strokeWidth={2} /> : <Video className="h-5 w-5" strokeWidth={2} />}
               </span>
               <div className="flex-1">
-                <h3 className="font-medium">{ch.title}</h3>
-                <p className="text-xs text-gray-400">
+                <h3 className="font-medium text-gray-900">{ch.title}</h3>
+                <p className="text-xs text-gray-500">
                   {isQuiz
                     ? `Quiz · ${questionCount} question${questionCount > 1 ? "s" : ""}`
                     : `${videoCount} vidéo${videoCount > 1 ? "s" : ""}`}
                 </p>
               </div>
-              <ChevronRight className="h-5 w-5 shrink-0 text-gray-300" />
+              <ChevronRight className="h-5 w-5 shrink-0 text-gray-300" strokeWidth={2} />
             </div>
           </Link>
         );

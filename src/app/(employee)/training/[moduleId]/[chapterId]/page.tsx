@@ -4,6 +4,7 @@ import { VideoPlayer } from "@/components/training/VideoPlayer";
 import { QuizForm } from "@/components/training/QuizForm";
 import { FormationContent } from "@/components/training/FormationContent";
 import { notFound } from "next/navigation";
+import { ArrowDown } from "lucide-react";
 
 export default async function ChapterPage({
   params,
@@ -44,15 +45,16 @@ export default async function ChapterPage({
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">
-      <h1 className="text-2xl font-bold">{chapter.title}</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-gray-900">{chapter.title}</h1>
 
       {/* Bouton vers le quiz — début de la formation */}
       {chapter.content && showQuiz && (
         <a
           href="#quiz"
-          className="inline-flex items-center gap-2 rounded-xl border border-orange-200 bg-orange-50 px-4 py-2.5 text-sm font-semibold text-orange-700 transition hover:bg-orange-100"
+          className="inline-flex items-center gap-2 rounded-lg border border-orange-200 bg-orange-50 px-4 py-2.5 text-sm font-semibold text-brand-700 transition hover:bg-orange-100"
         >
-          Passer directement au quiz ↓
+          Passer directement au quiz
+          <ArrowDown className="h-4 w-4" strokeWidth={2} />
         </a>
       )}
 
@@ -81,13 +83,13 @@ export default async function ChapterPage({
 
       {quiz && allVideosCompleted && (
         <div id="quiz" className="scroll-mt-24 space-y-4">
-          <h2 className="text-xl font-bold">Quiz : {quiz.title}</h2>
+          <h2 className="text-xl font-semibold tracking-tight text-gray-900">Quiz : {quiz.title}</h2>
           <QuizFormWrapper quiz={quiz} employeeId={employee?.id} />
         </div>
       )}
 
       {quiz && !allVideosCompleted && (
-        <div className="rounded-xl bg-amber-50 p-6 text-center text-sm text-amber-800">
+        <div className="rounded-xl border border-amber-200 bg-amber-50 p-6 text-center text-sm text-amber-800">
           Complete toutes les vidéos pour débloquer le quiz.
         </div>
       )}

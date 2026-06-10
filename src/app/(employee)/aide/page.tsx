@@ -1,11 +1,21 @@
 "use client";
 
 import { useState } from "react";
+import {
+  Smartphone, Apple, GraduationCap, Mic, HelpCircle, ClipboardList,
+  Star, Wrench, ChevronDown, Lightbulb, type LucideIcon,
+} from "lucide-react";
 
-const sections = [
+const sections: {
+  id: string;
+  Icon: LucideIcon;
+  title: string;
+  steps: { num: string; text: string }[];
+  tip?: string;
+}[] = [
   {
     id: "install-android",
-    icon: "🤖",
+    Icon: Smartphone,
     title: "Installer sur Android",
     steps: [
       { num: "1", text: "Ouvre Google Chrome sur ton téléphone" },
@@ -19,7 +29,7 @@ const sections = [
   },
   {
     id: "install-iphone",
-    icon: "🍎",
+    Icon: Apple,
     title: "Installer sur iPhone / iPad",
     steps: [
       { num: "1", text: "Ouvre Safari (l'icône bleue avec la boussole). Chrome ne fonctionne PAS sur iPhone pour installer l'app." },
@@ -34,7 +44,7 @@ const sections = [
   },
   {
     id: "formation",
-    icon: "🎓",
+    Icon: GraduationCap,
     title: "Formation (vidéos et quiz)",
     steps: [
       { num: "1", text: "Clique « Formation » dans le menu" },
@@ -47,7 +57,7 @@ const sections = [
   },
   {
     id: "conversations",
-    icon: "🎙️",
+    Icon: Mic,
     title: "Conversations IA (vocal)",
     steps: [
       { num: "1", text: "Clique « Conversations » dans le menu" },
@@ -60,7 +70,7 @@ const sections = [
   },
   {
     id: "qa",
-    icon: "❓",
+    Icon: HelpCircle,
     title: "Q&A (questions sur le manuel)",
     steps: [
       { num: "1", text: "Clique « Q&A » dans le menu" },
@@ -72,7 +82,7 @@ const sections = [
   },
   {
     id: "fiche",
-    icon: "📝",
+    Icon: ClipboardList,
     title: "Ma fiche personnelle",
     steps: [
       { num: "1", text: "Clique « Ma fiche » dans le menu" },
@@ -83,7 +93,7 @@ const sections = [
   },
   {
     id: "note",
-    icon: "⭐",
+    Icon: Star,
     title: "Ma note (score sur 100)",
     steps: [
       { num: "1", text: "Clique « Ma note » dans le menu" },
@@ -95,7 +105,7 @@ const sections = [
   },
   {
     id: "problemes",
-    icon: "🔧",
+    Icon: Wrench,
     title: "Problèmes fréquents",
     steps: [
       { num: "❌", text: "« Identifiant ou code incorrect » → Vérifie ton prénom (celui du système, pas un surnom) et les 4 derniers chiffres de ton numéro" },
@@ -113,26 +123,26 @@ export default function AidePage() {
   return (
     <div className="mx-auto max-w-2xl space-y-4">
       <div>
-        <h1 className="text-2xl font-bold">Aide</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Aide</h1>
         <p className="text-sm text-gray-500">Comment utiliser l'application Amigo Karting</p>
       </div>
 
       {sections.map((section) => {
         const isOpen = openId === section.id;
         return (
-          <div key={section.id} className="overflow-hidden rounded-xl bg-white shadow-sm">
+          <div key={section.id} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
             <button
               onClick={() => setOpenId(isOpen ? null : section.id)}
               className="flex w-full items-center gap-3 px-5 py-4 text-left transition hover:bg-gray-50"
             >
-              <span className="text-2xl">{section.icon}</span>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
+                <section.Icon className="h-5 w-5" strokeWidth={2} />
+              </span>
               <span className="flex-1 text-sm font-semibold text-gray-900">{section.title}</span>
-              <svg
+              <ChevronDown
                 className={`h-5 w-5 shrink-0 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
+                strokeWidth={2}
+              />
             </button>
 
             {isOpen && (
@@ -140,7 +150,7 @@ export default function AidePage() {
                 <div className="space-y-3">
                   {section.steps.map((step, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-100 text-xs font-bold text-orange-700">
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-orange-50 text-xs font-semibold text-brand-700">
                         {step.num}
                       </span>
                       <p className="pt-0.5 text-sm text-gray-700">{step.text}</p>
@@ -149,9 +159,10 @@ export default function AidePage() {
                 </div>
 
                 {section.tip && (
-                  <div className="mt-4 rounded-lg border-l-4 border-orange-400 bg-orange-50 px-4 py-3">
-                    <p className="text-xs text-orange-800">
-                      <span className="font-semibold">💡 Astuce : </span>
+                  <div className="mt-4 flex gap-3 rounded-lg border border-orange-200 bg-orange-50 px-4 py-3">
+                    <Lightbulb className="h-4 w-4 shrink-0 text-brand-600" strokeWidth={2} />
+                    <p className="text-xs text-gray-700">
+                      <span className="font-semibold text-gray-900">Astuce : </span>
                       {section.tip}
                     </p>
                   </div>

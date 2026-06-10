@@ -22,7 +22,7 @@ export default async function AdminTrainingPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Suivi de formation</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Suivi de formation</h1>
       <TrainingProgress
         employees={employees || []}
         modules={modules || []}

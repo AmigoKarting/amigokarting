@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { CheckCircle2, BarChart3, AlertTriangle, Moon, Megaphone, TrendingUp, TrendingDown, Award } from "lucide-react";
 
 interface Alert {
   id: string;
@@ -60,10 +61,10 @@ export default function AlertsAdminPage() {
   }
 
   function getLevelInfo(score: number) {
-    if (score >= 85) return { name: "Diamant", icon: "💎", color: "text-blue-500" };
-    if (score >= 65) return { name: "Or", icon: "🥇", color: "text-yellow-500" };
-    if (score >= 40) return { name: "Argent", icon: "🥈", color: "text-gray-400" };
-    return { name: "Bronze", icon: "🥉", color: "text-amber-600" };
+    if (score >= 85) return { name: "Diamant", color: "text-blue-500" };
+    if (score >= 65) return { name: "Or", color: "text-yellow-500" };
+    if (score >= 40) return { name: "Argent", color: "text-gray-400" };
+    return { name: "Bronze", color: "text-amber-600" };
   }
 
   const unread = alerts.filter((a) => !a.is_read).length;
@@ -71,7 +72,7 @@ export default function AlertsAdminPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Suivi & Alertes</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Suivi & Alertes</h1>
         <p className="mt-1 text-sm text-gray-500">Alertes automatiques et évolution des employés</p>
       </div>
 
@@ -87,7 +88,7 @@ export default function AlertsAdminPage() {
 
       {loading && (
         <div className="flex justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-4 border-orange-200 border-t-orange-500" />
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-orange-100 border-t-brand-600" />
         </div>
       )}
 
@@ -95,32 +96,35 @@ export default function AlertsAdminPage() {
       {!loading && tab === "alerts" && (
         <div className="space-y-3">
           {alerts.length === 0 && (
-            <div className="rounded-xl bg-white p-8 text-center shadow-sm">
-              <p className="text-4xl">✅</p>
+            <div className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+              <CheckCircle2 className="mx-auto h-8 w-8 text-green-600" strokeWidth={2} />
               <p className="mt-3 text-sm font-medium text-gray-700">Aucune alerte</p>
-              <p className="text-xs text-gray-400">Tout va bien pour le moment</p>
+              <p className="text-xs text-gray-500">Tout va bien pour le moment</p>
             </div>
           )}
 
-          {alerts.map((alert) => (
-            <div key={alert.id} className={`rounded-xl bg-white p-4 shadow-sm transition ${!alert.is_read ? "border-l-4 border-red-500" : ""}`}>
+          {alerts.map((alert) => {
+            const AlertIcon = alert.alert_type === "low_score" ? AlertTriangle : alert.alert_type === "inactive" ? Moon : Megaphone;
+            return (
+            <div key={alert.id} className={`rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition ${!alert.is_read ? "border-l-4 border-l-red-500" : ""}`}>
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{alert.alert_type === "low_score" ? "⚠️" : alert.alert_type === "inactive" ? "😴" : "📢"}</span>
+                    <AlertIcon className="h-5 w-5 text-gray-500" strokeWidth={2} />
                     <p className="text-sm font-semibold text-gray-900">{alert.title}</p>
                   </div>
                   {alert.message && <p className="mt-1 text-xs text-gray-500">{alert.message}</p>}
                   <p className="mt-1 text-[10px] text-gray-400">{formatDate(alert.created_at)}</p>
                 </div>
                 {!alert.is_read && (
-                  <button onClick={() => markRead(alert.id)} className="shrink-0 rounded-lg bg-gray-100 px-3 py-1 text-xs text-gray-600 active:bg-gray-200">
+                  <button onClick={() => markRead(alert.id)} className="shrink-0 rounded-lg border border-gray-200 bg-white px-3 py-1 text-xs text-gray-700 transition hover:bg-gray-50">
                     Lu
                   </button>
                 )}
               </div>
             </div>
-          ))}
+          );
+          })}
         </div>
       )}
 
@@ -128,10 +132,10 @@ export default function AlertsAdminPage() {
       {!loading && tab === "evolution" && (
         <div className="space-y-3">
           {evolutions.length === 0 && (
-            <div className="rounded-xl bg-white p-8 text-center shadow-sm">
-              <p className="text-4xl">📊</p>
+            <div className="rounded-xl border border-gray-200 bg-white p-8 text-center shadow-sm">
+              <BarChart3 className="mx-auto h-8 w-8 text-gray-400" strokeWidth={2} />
               <p className="mt-3 text-sm font-medium text-gray-700">Pas encore de données</p>
-              <p className="text-xs text-gray-400">L'évolution apparaîtra après quelques jours d'utilisation</p>
+              <p className="text-xs text-gray-500">L'évolution apparaîtra après quelques jours d'utilisation</p>
             </div>
           )}
 
@@ -141,21 +145,23 @@ export default function AlertsAdminPage() {
             const diff = emp.current - firstScore;
 
             return (
-              <div key={emp.name} className="rounded-xl bg-white p-4 shadow-sm">
+              <div key={emp.name} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-100 text-sm font-bold text-orange-600">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-orange-50 text-sm font-bold text-brand-600">
                       {emp.name.charAt(0)}
                     </div>
                     <div>
                       <p className="text-sm font-semibold text-gray-900">{emp.name}</p>
-                      <p className="text-xs text-gray-400">{lvl.icon} {lvl.name}</p>
+                      <p className="flex items-center gap-1.5 text-xs text-gray-500">
+                        <Award className={`h-3.5 w-3.5 ${lvl.color}`} strokeWidth={2} /> {lvl.name}
+                      </p>
                     </div>
                   </div>
                   <div className="text-right">
                     <p className="text-xl font-bold text-gray-900">{emp.current}</p>
-                    <p className={`text-xs font-semibold ${diff > 0 ? "text-green-600" : diff < 0 ? "text-red-500" : "text-gray-400"}`}>
-                      {diff > 0 ? `↑ +${diff}` : diff < 0 ? `↓ ${diff}` : "= stable"}
+                    <p className={`flex items-center justify-end gap-1 text-xs font-semibold ${diff > 0 ? "text-green-600" : diff < 0 ? "text-red-500" : "text-gray-400"}`}>
+                      {diff > 0 ? <><TrendingUp className="h-3.5 w-3.5" strokeWidth={2} /> +{diff}</> : diff < 0 ? <><TrendingDown className="h-3.5 w-3.5" strokeWidth={2} /> {diff}</> : "stable"}
                     </p>
                   </div>
                 </div>

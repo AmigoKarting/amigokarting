@@ -1,7 +1,7 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { ArrowLeft, Check, X } from "lucide-react";
+import { ChevronLeft, Check, X } from "lucide-react";
 
 export default async function QuizResultPage({
   params,
@@ -71,9 +71,9 @@ export default async function QuizResultPage({
           href={backHref}
           className="mb-2 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700"
         >
-          <ArrowLeft className="h-4 w-4" /> Retour
+          <ChevronLeft className="h-4 w-4" strokeWidth={2} /> Retour
         </Link>
-        <h1 className="text-2xl font-bold">{quizTitle}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">{quizTitle}</h1>
         <p className="text-sm text-gray-500">
           {empName ? `${empName} · ` : ""}
           {dateStr}
@@ -82,8 +82,8 @@ export default async function QuizResultPage({
 
       {/* Résumé du score */}
       <div
-        className={`rounded-2xl p-6 text-center ${
-          passed ? "bg-green-50" : "bg-red-50"
+        className={`rounded-xl border p-6 text-center ${
+          passed ? "border-green-200 bg-green-50" : "border-red-200 bg-red-50"
         }`}
       >
         <p
@@ -116,7 +116,7 @@ export default async function QuizResultPage({
           return (
             <div
               key={q.id}
-              className="overflow-hidden rounded-2xl bg-white shadow-sm"
+              className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm"
             >
               <div className="flex items-start gap-3 border-b border-gray-100 px-5 py-4">
                 <span
@@ -125,9 +125,9 @@ export default async function QuizResultPage({
                   }`}
                 >
                   {wasCorrect ? (
-                    <Check className="h-4 w-4" />
+                    <Check className="h-4 w-4" strokeWidth={2} />
                   ) : (
-                    <X className="h-4 w-4" />
+                    <X className="h-4 w-4" strokeWidth={2} />
                   )}
                 </span>
                 <h3 className="pt-0.5 text-sm font-semibold text-gray-900">
@@ -163,8 +163,8 @@ export default async function QuizResultPage({
                         </span>
                       )}
                       {selected && correct && (
-                        <span className="shrink-0 text-[10px] font-semibold uppercase text-green-600">
-                          ✓ Ta réponse
+                        <span className="flex shrink-0 items-center gap-1 text-[10px] font-semibold uppercase text-green-600">
+                          <Check className="h-3 w-3" strokeWidth={2} /> Ta réponse
                         </span>
                       )}
                     </div>

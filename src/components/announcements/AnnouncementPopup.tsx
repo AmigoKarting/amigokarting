@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { AlertTriangle, AlertCircle, Megaphone, type LucideIcon } from "lucide-react";
 
 interface Announcement {
   id: string;
@@ -64,10 +65,10 @@ export function AnnouncementPopup() {
 
   const current = unread[currentIndex];
 
-  function priorityConfig(p: string) {
-    if (p === "urgent") return { bg: "bg-red-500", icon: "🚨", label: "URGENT", headerBg: "bg-red-600", textColor: "text-red-800" };
-    if (p === "important") return { bg: "bg-amber-500", icon: "⚠️", label: "IMPORTANT", headerBg: "bg-amber-500", textColor: "text-amber-800" };
-    return { bg: "bg-blue-500", icon: "📢", label: "ANNONCE", headerBg: "bg-orange-500", textColor: "text-blue-800" };
+  function priorityConfig(p: string): { Icon: LucideIcon; label: string; iconBg: string; iconColor: string } {
+    if (p === "urgent") return { Icon: AlertCircle, label: "URGENT", iconBg: "bg-red-50", iconColor: "text-red-600" };
+    if (p === "important") return { Icon: AlertTriangle, label: "IMPORTANT", iconBg: "bg-amber-50", iconColor: "text-amber-600" };
+    return { Icon: Megaphone, label: "ANNONCE", iconBg: "bg-orange-50", iconColor: "text-brand-600" };
   }
 
   const config = priorityConfig(current.priority);
@@ -85,19 +86,21 @@ export function AnnouncementPopup() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-      <div className="w-full max-w-md overflow-hidden rounded-2xl bg-white shadow-2xl">
-        {/* En-tête coloré */}
-        <div className={`${config.headerBg} px-6 py-4 text-center text-white`}>
-          <span className="text-2xl">{config.icon}</span>
-          <p className="mt-1 text-xs font-bold uppercase tracking-wider opacity-90">{config.label}</p>
+      <div className="w-full max-w-md overflow-hidden rounded-xl border border-gray-200 bg-white shadow-2xl">
+        {/* En-tête */}
+        <div className="border-b border-gray-100 px-6 py-5 text-center">
+          <span className={`mx-auto flex h-12 w-12 items-center justify-center rounded-lg ${config.iconBg} ${config.iconColor}`}>
+            <config.Icon className="h-6 w-6" strokeWidth={2} />
+          </span>
+          <p className="mt-2 text-xs font-semibold uppercase tracking-wider text-gray-500">{config.label}</p>
           {unread.length > 1 && (
-            <p className="mt-1 text-xs opacity-75">{currentIndex + 1} / {unread.length}</p>
+            <p className="mt-1 text-xs text-gray-400">{currentIndex + 1} / {unread.length}</p>
           )}
         </div>
 
         {/* Contenu */}
         <div className="px-6 py-5">
-          <h2 className="text-lg font-bold text-gray-900">{current.title}</h2>
+          <h2 className="text-lg font-semibold text-gray-900">{current.title}</h2>
           <p className="mt-3 whitespace-pre-wrap text-sm leading-relaxed text-gray-700">{current.content}</p>
           <p className="mt-4 text-xs text-gray-400">
             Par {current.authorName} · {formatDate(current.created_at)}
@@ -108,7 +111,7 @@ export function AnnouncementPopup() {
         <div className="border-t border-gray-100 px-6 py-4">
           <button
             onClick={markReadAndNext}
-            className="w-full rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:shadow-md active:scale-[0.98]"
+            className="w-full rounded-lg bg-brand-600 px-4 py-3 text-sm font-medium text-white transition hover:bg-brand-700"
           >
             {currentIndex < unread.length - 1 ? "Lu — Suivante" : "Lu — Fermer"}
           </button>

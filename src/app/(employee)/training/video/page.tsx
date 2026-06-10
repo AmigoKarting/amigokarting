@@ -1,6 +1,6 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { ModuleCard } from "@/components/training/ModuleCard";
-import { ArrowLeft } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
 export default async function TrainingVideoPage() {
@@ -22,9 +22,9 @@ export default async function TrainingVideoPage() {
           href="/training"
           className="mb-2 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700"
         >
-          <ArrowLeft className="h-4 w-4" /> Retour
+          <ChevronLeft className="h-4 w-4" strokeWidth={2} /> Retour
         </Link>
-        <h1 className="text-2xl font-bold">Formation vidéo</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Formation vidéo</h1>
       </div>
 
       {videoModules.length > 0 ? (
@@ -34,7 +34,7 @@ export default async function TrainingVideoPage() {
           ))}
         </div>
       ) : (
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-500">
           Aucune formation vidéo pour le moment.
         </p>
       )}

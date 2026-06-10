@@ -24,17 +24,17 @@ export function CollapsibleCategory({
         aria-expanded={open}
         className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left transition hover:bg-gray-50"
       >
-        <span className="flex items-center gap-2 text-gray-800">
-          <Folder className="h-4 w-4 text-orange-500" />
+        <span className="flex items-center gap-2 text-gray-700">
+          <Folder className="h-4 w-4 text-brand-600" strokeWidth={2} />
           <span className="text-sm font-semibold uppercase tracking-wide">{title}</span>
-          <span className="rounded-full bg-orange-50 px-2 py-0.5 text-xs font-medium text-orange-600">
+          <span className="rounded-md bg-orange-50 px-2 py-0.5 text-xs font-medium text-brand-700">
             {count}
           </span>
         </span>
         {open ? (
-          <ChevronDown className="h-5 w-5 shrink-0 text-gray-400" />
+          <ChevronDown className="h-5 w-5 shrink-0 text-gray-400" strokeWidth={2} />
         ) : (
-          <ChevronRight className="h-5 w-5 shrink-0 text-gray-400" />
+          <ChevronRight className="h-5 w-5 shrink-0 text-gray-400" strokeWidth={2} />
         )}
       </button>
 

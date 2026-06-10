@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { CheckCircle2 } from "lucide-react";
 
 interface Announcement {
   id: string;
@@ -83,12 +84,12 @@ export default function AnnouncementsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Annonces</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Annonces</h1>
         <p className="text-sm text-gray-500">Publie un message que tous les employés verront en se connectant</p>
       </div>
 
       {/* Formulaire de création */}
-      <div className="rounded-xl bg-white shadow-sm">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="border-b border-gray-100 px-6 py-4">
           <h2 className="font-semibold text-gray-900">Nouvelle annonce</h2>
         </div>
@@ -100,7 +101,7 @@ export default function AnnouncementsPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Ex: Réunion vendredi 9h"
-              className="w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-sm transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
+              className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm transition focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
             />
           </div>
 
@@ -111,7 +112,7 @@ export default function AnnouncementsPage() {
               onChange={(e) => setContent(e.target.value)}
               placeholder="Détails de l'annonce..."
               rows={4}
-              className="w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-sm transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
+              className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm transition focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
             />
           </div>
 
@@ -127,7 +128,7 @@ export default function AnnouncementsPage() {
                   key={p.value}
                   type="button"
                   onClick={() => setPriority(p.value)}
-                  className={`rounded-lg border-2 px-4 py-2 text-sm font-medium transition ${
+                  className={`rounded-lg border px-4 py-2 text-sm font-medium transition ${
                     priority === p.value ? p.color : "border-gray-200 bg-white text-gray-500"
                   }`}
                 >
@@ -141,15 +142,13 @@ export default function AnnouncementsPage() {
             <button
               onClick={handleSubmit}
               disabled={sending || !title.trim() || !content.trim()}
-              className="rounded-xl bg-gradient-to-r from-orange-500 to-orange-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:shadow-md active:scale-[0.98] disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none"
+              className="rounded-lg bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 disabled:bg-gray-300 disabled:shadow-none"
             >
               {sending ? "Publication..." : "Publier l'annonce"}
             </button>
             {success && (
               <span className="flex items-center gap-1.5 text-sm text-green-600">
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                </svg>
+                <CheckCircle2 className="h-4 w-4" strokeWidth={2} />
                 Publié !
               </span>
             )}
@@ -158,14 +157,14 @@ export default function AnnouncementsPage() {
       </div>
 
       {/* Liste des annonces existantes */}
-      <div className="rounded-xl bg-white shadow-sm">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="border-b border-gray-100 px-6 py-4">
           <h2 className="font-semibold text-gray-900">Annonces actives ({announcements.length})</h2>
         </div>
         {announcements.length === 0 ? (
-          <p className="p-8 text-center text-sm text-gray-400">Aucune annonce active</p>
+          <p className="p-8 text-center text-sm text-gray-500">Aucune annonce active</p>
         ) : (
-          <div className="divide-y">
+          <div className="divide-y divide-gray-100">
             {announcements.map((a) => (
               <div key={a.id} className="flex items-start gap-4 px-6 py-4">
                 <div className={`mt-1 h-3 w-3 shrink-0 rounded-full ${
@@ -175,7 +174,7 @@ export default function AnnouncementsPage() {
                 <div className="flex-1">
                   <h3 className="text-sm font-semibold text-gray-900">{a.title}</h3>
                   <p className="mt-0.5 whitespace-pre-wrap text-sm text-gray-600">{a.content}</p>
-                  <p className="mt-1 text-xs text-gray-400">
+                  <p className="mt-1 text-xs text-gray-500">
                     Par {a.authorName} · {formatDate(a.created_at)}
                   </p>
                 </div>

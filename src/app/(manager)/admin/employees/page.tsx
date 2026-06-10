@@ -2,6 +2,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { EmployeeTable } from "@/components/admin/EmployeeTable";
+import { Crown, Code2 } from "lucide-react";
 
 export default async function EmployeesPage() {
   const supabase = createServerSupabaseClient();
@@ -30,41 +31,41 @@ export default async function EmployeesPage() {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Employés</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Employés</h1>
       </div>
 
       {/* Stats rapides */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <div className="rounded-xl bg-white p-4 shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
           <p className="text-xs text-gray-500">Total actifs</p>
-          <p className="text-2xl font-bold">{totalEmployees}</p>
+          <p className="text-2xl font-semibold text-gray-900">{totalEmployees}</p>
         </div>
-        <div className="rounded-xl bg-white p-4 shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
           <p className="text-xs text-gray-500">Gérants</p>
-          <p className="text-2xl font-bold text-purple-600">{managers}</p>
+          <p className="text-2xl font-semibold text-gray-900">{managers}</p>
         </div>
-        <div className="rounded-xl bg-white p-4 shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
           <p className="text-xs text-gray-500">Fiches complètes</p>
-          <p className="text-2xl font-bold text-green-600">{complete}</p>
+          <p className="text-2xl font-semibold text-green-600">{complete}</p>
         </div>
-        <div className="rounded-xl bg-white p-4 shadow-sm">
+        <div className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
           <p className="text-xs text-gray-500">Infos manquantes</p>
-          <p className="text-2xl font-bold text-red-600">{incomplete}</p>
+          <p className="text-2xl font-semibold text-red-600">{incomplete}</p>
         </div>
       </div>
 
       <EmployeeTable employees={employees || []} missingInfo={missingInfo || []} />
 
       {/* Tableau complet des données (toutes les colonnes) */}
-      <div className="rounded-xl bg-white shadow-sm">
-        <div className="border-b border-gray-100 px-6 py-4">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
+        <div className="border-b border-gray-200 px-6 py-4">
           <h2 className="font-semibold text-gray-900">Toutes les données employés</h2>
-          <p className="text-xs text-gray-400">Vue complète de la base de données</p>
+          <p className="text-xs text-gray-500">Vue complète de la base de données</p>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-xs">
             <thead>
-              <tr className="border-b bg-gray-50 text-left font-medium uppercase text-gray-500">
+              <tr className="border-b border-gray-200 bg-gray-50 text-left font-medium uppercase text-gray-500">
                 <th className="whitespace-nowrap px-3 py-2">Prénom</th>
                 <th className="whitespace-nowrap px-3 py-2">Nom</th>
                 <th className="whitespace-nowrap px-3 py-2">Rôle</th>
@@ -84,24 +85,28 @@ export default async function EmployeesPage() {
             </thead>
             <tbody>
               {employees?.map((emp: any) => (
-                <tr key={emp.id} className="border-b last:border-0 hover:bg-gray-50">
+                <tr key={emp.id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                   <td className="whitespace-nowrap px-3 py-2 font-medium">{emp.first_name}</td>
                   <td className="whitespace-nowrap px-3 py-2">{emp.last_name}</td>
                   <td className="whitespace-nowrap px-3 py-2">
-                    <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${
-                      emp.role === "patron" ? "bg-yellow-100 text-yellow-700"
-                        : emp.role === "developpeur" ? "bg-cyan-100 text-cyan-700"
-                        : emp.role === "manager" ? "bg-purple-100 text-purple-700"
+                    <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${
+                      emp.role === "patron" ? "bg-amber-50 text-amber-600"
+                        : emp.role === "developpeur" ? "bg-cyan-50 text-cyan-600"
+                        : emp.role === "manager" ? "bg-gray-100 text-gray-600"
                         : "bg-gray-100 text-gray-600"
                     }`}>
-                      {emp.role === "patron" ? "👑 Patron" : emp.role === "developpeur" ? "💻 Dev" : emp.role === "manager" ? "Gérant" : "Employé"}
+                      {emp.role === "patron"
+                        ? <><Crown className="h-3 w-3" strokeWidth={2} /> Patron</>
+                        : emp.role === "developpeur"
+                          ? <><Code2 className="h-3 w-3" strokeWidth={2} /> Dev</>
+                          : emp.role === "manager" ? "Gérant" : "Employé"}
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-3 py-2 font-mono">{emp.role === "patron" ? "****" : emp.phone_last4}</td>
                   <td className={`whitespace-nowrap px-3 py-2 ${!emp.phone ? "text-red-500" : ""}`}>
                     {emp.phone || "—"}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-2 text-gray-400">{emp.email || "—"}</td>
+                  <td className="whitespace-nowrap px-3 py-2 text-gray-500">{emp.email || "—"}</td>
                   <td className={`whitespace-nowrap px-3 py-2 ${!emp.address ? "text-red-500" : ""}`}>
                     {emp.address || "—"}
                   </td>
@@ -117,10 +122,10 @@ export default async function EmployeesPage() {
                   <td className={`whitespace-nowrap px-3 py-2 ${!emp.uniform_size_shirt ? "text-red-500" : ""}`}>
                     {emp.uniform_size_shirt || "—"}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-2 text-gray-400">
+                  <td className="whitespace-nowrap px-3 py-2 text-gray-500">
                     {new Date(emp.created_at).toLocaleDateString("fr-CA")}
                   </td>
-                  <td className="whitespace-nowrap px-3 py-2 text-gray-400">
+                  <td className="whitespace-nowrap px-3 py-2 text-gray-500">
                     {new Date(emp.updated_at).toLocaleDateString("fr-CA")}
                   </td>
                 </tr>

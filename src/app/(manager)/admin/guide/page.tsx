@@ -1,11 +1,16 @@
 "use client";
 
 import { useState } from "react";
+import {
+  Hand, CheckCircle2, Users, Megaphone, BarChart3, AlertTriangle,
+  GraduationCap, Mic, HelpCircle, User, RefreshCw, Database, Crown,
+  Wrench, ChevronDown, type LucideIcon,
+} from "lucide-react";
 
-const sections = [
+const sections: { id: string; Icon: LucideIcon; title: string; content: string[] }[] = [
   {
     id: "bienvenue",
-    icon: "👋",
+    Icon: Hand,
     title: "Bienvenue — Vue d'ensemble",
     content: [
       "Tu es gestionnaire, patron ou développeur. Tu as accès à tous les outils pour gérer ton équipe.",
@@ -14,7 +19,7 @@ const sections = [
   },
   {
     id: "approuver",
-    icon: "✅",
+    Icon: CheckCircle2,
     title: "Approuver les nouveaux comptes",
     content: [
       "Quand un employé crée son compte, il ne peut PAS se connecter tout de suite.",
@@ -27,7 +32,7 @@ const sections = [
   },
   {
     id: "roles",
-    icon: "👥",
+    Icon: Users,
     title: "Gérer les rôles des employés",
     content: [
       "Il y a 4 rôles : Employé, Gérant, Patron, Développeur.",
@@ -40,7 +45,7 @@ const sections = [
   },
   {
     id: "annonces",
-    icon: "📢",
+    Icon: Megaphone,
     title: "Publier une annonce",
     content: [
       "1. Va dans 'Annonces' dans le menu",
@@ -52,7 +57,7 @@ const sections = [
   },
   {
     id: "scores",
-    icon: "📊",
+    Icon: BarChart3,
     title: "Voir les scores des employés",
     content: [
       "Va dans 'Notes globales' dans le menu.",
@@ -66,7 +71,7 @@ const sections = [
   },
   {
     id: "difficultes",
-    icon: "⚠️",
+    Icon: AlertTriangle,
     title: "Voir les difficultés des quiz",
     content: [
       "Va dans 'Difficultés quiz' dans le menu.",
@@ -77,7 +82,7 @@ const sections = [
   },
   {
     id: "formation",
-    icon: "🎓",
+    Icon: GraduationCap,
     title: "Suivre la formation des employés",
     content: [
       "Va dans 'Suivi formation' dans le menu.",
@@ -87,7 +92,7 @@ const sections = [
   },
   {
     id: "conversations",
-    icon: "🎙️",
+    Icon: Mic,
     title: "Conversations IA — Comment ça marche",
     content: [
       "Les employés parlent avec une IA qui leur pose des questions sur les procédures.",
@@ -98,7 +103,7 @@ const sections = [
   },
   {
     id: "qa",
-    icon: "❓",
+    Icon: HelpCircle,
     title: "Q&A — Le manuel de l'entreprise",
     content: [
       "Les employés peuvent chercher des réponses dans le manuel directement dans l'app.",
@@ -109,7 +114,7 @@ const sections = [
   },
   {
     id: "employes",
-    icon: "👤",
+    Icon: User,
     title: "Gérer les employés",
     content: [
       "Va dans 'Employés' dans le menu.",
@@ -120,7 +125,7 @@ const sections = [
   },
   {
     id: "miseajour",
-    icon: "🔄",
+    Icon: RefreshCw,
     title: "Mettre à jour l'application",
     content: [
       "Pour changer du contenu (quiz, manuel) : fais-le dans Supabase, pas besoin de code.",
@@ -134,7 +139,7 @@ const sections = [
   },
   {
     id: "supabase",
-    icon: "🗄️",
+    Icon: Database,
     title: "Utiliser Supabase (la base de données)",
     content: [
       "Supabase contient toutes les données de l'app.",
@@ -146,7 +151,7 @@ const sections = [
   },
   {
     id: "zonpatron",
-    icon: "👑",
+    Icon: Crown,
     title: "Zone Patron",
     content: [
       "Page exclusive visible seulement par le patron et le développeur.",
@@ -155,7 +160,7 @@ const sections = [
   },
   {
     id: "problemes",
-    icon: "🔧",
+    Icon: Wrench,
     title: "Problèmes fréquents",
     content: [
       "❌ Un employé ne peut pas se connecter → Vérifie que son compte est approuvé dans le Tableau de bord",
@@ -173,24 +178,23 @@ export default function AdminGuidePage() {
   return (
     <div className="mx-auto max-w-2xl space-y-4">
       <div>
-        <h1 className="text-2xl font-bold">Guide du gestionnaire</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Guide du gestionnaire</h1>
         <p className="text-sm text-gray-500">Tout ce que tu dois savoir pour gérer l'app et ton équipe</p>
       </div>
 
       {sections.map((section) => {
         const isOpen = openId === section.id;
         return (
-          <div key={section.id} className="overflow-hidden rounded-xl bg-white shadow-sm">
+          <div key={section.id} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
             <button
               onClick={() => setOpenId(isOpen ? null : section.id)}
               className="flex w-full items-center gap-3 px-5 py-4 text-left transition hover:bg-gray-50"
             >
-              <span className="text-2xl">{section.icon}</span>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
+                <section.Icon className="h-5 w-5" strokeWidth={2} />
+              </span>
               <span className="flex-1 text-sm font-semibold text-gray-900">{section.title}</span>
-              <svg className={`h-5 w-5 shrink-0 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
+              <ChevronDown className={`h-5 w-5 shrink-0 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`} strokeWidth={2} />
             </button>
             {isOpen && (
               <div className="border-t border-gray-100 px-5 py-4 space-y-2">

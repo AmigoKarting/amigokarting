@@ -7,7 +7,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <h1 className="text-2xl font-bold">Ma fiche employé</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Ma fiche employé</h1>
       <ProfileForm employee={employee} />
     </div>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { CheckCircle2, Check } from "lucide-react";
 
 export function ApprovalsManager() {
   const [pending, setPending] = useState<any[]>([]);
@@ -36,17 +37,17 @@ export function ApprovalsManager() {
   if (loading) {
     return (
       <div className="flex justify-center py-16">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-orange-200 border-t-orange-500" />
+        <div className="h-8 w-8 animate-spin rounded-full border-[3px] border-gray-200 border-t-brand-600" />
       </div>
     );
   }
 
   if (pending.length === 0) {
     return (
-      <div className="rounded-2xl bg-white p-10 text-center shadow-sm">
-        <p className="text-5xl">✅</p>
-        <p className="mt-3 text-sm font-semibold text-gray-800">Aucun compte en attente</p>
-        <p className="mt-1 text-xs text-gray-400">
+      <div className="rounded-xl border border-gray-200 bg-white p-10 text-center shadow-sm">
+        <CheckCircle2 className="mx-auto h-10 w-10 text-green-600" strokeWidth={2} />
+        <p className="mt-3 text-sm font-semibold text-gray-900">Aucun compte en attente</p>
+        <p className="mt-1 text-xs text-gray-500">
           Les nouveaux employés qui s'inscrivent apparaîtront ici, pour que tu les acceptes.
         </p>
       </div>
@@ -58,7 +59,7 @@ export function ApprovalsManager() {
       {pending.map((emp) => (
         <div
           key={emp.id}
-          className="flex flex-col gap-3 rounded-2xl bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between"
+          className="flex flex-col gap-3 rounded-xl border border-gray-200 bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between"
         >
           <div>
             <p className="font-semibold text-gray-900">{emp.first_name} {emp.last_name}</p>
@@ -71,14 +72,14 @@ export function ApprovalsManager() {
             <button
               disabled={busy === emp.id}
               onClick={() => act(emp.id, "reactivate", `${emp.first_name} ${emp.last_name}`)}
-              className="flex-1 rounded-xl bg-green-500 px-5 py-2.5 text-sm font-semibold text-white transition active:scale-95 disabled:opacity-50 sm:flex-none"
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-green-700 disabled:opacity-50 sm:flex-none"
             >
-              ✓ Accepter
+              <Check className="h-4 w-4" strokeWidth={2} /> Accepter
             </button>
             <button
               disabled={busy === emp.id}
               onClick={() => act(emp.id, "deactivate", `${emp.first_name} ${emp.last_name}`)}
-              className="flex-1 rounded-xl bg-red-100 px-5 py-2.5 text-sm font-semibold text-red-700 transition active:scale-95 disabled:opacity-50 sm:flex-none"
+              className="flex-1 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:opacity-50 sm:flex-none"
             >
               Refuser
             </button>

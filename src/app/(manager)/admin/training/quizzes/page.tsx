@@ -25,18 +25,18 @@ export default async function QuizDifficultiesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Difficultés aux quiz</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Difficultés aux quiz</h1>
         <p className="text-sm text-gray-500">Questions que chaque employé rate le plus souvent</p>
       </div>
 
-      <div className="rounded-xl bg-white shadow-sm">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="border-b border-gray-100 px-6 py-4">
           <h2 className="font-semibold text-gray-900">Questions les plus ratées (tous employés)</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
+              <tr className="border-b border-gray-200 bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
                 <th className="px-4 py-3">Question</th>
                 <th className="px-4 py-3">Quiz</th>
                 <th className="px-4 py-3">Réponses</th>
@@ -45,10 +45,10 @@ export default async function QuizDifficultiesPage() {
             </thead>
             <tbody>
               {questionStats?.map((q: any) => (
-                <tr key={q.question_id} className="border-b last:border-0 hover:bg-gray-50">
+                <tr key={q.question_id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                   <td className="px-4 py-3 max-w-sm">
                     <p className="font-medium text-gray-900">{q.question_text}</p>
-                    {q.explanation && <p className="mt-1 text-xs text-gray-400">{q.explanation}</p>}
+                    {q.explanation && <p className="mt-1 text-xs text-gray-500">{q.explanation}</p>}
                   </td>
                   <td className="px-4 py-3 text-gray-500">{q.quiz_title}</td>
                   <td className="px-4 py-3">{q.total_answers}</td>
@@ -62,7 +62,7 @@ export default async function QuizDifficultiesPage() {
                   </td>
                 </tr>
               ))}
-              {(!questionStats||questionStats.length===0) && <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-400">Aucune donnée de quiz encore</td></tr>}
+              {(!questionStats||questionStats.length===0) && <tr><td colSpan={4} className="px-4 py-8 text-center text-gray-500">Aucune donnée de quiz encore</td></tr>}
             </tbody>
           </table>
         </div>
@@ -70,16 +70,16 @@ export default async function QuizDifficultiesPage() {
 
       <div>
         <h2 className="mb-4 text-lg font-semibold text-gray-900">Par employé</h2>
-        {byEmployee.size === 0 && <p className="rounded-xl bg-white p-8 text-center text-sm text-gray-400 shadow-sm">Aucun employé n'a encore raté de question</p>}
+        {byEmployee.size === 0 && <p className="rounded-xl border border-gray-200 bg-white p-8 text-center text-sm text-gray-500 shadow-sm">Aucun employé n'a encore raté de question</p>}
         <div className="space-y-4">
           {Array.from(byEmployee.entries()).map(([empId, data]) => (
-            <div key={empId} className="rounded-xl bg-white shadow-sm">
+            <div key={empId} className="rounded-xl border border-gray-200 bg-white shadow-sm">
               <div className="flex items-center justify-between border-b border-gray-100 px-6 py-4">
                 <div>
                   <h3 className="font-semibold text-gray-900">{data.name}</h3>
-                  <p className="text-xs text-gray-400">{data.difficulties.length} question{data.difficulties.length>1?"s":""} difficile{data.difficulties.length>1?"s":""}</p>
+                  <p className="text-xs text-gray-500">{data.difficulties.length} question{data.difficulties.length>1?"s":""} difficile{data.difficulties.length>1?"s":""}</p>
                 </div>
-                <span className="rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700">
+                <span className="rounded-md bg-red-50 px-2.5 py-1 text-xs font-medium text-red-700">
                   {data.difficulties.filter((d: any)=>!d.eventually_correct).length} non corrigée{data.difficulties.filter((d: any)=>!d.eventually_correct).length!==1?"s":""}
                 </span>
               </div>
@@ -91,7 +91,7 @@ export default async function QuizDifficultiesPage() {
                     </span>
                     <div className="flex-1">
                       <p className="text-sm text-gray-900">{d.question_text}</p>
-                      <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-gray-400">
+                      <div className="mt-1 flex flex-wrap items-center gap-2 text-xs text-gray-500">
                         <span>{d.quiz_title}</span><span>·</span>
                         <span>Raté {d.times_wrong}x</span>
                         {d.eventually_correct && <><span>·</span><span className="text-green-600">Corrigée</span></>}

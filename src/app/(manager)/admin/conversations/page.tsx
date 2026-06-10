@@ -11,7 +11,7 @@ export default async function AdminConversationsPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Rapport conversations IA</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Rapport conversations IA</h1>
       <ConversationReport data={report || []} />
     </div>
   );

@@ -2,6 +2,10 @@ import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
 import { AnnouncementBanner } from "@/components/announcements/AnnouncementBanner";
+import {
+  Award, Flame, BarChart3, Users, TrendingUp, Megaphone, GraduationCap, Star,
+  Lightbulb, ChevronRight, type LucideIcon,
+} from "lucide-react";
 import Link from "next/link";
 
 export const dynamic = "force-dynamic";
@@ -25,10 +29,10 @@ export default async function ManagerHome() {
   const quizzesPassed = g.quizzes_passed || 0;
   const quizzesTotal = g.quizzes_total || 0;
 
-  let level = { name: "Bronze", icon: "🥉", color: "#D97706" };
-  if (points >= 1000) level = { name: "Diamant", icon: "💎", color: "#60A5FA" };
-  else if (points >= 500) level = { name: "Or", icon: "🥇", color: "#F59E0B" };
-  else if (points >= 200) level = { name: "Argent", icon: "🥈", color: "#9CA3AF" };
+  let level = { name: "Bronze", color: "#B45309" };
+  if (points >= 1000) level = { name: "Diamant", color: "#2563EB" };
+  else if (points >= 500) level = { name: "Or", color: "#CA8A04" };
+  else if (points >= 200) level = { name: "Argent", color: "#6B7280" };
 
   // ─── Aperçu équipe ────────────────────────────────────
   let activeCount = 0;
@@ -46,15 +50,15 @@ export default async function ManagerHome() {
   const greeting = hour < 12 ? "Bon matin" : hour < 17 ? "Bon après-midi" : "Bonne soirée";
   const roleLbl = me.role === "patron" ? "Patron" : me.role === "developpeur" ? "Dev" : "Gérant";
 
-  const adminShortcuts = [
-    { href: "/admin", icon: "📊", label: "Tableau de bord", desc: "Vue d'ensemble de l'équipe", color: "bg-gray-50 border-gray-200" },
-    { href: "/admin/employees", icon: "👥", label: "Employés", desc: `${activeCount} actif${activeCount > 1 ? "s" : ""}`, color: "bg-blue-50 border-blue-200" },
-    { href: "/admin/scores", icon: "📈", label: "Notes globales", desc: "Progrès de chacun", color: "bg-green-50 border-green-200" },
-    { href: "/admin/announcements", icon: "📣", label: "Annonces", desc: "Informer l'équipe", color: "bg-orange-50 border-orange-200" },
+  const adminShortcuts: { href: string; Icon: LucideIcon; label: string; desc: string }[] = [
+    { href: "/admin", Icon: BarChart3, label: "Tableau de bord", desc: "Vue d'ensemble de l'équipe" },
+    { href: "/admin/employees", Icon: Users, label: "Employés", desc: `${activeCount} actif${activeCount > 1 ? "s" : ""}` },
+    { href: "/admin/scores", Icon: TrendingUp, label: "Notes globales", desc: "Progrès de chacun" },
+    { href: "/admin/announcements", Icon: Megaphone, label: "Annonces", desc: "Informer l'équipe" },
   ];
-  const personalShortcuts = [
-    { href: "/admin/my-training", icon: "🎓", label: "Ma formation", desc: `${quizzesPassed}/${quizzesTotal} quiz réussis`, color: "bg-purple-50 border-purple-200" },
-    { href: "/admin/my-score", icon: "⭐", label: "Ma note", desc: "Mon score perso", color: "bg-yellow-50 border-yellow-200" },
+  const personalShortcuts: { href: string; Icon: LucideIcon; label: string; desc: string }[] = [
+    { href: "/admin/my-training", Icon: GraduationCap, label: "Ma formation", desc: `${quizzesPassed}/${quizzesTotal} quiz réussis` },
+    { href: "/admin/my-score", Icon: Star, label: "Ma note", desc: "Mon score perso" },
   ];
 
   return (
@@ -62,24 +66,25 @@ export default async function ManagerHome() {
       <AnnouncementPopup />
 
       {/* ─── Bienvenue + résumé perso ─── */}
-      <div className="rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 p-6 text-white">
-        <p className="text-sm text-gray-400">{greeting} · {roleLbl}</p>
-        <h1 className="mt-1 text-2xl font-bold">{me.first_name} ! 👋</h1>
+      <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <p className="text-sm text-gray-500">{greeting} · {roleLbl}</p>
+        <h1 className="mt-0.5 text-2xl font-semibold tracking-tight text-gray-900">{me.first_name}</h1>
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium" style={{ color: level.color }}>
-            {level.icon} {level.name}
+          <span className="inline-flex items-center gap-1.5 rounded-md border border-gray-200 bg-white px-2.5 py-1 text-sm text-gray-700">
+            <Award className="h-4 w-4" strokeWidth={2} style={{ color: level.color }} />
+            <span className="font-medium">{level.name}</span>
           </span>
-          <span className="flex items-center gap-1 rounded-full bg-white/10 px-3 py-1.5 text-sm font-bold">
-            🏅 {points} <span className="text-xs font-normal text-gray-400">pts</span>
+          <span className="inline-flex items-center gap-1.5 rounded-md border border-gray-200 bg-white px-2.5 py-1 text-sm text-gray-700">
+            <span className="font-semibold text-gray-900">{points}</span> pts
           </span>
           {streak > 0 && (
-            <span className="flex items-center gap-1 rounded-full bg-orange-500/20 px-3 py-1.5 text-sm font-bold text-orange-300">
-              🔥 {streak}j
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-orange-200 bg-orange-50 px-2.5 py-1 text-sm font-medium text-brand-700">
+              <Flame className="h-4 w-4" strokeWidth={2} /> {streak} j
             </span>
           )}
           {rank > 0 && (
-            <span className="flex items-center gap-1 rounded-full bg-white/10 px-3 py-1.5 text-sm font-bold">
-              #{rank}<span className="text-xs font-normal text-gray-400">/{totalPlayers}</span>
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-gray-200 bg-white px-2.5 py-1 text-sm text-gray-700">
+              #{rank} <span className="text-gray-400">/ {totalPlayers}</span>
             </span>
           )}
         </div>
@@ -94,18 +99,18 @@ export default async function ManagerHome() {
           {isPatron && pendingCount > 0 && (
             <Link
               href="/admin/approbations"
-              className="flex items-center gap-3 rounded-2xl border-2 border-orange-300 bg-orange-50 px-5 py-4 transition active:scale-[0.99]"
+              className="flex items-center gap-3 rounded-xl border border-orange-200 bg-orange-50 px-5 py-4 transition hover:border-orange-300"
             >
-              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-bold text-white">
+              <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand-600 text-xs font-bold text-white">
                 {pendingCount}
               </span>
               <div className="flex-1">
-                <p className="text-sm font-semibold text-orange-900">
+                <p className="text-sm font-semibold text-brand-700">
                   {pendingCount} compte{pendingCount > 1 ? "s" : ""} en attente d'approbation
                 </p>
-                <p className="text-xs text-orange-600">Touche pour accepter ou refuser →</p>
+                <p className="text-xs text-brand-600">Touche pour accepter ou refuser</p>
               </div>
-              <span className="shrink-0 text-orange-400">→</span>
+              <ChevronRight className="h-5 w-5 shrink-0 text-brand-600" strokeWidth={2} />
             </Link>
           )}
 
@@ -114,9 +119,11 @@ export default async function ManagerHome() {
             <p className="mb-3 text-sm font-semibold text-gray-700">Gestion de l'équipe</p>
             <div className="grid grid-cols-2 gap-3">
               {adminShortcuts.map((s) => (
-                <Link key={s.href} href={s.href} className={`rounded-xl border-2 p-4 transition active:scale-[0.97] ${s.color}`}>
-                  <span className="text-2xl">{s.icon}</span>
-                  <p className="mt-2 text-sm font-semibold text-gray-900">{s.label}</p>
+                <Link key={s.href} href={s.href} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
+                    <s.Icon className="h-[18px] w-[18px]" strokeWidth={2} />
+                  </span>
+                  <p className="mt-2.5 text-sm font-medium text-gray-900">{s.label}</p>
                   <p className="mt-0.5 text-[11px] text-gray-500">{s.desc}</p>
                 </Link>
               ))}
@@ -130,9 +137,11 @@ export default async function ManagerHome() {
             <p className="mb-3 text-sm font-semibold text-gray-700">Mon espace personnel</p>
             <div className="grid grid-cols-2 gap-3">
               {personalShortcuts.map((s) => (
-                <Link key={s.href} href={s.href} className={`rounded-xl border-2 p-4 transition active:scale-[0.97] ${s.color}`}>
-                  <span className="text-2xl">{s.icon}</span>
-                  <p className="mt-2 text-sm font-semibold text-gray-900">{s.label}</p>
+                <Link key={s.href} href={s.href} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
+                    <s.Icon className="h-[18px] w-[18px]" strokeWidth={2} />
+                  </span>
+                  <p className="mt-2.5 text-sm font-medium text-gray-900">{s.label}</p>
                   <p className="mt-0.5 text-[11px] text-gray-500">{s.desc}</p>
                 </Link>
               ))}
@@ -140,13 +149,16 @@ export default async function ManagerHome() {
           </div>
 
           {/* Astuce du jour */}
-          <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-            <p className="mb-1 text-xs font-semibold text-orange-700">💡 Astuce</p>
-            <p className="text-sm text-orange-800">
-              {isPatron && pendingCount > 0
-                ? "Des employés attendent ton approbation — accepte-les pour qu'ils puissent commencer leur formation."
-                : "Passe par le Tableau de bord pour repérer qui n'a pas été actif et l'encourager 💪"}
-            </p>
+          <div className="flex gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+            <Lightbulb className="h-5 w-5 shrink-0 text-brand-600" strokeWidth={2} />
+            <div>
+              <p className="text-xs font-medium text-gray-900">Astuce</p>
+              <p className="mt-0.5 text-sm text-gray-600">
+                {isPatron && pendingCount > 0
+                  ? "Des employés attendent ton approbation — accepte-les pour qu'ils puissent commencer leur formation."
+                  : "Passe par le Tableau de bord pour repérer qui n'a pas été actif et l'encourager."}
+              </p>
+            </div>
           </div>
         </div>
       </div>

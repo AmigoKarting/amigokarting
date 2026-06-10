@@ -101,7 +101,7 @@ export function AnnouncementBanner() {
           <div
             key={a.id}
             className={`cursor-pointer overflow-hidden rounded-xl border transition-all ${style.border} ${style.bg} ${
-              !a.isRead ? "ring-2 ring-orange-300" : ""
+              !a.isRead ? "ring-1 ring-orange-200" : ""
             }`}
             onClick={() => toggle(a.id)}
           >
@@ -114,7 +114,7 @@ export function AnnouncementBanner() {
               <div className="flex-1">
                 <div className="flex items-center gap-2">
                   {style.label && (
-                    <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold ${style.text} ${style.bg}`}>
+                    <span className={`rounded-md px-1.5 py-0.5 text-[10px] font-bold ${style.text} ${style.bg}`}>
                       {style.label}
                     </span>
                   )}

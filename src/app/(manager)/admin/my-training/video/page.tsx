@@ -34,11 +34,11 @@ export default async function ManagerTrainingVideoPage() {
         >
           <ArrowLeft className="h-4 w-4" /> Retour
         </Link>
-        <h1 className="text-2xl font-bold">Formation vidéo</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Formation vidéo</h1>
       </div>
 
       {videoModules.length === 0 && (
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-gray-500">
           Aucune formation vidéo pour le moment.
         </p>
       )}
@@ -53,7 +53,7 @@ export default async function ManagerTrainingVideoPage() {
           const pct = totalVideos > 0 ? Math.round((completedCount / totalVideos) * 100) : 0;
 
           return (
-            <div key={mod.id} className="rounded-xl bg-white shadow-sm">
+            <div key={mod.id} className="rounded-xl border border-gray-200 bg-white shadow-sm">
               {/* En-tête du module */}
               <div className="border-b border-gray-100 px-6 py-4">
                 <div className="flex items-center justify-between">
@@ -64,13 +64,13 @@ export default async function ManagerTrainingVideoPage() {
                     )}
                   </div>
                   <div className="text-right">
-                    <span className="text-lg font-bold text-orange-600">{pct}%</span>
-                    <p className="text-xs text-gray-400">{completedCount}/{totalVideos} vidéos</p>
+                    <span className="text-lg font-bold text-brand-600">{pct}%</span>
+                    <p className="text-xs text-gray-500">{completedCount}/{totalVideos} vidéos</p>
                   </div>
                 </div>
                 <div className="mt-3 h-2 overflow-hidden rounded-full bg-gray-100">
                   <div
-                    className="h-full rounded-full bg-orange-500 transition-all"
+                    className="h-full rounded-full bg-brand-600 transition-all"
                     style={{ width: `${pct}%` }}
                   />
                 </div>
@@ -101,8 +101,8 @@ export default async function ManagerTrainingVideoPage() {
                                     </svg>
                                   </span>
                                 ) : watchLog ? (
-                                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-100">
-                                    <span className="h-2 w-2 rounded-full bg-orange-500" />
+                                  <span className="flex h-6 w-6 items-center justify-center rounded-full bg-orange-50">
+                                    <span className="h-2 w-2 rounded-full bg-brand-600" />
                                   </span>
                                 ) : (
                                   <span className="flex h-6 w-6 items-center justify-center rounded-full bg-gray-100">

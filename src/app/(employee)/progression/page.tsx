@@ -1,6 +1,11 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Lock, RefreshCw, ChevronRight, Flame, Target, type LucideIcon } from "lucide-react";
+import {
+  PlayCircle, Hand, Star, Wallet, Flag, Handshake, GraduationCap,
+  Zap, Trophy, Cpu, CheckCircle2,
+} from "lucide-react";
 
 interface ProgressData {
   level: { name: string; icon: string; color: string; score: number; nextLevel: string; pointsNeeded: number };
@@ -37,25 +42,25 @@ function levelFromPoints(p: number) {
 }
 
 function medal(rank: number): string {
-  return rank === 1 ? "🥇" : rank === 2 ? "🥈" : rank === 3 ? "🥉" : `#${rank}`;
+  return `#${rank}`;
 }
 
-function computeBadges(g: GamStats) {
+function computeBadges(g: GamStats): { Icon: LucideIcon; label: string; desc: string; earned: boolean }[] {
   const cat = g.by_category || {};
   const catDone = (n: string) => !!cat[n] && cat[n].total > 0 && cat[n].passed >= cat[n].total;
   return [
-    { icon: "🎬", label: "Premiers pas", desc: "1er quiz complété", earned: g.attempts >= 1 },
-    { icon: "✋", label: "Sur la lancée", desc: "5 quiz réussis", earned: g.quizzes_passed >= 5 },
-    { icon: "🎯", label: "Sans faute", desc: "1 quiz parfait", earned: g.perfect_count >= 1 },
-    { icon: "🌟", label: "Perfectionniste", desc: "5 quiz parfaits", earned: g.perfect_count >= 5 },
-    { icon: "💰", label: "Expert Caisse", desc: "Tous les quiz Caisse", earned: catDone("Caisse - Amigo Karting") },
-    { icon: "🏁", label: "Expert Piste", desc: "Tous les quiz Piste", earned: catDone("Piste") },
-    { icon: "🤝", label: "Expert Sup.", desc: "Tous les quiz Superviseur", earned: catDone("Superviseur du service à la clientèle") },
-    { icon: "🎓", label: "Certifié", desc: "Un examen final réussi", earned: g.finals_passed >= 1 },
-    { icon: "🔥", label: "Assidu", desc: "3 jours d'affilée", earned: g.daily_streak >= 3 },
-    { icon: "⚡", label: "Inarrêtable", desc: "7 jours d'affilée", earned: g.daily_streak >= 7 },
-    { icon: "🏆", label: "Tout réussi", desc: "Tous les quiz réussis", earned: g.quizzes_total > 0 && g.quizzes_passed >= g.quizzes_total },
-    { icon: "🤖", label: "Machine", desc: "1000 points", earned: g.points >= 1000 },
+    { Icon: PlayCircle, label: "Premiers pas", desc: "1er quiz complété", earned: g.attempts >= 1 },
+    { Icon: Hand, label: "Sur la lancée", desc: "5 quiz réussis", earned: g.quizzes_passed >= 5 },
+    { Icon: Target, label: "Sans faute", desc: "1 quiz parfait", earned: g.perfect_count >= 1 },
+    { Icon: Star, label: "Perfectionniste", desc: "5 quiz parfaits", earned: g.perfect_count >= 5 },
+    { Icon: Wallet, label: "Expert Caisse", desc: "Tous les quiz Caisse", earned: catDone("Caisse - Amigo Karting") },
+    { Icon: Flag, label: "Expert Piste", desc: "Tous les quiz Piste", earned: catDone("Piste") },
+    { Icon: Handshake, label: "Expert Sup.", desc: "Tous les quiz Superviseur", earned: catDone("Superviseur du service à la clientèle") },
+    { Icon: GraduationCap, label: "Certifié", desc: "Un examen final réussi", earned: g.finals_passed >= 1 },
+    { Icon: Flame, label: "Assidu", desc: "3 jours d'affilée", earned: g.daily_streak >= 3 },
+    { Icon: Zap, label: "Inarrêtable", desc: "7 jours d'affilée", earned: g.daily_streak >= 7 },
+    { Icon: Trophy, label: "Tout réussi", desc: "Tous les quiz réussis", earned: g.quizzes_total > 0 && g.quizzes_passed >= g.quizzes_total },
+    { Icon: Cpu, label: "Machine", desc: "1000 points", earned: g.points >= 1000 },
   ];
 }
 
@@ -109,7 +114,7 @@ export default function ProgressionPage() {
 
   if (loading) return (
     <div className="flex justify-center py-20">
-      <div className="h-10 w-10 animate-spin rounded-full border-4 border-orange-200 border-t-orange-500" />
+      <div className="h-10 w-10 animate-spin rounded-full border-4 border-gray-200 border-t-brand-600" />
     </div>
   );
 
@@ -128,37 +133,37 @@ export default function ProgressionPage() {
             <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
             Retour
           </button>
-          <span className="text-xs text-gray-400">{currentCard + 1} / {reviewCards.length}</span>
+          <span className="text-xs text-gray-500">{currentCard + 1} / {reviewCards.length}</span>
         </div>
 
-        <div className="rounded-2xl bg-white p-6 shadow-sm">
-          <p className="text-center text-xs font-semibold text-orange-600 mb-4">QUESTION À REVOIR</p>
+        <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <p className="text-center text-xs font-semibold text-brand-600 mb-4">QUESTION À REVOIR</p>
           <p className="text-center text-base font-medium text-gray-900">{card.question}</p>
 
           {!showAnswer ? (
             <div className="mt-6 space-y-3">
               <textarea value={reviewAnswer} onChange={(e) => setReviewAnswer(e.target.value)}
                 placeholder="Tape ta réponse..."
-                className="w-full rounded-xl border-2 border-gray-200 px-4 py-3 text-sm focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100" rows={3} />
+                className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100" rows={3} />
               <button onClick={() => setShowAnswer(true)}
-                className="w-full rounded-xl bg-orange-500 py-3 text-sm font-semibold text-white active:scale-[0.98]">
+                className="w-full rounded-lg bg-brand-600 py-3 text-sm font-medium text-white hover:bg-brand-700">
                 Voir la réponse
               </button>
             </div>
           ) : (
             <div className="mt-6 space-y-4">
-              <div className="rounded-xl bg-green-50 p-4">
+              <div className="rounded-lg border border-gray-200 bg-white p-4">
                 <p className="text-xs font-semibold text-green-700 mb-1">Bonne réponse :</p>
-                <p className="text-sm text-green-800">{(card as any).correct_answer || "Vérifie dans le manuel."}</p>
+                <p className="text-sm text-gray-700">{(card as any).correct_answer || "Vérifie dans le manuel."}</p>
               </div>
               <p className="text-center text-sm text-gray-600">Tu avais la bonne réponse ?</p>
               <div className="flex gap-3">
                 <button onClick={() => submitReview(false)}
-                  className="flex-1 rounded-xl border-2 border-red-200 bg-red-50 py-3 text-sm font-semibold text-red-700 active:scale-[0.98]">
+                  className="flex-1 rounded-lg border border-red-200 bg-red-50 py-3 text-sm font-semibold text-red-700 hover:bg-red-100">
                   Non, à revoir
                 </button>
                 <button onClick={() => submitReview(true)}
-                  className="flex-1 rounded-xl bg-green-500 py-3 text-sm font-semibold text-white active:scale-[0.98]">
+                  className="flex-1 rounded-lg bg-green-600 py-3 text-sm font-semibold text-white hover:bg-green-700">
                   Oui, je savais !
                 </button>
               </div>
@@ -168,7 +173,7 @@ export default function ProgressionPage() {
 
         {/* Barre de progression */}
         <div className="h-2 overflow-hidden rounded-full bg-gray-100">
-          <div className="h-full rounded-full bg-orange-500 transition-all" style={{ width: `${((currentCard + 1) / reviewCards.length) * 100}%` }} />
+          <div className="h-full rounded-full bg-brand-600 transition-all" style={{ width: `${((currentCard + 1) / reviewCards.length) * 100}%` }} />
         </div>
       </div>
     );
@@ -177,28 +182,28 @@ export default function ProgressionPage() {
   // ─── Page principale ──────────────────────────────────
   return (
     <div className="mx-auto w-full max-w-lg space-y-6 lg:max-w-5xl">
-      <h1 className="text-2xl font-bold">Ma progression</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Ma progression</h1>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:items-start">
         <div className="space-y-6">
 
       {/* Niveau actuel */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 p-6 text-white">
+      <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
         <div className="flex items-center gap-4">
           <div className="text-5xl">{level.icon}</div>
           <div>
-            <p className="text-xs text-gray-400">Niveau actuel</p>
-            <p className="text-2xl font-bold" style={{ color: level.color }}>{level.name}</p>
-            <p className="mt-1 text-sm text-gray-300">Score : {level.score}/100</p>
+            <p className="text-xs text-gray-500">Niveau actuel</p>
+            <p className="text-2xl font-semibold" style={{ color: level.color }}>{level.name}</p>
+            <p className="mt-1 text-sm text-gray-500">Score : {level.score}/100</p>
           </div>
         </div>
         {level.pointsNeeded > 0 && (
           <div className="mt-4">
-            <div className="flex justify-between text-xs text-gray-400 mb-1">
+            <div className="flex justify-between text-xs text-gray-500 mb-1">
               <span>Prochain : {level.nextLevel}</span>
               <span>{level.pointsNeeded} points restants</span>
             </div>
-            <div className="h-2 overflow-hidden rounded-full bg-gray-700">
+            <div className="h-2 overflow-hidden rounded-full bg-gray-100">
               <div className="h-full rounded-full transition-all" style={{ width: `${Math.min(100, (level.score / (level.score + level.pointsNeeded)) * 100)}%`, background: level.color }} />
             </div>
           </div>
@@ -210,44 +215,46 @@ export default function ProgressionPage() {
         const lvl = levelFromPoints(gam.points);
         return (
           <>
-            <div className="rounded-2xl bg-gradient-to-br from-orange-500 to-orange-600 p-5 text-white shadow-sm">
+            <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs text-orange-100">Mes points</p>
-                  <p className="text-3xl font-extrabold leading-tight">
-                    {gam.points}<span className="ml-1 text-base font-semibold">pts</span>
+                  <p className="text-xs text-gray-500">Mes points</p>
+                  <p className="text-3xl font-semibold leading-tight text-gray-900">
+                    {gam.points}<span className="ml-1 text-base font-medium text-gray-500">pts</span>
                   </p>
-                  <p className="mt-0.5 text-xs font-medium text-orange-100">Niveau {lvl.level} · {lvl.label}</p>
+                  <p className="mt-0.5 text-xs font-medium text-gray-500">Niveau {lvl.level} · {lvl.label}</p>
                 </div>
                 <div className="text-right">
-                  <p className="text-xs text-orange-100">Classement</p>
-                  <p className="text-2xl font-extrabold leading-tight">
-                    #{gam.rank || "—"}<span className="text-sm font-medium">/{gam.total_players}</span>
+                  <p className="text-xs text-gray-500">Classement</p>
+                  <p className="text-2xl font-semibold leading-tight text-gray-900">
+                    #{gam.rank || "—"}<span className="text-sm font-medium text-gray-500">/{gam.total_players}</span>
                   </p>
                 </div>
               </div>
               <div className="mt-3">
-                <div className="mb-1 flex justify-between text-[11px] text-orange-100">
+                <div className="mb-1 flex justify-between text-[11px] text-gray-500">
                   <span>Niveau {lvl.level}</span>
                   <span>{lvl.toNext} pts → niveau {lvl.level + 1}</span>
                 </div>
-                <div className="h-2 overflow-hidden rounded-full bg-orange-400/40">
-                  <div className="h-full rounded-full bg-white transition-all" style={{ width: `${lvl.pct}%` }} />
+                <div className="h-2 overflow-hidden rounded-full bg-gray-100">
+                  <div className="h-full rounded-full bg-brand-600 transition-all" style={{ width: `${lvl.pct}%` }} />
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-4 rounded-2xl bg-white p-4 shadow-sm">
-              <span className="text-3xl">{gam.daily_streak > 0 ? "🔥" : "🎯"}</span>
+            <div className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50 text-brand-600">
+                {gam.daily_streak > 0 ? <Flame className="h-5 w-5" strokeWidth={2} /> : <Target className="h-5 w-5" strokeWidth={2} />}
+              </span>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-gray-900">
                   {gam.daily_streak > 0 ? `${gam.daily_streak} jour${gam.daily_streak > 1 ? "s" : ""} d'affilée !` : "Défi du jour"}
                 </p>
                 <p className="text-xs text-gray-500">
-                  {gam.daily_streak > 0 ? "Reviens demain pour garder ta série 🔥" : "Fais un quiz aujourd'hui pour lancer ta série"}
+                  {gam.daily_streak > 0 ? "Reviens demain pour garder ta série" : "Fais un quiz aujourd'hui pour lancer ta série"}
                 </p>
               </div>
-              <a href="/training" className="shrink-0 rounded-full bg-orange-500 px-3.5 py-1.5 text-xs font-semibold text-white active:scale-95">
+              <a href="/training" className="shrink-0 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700">
                 Jouer
               </a>
             </div>
@@ -258,33 +265,35 @@ export default function ProgressionPage() {
       {/* Cartes à revoir */}
       {dueCards.length > 0 && (
         <button onClick={() => { setReviewMode(true); setCurrentCard(0); setShowAnswer(false); }}
-          className="w-full rounded-xl bg-orange-50 border-2 border-orange-200 p-4 text-left active:scale-[0.99]">
+          className="w-full rounded-xl border border-orange-200 bg-orange-50 p-4 text-left transition hover:border-orange-300">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <span className="text-2xl">🔄</span>
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-brand-600">
+                <RefreshCw className="h-5 w-5" strokeWidth={2} />
+              </span>
               <div>
-                <p className="text-sm font-semibold text-orange-900">{dueCards.length} question{dueCards.length > 1 ? "s" : ""} à revoir</p>
-                <p className="text-xs text-orange-600">Révision espacée — ça prend 2 minutes</p>
+                <p className="text-sm font-semibold text-gray-900">{dueCards.length} question{dueCards.length > 1 ? "s" : ""} à revoir</p>
+                <p className="text-xs text-brand-700">Révision espacée — ça prend 2 minutes</p>
               </div>
             </div>
-            <svg className="h-5 w-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            <ChevronRight className="h-5 w-5 text-brand-600" strokeWidth={2} />
           </div>
         </button>
       )}
 
       {/* Stats rapides */}
       <div className="grid grid-cols-3 gap-3">
-        <div className="rounded-xl bg-white p-3 text-center shadow-sm">
-          <p className="text-xl font-bold text-green-600">{stats.correctRate}%</p>
-          <p className="text-[10px] text-gray-400">Bonnes rép.</p>
+        <div className="rounded-xl border border-gray-200 bg-white p-3 text-center shadow-sm">
+          <p className="text-xl font-semibold text-green-600">{stats.correctRate}%</p>
+          <p className="text-[10px] text-gray-500">Bonnes rép.</p>
         </div>
-        <div className="rounded-xl bg-white p-3 text-center shadow-sm">
-          <p className="text-xl font-bold text-orange-600">{stats.totalQuestions}</p>
-          <p className="text-[10px] text-gray-400">Questions</p>
+        <div className="rounded-xl border border-gray-200 bg-white p-3 text-center shadow-sm">
+          <p className="text-xl font-semibold text-gray-900">{stats.totalQuestions}</p>
+          <p className="text-[10px] text-gray-500">Questions</p>
         </div>
-        <div className="rounded-xl bg-white p-3 text-center shadow-sm">
-          <p className="text-xl font-bold text-blue-600">{stats.streak}j</p>
-          <p className="text-[10px] text-gray-400">Série active</p>
+        <div className="rounded-xl border border-gray-200 bg-white p-3 text-center shadow-sm">
+          <p className="text-xl font-semibold text-gray-900">{stats.streak}j</p>
+          <p className="text-[10px] text-gray-500">Série active</p>
         </div>
       </div>
 
@@ -297,13 +306,13 @@ export default function ProgressionPage() {
         <p className="mb-3 text-sm font-semibold text-gray-700">Progression par sujet</p>
         <div className="space-y-2">
           {topics.map((topic) => (
-            <div key={topic.name} className="rounded-xl bg-white p-4 shadow-sm">
+            <div key={topic.name} className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <span>{topic.icon}</span>
                   <span className="text-sm font-medium text-gray-900">{topic.name}</span>
                 </div>
-                <span className={`text-xs font-semibold ${topic.percent >= 80 ? "text-green-600" : topic.percent >= 50 ? "text-orange-600" : "text-red-500"}`}>
+                <span className={`text-xs font-semibold ${topic.percent >= 80 ? "text-green-600" : topic.percent >= 50 ? "text-brand-600" : "text-red-500"}`}>
                   {topic.percent}%
                 </span>
               </div>
@@ -313,7 +322,7 @@ export default function ProgressionPage() {
                   background: topic.percent >= 80 ? "#22C55E" : topic.percent >= 50 ? "#F59E0B" : "#EF4444",
                 }} />
               </div>
-              <p className="mt-1 text-[10px] text-gray-400">{topic.mastered}/{topic.total} maîtrisé{topic.mastered > 1 ? "s" : ""}</p>
+              <p className="mt-1 text-[10px] text-gray-500">{topic.mastered}/{topic.total} maîtrisé{topic.mastered > 1 ? "s" : ""}</p>
             </div>
           ))}
         </div>
@@ -326,14 +335,16 @@ export default function ProgressionPage() {
         return (
           <div>
             <p className="mb-3 text-sm font-semibold text-gray-700">
-              Badges <span className="font-normal text-gray-400">({earned}/{badges.length})</span>
+              Badges <span className="font-normal text-gray-500">({earned}/{badges.length})</span>
             </p>
             <div className="grid grid-cols-3 gap-2.5">
               {badges.map((b) => (
-                <div key={b.label} className={`rounded-xl p-3 text-center ${b.earned ? "bg-white shadow-sm" : "bg-gray-100"}`}>
-                  <div className={`text-2xl ${b.earned ? "" : "opacity-40 grayscale"}`}>{b.earned ? b.icon : "🔒"}</div>
-                  <p className={`mt-1 text-[11px] font-semibold leading-tight ${b.earned ? "text-gray-800" : "text-gray-400"}`}>{b.label}</p>
-                  <p className="mt-0.5 text-[9px] leading-tight text-gray-400">{b.desc}</p>
+                <div key={b.label} className={`rounded-xl border p-3 text-center ${b.earned ? "border-gray-200 bg-white shadow-sm" : "border-gray-200 bg-gray-50"}`}>
+                  <span className={`flex h-9 w-9 mx-auto items-center justify-center rounded-lg ${b.earned ? "bg-orange-50 text-brand-600" : "bg-gray-100 text-gray-400"}`}>
+                    {b.earned ? <b.Icon className="h-5 w-5" strokeWidth={2} /> : <Lock className="h-5 w-5" strokeWidth={2} />}
+                  </span>
+                  <p className={`mt-1.5 text-[11px] font-semibold leading-tight ${b.earned ? "text-gray-900" : "text-gray-400"}`}>{b.label}</p>
+                  <p className="mt-0.5 text-[9px] leading-tight text-gray-500">{b.desc}</p>
                 </div>
               ))}
             </div>
@@ -345,15 +356,15 @@ export default function ProgressionPage() {
       {gam && gam.leaderboard && gam.leaderboard.length > 0 && (
         <div>
           <p className="mb-3 text-sm font-semibold text-gray-700">Classement</p>
-          <div className="divide-y divide-gray-50 overflow-hidden rounded-2xl bg-white shadow-sm">
+          <div className="divide-y divide-gray-100 overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
             {gam.leaderboard.map((p, i) => (
               <div key={i} className={`flex items-center gap-3 px-4 py-3 ${p.is_me ? "bg-orange-50" : ""}`}>
-                <span className="w-7 text-center text-sm font-bold text-gray-500">{medal(p.rank)}</span>
+                <span className="w-7 text-center text-sm font-semibold text-gray-500">{medal(p.rank)}</span>
                 <span className="flex-1 text-sm font-medium text-gray-900">
                   {p.name}
-                  {p.is_me && <span className="ml-1 text-xs font-semibold text-orange-600">(toi)</span>}
+                  {p.is_me && <span className="ml-1 text-xs font-semibold text-brand-600">(toi)</span>}
                 </span>
-                <span className="text-sm font-bold text-gray-700">{p.points} pts</span>
+                <span className="text-sm font-semibold text-gray-900">{p.points} pts</span>
               </div>
             ))}
           </div>
@@ -362,7 +373,7 @@ export default function ProgressionPage() {
 
       {/* Dernière activité */}
       {stats.lastActive && (
-        <p className="text-center text-xs text-gray-400">Dernière activité : {stats.lastActive}</p>
+        <p className="text-center text-xs text-gray-500">Dernière activité : {stats.lastActive}</p>
       )}
 
         </div>

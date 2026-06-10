@@ -7,7 +7,7 @@ export default async function ManagerProfilePage() {
 
   return (
     <div className="mx-auto max-w-2xl space-y-6">
-      <h1 className="text-2xl font-bold">Ma fiche</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Ma fiche</h1>
       <p className="text-sm text-gray-500">
         Remplis tes informations personnelles.
       </p>

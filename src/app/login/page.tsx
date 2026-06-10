@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
+import { ChevronLeft, Check, HelpCircle } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────────────
 type LoginStep = "name" | "pin" | "loading" | "success" | "error" | "register" | "register_loading" | "register_success";
@@ -92,10 +93,10 @@ function PinInput({
           onKeyDown={(e) => handleKeyDown(i, e)}
           disabled={disabled}
           aria-label={`Chiffre ${i + 1}`}
-          className="h-16 w-14 rounded-xl border-2 border-gray-200 bg-white text-center text-2xl
-                     font-bold text-gray-900 caret-transparent transition-all duration-200
+          className="h-16 w-14 rounded-lg border border-gray-200 bg-white text-center text-2xl
+                     font-semibold text-gray-900 caret-transparent transition
                      placeholder:text-gray-300
-                     focus:border-orange-400 focus:outline-none focus:ring-4 focus:ring-orange-100
+                     focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100
                      disabled:bg-gray-50 disabled:opacity-60"
         />
       ))}
@@ -319,35 +320,23 @@ export default function LoginPage() {
 
   // ─── Rendu ─────────────────────────────────────────────────
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-4">
-      {/* Particules déco (damier de course) */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.03]">
-        <div
-          className="absolute inset-0"
-          style={{
-            backgroundImage:
-              "repeating-conic-gradient(#fff 0% 25%, transparent 0% 50%)",
-            backgroundSize: "60px 60px",
-          }}
-        />
-      </div>
-
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-4">
       {/* Carte principale */}
       <div className="relative w-full max-w-sm">
-        {/* Badge orange en haut */}
+        {/* Logo en haut */}
         <div className="absolute -top-5 left-1/2 z-10 -translate-x-1/2">
-          <div className="flex h-24 w-24 items-center justify-center overflow-hidden rounded-2xl bg-black shadow-lg shadow-orange-500/30">
-            <img src="/logo-karting.png" alt="Amigo Karting" className="h-20 w-20 object-contain" />
+          <div className="flex h-20 w-20 items-center justify-center overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+            <img src="/logo-karting.png" alt="Amigo Karting" className="h-16 w-16 object-contain" />
           </div>
         </div>
 
-        <div className="overflow-hidden rounded-3xl bg-white pt-20 shadow-2xl shadow-black/30">
+        <div className="overflow-hidden rounded-xl border border-gray-200 bg-white pt-16 shadow-sm">
           {/* En-tête */}
           <div className="px-8 pb-2 text-center">
-            <h1 className="text-xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-xl font-semibold tracking-tight text-gray-900">
               Amigo Karting
             </h1>
-            <p className="mt-1 text-sm text-gray-400">Portail des employés</p>
+            <p className="mt-1 text-sm text-gray-500">Portail des employés</p>
           </div>
 
           {/* Contenu dynamique par étape */}
@@ -358,7 +347,7 @@ export default function LoginPage() {
                 <div>
                   <label
                     htmlFor="firstName"
-                    className="mb-1.5 block text-sm font-medium text-gray-600"
+                    className="mb-1.5 block text-sm font-semibold text-gray-700"
                   >
                     Ton prénom
                   </label>
@@ -376,16 +365,16 @@ export default function LoginPage() {
                     }}
                     placeholder="ex. Marc"
                     required
-                    className="w-full rounded-xl border-2 border-gray-200 bg-gray-50/50 px-4 py-3.5
-                               text-base text-gray-900 transition-all duration-200
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3.5
+                               text-base text-gray-900 transition
                                placeholder:text-gray-300
-                               focus:border-orange-400 focus:bg-white focus:outline-none
-                               focus:ring-4 focus:ring-orange-100"
+                               focus:border-brand-400 focus:outline-none
+                               focus:ring-2 focus:ring-orange-100"
                   />
                 </div>
 
                 {error && (
-                  <div className="rounded-xl bg-red-50 px-4 py-2.5 text-sm text-red-600">
+                  <div className="rounded-lg bg-red-50 px-4 py-2.5 text-sm text-red-600">
                     {error}
                   </div>
                 )}
@@ -393,21 +382,17 @@ export default function LoginPage() {
                 <button
                   type="submit"
                   disabled={firstName.trim().length < 2}
-                  className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r
-                             from-orange-500 to-orange-600 px-4 py-3.5 text-sm font-semibold
-                             text-white shadow-md shadow-orange-500/25 transition-all duration-200
-                             hover:shadow-lg hover:shadow-orange-500/30
-                             active:scale-[0.98]
-                             disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none"
+                  className="w-full rounded-lg bg-brand-600 px-4 py-3.5 text-sm font-medium
+                             text-white shadow-sm transition hover:bg-brand-700
+                             disabled:bg-gray-300"
                 >
-                  <span className="relative z-10">Continuer</span>
-                  <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
+                  Continuer
                 </button>
 
                 <button
                   type="button"
                   onClick={goToRegister}
-                  className="w-full text-center text-xs text-gray-400 transition hover:text-orange-500"
+                  className="w-full text-center text-xs text-gray-500 transition hover:text-brand-600"
                 >
                   Nouveau ? <span className="underline">Créer mon compte</span>
                 </button>
@@ -421,11 +406,9 @@ export default function LoginPage() {
                   <button
                     onClick={goBackToName}
                     disabled={step === "loading"}
-                    className="mb-3 inline-flex items-center gap-1 text-xs text-gray-400 transition hover:text-gray-600 disabled:opacity-50"
+                    className="mb-3 inline-flex items-center gap-1 text-xs text-gray-500 transition hover:text-gray-700 disabled:opacity-50"
                   >
-                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
+                    <ChevronLeft className="h-3.5 w-3.5" strokeWidth={2} />
                     Modifier le prénom
                   </button>
                   <p className="text-sm text-gray-500">
@@ -435,7 +418,7 @@ export default function LoginPage() {
                     </span>{" "}
                     ! Entre ton code.
                   </p>
-                  <p className="mt-1 text-xs text-gray-400">
+                  <p className="mt-1 text-xs text-gray-500">
                     4 derniers chiffres de ton numéro de téléphone
                   </p>
                 </div>
@@ -449,12 +432,12 @@ export default function LoginPage() {
 
                 {step === "loading" && (
                   <div className="flex justify-center pt-2">
-                    <div className="h-6 w-6 animate-spin rounded-full border-[3px] border-gray-200 border-t-orange-500" />
+                    <div className="h-6 w-6 animate-spin rounded-full border-[3px] border-gray-200 border-t-brand-600" />
                   </div>
                 )}
 
                 {error && (
-                  <div className="rounded-xl bg-red-50 px-4 py-2.5 text-center text-sm text-red-600">
+                  <div className="rounded-lg bg-red-50 px-4 py-2.5 text-center text-sm text-red-600">
                     {error}
                   </div>
                 )}
@@ -464,16 +447,14 @@ export default function LoginPage() {
             {/* ─── ÉTAPE 3 : Succès login ─────────────────── */}
             {step === "success" && (
               <div className="space-y-4 py-4 text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
-                  <svg className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-50">
+                  <Check className="h-7 w-7 text-green-600" strokeWidth={2.5} />
                 </div>
                 <div>
                   <p className="text-lg font-semibold text-gray-900">
                     Bienvenue {employeeName} !
                   </p>
-                  <p className="mt-1 text-sm text-gray-400">
+                  <p className="mt-1 text-sm text-gray-500">
                     Redirection en cours...
                   </p>
                 </div>
@@ -492,21 +473,19 @@ export default function LoginPage() {
                   <button
                     onClick={goBackToName}
                     disabled={step === "register_loading"}
-                    className="mb-3 inline-flex items-center gap-1 text-xs text-gray-400 transition hover:text-gray-600 disabled:opacity-50"
+                    className="mb-3 inline-flex items-center gap-1 text-xs text-gray-500 transition hover:text-gray-700 disabled:opacity-50"
                   >
-                    <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
+                    <ChevronLeft className="h-3.5 w-3.5" strokeWidth={2} />
                     Retour à la connexion
                   </button>
-                  <p className="text-sm font-medium text-gray-700">Créer ton compte</p>
-                  <p className="mt-1 text-xs text-gray-400">
+                  <p className="text-sm font-semibold text-gray-700">Créer ton compte</p>
+                  <p className="mt-1 text-xs text-gray-500">
                     Remplis tes informations pour commencer
                   </p>
                 </div>
 
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-600">
+                  <label className="mb-1.5 block text-sm font-semibold text-gray-700">
                     Prénom
                   </label>
                   <input
@@ -515,16 +494,16 @@ export default function LoginPage() {
                     onChange={(e) => setFirstName(e.target.value)}
                     placeholder="Ton prénom"
                     disabled={step === "register_loading"}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-gray-50/50 px-4 py-3
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3
                                text-sm text-gray-900 transition
                                placeholder:text-gray-300
-                               focus:border-orange-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-100
+                               focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100
                                disabled:opacity-60"
                   />
                 </div>
 
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-600">
+                  <label className="mb-1.5 block text-sm font-semibold text-gray-700">
                     Nom de famille
                   </label>
                   <input
@@ -533,16 +512,16 @@ export default function LoginPage() {
                     onChange={(e) => setRegLastName(e.target.value)}
                     placeholder="Ton nom"
                     disabled={step === "register_loading"}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-gray-50/50 px-4 py-3
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3
                                text-sm text-gray-900 transition
                                placeholder:text-gray-300
-                               focus:border-orange-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-100
+                               focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100
                                disabled:opacity-60"
                   />
                 </div>
 
                 <div>
-                  <label className="mb-1.5 block text-sm font-medium text-gray-600">
+                  <label className="mb-1.5 block text-sm font-semibold text-gray-700">
                     Numéro de téléphone
                   </label>
                   <input
@@ -552,19 +531,19 @@ export default function LoginPage() {
                     onChange={(e) => setRegPhone(formatPhoneInput(e.target.value))}
                     placeholder="514-555-1234"
                     disabled={step === "register_loading"}
-                    className="w-full rounded-xl border-2 border-gray-200 bg-gray-50/50 px-4 py-3
+                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3
                                text-sm text-gray-900 transition
                                placeholder:text-gray-300
-                               focus:border-orange-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-orange-100
+                               focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100
                                disabled:opacity-60"
                   />
-                  <p className="mt-1.5 text-xs text-gray-400">
+                  <p className="mt-1.5 text-xs text-gray-500">
                     Les 4 derniers chiffres seront ton code de connexion
                   </p>
                 </div>
 
                 {error && (
-                  <div className="rounded-xl bg-red-50 px-4 py-2.5 text-center text-sm text-red-600">
+                  <div className="rounded-lg bg-red-50 px-4 py-2.5 text-center text-sm text-red-600">
                     {error}
                   </div>
                 )}
@@ -578,12 +557,9 @@ export default function LoginPage() {
                     regLastName.trim().length < 2 ||
                     regPhone.replace(/\D/g, "").length < 10
                   }
-                  className="group relative w-full overflow-hidden rounded-xl bg-gradient-to-r
-                             from-orange-500 to-orange-600 px-4 py-3.5 text-sm font-semibold
-                             text-white shadow-md shadow-orange-500/25 transition-all duration-200
-                             hover:shadow-lg hover:shadow-orange-500/30
-                             active:scale-[0.98]
-                             disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none"
+                  className="w-full rounded-lg bg-brand-600 px-4 py-3.5 text-sm font-medium
+                             text-white shadow-sm transition hover:bg-brand-700
+                             disabled:bg-gray-300"
                 >
                   {step === "register_loading" ? (
                     <span className="flex items-center justify-center gap-2">
@@ -591,7 +567,7 @@ export default function LoginPage() {
                       Création...
                     </span>
                   ) : (
-                    <span className="relative z-10">Créer mon compte</span>
+                    "Créer mon compte"
                   )}
                 </button>
               </div>
@@ -600,16 +576,14 @@ export default function LoginPage() {
             {/* ─── INSCRIPTION RÉUSSIE ─────────────────────── */}
             {step === "register_success" && (
               <div className="space-y-4 py-4 text-center">
-                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-100">
-                  <svg className="h-7 w-7 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                  </svg>
+                <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-green-50">
+                  <Check className="h-7 w-7 text-green-600" strokeWidth={2.5} />
                 </div>
                 <div>
                   <p className="text-lg font-semibold text-gray-900">
                     Bienvenue {employeeName} !
                   </p>
-                  <p className="mt-1 text-sm text-gray-400">
+                  <p className="mt-1 text-sm text-gray-500">
                     Ton compte est créé. Redirection...
                   </p>
                 </div>
@@ -624,7 +598,7 @@ export default function LoginPage() {
 
           {/* Pied de page */}
           <div className="border-t border-gray-100 bg-gray-50/50 px-8 py-4">
-            <p className="text-center text-xs text-gray-400">
+            <p className="text-center text-xs text-gray-500">
               {step === "name"
                 ? "Utilise le prénom donné par ton gestionnaire"
                 : step === "pin"
@@ -638,10 +612,8 @@ export default function LoginPage() {
       </div>
 
       {/* Lien aide */}
-      <a href="/aide-install" className="mt-6 inline-flex items-center gap-2 text-sm text-gray-400 transition hover:text-white">
-        <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-          <path strokeLinecap="round" strokeLinejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-        </svg>
+      <a href="/aide-install" className="mt-6 inline-flex items-center gap-2 text-sm text-gray-500 transition hover:text-gray-700">
+        <HelpCircle className="h-4 w-4" strokeWidth={2} />
         Comment installer l'app sur mon téléphone ?
       </a>
 

@@ -51,8 +51,8 @@ export default async function ManagerTrainingTextePage() {
         >
           <ArrowLeft className="h-4 w-4" /> Retour
         </Link>
-        <h1 className="text-2xl font-bold">Formation texte</h1>
-        <p className="mt-1 text-sm text-gray-400">
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Formation texte</h1>
+        <p className="mt-1 text-sm text-gray-500">
           Touche une catégorie pour l'ouvrir.
         </p>
       </div>
@@ -60,8 +60,8 @@ export default async function ManagerTrainingTextePage() {
       {/* ─── Mes formations ─── */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <BookOpen className="h-5 w-5 text-orange-500" />
-          <h2 className="text-lg font-semibold text-gray-800">Mes formations</h2>
+          <BookOpen className="h-5 w-5 text-brand-600" strokeWidth={2} />
+          <h2 className="text-lg font-semibold text-gray-900">Mes formations</h2>
         </div>
 
         {categories.map((cat) => {
@@ -74,9 +74,9 @@ export default async function ManagerTrainingTextePage() {
                     const chapterCount = mod.training_chapters?.length || 0;
                     return (
                       <Link key={mod.id} href={`/training/${mod.id}`}>
-                        <div className="rounded-lg border border-gray-100 bg-white p-4 transition hover:border-orange-200 hover:shadow-sm">
+                        <div className="rounded-lg border border-gray-200 bg-white p-4 transition hover:border-gray-300 hover:shadow-sm">
                           <h3 className="text-sm font-semibold text-gray-900">{mod.title}</h3>
-                          <div className="mt-1 flex gap-3 text-xs text-gray-400">
+                          <div className="mt-1 flex gap-3 text-xs text-gray-500">
                             <span>
                               {chapterCount} chapitre{chapterCount > 1 ? "s" : ""}
                             </span>
@@ -88,7 +88,7 @@ export default async function ManagerTrainingTextePage() {
                   })}
                 </div>
               ) : (
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-500">
                   Aucune formation pour le moment.
                 </p>
               )}
@@ -100,8 +100,8 @@ export default async function ManagerTrainingTextePage() {
       {/* ─── Quiz ─── */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <ClipboardList className="h-5 w-5 text-orange-500" />
-          <h2 className="text-lg font-semibold text-gray-800">Quiz</h2>
+          <ClipboardList className="h-5 w-5 text-brand-600" strokeWidth={2} />
+          <h2 className="text-lg font-semibold text-gray-900">Quiz</h2>
         </div>
 
         {categories.map((cat) => {
@@ -115,9 +115,9 @@ export default async function ManagerTrainingTextePage() {
                       key={quiz.id}
                       href={`/training/${quiz.training_chapters?.module_id}/${quiz.chapter_id}`}
                     >
-                      <div className="rounded-lg border border-gray-100 bg-white p-4 transition hover:border-orange-200 hover:shadow-sm">
+                      <div className="rounded-lg border border-gray-200 bg-white p-4 transition hover:border-gray-300 hover:shadow-sm">
                         <h3 className="text-sm font-semibold text-gray-900">{quiz.title}</h3>
-                        <div className="mt-1 text-xs text-gray-400">
+                        <div className="mt-1 text-xs text-gray-500">
                           Quiz · {Math.round((quiz.passing_score || 0) * 100)}% pour réussir
                         </div>
                       </div>
@@ -125,7 +125,7 @@ export default async function ManagerTrainingTextePage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-400">Aucun quiz pour le moment.</p>
+                <p className="text-sm text-gray-500">Aucun quiz pour le moment.</p>
               )}
             </CollapsibleCategory>
           );

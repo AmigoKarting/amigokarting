@@ -1,11 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import {
+  Hand, GraduationCap, CheckCircle2, Mic, HelpCircle, ClipboardList,
+  Star, Smartphone, Wrench, ChevronDown, type LucideIcon,
+} from "lucide-react";
 
-const sections = [
+const sections: {
+  id: string;
+  Icon: LucideIcon;
+  title: string;
+  content: string[];
+}[] = [
   {
     id: "bienvenue",
-    icon: "👋",
+    Icon: Hand,
     title: "Bienvenue chez Amigo Karting",
     content: [
       "Cette application est ton outil de formation et de communication. Tu y trouveras tout ce dont tu as besoin pour bien faire ton travail.",
@@ -14,7 +23,7 @@ const sections = [
   },
   {
     id: "formation",
-    icon: "🎓",
+    Icon: GraduationCap,
     title: "Comment faire ta formation",
     content: [
       "1. Clique sur 'Formation' dans le menu",
@@ -26,7 +35,7 @@ const sections = [
   },
   {
     id: "quiz",
-    icon: "✅",
+    Icon: CheckCircle2,
     title: "Comment faire un quiz",
     content: [
       "1. Termine toutes les vidéos d'un chapitre",
@@ -38,7 +47,7 @@ const sections = [
   },
   {
     id: "conversations",
-    icon: "🎙️",
+    Icon: Mic,
     title: "Conversations avec l'IA (Bêta)",
     content: [
       "Ton chef formateur IA te pose des questions sur les procédures et te corrige en temps réel.",
@@ -55,7 +64,7 @@ const sections = [
   },
   {
     id: "qa",
-    icon: "❓",
+    Icon: HelpCircle,
     title: "Q&A — Chercher dans le manuel",
     content: [
       "Tu as une question sur une procédure ? Le Q&A cherche dans le manuel de l'entreprise.",
@@ -67,7 +76,7 @@ const sections = [
   },
   {
     id: "fiche",
-    icon: "📝",
+    Icon: ClipboardList,
     title: "Remplir ta fiche personnelle",
     content: [
       "Ton gestionnaire a besoin de tes informations. Remplis tout pour avoir 100%.",
@@ -80,7 +89,7 @@ const sections = [
   },
   {
     id: "note",
-    icon: "⭐",
+    Icon: Star,
     title: "Comprendre ta note sur 100",
     content: [
       "Ta note est calculée automatiquement selon 4 catégories :",
@@ -93,7 +102,7 @@ const sections = [
   },
   {
     id: "installer",
-    icon: "📱",
+    Icon: Smartphone,
     title: "Installer l'app sur ton téléphone",
     content: [
       "Android (Chrome) :",
@@ -110,7 +119,7 @@ const sections = [
   },
   {
     id: "problemes",
-    icon: "🔧",
+    Icon: Wrench,
     title: "Problèmes fréquents",
     content: [
       "❌ 'Identifiant ou code incorrect' → Vérifie ton prénom (celui du système) et les 4 derniers chiffres de ton numéro",
@@ -128,24 +137,23 @@ export default function GuidePage() {
   return (
     <div className="mx-auto max-w-2xl space-y-4">
       <div>
-        <h1 className="text-2xl font-bold">Guide</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Guide</h1>
         <p className="text-sm text-gray-500">Tout ce que tu dois savoir pour utiliser l'application</p>
       </div>
 
       {sections.map((section) => {
         const isOpen = openId === section.id;
         return (
-          <div key={section.id} className="overflow-hidden rounded-xl bg-white shadow-sm">
+          <div key={section.id} className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
             <button
               onClick={() => setOpenId(isOpen ? null : section.id)}
               className="flex w-full items-center gap-3 px-5 py-4 text-left transition hover:bg-gray-50"
             >
-              <span className="text-2xl">{section.icon}</span>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
+                <section.Icon className="h-5 w-5" strokeWidth={2} />
+              </span>
               <span className="flex-1 text-sm font-semibold text-gray-900">{section.title}</span>
-              <svg className={`h-5 w-5 shrink-0 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`}
-                fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
+              <ChevronDown className={`h-5 w-5 shrink-0 text-gray-400 transition-transform ${isOpen ? "rotate-180" : ""}`} strokeWidth={2} />
             </button>
             {isOpen && (
               <div className="border-t border-gray-100 px-5 py-4 space-y-2">

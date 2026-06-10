@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Bell, BellOff } from "lucide-react";
 
 function urlB64ToUint8Array(base64String: string): Uint8Array {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -110,8 +111,9 @@ export function PushToggle() {
   if (state === "denied") {
     // Bloqué au niveau du navigateur : petit rappel discret pour réactiver.
     return (
-      <p className="px-1 text-[11px] text-gray-400">
-        🔕 Notifications bloquées — réactive-les dans les réglages de ton navigateur pour ne rien manquer.
+      <p className="flex items-center gap-1.5 px-1 text-[11px] text-gray-400">
+        <BellOff className="h-3.5 w-3.5 shrink-0" strokeWidth={2} />
+        Notifications bloquées — réactive-les dans les réglages de ton navigateur pour ne rien manquer.
       </p>
     );
   }
@@ -121,16 +123,18 @@ export function PushToggle() {
     <button
       onClick={enable}
       disabled={state === "working"}
-      className="flex w-full items-center gap-3 rounded-2xl border-2 border-orange-200 bg-orange-50 p-4 text-left transition active:scale-[0.99] disabled:opacity-60"
+      className="flex w-full items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 text-left shadow-sm transition hover:border-gray-300 disabled:opacity-60"
     >
-      <span className="text-2xl">🔔</span>
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50 text-brand-600">
+        <Bell className="h-5 w-5" strokeWidth={2} />
+      </span>
       <div className="flex-1">
-        <p className="text-sm font-semibold text-orange-900">
+        <p className="text-sm font-medium text-gray-900">
           {state === "working" ? "Activation..." : "Activer les rappels"}
         </p>
-        <p className="text-xs text-orange-600">{msg || "Reçois une notif pour garder ta série, même app fermée"}</p>
+        <p className="text-xs text-gray-500">{msg || "Reçois une notif pour garder ta série, même app fermée"}</p>
       </div>
-      <span className="shrink-0 rounded-full bg-orange-500 px-3 py-1.5 text-xs font-semibold text-white">
+      <span className="shrink-0 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-medium text-white">
         {state === "working" ? "..." : "Activer"}
       </span>
     </button>

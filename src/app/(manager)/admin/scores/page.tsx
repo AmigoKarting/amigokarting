@@ -1,4 +1,5 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { Crown } from "lucide-react";
 import Link from "next/link";
 
 export default async function ScoresPage() {
@@ -45,7 +46,7 @@ export default async function ScoresPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">Notes globales</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Notes globales</h1>
         <p className="text-sm text-gray-500">Performance de chaque employé — Formation 40% + Quiz 30% + Conversations 20% + Q&A 10%</p>
       </div>
 
@@ -66,11 +67,11 @@ export default async function ScoresPage() {
       </div>
 
       {/* Tableau des scores */}
-      <div className="rounded-xl bg-white shadow-sm">
+      <div className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
+              <tr className="border-b border-gray-200 bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
                 <th className="px-4 py-3">Employé</th>
                 <th className="px-4 py-3 text-center">Score global</th>
                 <th className="px-4 py-3 text-center">Formation</th>
@@ -82,13 +83,15 @@ export default async function ScoresPage() {
             </thead>
             <tbody>
               {scores?.map((s: any) => (
-                <tr key={s.employee_id} className="border-b last:border-0 hover:bg-gray-50">
+                <tr key={s.employee_id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                   <td className="px-4 py-4">
-                    <Link href={`/admin/employees/${s.employee_id}`} className="font-medium text-orange-600 hover:underline">
+                    <Link href={`/admin/employees/${s.employee_id}`} className="font-medium text-brand-600 hover:underline">
                       {s.first_name} {s.last_name}
                     </Link>
-                    <p className="text-xs text-gray-400">
-                      {s.role === "patron" ? "👑 Patron" : s.role === "manager" ? "Gérant" : "Employé"}
+                    <p className="flex items-center gap-1 text-xs text-gray-500">
+                      {s.role === "patron"
+                        ? <><Crown className="h-3.5 w-3.5" strokeWidth={2} /> Patron</>
+                        : s.role === "manager" ? "Gérant" : "Employé"}
                     </p>
                   </td>
 
@@ -98,7 +101,7 @@ export default async function ScoresPage() {
                       <span className={`text-2xl font-bold ${getScoreColor(s.global_score || 0)}`}>
                         {Math.round(s.global_score || 0)}
                       </span>
-                      <div className="mt-1 h-1.5 w-16 overflow-hidden rounded-full bg-gray-200">
+                      <div className="mt-1 h-1.5 w-16 overflow-hidden rounded-full bg-gray-100">
                         <div className={`h-full rounded-full ${getScoreBg(s.global_score || 0)}`} style={{ width: `${s.global_score || 0}%` }} />
                       </div>
                       <span className={`mt-1 text-[10px] font-medium ${getScoreColor(s.global_score || 0)}`}>

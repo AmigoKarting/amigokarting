@@ -2,7 +2,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { ModuleCard } from "@/components/training/ModuleCard";
 import { CollapsibleCategory } from "@/components/training/CollapsibleCategory";
 import { TRAINING_CATEGORIES } from "@/lib/training";
-import { BookOpen, ClipboardList, ArrowLeft } from "lucide-react";
+import { BookOpen, ClipboardList, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
 export default async function TrainingTextePage() {
@@ -51,10 +51,10 @@ export default async function TrainingTextePage() {
           href="/training"
           className="mb-2 inline-flex items-center gap-1 text-sm text-gray-500 hover:text-gray-700"
         >
-          <ArrowLeft className="h-4 w-4" /> Retour
+          <ChevronLeft className="h-4 w-4" strokeWidth={2} /> Retour
         </Link>
-        <h1 className="text-2xl font-bold">Formation texte</h1>
-        <p className="mt-1 text-sm text-gray-400">
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Formation texte</h1>
+        <p className="mt-1 text-sm text-gray-500">
           Touche une catégorie pour l'ouvrir.
         </p>
       </div>
@@ -62,8 +62,8 @@ export default async function TrainingTextePage() {
       {/* ─── Mes formations ─── */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <BookOpen className="h-5 w-5 text-orange-500" />
-          <h2 className="text-lg font-semibold text-gray-800">Mes formations</h2>
+          <BookOpen className="h-5 w-5 text-brand-600" strokeWidth={2} />
+          <h2 className="text-lg font-semibold text-gray-900">Mes formations</h2>
         </div>
 
         {categories.map((cat) => {
@@ -77,7 +77,7 @@ export default async function TrainingTextePage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-400">
+                <p className="text-sm text-gray-500">
                   Aucune formation pour le moment.
                 </p>
               )}
@@ -89,8 +89,8 @@ export default async function TrainingTextePage() {
       {/* ─── Quiz ─── */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <ClipboardList className="h-5 w-5 text-orange-500" />
-          <h2 className="text-lg font-semibold text-gray-800">Quiz</h2>
+          <ClipboardList className="h-5 w-5 text-brand-600" strokeWidth={2} />
+          <h2 className="text-lg font-semibold text-gray-900">Quiz</h2>
         </div>
 
         {categories.map((cat) => {
@@ -104,9 +104,9 @@ export default async function TrainingTextePage() {
                       key={quiz.id}
                       href={`/training/${quiz.training_chapters?.module_id}/${quiz.chapter_id}`}
                     >
-                      <div className="rounded-lg border border-gray-100 bg-white p-4 transition hover:border-orange-200 hover:shadow-sm">
+                      <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300">
                         <h3 className="text-sm font-semibold text-gray-900">{quiz.title}</h3>
-                        <div className="mt-1 text-xs text-gray-400">
+                        <div className="mt-1 text-xs text-gray-500">
                           Quiz · {Math.round((quiz.passing_score || 0) * 100)}% pour réussir
                         </div>
                       </div>
@@ -114,7 +114,7 @@ export default async function TrainingTextePage() {
                   ))}
                 </div>
               ) : (
-                <p className="text-sm text-gray-400">Aucun quiz pour le moment.</p>
+                <p className="text-sm text-gray-500">Aucun quiz pour le moment.</p>
               )}
             </CollapsibleCategory>
           );

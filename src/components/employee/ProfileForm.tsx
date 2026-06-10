@@ -3,6 +3,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { createClient } from "@/lib/supabase/client";
 import type { Employee } from "@/types/employee";
+import { MapPin, Siren, Shirt, Check, X, type LucideIcon } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────────────
 type FormFields = {
@@ -89,26 +90,31 @@ const REQUIRED_FIELDS: (keyof FormFields)[] = [
   "uniform_size_shirt",
 ];
 
-const SECTIONS = [
+const SECTIONS: {
+  id: string;
+  title: string;
+  Icon: LucideIcon;
+  fields: (keyof FormFields)[];
+}[] = [
   {
     id: "address",
     title: "Adresse complète",
-    icon: "📍",
-    fields: ["date_of_birth", "phone", "address", "city", "postal_code", "province"] as (keyof FormFields)[],
+    Icon: MapPin,
+    fields: ["date_of_birth", "phone", "address", "city", "postal_code", "province"],
   },
   {
     id: "emergency",
     title: "Contact d'urgence",
-    icon: "🚨",
-    fields: ["emergency_contact_name", "emergency_contact_phone"] as (keyof FormFields)[],
+    Icon: Siren,
+    fields: ["emergency_contact_name", "emergency_contact_phone"],
   },
   {
     id: "uniform",
     title: "Grandeurs d'uniforme",
-    icon: "👕",
-    fields: ["uniform_size_shirt"] as (keyof FormFields)[],
+    Icon: Shirt,
+    fields: ["uniform_size_shirt"],
   },
-] as const;
+];
 
 // ─── Composant principal ───────────────────────────────────────
 export function ProfileForm({ employee }: { employee: Employee }) {
@@ -239,12 +245,12 @@ export function ProfileForm({ employee }: { employee: Employee }) {
   return (
     <div className="space-y-6">
       {/* ─── Barre de progression globale ──────────────────── */}
-      <div className="rounded-xl bg-white p-5 shadow-sm">
+      <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
         <div className="mb-3 flex items-center justify-between">
-          <span className="text-sm font-medium text-gray-700">
+          <span className="text-sm font-semibold text-gray-700">
             Complétion de ta fiche
           </span>
-          <span className="text-sm font-bold text-brand-600">
+          <span className="text-sm font-semibold text-brand-600">
             {totalFilled}/{totalRequired}
           </span>
         </div>
@@ -254,7 +260,7 @@ export function ProfileForm({ employee }: { employee: Employee }) {
             style={{
               width: `${(totalFilled / totalRequired) * 100}%`,
               backgroundColor:
-                totalFilled === totalRequired ? "#16a34a" : "#f97316",
+                totalFilled === totalRequired ? "#16a34a" : "#ea580c",
             }}
           />
         </div>
@@ -262,13 +268,13 @@ export function ProfileForm({ employee }: { employee: Employee }) {
           {sectionCompletion.map((s) => (
             <div key={s.id} className="flex items-center gap-1.5 text-xs">
               <span
-                className={`flex h-5 w-5 items-center justify-center rounded-full text-[10px] ${
+                className={`flex h-5 w-5 items-center justify-center rounded-md text-[10px] ${
                   s.complete
-                    ? "bg-green-100 text-green-700"
-                    : "bg-orange-100 text-orange-700"
+                    ? "bg-green-50 text-green-700"
+                    : "bg-gray-100 text-gray-600"
                 }`}
               >
-                {s.complete ? "✓" : s.filled}
+                {s.complete ? <Check className="h-3 w-3" strokeWidth={2.5} /> : s.filled}
               </span>
               <span className="text-gray-500">{s.title}</span>
             </div>
@@ -277,12 +283,14 @@ export function ProfileForm({ employee }: { employee: Employee }) {
       </div>
 
       {/* ─── Section 1 : Adresse complète ──────────────────── */}
-      <section className="rounded-xl bg-white shadow-sm">
+      <section className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="flex items-center gap-3 border-b border-gray-100 px-6 py-4">
-          <span className="text-lg">{SECTIONS[0].icon}</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
+            <MapPin className="h-[18px] w-[18px]" strokeWidth={2} />
+          </span>
           <h2 className="font-semibold text-gray-900">{SECTIONS[0].title}</h2>
           {sectionCompletion[0].complete && (
-            <span className="ml-auto rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+            <span className="ml-auto rounded-md bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
               Complet
             </span>
           )}
@@ -298,7 +306,7 @@ export function ProfileForm({ employee }: { employee: Employee }) {
               type="date"
               value={form.date_of_birth}
               onChange={(e) => updateField("date_of_birth", e.target.value)}
-              className="w-full rounded-lg border-2 border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
             />
           </div>
 
@@ -361,8 +369,8 @@ export function ProfileForm({ employee }: { employee: Employee }) {
               <select
                 value={form.province}
                 onChange={(e) => updateField("province", e.target.value)}
-                className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 text-sm text-gray-900 transition
-                           focus:border-orange-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
+                className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm text-gray-900 transition
+                           focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100"
               >
                 {PROVINCES.map((p) => (
                   <option key={p.value} value={p.value}>
@@ -376,12 +384,14 @@ export function ProfileForm({ employee }: { employee: Employee }) {
       </section>
 
       {/* ─── Section 2 : Contact d'urgence ─────────────────── */}
-      <section className="rounded-xl bg-white shadow-sm">
+      <section className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="flex items-center gap-3 border-b border-gray-100 px-6 py-4">
-          <span className="text-lg">{SECTIONS[1].icon}</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
+            <Siren className="h-[18px] w-[18px]" strokeWidth={2} />
+          </span>
           <h2 className="font-semibold text-gray-900">{SECTIONS[1].title}</h2>
           {sectionCompletion[1].complete && (
-            <span className="ml-auto rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+            <span className="ml-auto rounded-md bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
               Complet
             </span>
           )}
@@ -414,12 +424,14 @@ export function ProfileForm({ employee }: { employee: Employee }) {
       </section>
 
       {/* ─── Section 3 : Uniformes ─────────────────────────── */}
-      <section className="rounded-xl bg-white shadow-sm">
+      <section className="rounded-xl border border-gray-200 bg-white shadow-sm">
         <div className="flex items-center gap-3 border-b border-gray-100 px-6 py-4">
-          <span className="text-lg">{SECTIONS[2].icon}</span>
+          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
+            <Shirt className="h-[18px] w-[18px]" strokeWidth={2} />
+          </span>
           <h2 className="font-semibold text-gray-900">{SECTIONS[2].title}</h2>
           {sectionCompletion[2].complete && (
-            <span className="ml-auto rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+            <span className="ml-auto rounded-md bg-green-50 px-2 py-0.5 text-xs font-medium text-green-700">
               Complet
             </span>
           )}
@@ -438,9 +450,9 @@ export function ProfileForm({ employee }: { employee: Employee }) {
                     updateField("uniform_size_shirt", size);
                     handleBlur("uniform_size_shirt");
                   }}
-                  className={`rounded-lg border-2 px-4 py-2 text-sm font-medium transition ${
+                  className={`rounded-lg border px-4 py-2 text-sm font-medium transition ${
                     form.uniform_size_shirt === size
-                      ? "border-orange-400 bg-orange-50 text-orange-700"
+                      ? "border-brand-400 bg-orange-50 text-brand-700"
                       : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
                   }`}
                 >
@@ -463,10 +475,10 @@ export function ProfileForm({ employee }: { employee: Employee }) {
           type="button"
           onClick={handleSave}
           disabled={status === "saving"}
-          className="relative flex items-center justify-center gap-2 overflow-hidden rounded-xl bg-gradient-to-r from-orange-500
-                     to-orange-600 px-8 py-3 text-sm font-semibold text-white shadow-md shadow-orange-500/25
-                     transition-all hover:shadow-lg hover:shadow-orange-500/30 active:scale-[0.98]
-                     disabled:from-gray-300 disabled:to-gray-300 disabled:shadow-none"
+          className="flex items-center justify-center gap-2 rounded-lg bg-brand-600
+                     px-8 py-3 text-sm font-medium text-white shadow-sm
+                     transition hover:bg-brand-700
+                     disabled:bg-gray-300"
         >
           {status === "saving" ? (
             <>
@@ -480,17 +492,13 @@ export function ProfileForm({ employee }: { employee: Employee }) {
 
         {status === "saved" && (
           <div className="flex items-center gap-2 rounded-lg bg-green-50 px-4 py-2.5 text-sm text-green-700">
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-            </svg>
+            <Check className="h-4 w-4" strokeWidth={2.5} />
             Fiche sauvegardée avec succès !
           </div>
         )}
         {status === "error" && (
           <div className="flex items-center gap-2 rounded-lg bg-red-50 px-4 py-2.5 text-sm text-red-600">
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <X className="h-4 w-4" strokeWidth={2.5} />
             {saveError}
           </div>
         )}
@@ -539,9 +547,7 @@ function FieldInput({
         {label}
         {required && <span className="text-red-500">*</span>}
         {isFilled && required && (
-          <svg className="ml-auto h-3.5 w-3.5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-          </svg>
+          <Check className="ml-auto h-3.5 w-3.5 text-green-600" strokeWidth={2.5} />
         )}
       </label>
       <input
@@ -554,13 +560,13 @@ function FieldInput({
         onChange={(e) => onChange(e.target.value)}
         onBlur={onBlur}
         placeholder={placeholder}
-        className={`w-full rounded-lg border-2 px-3 py-2.5 text-sm text-gray-900 transition-all duration-200
+        className={`w-full rounded-lg border px-3 py-2.5 text-sm text-gray-900 transition
                     placeholder:text-gray-300 focus:outline-none focus:ring-2 ${
           hasError
             ? "border-red-300 bg-red-50/50 focus:border-red-400 focus:ring-red-100"
             : isFilled
               ? "border-green-200 bg-green-50/30 focus:border-green-400 focus:ring-green-100"
-              : "border-gray-200 bg-white focus:border-orange-400 focus:ring-orange-100"
+              : "border-gray-200 bg-white focus:border-brand-400 focus:ring-orange-100"
         }`}
       />
       {hasError && (

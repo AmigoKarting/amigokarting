@@ -4,9 +4,9 @@ export function ProgressBar({ value, max = 100, label }: { value: number; max?: 
   return (
     <div>
       {label && <p className="mb-1 text-sm text-gray-600">{label}</p>}
-      <div className="h-3 w-full overflow-hidden rounded-full bg-gray-200">
+      <div className="h-3 w-full overflow-hidden rounded-full bg-gray-100">
         <div
-          className="h-full rounded-full bg-brand-500 transition-all duration-500"
+          className="h-full rounded-full bg-brand-600 transition-all duration-500"
           style={{ width: `${pct}%` }}
         />
       </div>

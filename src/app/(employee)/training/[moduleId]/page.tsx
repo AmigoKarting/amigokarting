@@ -39,7 +39,7 @@ export default async function ModulePage({ params }: { params: { moduleId: strin
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold">{module.title}</h1>
+        <h1 className="text-2xl font-semibold tracking-tight text-gray-900">{module.title}</h1>
         {module.description && (
           <p className="mt-1 text-gray-500">{module.description}</p>
         )}

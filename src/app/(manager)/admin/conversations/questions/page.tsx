@@ -12,7 +12,7 @@ export default async function QuestionsPage() {
 
   return (
     <div className="space-y-6">
-      <h1 className="text-2xl font-bold">Questions pour les conversations</h1>
+      <h1 className="text-2xl font-semibold tracking-tight text-gray-900">Questions pour les conversations</h1>
       <p className="text-sm text-gray-500">
         Gérez les questions posées par l'IA. Marquez les prioritaires pour qu'elles soient posées en premier.
       </p>
