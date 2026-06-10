@@ -2,7 +2,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
-import { PendingAccounts } from "@/components/admin/PendingAccounts";
+import Link from "next/link";
 
 export default async function AdminDashboard() {
   const supabase = createServerSupabaseClient();
@@ -117,7 +117,25 @@ export default async function AdminDashboard() {
     <div className="space-y-6">
       <AnnouncementPopup />
       <h1 className="text-2xl font-bold">Tableau de bord</h1>
-      <PendingAccounts role={me?.role} />
+
+      {/* Rappel discret : comptes en attente (réservé dev/patron) */}
+      {(me?.role === "patron" || me?.role === "developpeur") && (pendingCount || 0) > 0 && (
+        <Link
+          href="/admin/approbations"
+          className="flex items-center gap-3 rounded-xl border-2 border-orange-300 bg-orange-50 px-5 py-4 transition active:scale-[0.99]"
+        >
+          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-orange-500 text-xs font-bold text-white">
+            {pendingCount}
+          </span>
+          <div className="flex-1">
+            <p className="text-sm font-semibold text-orange-900">
+              {pendingCount} compte{(pendingCount || 0) > 1 ? "s" : ""} en attente d'approbation
+            </p>
+            <p className="text-xs text-orange-600">Touche pour les accepter ou les refuser →</p>
+          </div>
+          <span className="shrink-0 text-orange-400">→</span>
+        </Link>
+      )}
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <div className="rounded-xl bg-white p-5 shadow-sm">
