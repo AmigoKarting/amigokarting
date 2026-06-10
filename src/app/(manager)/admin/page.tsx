@@ -1,10 +1,12 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
 import { PendingAccounts } from "@/components/admin/PendingAccounts";
 
 export default async function AdminDashboard() {
   const supabase = createServerSupabaseClient();
+  const me: any = await getAuthEmployee();
 
   // ─── Toutes les requêtes en parallèle ─────────────────
   const [
@@ -115,7 +117,7 @@ export default async function AdminDashboard() {
     <div className="space-y-6">
       <AnnouncementPopup />
       <h1 className="text-2xl font-bold">Tableau de bord</h1>
-      <PendingAccounts />
+      <PendingAccounts role={me?.role} />
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <div className="rounded-xl bg-white p-5 shadow-sm">

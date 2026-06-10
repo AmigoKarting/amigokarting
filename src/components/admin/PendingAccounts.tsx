@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from "react";
 
-export function PendingAccounts() {
+export function PendingAccounts({ role }: { role?: string }) {
   const [pending, setPending] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
- useEffect(() => {
-    const emp = JSON.parse(localStorage.getItem("employee") || "{}");
-    if (emp.role !== "patron" && emp.role !== "developpeur") { setLoading(false); return; }
+  // Seuls le développeur et le patron approuvent les nouveaux comptes.
+  const canApprove = role === "patron" || role === "developpeur";
+
+  useEffect(() => {
+    if (!canApprove) { setLoading(false); return; }
     loadPending();
-  }, []);
+  }, [canApprove]);
 
   async function loadPending() {
     try {
