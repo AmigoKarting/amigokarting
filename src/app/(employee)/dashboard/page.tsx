@@ -3,6 +3,7 @@ import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { AnnouncementBanner } from "@/components/announcements/AnnouncementBanner";
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
+import { PushToggle } from "@/components/PushToggle";
 import Link from "next/link";
 
 export default async function DashboardPage() {
@@ -128,6 +129,9 @@ export default async function DashboardPage() {
       </Link>
 
       <AnnouncementBanner />
+
+      {/* ─── Activer les rappels push ─── */}
+      <PushToggle />
 
       {/* ─── Ta prochaine étape ─── */}
       <Link href={next.href} className="block overflow-hidden rounded-2xl bg-white shadow-sm active:scale-[0.99]">
