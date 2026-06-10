@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function urlB64ToUint8Array(base64String: string): Uint8Array {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -16,7 +16,27 @@ type State = "loading" | "unsupported" | "off" | "on" | "denied" | "working";
 export function PushToggle() {
   const [state, setState] = useState<State>("loading");
   const [msg, setMsg] = useState("");
+  const tried = useRef(false);
 
+  // Abonne l'appareil (et envoie une notif de test au premier abonnement).
+  async function subscribe(sendTest: boolean) {
+    const reg = await navigator.serviceWorker.ready;
+    const { key } = await (await fetch("/api/push/public-key")).json();
+    if (!key) throw new Error("no-key");
+    const sub = await reg.pushManager.subscribe({
+      userVisibleOnly: true,
+      applicationServerKey: urlB64ToUint8Array(key),
+    });
+    const json: any = sub.toJSON();
+    await fetch("/api/push/subscribe", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ endpoint: json.endpoint, keys: json.keys }),
+    });
+    if (sendTest) await fetch("/api/push/test", { method: "POST" });
+  }
+
+  // Au chargement : on active les rappels par défaut, sans demander de clic.
   useEffect(() => {
     if (typeof window === "undefined") return;
     if (!("serviceWorker" in navigator) || !("PushManager" in window) || !("Notification" in window)) {
@@ -27,12 +47,43 @@ export function PushToggle() {
       setState("denied");
       return;
     }
-    navigator.serviceWorker.ready
-      .then(async (reg) => {
-        const sub = await reg.pushManager.getSubscription();
-        setState(sub ? "on" : "off");
-      })
-      .catch(() => setState("off"));
+
+    (async () => {
+      try {
+        const reg = await navigator.serviceWorker.ready;
+        const existing = await reg.pushManager.getSubscription();
+        if (existing) {
+          setState("on");
+          return;
+        }
+
+        // Déjà autorisé sur cet appareil : on (ré)abonne en silence.
+        if (Notification.permission === "granted") {
+          await subscribe(false);
+          setState("on");
+          return;
+        }
+
+        // Permission pas encore demandée : on l'active par défaut (au mieux ;
+        // certains navigateurs exigent un clic, on garde alors le bouton).
+        if (!tried.current) {
+          tried.current = true;
+          const perm = await Notification.requestPermission();
+          if (perm === "granted") {
+            await subscribe(true);
+            setState("on");
+          } else if (perm === "denied") {
+            setState("denied");
+          } else {
+            setState("off");
+          }
+        } else {
+          setState("off");
+        }
+      } catch {
+        setState("off");
+      }
+    })();
   }, []);
 
   async function enable() {
@@ -44,25 +95,7 @@ export function PushToggle() {
         setState(perm === "denied" ? "denied" : "off");
         return;
       }
-      const reg = await navigator.serviceWorker.ready;
-      const { key } = await (await fetch("/api/push/public-key")).json();
-      if (!key) {
-        setMsg("Configuration manquante");
-        setState("off");
-        return;
-      }
-      const sub = await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlB64ToUint8Array(key),
-      });
-      const json: any = sub.toJSON();
-      await fetch("/api/push/subscribe", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ endpoint: json.endpoint, keys: json.keys }),
-      });
-      await fetch("/api/push/test", { method: "POST" });
-      setMsg("Notification de test envoyée 📬");
+      await subscribe(true);
       setState("on");
     } catch {
       setMsg("Échec, réessaie.");
@@ -70,32 +103,20 @@ export function PushToggle() {
     }
   }
 
-  if (state === "loading" || state === "unsupported") return null;
-
-  if (state === "on") {
-    return (
-      <div className="flex items-center gap-3 rounded-2xl bg-green-50 p-4">
-        <span className="text-2xl">🔔</span>
-        <div className="flex-1">
-          <p className="text-sm font-semibold text-green-900">Rappels activés</p>
-          <p className="text-xs text-green-600">{msg || "On te préviendra pour garder ta série 🔥"}</p>
-        </div>
-      </div>
-    );
-  }
+  // Rappels actifs (ou rien à montrer) : on reste discret, aucune bannière,
+  // rien qui invite à les désactiver.
+  if (state === "loading" || state === "unsupported" || state === "on") return null;
 
   if (state === "denied") {
+    // Bloqué au niveau du navigateur : petit rappel discret pour réactiver.
     return (
-      <div className="flex items-center gap-3 rounded-2xl bg-gray-100 p-4">
-        <span className="text-2xl">🔕</span>
-        <div className="flex-1">
-          <p className="text-sm font-semibold text-gray-700">Notifications bloquées</p>
-          <p className="text-xs text-gray-500">Réactive-les dans les réglages de ton navigateur.</p>
-        </div>
-      </div>
+      <p className="px-1 text-[11px] text-gray-400">
+        🔕 Notifications bloquées — réactive-les dans les réglages de ton navigateur pour ne rien manquer.
+      </p>
     );
   }
 
+  // Repli pour les navigateurs qui exigent un clic : bouton sobre.
   return (
     <button
       onClick={enable}
