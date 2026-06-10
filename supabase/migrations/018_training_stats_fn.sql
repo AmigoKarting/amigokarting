@@ -22,7 +22,7 @@ BEGIN
            COALESCE(SUM(b.bp), 0) * 10 AS points
     FROM public.employees e
     LEFT JOIN best b ON b.employee_id = e.id
-    WHERE e.is_active
+    WHERE e.is_active AND e.role NOT IN ('patron', 'developpeur')
     GROUP BY e.id, e.first_name, e.last_name
   ),
   ranked AS (
