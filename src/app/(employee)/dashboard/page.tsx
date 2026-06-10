@@ -4,6 +4,10 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
 import { AnnouncementBanner } from "@/components/announcements/AnnouncementBanner";
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
 import { PushToggle } from "@/components/PushToggle";
+import {
+  Award, Flame, Target, ChevronRight, Rocket, Trophy, Mic, GraduationCap,
+  HelpCircle, TrendingUp, Star, Clock, Lightbulb, type LucideIcon,
+} from "lucide-react";
 import Link from "next/link";
 
 export default async function DashboardPage() {
@@ -32,10 +36,10 @@ export default async function DashboardPage() {
     globalScore = Math.round(gs?.global_score || 0);
   } catch {}
 
-  let level = { name: "Bronze", icon: "🥉", color: "#D97706" };
-  if (globalScore >= 85) level = { name: "Diamant", icon: "💎", color: "#60A5FA" };
-  else if (globalScore >= 65) level = { name: "Or", icon: "🥇", color: "#F59E0B" };
-  else if (globalScore >= 40) level = { name: "Argent", icon: "🥈", color: "#9CA3AF" };
+  let level = { name: "Bronze", color: "#B45309" };
+  if (globalScore >= 85) level = { name: "Diamant", color: "#2563EB" };
+  else if (globalScore >= 65) level = { name: "Or", color: "#CA8A04" };
+  else if (globalScore >= 40) level = { name: "Argent", color: "#6B7280" };
 
   // ─── Stats de jeu (points, rang, série, badges, classement) ──
   let g: any = {};
@@ -61,146 +65,169 @@ export default async function DashboardPage() {
   ].filter(Boolean).length;
 
   // ─── Prochaine étape recommandée ──────────────────────
-  let next: { emoji: string; title: string; desc: string; href: string; cta: string };
+  let next: { Icon: LucideIcon; title: string; desc: string; href: string; cta: string };
   if ((g.attempts || 0) === 0) {
-    next = { emoji: "🚀", title: "Commence ta formation", desc: "Lis un module, puis relève ton premier quiz", href: "/training", cta: "C'est parti" };
+    next = { Icon: Rocket, title: "Commence ta formation", desc: "Lis un module, puis relève ton premier quiz", href: "/training", cta: "C'est parti" };
   } else if (quizzesPassed < quizzesTotal) {
     const left = quizzesTotal - quizzesPassed;
-    next = { emoji: "🎯", title: `Encore ${left} quiz à réussir`, desc: "Chaque quiz réussi = des points et de nouveaux badges", href: "/training", cta: "Continuer" };
+    next = { Icon: Target, title: `Encore ${left} quiz à réussir`, desc: "Chaque quiz réussi compte des points et débloque des badges", href: "/training", cta: "Continuer" };
   } else {
-    next = { emoji: "🏆", title: "Vise le 100 %", desc: "Refais tes quiz pour décrocher tous les badges « sans faute »", href: "/training", cta: "Rejouer" };
+    next = { Icon: Trophy, title: "Vise le 100 %", desc: "Refais tes quiz pour décrocher tous les badges « sans faute »", href: "/training", cta: "Rejouer" };
   }
 
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Bon matin" : hour < 17 ? "Bon après-midi" : "Bonne soirée";
 
-  const shortcuts = [
-    { href: "/conversations", icon: "🎙️", label: "Conversation IA", desc: "Parle avec ton chef formateur", color: "bg-orange-50 border-orange-200" },
-    { href: "/training", icon: "🎬", label: "Formation", desc: `${quizzesPassed}/${quizzesTotal} quiz réussis`, color: "bg-blue-50 border-blue-200" },
-    { href: "/qa", icon: "❓", label: "Q&A Manuel", desc: "Cherche dans le manuel", color: "bg-green-50 border-green-200" },
-    { href: "/progression", icon: "🏆", label: "Progression", desc: `${badgesEarned} badge${badgesEarned > 1 ? "s" : ""} · #${rank || "—"}`, color: "bg-purple-50 border-purple-200" },
-    { href: "/score", icon: "⭐", label: "Ma note", desc: `${globalScore}/100`, color: "bg-yellow-50 border-yellow-200" },
-    { href: "/historique", icon: "📋", label: "Historique", desc: "Voir mon activité", color: "bg-gray-50 border-gray-200" },
+  const shortcuts: { href: string; Icon: LucideIcon; label: string; desc: string }[] = [
+    { href: "/conversations", Icon: Mic, label: "Conversation IA", desc: "Parle avec ton formateur" },
+    { href: "/training", Icon: GraduationCap, label: "Formation", desc: `${quizzesPassed}/${quizzesTotal} quiz réussis` },
+    { href: "/qa", Icon: HelpCircle, label: "Q&A Manuel", desc: "Cherche dans le manuel" },
+    { href: "/progression", Icon: TrendingUp, label: "Progression", desc: `${badgesEarned} badge${badgesEarned > 1 ? "s" : ""} · #${rank || "—"}` },
+    { href: "/score", Icon: Star, label: "Ma note", desc: `${globalScore}/100` },
+    { href: "/historique", Icon: Clock, label: "Historique", desc: "Voir mon activité" },
   ];
+
+  const chip = "inline-flex items-center gap-1.5 rounded-md border border-gray-200 bg-white px-2.5 py-1 text-sm text-gray-700";
 
   return (
     <div className="mx-auto w-full max-w-lg space-y-5 lg:max-w-5xl">
       <AnnouncementPopup />
 
-      {/* ─── Bienvenue + résumé de jeu ─── */}
-      <div className="rounded-2xl bg-gradient-to-br from-gray-900 to-gray-800 p-6 text-white">
-        <p className="text-sm text-gray-400">{greeting}</p>
-        <h1 className="mt-1 text-2xl font-bold">{emp.first_name} ! 👋</h1>
+      {/* ─── En-tête ─── */}
+      <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+        <p className="text-sm text-gray-500">{greeting}</p>
+        <h1 className="mt-0.5 text-2xl font-semibold tracking-tight text-gray-900">{emp.first_name}</h1>
         <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1.5 text-sm font-medium" style={{ color: level.color }}>
-            {level.icon} {level.name}
+          <span className={chip}>
+            <Award className="h-4 w-4" strokeWidth={2} style={{ color: level.color }} />
+            <span className="font-medium">{level.name}</span>
           </span>
-          <span className="flex items-center gap-1 rounded-full bg-white/10 px-3 py-1.5 text-sm font-bold">
-            🏅 {points} <span className="text-xs font-normal text-gray-400">pts</span>
+          <span className={chip}>
+            <span className="font-semibold text-gray-900">{points}</span> pts
           </span>
           {streak > 0 && (
-            <span className="flex items-center gap-1 rounded-full bg-orange-500/20 px-3 py-1.5 text-sm font-bold text-orange-300">
-              🔥 {streak}j
+            <span className="inline-flex items-center gap-1.5 rounded-md border border-orange-200 bg-orange-50 px-2.5 py-1 text-sm font-medium text-brand-700">
+              <Flame className="h-4 w-4" strokeWidth={2} /> {streak} j
             </span>
           )}
           {rank > 0 && (
-            <span className="flex items-center gap-1 rounded-full bg-white/10 px-3 py-1.5 text-sm font-bold">
-              #{rank}<span className="text-xs font-normal text-gray-400">/{totalPlayers}</span>
+            <span className={chip}>
+              #{rank} <span className="text-gray-400">/ {totalPlayers}</span>
             </span>
           )}
         </div>
       </div>
 
-      {/* ─── Sections (2 colonnes sur grand écran pour remplir l'espace) ─── */}
+      {/* ─── Sections (2 colonnes sur grand écran) ─── */}
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:items-start">
         <div className="space-y-5">
 
-      {/* ─── Rappel : série / défi du jour ─── */}
-      <Link
-        href="/training"
-        className="flex items-center gap-4 rounded-2xl border-2 border-orange-200 bg-orange-50 p-4 active:scale-[0.99]"
-      >
-        <span className="text-3xl">{streak > 0 ? "🔥" : "🎯"}</span>
-        <div className="flex-1">
-          <p className="text-sm font-semibold text-orange-900">
-            {streak > 0 ? `${streak} jour${streak > 1 ? "s" : ""} d'affilée !` : "Défi du jour"}
-          </p>
-          <p className="text-xs text-orange-600">
-            {streak > 0 ? "Fais une activité aujourd'hui pour garder ta série" : "Fais un quiz aujourd'hui pour lancer ta série 🔥"}
-          </p>
-        </div>
-        <svg className="h-5 w-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-      </Link>
+          {/* Série / défi du jour */}
+          <Link
+            href="/training"
+            className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300"
+          >
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-orange-50 text-brand-600">
+              {streak > 0 ? <Flame className="h-5 w-5" strokeWidth={2} /> : <Target className="h-5 w-5" strokeWidth={2} />}
+            </span>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-gray-900">
+                {streak > 0 ? `${streak} jour${streak > 1 ? "s" : ""} d'affilée` : "Défi du jour"}
+              </p>
+              <p className="text-xs text-gray-500">
+                {streak > 0 ? "Fais une activité aujourd'hui pour garder ta série" : "Fais un quiz aujourd'hui pour lancer ta série"}
+              </p>
+            </div>
+            <ChevronRight className="h-5 w-5 shrink-0 text-gray-300" strokeWidth={2} />
+          </Link>
 
-      <AnnouncementBanner />
+          <AnnouncementBanner />
 
-      {/* ─── Activer les rappels push ─── */}
-      <PushToggle />
+          <PushToggle />
 
-      {/* ─── Ta prochaine étape ─── */}
-      <Link href={next.href} className="block overflow-hidden rounded-2xl bg-white shadow-sm active:scale-[0.99]">
-        <div className="flex items-center gap-4 p-5">
-          <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-orange-100 text-3xl">{next.emoji}</span>
-          <div className="flex-1">
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-orange-500">Ta prochaine étape</p>
-            <p className="mt-0.5 text-base font-bold text-gray-900">{next.title}</p>
-            <p className="mt-0.5 text-xs text-gray-500">{next.desc}</p>
-          </div>
-          <span className="shrink-0 rounded-full bg-orange-500 px-4 py-2 text-sm font-semibold text-white">{next.cta}</span>
-        </div>
-      </Link>
+          {/* Ta prochaine étape */}
+          <Link
+            href={next.href}
+            className="block rounded-xl border border-gray-200 bg-white p-5 shadow-sm transition hover:border-gray-300"
+          >
+            <div className="flex items-center gap-4">
+              <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-brand-600 text-white">
+                <next.Icon className="h-5 w-5" strokeWidth={2} />
+              </span>
+              <div className="flex-1">
+                <p className="text-[11px] font-semibold uppercase tracking-wide text-brand-600">Ta prochaine étape</p>
+                <p className="mt-0.5 text-base font-semibold text-gray-900">{next.title}</p>
+                <p className="mt-0.5 text-xs text-gray-500">{next.desc}</p>
+              </div>
+              <span className="hidden shrink-0 rounded-lg bg-brand-600 px-4 py-2 text-sm font-medium text-white sm:inline-block">{next.cta}</span>
+            </div>
+          </Link>
 
         </div>
 
         <div className="space-y-5">
 
-      {/* ─── Reconnaissance : en tête du classement ─── */}
-      {leader && (
-        <Link href="/progression" className="flex items-center gap-3 rounded-2xl bg-gradient-to-r from-amber-50 to-yellow-50 p-4 active:scale-[0.99]">
-          <span className="text-2xl">👑</span>
-          <div className="flex-1">
-            {leader.is_me ? (
-              <>
-                <p className="text-sm font-bold text-amber-900">Tu es en tête du classement !</p>
-                <p className="text-xs text-amber-600">Continue comme ça pour garder ta place 🏆</p>
-              </>
-            ) : (
-              <>
-                <p className="text-sm font-semibold text-amber-900">En tête : {leader.name} · {leader.points} pts</p>
-                <p className="text-xs text-amber-600">Fais des quiz pour grimper au classement 💪</p>
-              </>
-            )}
-          </div>
-        </Link>
-      )}
-
-      {/* ─── Raccourcis ─── */}
-      <div>
-        <p className="mb-3 text-sm font-semibold text-gray-700">Accès rapide</p>
-        <div className="grid grid-cols-2 gap-3">
-          {shortcuts.map((s) => (
-            <Link key={s.href} href={s.href} className={`rounded-xl border-2 p-4 transition active:scale-[0.97] ${s.color}`}>
-              <span className="text-2xl">{s.icon}</span>
-              <p className="mt-2 text-sm font-semibold text-gray-900">{s.label}</p>
-              <p className="mt-0.5 text-[11px] text-gray-500">{s.desc}</p>
+          {/* En tête du classement */}
+          {leader && (
+            <Link
+              href="/progression"
+              className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300"
+            >
+              <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-amber-50 text-amber-600">
+                <Trophy className="h-5 w-5" strokeWidth={2} />
+              </span>
+              <div className="flex-1">
+                {leader.is_me ? (
+                  <>
+                    <p className="text-sm font-medium text-gray-900">Tu es en tête du classement</p>
+                    <p className="text-xs text-gray-500">Continue comme ça pour garder ta place</p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm font-medium text-gray-900">En tête : {leader.name} · {leader.points} pts</p>
+                    <p className="text-xs text-gray-500">Fais des quiz pour grimper au classement</p>
+                  </>
+                )}
+              </div>
             </Link>
-          ))}
-        </div>
-      </div>
+          )}
 
-      {/* ─── Conseil du jour ─── */}
-      <div className="rounded-xl border border-orange-200 bg-orange-50 p-4">
-        <p className="mb-1 text-xs font-semibold text-orange-700">💡 Conseil du jour</p>
-        <p className="text-sm text-orange-800">
-          {(g.attempts || 0) === 0
-            ? "Commence par lire une formation, puis fais le quiz : c'est rapide et ça rapporte des points."
-            : quizzesPassed < quizzesTotal
-              ? "Vise un nouveau quiz aujourd'hui — chaque réussite te rapproche d'un badge."
-              : perfect < quizzesTotal
-                ? "Tu as tout réussi ! Refais tes quiz pour viser le 100 % et les badges « sans faute »."
-                : "Tu es une machine ! Garde ta série et aide tes collègues à te rattraper 😏"}
-        </p>
-      </div>
+          {/* Accès rapide */}
+          <div>
+            <p className="mb-3 text-sm font-semibold text-gray-700">Accès rapide</p>
+            <div className="grid grid-cols-2 gap-3">
+              {shortcuts.map((s) => (
+                <Link
+                  key={s.href}
+                  href={s.href}
+                  className="rounded-xl border border-gray-200 bg-white p-4 shadow-sm transition hover:border-gray-300"
+                >
+                  <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gray-100 text-gray-600">
+                    <s.Icon className="h-[18px] w-[18px]" strokeWidth={2} />
+                  </span>
+                  <p className="mt-2.5 text-sm font-medium text-gray-900">{s.label}</p>
+                  <p className="mt-0.5 text-[11px] text-gray-500">{s.desc}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+
+          {/* Conseil */}
+          <div className="flex gap-3 rounded-xl border border-gray-200 bg-white p-4 shadow-sm">
+            <Lightbulb className="h-5 w-5 shrink-0 text-brand-600" strokeWidth={2} />
+            <div>
+              <p className="text-xs font-medium text-gray-900">Conseil</p>
+              <p className="mt-0.5 text-sm text-gray-600">
+                {(g.attempts || 0) === 0
+                  ? "Commence par lire une formation, puis fais le quiz : c'est rapide et ça rapporte des points."
+                  : quizzesPassed < quizzesTotal
+                    ? "Vise un nouveau quiz aujourd'hui — chaque réussite te rapproche d'un badge."
+                    : perfect < quizzesTotal
+                      ? "Tu as tout réussi. Refais tes quiz pour viser le 100 % et les badges « sans faute »."
+                      : "Excellent travail. Garde ta série active et aide tes collègues à te rejoindre."}
+              </p>
+            </div>
+          </div>
 
         </div>
       </div>
