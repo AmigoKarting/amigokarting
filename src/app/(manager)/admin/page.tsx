@@ -24,10 +24,10 @@ export default async function AdminDashboard() {
     recentConvResult,
     oldScoresResult,
   ] = await Promise.all([
-    supabase.from("employees").select("*", { count: "exact", head: true }).eq("is_active", true),
+    supabase.from("employees").select("*", { count: "exact", head: true }).eq("is_active", true).in("role", ["employee", "manager"]),
     supabase.from("employee_missing_info").select("*").eq("has_missing_info", true),
     supabase.from("employees").select("*", { count: "exact", head: true }).eq("is_active", false),
-    supabaseAdmin.from("employee_global_score").select("global_score").then(r => r).catch(() => ({ data: null })),
+    supabaseAdmin.from("employee_global_score").select("global_score").in("role", ["employee", "manager"]).then(r => r).catch(() => ({ data: null })),
     supabaseAdmin.from("conversation_sessions").select("rating").not("rating", "is", null).then(r => r).catch(() => ({ data: null })),
     supabaseAdmin.from("employees").select("id, first_name, last_name, created_at").eq("is_active", true).in("role", ["employee", "manager"]).then(r => r).catch(() => ({ data: null })),
     supabaseAdmin.from("employee_activity").select("employee_id, updated_at").then(r => r).catch(() => ({ data: null })),

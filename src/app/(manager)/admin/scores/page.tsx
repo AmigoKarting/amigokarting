@@ -7,6 +7,7 @@ export default async function ScoresPage() {
   const { data: scores } = await supabase
     .from("employee_global_score")
     .select("*")
+    .in("role", ["employee", "manager"])
     .order("global_score", { ascending: false });
 
   function getScoreColor(score: number): string {
