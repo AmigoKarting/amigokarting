@@ -7,14 +7,14 @@ import {
   Home, User, Star, GraduationCap, MessageCircle, HelpCircle, Clock,
   TrendingUp, BookOpen, LifeBuoy, LayoutDashboard, Users, BarChart3,
   AlertTriangle, Megaphone, Bell, Settings, Shield, List, PlayCircle,
-  Phone, Crown, UserCheck, Menu, X, LogOut, type LucideIcon,
+  Phone, Crown, UserCheck, RotateCcw, Layers, Search, Menu, X, LogOut, type LucideIcon,
 } from "lucide-react";
 
 const ICONS: Record<string, LucideIcon> = {
   Home, User, Star, GraduationCap, MessageCircle, HelpCircle, Clock,
   TrendingUp, BookOpen, LifeBuoy, LayoutDashboard, Users, BarChart: BarChart3,
   AlertTriangle, Megaphone, Bell, Settings, Shield, List, PlayCircle,
-  Phone, Crown, UserCheck,
+  Phone, Crown, UserCheck, RotateCcw, Layers, Search,
 };
 
 interface NavItem {

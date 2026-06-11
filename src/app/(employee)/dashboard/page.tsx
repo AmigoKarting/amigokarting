@@ -4,6 +4,7 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
 import { AnnouncementBanner } from "@/components/announcements/AnnouncementBanner";
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
 import { PushToggle } from "@/components/PushToggle";
+import { DailyQuestion } from "@/components/training/DailyQuestion";
 import {
   Award, Flame, Target, ChevronRight, Rocket, Trophy, Mic, GraduationCap,
   HelpCircle, TrendingUp, Star, Clock, Lightbulb, type LucideIcon,
@@ -140,6 +141,8 @@ export default async function DashboardPage() {
             </div>
             <ChevronRight className="h-5 w-5 shrink-0 text-gray-300" strokeWidth={2} />
           </Link>
+
+          <DailyQuestion />
 
           <AnnouncementBanner />
 
