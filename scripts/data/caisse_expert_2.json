@@ -1,0 +1,158 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 91,
+  "title": "Caisse — Examen expert",
+  "passing_score": 0.85,
+  "questions": [
+    {
+      "q": "Un client appelle le lundi pour réserver un groupe de 12 personnes le jeudi. Peux-tu accepter cette réservation ?",
+      "choices": ["Oui, le délai de 3 jours est respecté et le groupe atteint le seuil de 10 personnes", "Non, il faut au moins une semaine d'avance", "Non, le groupe est trop petit pour réserver", "Oui, mais seulement avec l'accord du gérant"],
+      "correct": 0,
+      "explanation": "De lundi à jeudi, le délai minimal de 3 jours est respecté, et un groupe de 12 personnes dépasse le seuil de 10. La réservation est donc acceptable."
+    },
+    {
+      "q": "Il reste 40 minutes avant la fermeture. Un client veut la course la plus longue possible. Que peux-tu lui vendre au maximum ?",
+      "choices": ["30 minutes", "20 minutes", "15 minutes", "Rien du tout"],
+      "correct": 1,
+      "explanation": "On ne vend plus de 30 minutes à partir de 40 minutes avant la fermeture. À 40 minutes, la course de 30 minutes n'est donc plus permise, mais le 20 minutes l'est encore."
+    },
+    {
+      "q": "Un client veut une course Super-Kart de 20 minutes. Quel tarif régulier annonces-tu, avant taxes ?",
+      "choices": ["36,96 $", "51,75 $", "60,88 $", "39,99 $"],
+      "correct": 1,
+      "explanation": "Le tarif régulier d'un Super-Kart pour 20 minutes est de 51,75 $ avant taxes. On l'annonce par kart, en précisant que les taxes s'ajoutent."
+    },
+    {
+      "q": "Tu comptes 22 personnes en ligne. Selon la méthode rapide du manuel, quel temps d'attente annonces-tu ?",
+      "choices": ["Environ 22 minutes", "Environ 42 minutes", "Environ 20 minutes", "Environ 60 minutes"],
+      "correct": 1,
+      "explanation": "La méthode rapide consiste à additionner le nombre de personnes en ligne et 20 minutes : 22 + 20 donne environ 42 minutes."
+    },
+    {
+      "q": "Il reste 2 vagues avant la fermeture, 16 karts sont disponibles et 35 personnes attendent déjà. Que conclus-tu ?",
+      "choices": ["Il reste 13 places à vendre", "La capacité de 32 places est déjà dépassée, on ne peut plus vendre librement", "Il reste 32 places à vendre", "Il reste 48 places à vendre"],
+      "correct": 1,
+      "explanation": "2 vagues × 16 karts = 32 places possibles. Comme 35 personnes attendent déjà, la capacité est dépassée et on ne peut plus vendre librement."
+    },
+    {
+      "q": "Un client demande à être remboursé parce qu'il trouve les karts trop lents. Quelle est la bonne décision ?",
+      "choices": ["Le rembourser immédiatement en comptant", "Expliquer que ce n'est pas une raison de remboursement prévue par la politique", "Augmenter la vitesse de son kart", "Lui donner un certificat-cadeau sans le noter"],
+      "correct": 1,
+      "explanation": "Des karts jugés « trop lents » ne sont pas une raison valable de remboursement. On explique calmement la politique; toute exception devrait passer par le gérant."
+    },
+    {
+      "q": "Une personne se fait sortir de piste pour son comportement et réclame son argent. Que dois-tu faire ?",
+      "choices": ["La rembourser en comptant", "Lui remettre un certificat-cadeau", "Refuser : aucun remboursement ni certificat quand la personne est sortie pour son comportement", "Lui offrir une course gratuite"],
+      "correct": 2,
+      "explanation": "Aucun remboursement ni certificat-cadeau n'est accordé si la personne se fait sortir de piste pour son comportement : le retrait est causé par sa propre conduite."
+    },
+    {
+      "q": "Quel code sert à démarrer l'ordinateur lors de l'ouverture de la caisse ?",
+      "choices": ["64642#", "8546", "5", "500"],
+      "correct": 1,
+      "explanation": "Le code pour démarrer l'ordinateur à l'ouverture est 8546. Le code 64642# sert plutôt à prendre les messages et retourner les appels."
+    },
+    {
+      "q": "Pendant le rapprochement, la caisse contient plus d'argent qu'indiqué dans Apex. Comment traites-tu ce surplus ?",
+      "choices": ["Tu le gardes en pourboire", "Tu l'ajoutes au fonds de caisse", "Tu le vérifies et l'expliques exactement comme un manque", "Tu l'ignores car c'est en ta faveur"],
+      "correct": 2,
+      "explanation": "Un surplus se traite exactement comme un manque : on recompte, on vérifie les transactions et on documente l'écart. Tout écart, en trop ou en moins, doit être expliqué."
+    },
+    {
+      "q": "Les ventes Apex de la journée sont de 1 200 $ avec 150 $ de remboursements et 50 $ de certificats-cadeaux utilisés. Quel est le montant net des ventes ?",
+      "choices": ["1 100 $", "1 050 $", "1 000 $", "1 150 $"],
+      "correct": 1,
+      "explanation": "On soustrait les 150 $ de remboursements des 1 200 $ de ventes, ce qui donne un net de 1 050 $."
+    },
+    {
+      "q": "Un client veut acheter une course alors qu'il pleut déjà légèrement. Quelle est ta priorité avant la vente ?",
+      "choices": ["Lui vendre sans rien dire", "L'informer que la piste est mouillée et plus glissante et qu'il devra adapter sa conduite", "Lui refuser la vente", "Lui promettre un remboursement à l'avance"],
+      "correct": 1,
+      "explanation": "Avant la vente, on avertit le client que la piste sera mouillée et glissante et qu'il n'atteindra pas les vitesses d'une piste sèche. On vend seulement quand il comprend et accepte ces conditions."
+    },
+    {
+      "q": "Un client mécontent demande à parler au responsable. Quelle est la bonne marche à suivre ?",
+      "choices": ["Lui dire que le responsable est absent", "Tenter de régler seul sans aviser personne", "Contacter le gérant immédiatement", "Refuser sa demande"],
+      "correct": 2,
+      "explanation": "Lorsqu'un client demande à parler au responsable, on contacte le gérant immédiatement. Une situation qui nous dépasse doit lui être confiée."
+    },
+    {
+      "q": "Combien de temps avant son départ un participant doit-il se présenter à la billetterie ?",
+      "choices": ["15 minutes", "20 minutes", "30 minutes", "45 minutes"],
+      "correct": 2,
+      "explanation": "Les participants doivent arriver 30 minutes avant le départ pour compléter les formalités. C'est aussi pourquoi on clarifie « arriver » ou « courser » à l'heure indiquée."
+    },
+    {
+      "q": "Une vague dure combien de temps, et combien de karts sont généralement disponibles, pour calculer les places restantes ?",
+      "choices": ["20 minutes et 12 karts", "30 minutes et 16 karts", "15 minutes et 20 karts", "60 minutes et 16 karts"],
+      "correct": 1,
+      "explanation": "En général, les vagues durent 30 minutes et on dispose de 16 karts. Dans le doute, on confirme avec le gérant avant de calculer les places restantes."
+    },
+    {
+      "q": "Tu remarques qu'une même vente semble avoir été entrée deux fois dans Apex. Quel est le danger et que fais-tu ?",
+      "choices": ["Aucun danger, tu laisses passer", "Une double saisie gonfle les ventes et crée un écart : tu la vérifies immédiatement avant la fermeture", "Tu supprimes les deux saisies sans vérifier", "Tu attends le lendemain pour vérifier"],
+      "correct": 1,
+      "explanation": "Une double saisie gonfle les ventes, crée un écart et fausse les rapports. Dès qu'une transaction semble entrée deux fois, on la vérifie immédiatement, pendant que l'erreur est encore facile à corriger."
+    },
+    {
+      "q": "Un client demande si une réservation est nécessaire pour son groupe de 6 personnes une journée de semaine. Que réponds-tu ?",
+      "choices": ["Oui, une réservation est obligatoire", "Non, pour moins de 10 personnes c'est premier arrivé, premier servi", "Seulement la fin de semaine", "Seulement s'il y a des enfants"],
+      "correct": 1,
+      "explanation": "Pour un groupe de moins de 10 personnes, aucune réservation n'est requise : c'est premier arrivé, premier servi, autant la semaine que la fin de semaine."
+    },
+    {
+      "q": "À quelles heures la checklist de la salle de bain doit-elle être faite ?",
+      "choices": ["Seulement à l'ouverture et à la fermeture", "À 14 h, 16 h, 18 h, 20 h et 22 h", "Une fois par jour à midi", "Chaque heure"],
+      "correct": 1,
+      "explanation": "La checklist de salle de bain se vérifie à 14 h, 16 h, 18 h, 20 h et 22 h. Les toilettes doivent être propres minimalement aux 2 heures et à la fermeture."
+    },
+    {
+      "q": "Lors de la fermeture, à partir de combien de dégagements de responsabilité restants d'un même modèle dois-tu avertir le gérant ?",
+      "choices": ["Moins de 5", "Moins de 10", "Moins de 20", "Moins de 50"],
+      "correct": 1,
+      "explanation": "Il faut avertir le gérant s'il reste moins de 10 dégagements de responsabilité d'un des 4 modèles, et faire des photocopies au besoin."
+    },
+    {
+      "q": "Un client veut savoir si les autres activités sont ouvertes en début mai. Que réponds-tu selon le manuel ?",
+      "choices": ["Elles sont fermées toute l'année", "Elles rouvrent généralement autour du 20 mai", "Elles ouvrent seulement sur réservation", "Elles ferment autour du 20 mai"],
+      "correct": 1,
+      "explanation": "Selon le manuel, les autres activités rouvrent généralement autour du 20 mai."
+    },
+    {
+      "q": "À quelle heure ferme-t-on la piste et à quelle heure ferme la billetterie ?",
+      "choices": ["Piste à 21 h 30, billetterie à 22 h", "Piste à 22 h, billetterie à 21 h 30", "Piste et billetterie à 22 h", "Piste à 23 h, billetterie à 22 h 30"],
+      "correct": 1,
+      "explanation": "On ferme la piste à 22 h et la billetterie à 21 h 30. C'est l'information à donner quand un client demande les heures d'ouverture."
+    },
+    {
+      "q": "Lorsque les gens attendent depuis 45 minutes, que recommande le manuel de faire pour désamorcer la situation ?",
+      "choices": ["Leur offrir un remboursement immédiat", "Leur servir de l'eau et des Mr. Freeze et s'excuser pour le délai", "Fermer la billetterie quelques minutes", "Les faire passer devant les réservations"],
+      "correct": 1,
+      "explanation": "Quand les gens attendent depuis 45 minutes, on leur offre de l'eau et des Mr. Freeze et on s'excuse pour le délai. Souvent, cela désamorce la situation avant qu'on parle de remboursement."
+    },
+    {
+      "q": "Sur la machine Interac, par quelle opération commence le règlement du lot pour produire le rapport de fin de journée ?",
+      "choices": ["Historique du lot, puis Détails", "Règlements, puis Régler, puis Régler le lot ouvert, puis Fait", "Impression directe du rapport", "Reçu, puis Annuler"],
+      "correct": 1,
+      "explanation": "On va dans Règlements, puis Régler, puis Régler le lot ouvert, puis Fait. Ensuite, après le chargement, on retourne à Règlements, on clique Historique du lot, puis Détails à côté du rapport de la journée, et on imprime."
+    },
+    {
+      "q": "De quoi un employé à la caisse est-il responsable en matière de propreté du site ?",
+      "choices": ["Uniquement de son comptoir", "De la propreté à l'intérieur de la Zone Rouge", "Seulement des toilettes", "De rien, c'est la tâche du gérant"],
+      "correct": 1,
+      "explanation": "L'employé est responsable de la propreté à l'intérieur de la Zone Rouge, qui inclut notamment la billetterie, les tables de pique-nique et le stationnement à ramasser à la fermeture."
+    },
+    {
+      "q": "Un client a payé puis change simplement d'idée et ne veut plus faire de karting. A-t-il automatiquement droit à un remboursement ?",
+      "choices": ["Oui, le remboursement est automatique", "Non, un simple changement d'idée ne donne pas droit à un remboursement", "Oui, mais seulement en certificat-cadeau", "Oui, s'il insiste suffisamment"],
+      "correct": 1,
+      "explanation": "Un simple changement d'idée ne donne pas droit à un remboursement. On l'explique calmement; toute exception relève du gérant."
+    },
+    {
+      "q": "Le matin, la caisse contient 460 $ après recomptage. Que dois-tu faire de ce manque de 40 $ ?",
+      "choices": ["Le combler avec ton propre argent", "Le noter sur un bloc-notes, aviser le gérant, et le soir remettre la caisse à 500 $ depuis les profits en l'expliquant dans le rapport", "L'ignorer car c'est sous 50 $", "Le déduire des premières ventes de la journée"],
+      "correct": 1,
+      "explanation": "On note le montant manquant, on avise le gérant et on l'inscrit au rapport. Le soir, on prend ce montant dans les profits pour ramener la caisse à 500 $ au départ, en l'expliquant. On ne paie jamais de sa poche et on ne cache jamais un écart."
+    }
+  ]
+}

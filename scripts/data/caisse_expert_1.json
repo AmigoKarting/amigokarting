@@ -1,0 +1,98 @@
+{
+  "category": "Caisse - Amigo Karting",
+  "sort_order": 90,
+  "title": "Caisse — Approfondissement (niveau avancé)",
+  "passing_score": 0.75,
+  "questions": [
+    {
+      "q": "En pleine fermeture, il te reste 35 minutes avant la fermeture et un client veut acheter une course. Quelle durée maximale peux-tu encore lui vendre ?",
+      "choices": ["30 minutes", "20 minutes", "15 minutes", "Aucune course"],
+      "correct": 1,
+      "explanation": "On ne vend plus de 30 minutes à partir de 40 minutes avant la fermeture, mais à 35 minutes (donc sous la barre de 30 min avant) on peut encore vendre du 20 minutes, et non du 30 minutes."
+    },
+    {
+      "q": "Un client appelle le mardi et veut absolument réserver pour le mercredi parce qu'il fait 2 h de route. Que lui réponds-tu ?",
+      "choices": ["Tu acceptes la réservation par exception", "Tu appliques la règle des 3 jours : pour le lendemain, c'est premier arrivé, premier servi", "Tu lui réserves une place exclusive sans dépôt", "Tu annules une autre réservation pour lui faire de la place"],
+      "correct": 1,
+      "explanation": "Le délai minimal de réservation est de 3 jours. Même un client qui vient de loin n'y échappe pas : pour le lendemain, c'est premier arrivé, premier servi, et on ne bouscule pas les autres clients."
+    },
+    {
+      "q": "Un samedi, un groupe de 14 personnes veut réserver pour 14 h 30 la fin de semaine suivante. Quelle contrainte d'horaire dois-tu mentionner ?",
+      "choices": ["Aucune réservation n'est possible la fin de semaine", "On ne prend pas de réservation entre 13 h et 16 h la fin de semaine : ce doit être avant ou après", "Les réservations de fin de semaine coûtent plus cher", "Il faut réserver au moins un mois à l'avance"],
+      "correct": 1,
+      "explanation": "Les fins de semaine, on ne prend pas de réservation entre 13 h et 16 h à cause de l'achalandage. Le groupe doit donc choisir un créneau avant 13 h ou après 16 h."
+    },
+    {
+      "q": "Un client adulte veut payer une course Go-Kart de 15 minutes par carte de débit. Comment annonces-tu correctement le montant ?",
+      "choices": ["« 29,99 $, taxes incluses »", "« 29,99 $ par kart, plus les taxes »", "« Environ 30 $ tout compris »", "« 29,99 $ par personne »"],
+      "correct": 1,
+      "explanation": "Le tarif régulier Go-Kart 15 minutes est de 29,99 $ avant taxes. On annonce toujours le prix par kart (pas par personne) en précisant « plus les taxes », jamais un montant taxes incluses."
+    },
+    {
+      "q": "À la fermeture, tu comptes le tiroir et obtiens 1 350 $. Combien mets-tu dans le sac des profits ?",
+      "choices": ["1 350 $", "850 $", "500 $", "950 $"],
+      "correct": 1,
+      "explanation": "Le fonds de caisse doit rester à 500 $ dans le tiroir pour le lendemain. On retire donc l'excédent : 1 350 $ moins le fonds de 500 $ donne 850 $ pour le sac des profits."
+    },
+    {
+      "q": "Un client a payé une course par carte de crédit puis l'enfant a trop peur pour embarquer. Tu dois le rembourser. Sous quelle forme remets-tu l'argent ?",
+      "choices": ["Sur la même carte de crédit", "En argent comptant", "Par virement", "Par certificat-cadeau obligatoire"],
+      "correct": 1,
+      "explanation": "Les remboursements se font en argent comptant, peu importe le moyen de paiement utilisé au départ. Le cas de l'enfant qui a peur fait partie des situations où le remboursement est permis."
+    },
+    {
+      "q": "Avant de procéder à ce remboursement pour l'enfant apeuré, quelle solution dois-tu proposer en premier au client ?",
+      "choices": ["Un rabais sur la nourriture", "Un certificat-cadeau qui double le temps pour sa prochaine visite", "Un tour gratuit immédiat", "Rien, le remboursement est automatique"],
+      "correct": 1,
+      "explanation": "On privilégie toujours le certificat-cadeau avant le remboursement : il double le temps pour la prochaine visite, fidélise le client et évite une perte immédiate pour Amigo."
+    },
+    {
+      "q": "Tu fais le rapprochement Apex/caisse avant la fermeture : Apex indique 1 250 $ et le tiroir, fonds exclu, affiche 1 230 $. Quelle est ta toute première action ?",
+      "choices": ["Inscrire un écart de 20 $ sans vérifier", "Recompter et vérifier les transactions pour trouver la cause", "Ajouter 20 $ de ta poche", "Effacer la dernière transaction"],
+      "correct": 1,
+      "explanation": "Devant un écart, on ne corrige jamais les chiffres et on ne paie pas de sa poche. On recompte d'abord, puis on vérifie les transactions : un manque de 20 $ vient souvent d'une erreur de comptage, de transaction ou d'un remboursement mal inscrit."
+    },
+    {
+      "q": "Il reste 3 vagues avant l'arrivée d'une réservation, avec 16 karts disponibles, et 40 personnes attendent déjà. Combien de places peux-tu encore vendre ?",
+      "choices": ["48 places", "8 places", "16 places", "24 places"],
+      "correct": 1,
+      "explanation": "3 vagues × 16 karts = 48 places possibles. En soustrayant les 40 personnes déjà en ligne, il reste 8 places disponibles avant la réservation."
+    },
+    {
+      "q": "Un client de loin appelle le jeudi et veut savoir s'il attendra longtemps s'il vient samedi. Que fais-tu avant de répondre ?",
+      "choices": ["Tu lui dis qu'il n'y a jamais d'attente", "Tu vérifies les réservations prévues et l'achalandage de samedi avant de répondre", "Tu lui demandes de réserver pour 4 personnes", "Tu lui dis simplement de venir tôt"],
+      "correct": 1,
+      "explanation": "Pour un client qui vient de loin, on vérifie les réservations déjà prévues et l'achalandage de la journée visée afin de donner une information fiable, et on lui signale toute grosse réservation pour qu'il ne soit pas surpris par l'attente."
+    },
+    {
+      "q": "Un orage menace et un client hésite à acheter sa course. Que dois-tu lui dire au sujet d'un remboursement éventuel ?",
+      "choices": ["Qu'il sera remboursé si la pluie commence", "Que s'il mouille on ne le remboursera pas, mais qu'un crédit de temps pourrait être attribué", "Que la piste fermera et qu'il sera remboursé", "Que la pluie donne droit à un remboursement complet"],
+      "correct": 1,
+      "explanation": "Lorsqu'un orage semble possible, on avertit le client que s'il mouille, il n'y aura PAS de remboursement, mais qu'un crédit de temps pourrait être attribué : il faut le mentionner clairement avant la vente."
+    },
+    {
+      "q": "Au matin, tu comptes la caisse et il y a 470 $. Tu recomptes et l'écart persiste. Que fais-tu ?",
+      "choices": ["Tu remets 30 $ de ta poche", "Tu avises le gérant et tu notes l'écart sur le rapport", "Tu ignores l'écart car c'est petit", "Tu retires 30 $ des premières ventes"],
+      "correct": 1,
+      "explanation": "Le fonds doit être de 500 $. Après recomptage, si l'écart persiste, on l'inscrit sur le rapport et on avise le gérant. Un écart ne se cache jamais et ne se corrige pas en silence : on le note pour la traçabilité."
+    },
+    {
+      "q": "Tu prends un dépôt de réservation par carte de crédit. Une fois le reçu Interac imprimé, qu'en fais-tu ?",
+      "choices": ["Tu le remets seulement au client", "Tu l'agrafes à la feuille de réservation", "Tu le mets dans le tiroir-caisse", "Tu le jettes une fois la transaction dans Apex"],
+      "correct": 1,
+      "explanation": "La copie client du reçu s'agrafe à la feuille de réservation. Sans le reçu agrafé, la transaction n'est plus traçable ni documentée."
+    },
+    {
+      "q": "Un habitué insiste : « Mon ami a payé moins cher la semaine passée, fais-moi un rabais. » Quelle est la bonne réponse ?",
+      "choices": ["Tu lui accordes le même prix pour le fidéliser", "Tu expliques poliment mais fermement que les prix sont fixes et ne se négocient pas", "Tu demandes au gérant d'autoriser un rabais", "Tu lui offres un tour gratuit"],
+      "correct": 1,
+      "explanation": "Les prix sont fixes pour tout le monde, sans rabais pour un ami, un habitué ou un gros groupe. On reste calme et ferme, et on peut valoriser qu'Amigo est parmi les moins chers de la région avec la plus grande piste."
+    },
+    {
+      "q": "À la fermeture, après avoir retiré l'excédent pour les profits, quelles coupures dois-tu privilégier de mettre dans le sac des profits ?",
+      "choices": ["Les plus petites coupures", "Les plus grosses coupures possibles", "Seulement la monnaie", "Peu importe les coupures"],
+      "correct": 1,
+      "explanation": "On met les plus grosses coupures possibles dans les profits : si on donne ses petites coupures, on manquera de change le lendemain. On avise aussi le gérant s'il n'y a pas assez de monnaie pour la journée suivante."
+    }
+  ]
+}

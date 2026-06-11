@@ -1,0 +1,283 @@
+{
+  "category": "Piste",
+  "sort_order": 91,
+  "title": "Piste — Examen expert",
+  "passing_score": 0.85,
+  "questions": [
+    {
+      "q": "Un client arrive à la clôture pendant que tu briefes déjà un autre groupe. Combien de temps, au maximum, devrait-il attendre avant qu'un préposé l'aborde ?",
+      "choices": [
+        "Pas plus de 1 minute",
+        "Pas plus de 5 minutes",
+        "Pas plus de 10 minutes",
+        "Le temps qu'une piste se libère"
+      ],
+      "correct": 0,
+      "explanation": "Un client ne devrait jamais attendre plus de 1 minute à la clôture avant qu'un préposé l'aborde, avec le sourire. S'il n'y a pas assez de karts, on lui dit dans combien de temps on viendra le chercher."
+    },
+    {
+      "q": "Le groupe en piste a payé une course de 15 minutes. Sachant que le briefing et la remise des casques prennent de 10 à 15 minutes, à quel moment vas-tu chercher le prochain groupe ?",
+      "choices": [
+        "Quand la piste est complètement vide",
+        "5 minutes avant la fin du groupe en piste",
+        "Au moins 15 minutes avant que le groupe en piste termine",
+        "Dès que le premier kart revient aux puits"
+      ],
+      "correct": 2,
+      "explanation": "On n'attend pas que la piste se libère : comme le briefing et les casques prennent de 10 à 15 minutes, on va briefer le prochain groupe au moins 15 minutes avant la fin du groupe en piste, pour enchaîner sans temps mort."
+    },
+    {
+      "q": "À l'accueil d'un groupe à la clôture, que fais-tu avec les tickets des clients ?",
+      "choices": [
+        "Tu les ramasses immédiatement pour ne pas les perdre",
+        "Tu demandes de les garder proches; on les ramasse une fois les clients assis dans le kart",
+        "Tu les jettes après avoir noté le nombre de personnes",
+        "Tu les remets au superviseur avant le briefing"
+      ],
+      "correct": 1,
+      "explanation": "On NE prend PAS les tickets à l'étape de l'accueil. On demande aux clients de les garder proches, et on les ramasse une fois qu'ils sont assis dans le kart, au moment où on inscrit le numéro de kart, l'heure de départ et la durée."
+    },
+    {
+      "q": "Un client mesure 4'11\" et veut absolument un Super-Kart. Quelle est la bonne décision ?",
+      "choices": [
+        "On le laisse conduire puisqu'il en est proche",
+        "On refuse le Super-Kart : la taille minimale de 5'0\" n'est pas atteinte",
+        "On demande à un ami de confirmer sa taille",
+        "On lui donne un Super-Kart adapté à sa taille"
+      ],
+      "correct": 1,
+      "explanation": "Le Super-Kart exige au moins 16 ans ET une taille minimale de 5'0\". À 4'11\", la taille minimale n'est pas atteinte : on refuse le Super-Kart pour la sécurité du pilote."
+    },
+    {
+      "q": "Une personne de 14 ans, dans la moyenne, veut conduire seule. Quel type de kart peut-elle piloter selon les âges minimums ?",
+      "choices": [
+        "Le Super-Kart, peu importe sa taille",
+        "Le Go-Kart, puisqu'elle a au moins 12 ans",
+        "Uniquement le Mini-Kart",
+        "Aucun kart avant 16 ans"
+      ],
+      "correct": 1,
+      "explanation": "À 14 ans, elle dépasse les 12 ans requis pour le Go-Kart, mais pas les 16 ans exigés pour le Super-Kart. Elle peut donc piloter un Go-Kart."
+    },
+    {
+      "q": "Avant de partir un kart, à qui revient la responsabilité de vérifier que le casque est bien attaché et réglementaire ?",
+      "choices": [
+        "Au client, qui connaît sa propre tête",
+        "À l'employé : c'est TA responsabilité, et si tu n'es pas certain tu tires sur la sangle",
+        "Au superviseur seulement",
+        "Au mécanicien lors de l'inspection d'ouverture"
+      ],
+      "correct": 1,
+      "explanation": "Le casque correctement attaché et réglementaire (DOT ou SNELL) est la responsabilité de l'employé, pas du client. Si on n'est pas certain après une inspection visuelle, on tire sur la sangle. En Super-Kart, protège-menton et lunettes sont aussi obligatoires."
+    },
+    {
+      "q": "Lorsqu'un seul groupe occupe le puits, à partir de combien de karts partis dans une même rangée dois-tu avancer tous les karts immédiatement ?",
+      "choices": [
+        "Dès le premier kart parti",
+        "Dès deux karts partis",
+        "Dès trois karts partis",
+        "Seulement quand toute la rangée est partie"
+      ],
+      "correct": 2,
+      "explanation": "C'est la règle de 3 : dès que trois karts d'une même rangée sont partis, on avance tous les karts immédiatement pour garder le flux et l'ordre dans les puits."
+    },
+    {
+      "q": "Tu changes un client de kart en pleine opération. Comment communiques-tu ce changement, par exemple un kart 68 pour un 96 ?",
+      "choices": [
+        "Tu l'écris seulement sur un papier",
+        "Tu l'annonces une fois à la radio et tu passes à autre chose",
+        "Tu répètes le message radio aux 15 secondes jusqu'à ce que le préposé au temps confirme l'avoir reçu",
+        "Tu attends la fin de la course pour le signaler"
+      ],
+      "correct": 2,
+      "explanation": "Un échange de kart se communique à la radio (par exemple « échange de kart 68 pour 96 ») et on répète le message aux 15 secondes jusqu'à ce que le préposé au temps confirme l'avoir bien reçu, sinon le chronométrage devient faux."
+    },
+    {
+      "q": "À partir de combien de groupes briefés le papier de gestion de groupe devient-il OBLIGATOIRE ?",
+      "choices": [
+        "Dès le premier groupe",
+        "Dès que tu brieffes plus de 2 groupes",
+        "Seulement à partir de 5 groupes",
+        "Uniquement les fins de semaine"
+      ],
+      "correct": 1,
+      "explanation": "Le papier de gestion de groupe est obligatoire dès que tu brieffes plus de 2 groupes : sinon tu oublies qui était là en premier, les clients enragent de se faire dépasser, et tu ne peux pas remettre proprement ton groupe à un collègue."
+    },
+    {
+      "q": "Un spectateur, ami d'un client, se place à 5 mètres du bord de la piste pour filmer. Respecte-t-il la distance exigée ?",
+      "choices": [
+        "Oui, 5 mètres suffisent",
+        "Non, les spectateurs doivent rester à au moins 10 mètres de la piste",
+        "Oui, à condition de porter un casque",
+        "Oui, mais seulement 30 secondes"
+      ],
+      "correct": 1,
+      "explanation": "Les spectateurs doivent rester à au moins 10 mètres de la piste; 5 mètres est trop proche. Seuls les gens qui font du kart traversent la clôture, et on ne laisse personne au bord de la piste car c'est trop dangereux."
+    },
+    {
+      "q": "Pendant un test de kart avant l'ouverture, tu sens qu'il faut appuyer plus fort qu'à l'habitude pour freiner et que le kart tire vers la gauche. Que fais-tu ?",
+      "choices": [
+        "Tu le remets aux clients en les avertissant de faire attention",
+        "Tu le gardes pour les pilotes expérimentés",
+        "Tu l'apportes au garage et tu l'inscris sur la board du mécanicien (numéro, raison, initiales)",
+        "Tu augmentes sa vitesse pour vérifier sa limite"
+      ],
+      "correct": 2,
+      "explanation": "Un freinage anormalement dur et un kart qui tire d'un côté sont des anomalies : le kart va au garage, jamais aux clients. On l'inscrit sur la board du mécanicien (numéro du kart, raison, initiales) et on met une pince bleue ou rouge, sinon le mécanicien ne saura pas qu'il faut le réparer."
+    },
+    {
+      "q": "Quelle pression des pneus doit-on retrouver sur un Super-Kart ou un Mini-Kart lors de l'inspection d'ouverture ?",
+      "choices": [
+        "16 psi à l'avant, 18 psi à l'arrière",
+        "18 psi à l'avant, 16 psi à l'arrière",
+        "20 psi partout",
+        "14 psi à l'avant, 14 psi à l'arrière"
+      ],
+      "correct": 0,
+      "explanation": "Pour les Super-Karts et Mini-Karts, la pression des pneus est de 16 psi à l'avant et 18 psi à l'arrière, avec réservoir plein sans fuite et freins fonctionnels avant d'entrer aux puits."
+    },
+    {
+      "q": "Un kart est arrêté en piste et le client continue d'appuyer sur l'accélérateur. Quelle est la bonne intervention de l'employé ?",
+      "choices": [
+        "Attendre que le client cesse de lui-même",
+        "Couper l'alimentation électrique de toute la piste",
+        "Aller pousser la pédale d'accélérateur vers le client pour relâcher le gaz",
+        "Remplacer le moteur du kart sur place"
+      ],
+      "correct": 2,
+      "explanation": "Si un kart est arrêté et que le client appuie encore sur le gaz, on court pousser la pédale d'accélérateur vers le client pour relâcher le gaz et reprendre le contrôle de la situation."
+    },
+    {
+      "q": "Un client manque de gaz en pleine course, sans avoir causé d'accident. Quelle compensation lui offre-t-on ?",
+      "choices": [
+        "Aucune compensation, c'est un aléa normal",
+        "Une course gratuite de 15 minutes",
+        "Un certificat-cadeau de 10 minutes",
+        "Un simple breuvage gratuit"
+      ],
+      "correct": 1,
+      "explanation": "Si un client manque de gaz ou que son kart brise sans qu'il ait causé d'accident, on lui offre une course gratuite de 15 minutes. Le manque de gaz est l'une des choses que les clients détestent le plus, donc on s'assure qu'aucun kart n'en manque."
+    },
+    {
+      "q": "Le kart d'un client brise et il te faut deux minutes pour lui en fournir un autre. Quelle compensation s'applique ?",
+      "choices": [
+        "Aucune, car le changement a été fait",
+        "Une course gratuite de 15 minutes",
+        "Un certificat-cadeau de 10 minutes gratuit pour après sa course",
+        "Un remboursement complet de la séance"
+      ],
+      "correct": 2,
+      "explanation": "Quand un kart brise et que son remplacement prend plus de 1 minute, le client a droit à un certificat-cadeau de 10 minutes gratuit après sa course. Ici, deux minutes dépassent le seuil, donc on remet le certificat de 10 minutes."
+    },
+    {
+      "q": "Pendant un Grand Prix, tu pars la course dans le logiciel Apex, puis tu remarques qu'un pilote distrait a repassé la ligne d'arrivée une deuxième fois avant le drapeau vert. Que fais-tu ?",
+      "choices": [
+        "Tu ignores la situation, ce n'est qu'un tour",
+        "Tu repars immédiatement une nouvelle session, avant que le premier pilote ait bouclé un tour",
+        "Tu corriges le classement manuellement après la finale",
+        "Tu donnes le départ quand même pour ne pas retarder"
+      ],
+      "correct": 1,
+      "explanation": "Une erreur de session fausse tout le classement. Si quelqu'un repasse la ligne d'arrivée entre le départ de session dans Apex et le drapeau vert, on repart une nouvelle session AVANT que le premier pilote ait eu le temps de faire un tour."
+    },
+    {
+      "q": "Selon quel critère replace-t-on les pilotes sur la grille de départ de la finale d'un Grand Prix ?",
+      "choices": [
+        "Au hasard",
+        "Selon l'âge des pilotes",
+        "Selon l'ordre de qualification, le plus rapide en tête",
+        "Selon l'ordre d'arrivée aux puits"
+      ],
+      "correct": 2,
+      "explanation": "La grille de départ suit l'ordre de qualification : le pilote le plus rapide en qualif part en première position. On imprime la feuille de temps de la qualification pour connaître ce classement, puis on arrête les coureurs dans les puits pour les replacer."
+    },
+    {
+      "q": "Un propriétaire de kart personnel veut rouler pendant que tes deux pistes sont déjà utilisées par des clients. Que doit-il faire ?",
+      "choices": [
+        "Rouler quand même avec prudence sur une des pistes",
+        "Courser avec les karts de location en gardant ses distances",
+        "Débarquer et attendre qu'une des deux pistes se libère",
+        "Payer un supplément pour accéder à la piste"
+      ],
+      "correct": 2,
+      "explanation": "Un kart personnel ne peut EN AUCUN TEMPS courser avec nos karts de location. Il peut rouler sur une des deux pistes non utilisée par nos clients; si les deux sont occupées, il débarque et attend qu'une piste se libère."
+    },
+    {
+      "q": "Sur quels éléments porte principalement le rapport d'accident rempli après un accident majeur ?",
+      "choices": [
+        "Le classement et les temps des pilotes",
+        "Les ventes réalisées durant la journée",
+        "Les causes, les circonstances et les détails observés, incluant ce qui peut prouver que la blessure n'est pas majeure",
+        "L'horaire des employés présents"
+      ],
+      "correct": 2,
+      "explanation": "Le rapport d'accident documente les causes, les circonstances et les détails observés. On y note aussi tous les points qui peuvent prouver que la blessure n'est pas majeure, une fois le blessé pris en charge et la situation sécurisée."
+    },
+    {
+      "q": "Un client vient se plaindre qu'un autre pilote le bump sans arrêt. Quelle est la bonne attitude à adopter envers le pilote signalé ?",
+      "choices": [
+        "Ignorer la plainte tant que tu n'as rien vu toi-même",
+        "Avertir le fautif et porter une attention particulière à sa conduite, car la plainte est probablement fondée",
+        "Expulser immédiatement le pilote signalé",
+        "Demander au plaignant de simplement l'éviter"
+      ],
+      "correct": 1,
+      "explanation": "Dès qu'un client prend la peine de venir se plaindre, fortes sont les chances que ce soit fondé. On avertit le fautif et on surveille sa conduite, peu importe sa version. Se faire bumper par un inconnu ne devrait pas arriver, car on aurait déjà dû avoir averti le fautif."
+    },
+    {
+      "q": "Quelles sont les quatre causes principales d'un spin-out à expliquer à un client qui en multiplie ?",
+      "choices": [
+        "Uniquement des pneus usés et un moteur défectueux",
+        "Courbe prise trop vite, freinage au milieu de la courbe, gaz et frein en même temps, et blocage de l'essieu en freinant",
+        "Uniquement la météo et la piste mouillée",
+        "Uniquement un mauvais réglage de la direction"
+      ],
+      "correct": 1,
+      "explanation": "Les quatre causes : il prend la courbe trop vite, il freine au milieu de la courbe, il pèse sur le gaz et le frein en même temps, et il bloque l'essieu en freinant. On lui explique comment corriger en lui disant qu'il ira même plus vite; un spin-out est dangereux car il peut être happé par le pilote derrière."
+    },
+    {
+      "q": "Lors du ravitaillement en essence, laquelle de ces consignes est obligatoire ?",
+      "choices": [
+        "Faire le plein moteur allumé pour aller plus vite",
+        "Remplir le réservoir au maximum, au-dessus de la courbe",
+        "Ne jamais faire le ravitaillement quand un coureur est assis dans le kart ou présent, moteur à l'arrêt et sans flamme",
+        "Faire le plein à côté des clients pour gagner du temps"
+      ],
+      "correct": 2,
+      "explanation": "L'essence est extrêmement inflammable : on fait le plein dans un endroit aéré, moteur à l'arrêt, sans flamme ni étincelle, sans trop remplir (pas au-dessus de la courbe du réservoir), bouchon bien fermé, et JAMAIS lorsqu'un coureur est assis dans le kart ou présent."
+    },
+    {
+      "q": "Un groupe complet devient agressif et dépasse les limites de sécurité. Quelle est la bonne procédure ?",
+      "choices": [
+        "Expulser tout le monde immédiatement",
+        "Réduire le temps de course de tout le groupe",
+        "Faire appel au superviseur, arrêter tout le monde dans un endroit sécuritaire, expliquer le problème avec des exemples, donner un dernier avertissement général, puis repartir et procéder aux expulsions nécessaires",
+        "Ignorer la situation tant qu'il n'y a pas de blessé"
+      ],
+      "correct": 2,
+      "explanation": "Pour un groupe turbulent : on fait appel au superviseur, on arrête tout le monde dans un endroit sécuritaire (ligne droite, visible de loin), on explique le problème avec des exemples de la vraie vie, on donne un dernier avertissement général (« last warning for all »), puis on repart en restant très attentif et on procède aux expulsions au besoin. On ne coupe jamais de temps aux clients non fautifs."
+    },
+    {
+      "q": "Un client se lève de son kart alors que deux karts arrivent encore derrière lui dans le puits. Pourquoi lui ordonnes-tu de se rasseoir immédiatement ?",
+      "choices": [
+        "Pour accélérer les opérations",
+        "Parce qu'il risque de se faire briser les chevilles tant que tout le groupe n'est pas immobilisé",
+        "Uniquement pour des raisons d'assurance",
+        "Pour économiser l'essence des karts"
+      ],
+      "correct": 1,
+      "explanation": "Personne ne débarque tant que TOUT le groupe n'est pas immobilisé dans le puits, sinon risque de chevilles brisées par un kart qui avance encore. On lui ordonne de se rasseoir, puis on lui explique pourquoi la règle existe."
+    },
+    {
+      "q": "Tu dois arrêter un client à 6 minutes de la fin de son temps payé, mais il est en groupe et ne veut pas courser seul. Que lui offres-tu ?",
+      "choices": [
+        "Exactement les 6 minutes perdues, sur-le-champ",
+        "Un certificat-cadeau de 10 minutes",
+        "Un certificat-cadeau pour la même durée qu'il avait payée",
+        "Rien, puisqu'il refuse de repartir"
+      ],
+      "correct": 2,
+      "explanation": "Normalement, on remet un client arrêté trop tôt pour le double du temps restant. Mais s'il est avec un groupe et ne veut pas courser seul, on lui donne plutôt un certificat-cadeau pour la même durée qu'il avait payée."
+    }
+  ]
+}

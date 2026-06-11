@@ -1,0 +1,173 @@
+{
+  "category": "Piste",
+  "sort_order": 90,
+  "title": "Piste — Approfondissement (niveau avancé)",
+  "passing_score": 0.75,
+  "questions": [
+    {
+      "q": "En plein rush, tu surveilles le circuit Adrénaline assis sur une chaise quand un groupe agité arrive. Quel geste réduit immédiatement de moitié les accidents et les gestes dangereux, sans que tu aies encore sorti un seul drapeau ?",
+      "choices": [
+        "Te lever et te tenir debout, face aux coureurs, pour qu'ils sentent ta présence",
+        "Sortir ton drapeau jaune et le garder visible en permanence",
+        "Appeler du renfort par radio avant toute autre chose",
+        "Réduire le nombre de karts en piste de moitié"
+      ],
+      "correct": 0,
+      "explanation": "Le simple fait d'être attentif, debout et face aux coureurs diminue de 50 % les accidents et les gestes dangereux, parce que les gens sentent qu'on les regarde. Un drapeau, lui, se montre seulement quand on l'utilise."
+    },
+    {
+      "q": "Un groupe de 22 personnes veut partir sur le circuit familial, où tu disposes de 25 karts au total. À quel moment dois-tu confirmer qu'il te restera assez de spares, et combien ?",
+      "choices": [
+        "Après le départ du groupe, en gardant 1 seul spare au total",
+        "Avant de partir le groupe : au moins 1 spare de chaque modèle, plus au moins 2 spares dans le puits",
+        "Après le départ, en gardant uniquement 2 Super-Karts",
+        "Peu importe le moment, tant qu'il reste un kart libre"
+      ],
+      "correct": 1,
+      "explanation": "On confirme ses spares AVANT de partir le groupe, jamais après : il faut garder au moins 1 kart de chaque modèle en spare sur le familial, 2 Super-Karts, et s'assurer qu'il restera au moins 2 spares dans le puits."
+    },
+    {
+      "q": "Tu testes un kart signalé comme défectueux avant de décider de le remettre en service. Quelle est la bonne façon de le conduire pendant ce test ?",
+      "choices": [
+        "Le plus vite possible pour gagner du temps",
+        "Comme un pilote de course en compétition",
+        "Comme s'il était dans sa pire condition possible et sans frein",
+        "En supposant que tout fonctionne parfaitement"
+      ],
+      "correct": 2,
+      "explanation": "On teste un kart non pas pour le plaisir mais pour confirmer qu'il est sécuritaire : on le conduit comme s'il était dans sa pire condition et sans frein, pour débusquer tout défaut caché avant qu'un client ne le subisse."
+    },
+    {
+      "q": "En surveillant la piste, tu entends un kart dont le moteur fait PLUS de bruit en approchant d'une courbe, au lieu d'en faire moins. Quelle est ta première action ?",
+      "choices": [
+        "Lui expliquer calmement par radio pourquoi c'est dommageable",
+        "Aller pousser son pied hors de la pédale le plus vite possible, puis expliquer après",
+        "Le laisser finir sa course et l'avertir aux puits",
+        "Augmenter sa vitesse pour confirmer le diagnostic"
+      ],
+      "correct": 1,
+      "explanation": "Un moteur qui force et fait plus de bruit en courbe trahit du brake/gas (les deux pédales appuyées en même temps). On n'explique pas d'abord : on pousse son pied de la pédale le plus vite possible, car ça endommage la transmission (environ 400 $) et use les freins, puis on explique ensuite."
+    },
+    {
+      "q": "Un client reste coincé exactement dans la courbe Nascar, là où les autres arrivent à très grande vitesse sans voir loin devant. Pourquoi y déroges-tu à la procédure habituelle du drapeau jaune ?",
+      "choices": [
+        "Parce que le drapeau jaune n'est pas assez visible le soir",
+        "Parce qu'on arrête complètement la course au rouge, vu le risque très élevé de carambolage",
+        "Parce qu'on demande à un client d'aider à dégager le kart",
+        "Parce qu'on doit d'abord faire le plein des karts"
+      ],
+      "correct": 1,
+      "explanation": "Dans la courbe Nascar, les pilotes arrivent vite et voient peu devant : il leur reste très peu de temps pour réagir. On ARRÊTE donc la course au drapeau rouge au lieu d'agiter le jaune, car le risque de carambolage est trop élevé. On ne fait jamais intervenir un client."
+    },
+    {
+      "q": "Un client se coince pour la TROISIÈME fois dans les pneus. Selon l'approche progressive, comment interviens-tu cette fois-ci ?",
+      "choices": [
+        "Tu jogges simplement le déprendre comme la première fois",
+        "Tu jogges et tu lui expliques comment mieux prendre la courbe",
+        "Tu marches et tu lui expliques une dernière fois, en lui rappelant qu'il n'aura pas plus le contrôle quand tu seras à pied dans la piste",
+        "Tu l'expulses automatiquement sans explication"
+      ],
+      "correct": 2,
+      "explanation": "L'approche progressive pour un même client : 1er accident, jogger; 2e, jogger et expliquer comment mieux prendre la courbe; 3e, marcher et expliquer une dernière fois, en lui rappelant que s'il n'a pas le contrôle maintenant, il ne l'aura pas plus quand tu seras à pied dans la piste, et que toi tu n'as pas de bumper pour te protéger."
+    },
+    {
+      "q": "Tu dois arrêter un pilote à 4 minutes de la fin de son temps payé. Quelle compensation prévoit le manuel s'il accepte de repartir seul ?",
+      "choices": [
+        "Tu lui remets exactement les 4 minutes perdues",
+        "Tu t'excuses et tu le remets pour 8 minutes, soit le double du temps restant",
+        "Tu lui offres un certificat-cadeau de 10 minutes",
+        "Tu lui donnes une course gratuite de 15 minutes"
+      ],
+      "correct": 1,
+      "explanation": "Quand on arrête un client avant la fin de son temps, on s'excuse et on le remet pour le DOUBLE du temps qu'il lui restait, donc 8 minutes pour 4 minutes restantes. S'il est en groupe et ne veut pas courser seul, on lui donne plutôt un certificat-cadeau pour la durée qu'il avait payée."
+    },
+    {
+      "q": "Un client te jure avoir déjà fait beaucoup de karting ailleurs et refuse de regarder la vidéo de briefing en textant sur son téléphone. Tu l'arrêtes, mais il recommence à deux reprises. Quelle est la conséquence finale ?",
+      "choices": [
+        "Tu le laisses embarquer puisqu'il a de l'expérience",
+        "Tu lui fais simplement signer une décharge",
+        "Tu le rembourses : il n'embarque pas, car ce manque de respect des règles se répéterait sur la piste",
+        "Tu lui donnes un dernier avertissement sur la piste"
+      ],
+      "correct": 2,
+      "explanation": "Le briefing est obligatoire pour tout le monde, peu importe l'expérience. Si un client parle ou texte, on arrête la vidéo et on redemande l'attention; s'il récidive on recommence; s'il récidive encore on le rembourse et il n'embarque pas, parce que s'il ne respecte pas les règles durant la vidéo, ce sera pareil sur la piste."
+    },
+    {
+      "q": "Tu n'es pas certain qu'un jeune pilote rejoigne bien les deux pédales. Quelle est la marche à suivre exacte ?",
+      "choices": [
+        "Partir le kart au cas où, puis le surveiller de près",
+        "Lui demander d'appuyer à fond sur le frein, dos appuyé, et regarder si la pédale se rend au fond; sinon il ne conduit en aucun cas",
+        "Lui donner un Mini-Kart sans vérification",
+        "Mesurer sa taille et le laisser conduire s'il dépasse 5'0\""
+      ],
+      "correct": 1,
+      "explanation": "Le pilote doit pouvoir enfoncer complètement les pédales en gardant le dos appuyé au siège, ce qui reproduit la vraie position de conduite. Si on n'est pas certain, on lui demande d'appuyer à fond sur le frein et on regarde si la pédale se rend au fond. En aucun cas un pilote qui ne rejoint pas les deux pédales ne conduit."
+    },
+    {
+      "q": "Deux groupes terminent leur course à environ deux minutes d'intervalle. Comment dois-tu les arrêter, et dans quel ordre immobilises-tu les karts ?",
+      "choices": [
+        "Les arrêter séparément, en immobilisant de l'avant vers l'arrière",
+        "Les arrêter ensemble, en immobilisant les karts de l'arrière vers l'avant",
+        "Les arrêter ensemble, en immobilisant de l'avant vers l'arrière",
+        "Les diriger vers deux puits différents"
+      ],
+      "correct": 1,
+      "explanation": "Quand l'écart entre deux groupes est de moins de trois minutes, on les arrête ensemble. On immobilise toujours les karts de l'arrière vers l'avant pour qu'aucun kart arrivant derrière ne fonce dans ceux dont les pilotes se lèvent."
+    },
+    {
+      "q": "Un client pousse volontairement les autres karts à pleine vitesse « parce qu'il a payé ». Quelle approche le manuel recommande-t-il pour le faire réfléchir ?",
+      "choices": [
+        "Une approche autoritaire basée sur la menace d'expulsion",
+        "Une approche conseil avec un exemple de la vraie vie, par exemple lui demander s'il pousserait l'auto de son ami à 70 km/h pour le fun",
+        "L'ignorer tant qu'il n'y a pas de blessé",
+        "Lui offrir un kart plus rapide pour le calmer"
+      ],
+      "correct": 1,
+      "explanation": "On adopte une approche conseil plutôt qu'autoritaire : interactions plus agréables et récidive beaucoup plus basse. On utilise un exemple de la vraie vie (« Pousserais-tu l'auto de ton chum à 70 km/h sur Maloney pour le fun ? ») en rappelant que le kart roule aussi vite, sans airbag ni gros bumper, donc la protection est limitée."
+    },
+    {
+      "q": "Un client en Super-Kart roule beaucoup trop lentement mais de façon sécuritaire, et te dit qu'il est parfaitement à l'aise. Que peux-tu lui demander ?",
+      "choices": [
+        "D'accélérer pour suivre le rythme du groupe",
+        "De garder la droite et de ne pas zigzaguer, pour laisser passer les plus rapides",
+        "De quitter la piste immédiatement",
+        "De changer pour un Mini-Kart"
+      ],
+      "correct": 1,
+      "explanation": "EN AUCUN CAS on ne demande à un client d'aller plus vite : la sécurité prime sur la vitesse. À un pilote lent mais à l'aise, on demande de garder la droite et de ne pas zigzaguer pour que les plus rapides le dépassent en sécurité. S'il a peur, on lui propose plutôt de bâtir sa confiance en Go-Kart."
+    },
+    {
+      "q": "Tu dois arrêter toute la piste pour un accident dans la courbe Nascar. Une fois la situation gérée, qu'est-ce qui distingue le traitement des clients fautifs de celui des clients non fautifs au sujet du temps ?",
+      "choices": [
+        "On coupe le temps de tout le monde pour aller plus vite",
+        "On ajoute le temps perdu sur la feuille de temps de tous, sans jamais couper de temps aux clients non fautifs",
+        "On rembourse seulement les clients fautifs",
+        "On ne redonne le temps qu'au pilote blessé"
+      ],
+      "correct": 1,
+      "explanation": "Quand on arrête tout le monde, on ajoute le temps perdu sur la feuille de temps et on le mentionne aux pilotes. JAMAIS on ne coupe de temps à un client non fautif : les pilotes qui respectent les règlements ont droit à tout le temps pour lequel ils ont payé."
+    },
+    {
+      "q": "La visibilité chute sous 125 mètres à cause du brouillard, et au même moment des éclairs apparaissent à l'horizon. Quelle est la bonne décision ?",
+      "choices": [
+        "Réduire la vitesse des karts et continuer",
+        "Ajouter un surveillant au fond de la piste",
+        "Fermer la piste, car chacune de ces deux conditions l'impose à elle seule",
+        "Continuer tant qu'aucun éclair ne touche directement la piste"
+      ],
+      "correct": 2,
+      "explanation": "On ferme la piste dès que la visibilité passe sous 125 mètres, et on la ferme aussi dès que des éclairs pourraient la frapper. Chacune de ces conditions justifie à elle seule la fermeture; ici elles se cumulent, donc la piste doit être fermée."
+    },
+    {
+      "q": "À la suite d'un accident majeur avec un blessé qui se plaint d'une douleur au cou, dans quel ordre poses-tu tes actions ?",
+      "choices": [
+        "Remplir le rapport d'accident, puis arrêter la course, puis aider le blessé",
+        "Arrêter la course par radio, t'occuper du blessé en répondant à ses demandes, puis chercher les causes et remplir le rapport d'accident",
+        "Identifier le pilote fautif, puis repartir la course, puis aider le blessé",
+        "Déplacer les karts accidentés, puis repartir la course, puis remplir le rapport"
+      ],
+      "correct": 1,
+      "explanation": "L'ordre est : appel à tous sur les walkie-talkies pour arrêter la course, puis s'occuper du blessé au mieux de ses connaissances en répondant à ses demandes (Es-tu correct ? As-tu besoin d'une ambulance ? — si oui, le gérant l'appelle), puis, la situation sous contrôle, chercher les causes et circonstances et remplir le rapport d'accident. Une douleur au cou se prend toujours au sérieux."
+    }
+  ]
+}
