@@ -90,9 +90,13 @@ function matchesTopic(q: BankQ, topicId?: string): boolean {
   return kw.some((k) => hay.includes(k));
 }
 
-function pool(topicId?: string): BankQ[] {
-  const p = BANK.filter((q) => q.q && matchesTopic(q, topicId));
-  return p.length > 0 ? p : BANK;
+function pool(topicId?: string, restrictCat?: string): BankQ[] {
+  // restrictCat : catégorie imposée (rôle caisse/piste) — ne jamais sortir du sujet.
+  let base = BANK.filter((q) => q.q);
+  if (restrictCat) base = base.filter((q) => q.cat === restrictCat);
+  const p = base.filter((q) => matchesTopic(q, topicId));
+  if (p.length > 0) return p;
+  return base.length > 0 ? base : BANK;
 }
 
 // ─── Formulation d'une question (texte parlé) ────────────────────────────────
@@ -140,10 +144,11 @@ function askedIds(history: HistItem[]): Set<string> {
 export function pickQuestion(
   topicId: string | undefined,
   asked: Set<string>,
-  weakSubjects?: string[]
+  weakSubjects?: string[],
+  restrictCat?: string
 ): BankQ | null {
-  let cands = pool(topicId).filter((q) => !asked.has(q.id));
-  if (cands.length === 0) cands = pool(topicId); // tout revu → on recycle
+  let cands = pool(topicId, restrictCat).filter((q) => !asked.has(q.id));
+  if (cands.length === 0) cands = pool(topicId, restrictCat); // tout revu → on recycle
 
   // Prioriser les sujets faibles de l'employé
   if (weakSubjects && weakSubjects.length > 0) {
@@ -164,8 +169,8 @@ export function pickQuestion(
   return finalPool[idx] || null;
 }
 
-export function pickFirstQuestion(topicId?: string, weakSubjects?: string[]): BankQ | null {
-  return pickQuestion(topicId, new Set(), weakSubjects);
+export function pickFirstQuestion(topicId?: string, weakSubjects?: string[], restrictCat?: string): BankQ | null {
+  return pickQuestion(topicId, new Set(), weakSubjects, restrictCat);
 }
 
 // ─── Évaluer une réponse parlée ──────────────────────────────────────────────
@@ -278,10 +283,10 @@ export interface TrainerTurn {
   quality: Quality | null;
 }
 
-function nextQuestion(opts: { history: HistItem[]; topicId?: string; weakSubjects?: string[] }, current: BankQ | null): BankQ | null {
+function nextQuestion(opts: { history: HistItem[]; topicId?: string; weakSubjects?: string[]; restrictCat?: string }, current: BankQ | null): BankQ | null {
   const asked = askedIds(opts.history);
   if (current) asked.add(current.id);
-  return pickQuestion(opts.topicId, asked, opts.weakSubjects);
+  return pickQuestion(opts.topicId, asked, opts.weakSubjects, opts.restrictCat);
 }
 
 export function mockTrainerTurn(opts: {
@@ -289,6 +294,7 @@ export function mockTrainerTurn(opts: {
   topicId?: string;
   answer: string;
   weakSubjects?: string[];
+  restrictCat?: string;
 }): TrainerTurn | null {
   const current = trainerFindCurrent(lastAi(opts.history));
   const a = strip(opts.answer);

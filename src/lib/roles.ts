@@ -8,9 +8,26 @@ export const TEAM_ROLES = ["employee", "caisse", "piste", "manager"] as const;
 
 // Formation ciblée : à quelle catégorie de formation un rôle est rattaché.
 // null = voit toutes les catégories (employé générique, gérant, etc.).
+// Utilisé pour les modules de formation et la banque de conversation IA.
 export function roleCategory(role?: string | null): string | null {
   if (role === "caisse") return "Caisse - Amigo Karting";
   if (role === "piste") return "Piste";
+  return null;
+}
+
+// Catégorie du manuel (Q&A) rattachée au rôle. La base de connaissances utilise
+// des libellés courts en minuscules. null = accès à tout le manuel.
+export function roleKbCategory(role?: string | null): string | null {
+  if (role === "caisse") return "caisse";
+  if (role === "piste") return "piste";
+  return null;
+}
+
+// Sujets de conversation IA visibles selon le rôle (caisse/piste = leur poste).
+// null = tous les sujets.
+export function allowedConversationTopics(role?: string | null): string[] | null {
+  if (role === "caisse") return ["all", "caisse", "clients"];
+  if (role === "piste") return ["all", "casques", "securite", "urgence", "operations"];
   return null;
 }
 

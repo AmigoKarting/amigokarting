@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 import { VoiceInterface } from "@/components/conversations/VoiceInterface";
+import { useAuth } from "@/hooks/useAuth";
+import { allowedConversationTopics } from "@/lib/roles";
 import { Target, HardHat, Shield, Siren, Wrench, Wallet, Users, type LucideIcon } from "lucide-react";
 
 const topics: { id: string; Icon: LucideIcon; title: string; description: string }[] = [
@@ -16,6 +18,10 @@ const topics: { id: string; Icon: LucideIcon; title: string; description: string
 
 export default function ConversationsPage() {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
+  const { employee } = useAuth();
+  // Rôles caisse/piste : on ne montre que les sujets de leur poste.
+  const allowed = allowedConversationTopics(employee?.role);
+  const visibleTopics = allowed ? topics.filter((t) => allowed.includes(t.id)) : topics;
 
   if (selectedTopic) {
     const topic = topics.find((t) => t.id === selectedTopic);
@@ -49,7 +55,7 @@ export default function ConversationsPage() {
       <p className="text-sm text-gray-500">Choisis un sujet ou laisse l'IA décider selon tes faiblesses.</p>
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-        {topics.map((topic) => (
+        {visibleTopics.map((topic) => (
           <button
             key={topic.id}
             onClick={() => setSelectedTopic(topic.id)}

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { roleCategory } from "@/lib/roles";
 import {
   mockTrainerTurn,
   pickFirstQuestion,
@@ -242,11 +243,14 @@ export async function POST(req: NextRequest) {
 
     const { data: employee } = await supabase
       .from("employees")
-      .select("id, first_name")
+      .select("id, first_name, role")
       .eq("auth_user_id", user.id)
       .single();
 
     if (!employee) return NextResponse.json({ error: "Employé introuvable" }, { status: 404 });
+
+    // Rôles caisse/piste : la conversation reste strictement sur leur sujet.
+    const restrictCat = roleCategory((employee as any).role);
 
     const isMock = process.env.USE_MOCK_AI === "true"
       || !process.env.OPENAI_API_KEY
@@ -273,12 +277,12 @@ export async function POST(req: NextRequest) {
       if (simulationId) {
         greeting = getSimulationIntro(simulationId, ctx?.firstName || employee.first_name);
       } else if (isMock) {
-        greeting = await buildSmartGreeting(ctx, topicId);
+        greeting = await buildSmartGreeting(ctx, topicId, restrictCat);
       } else {
         try {
           greeting = await generateGreeting(employee.first_name);
         } catch {
-          greeting = await buildSmartGreeting(ctx, topicId);
+          greeting = await buildSmartGreeting(ctx, topicId, restrictCat);
         }
       }
 
@@ -322,7 +326,7 @@ export async function POST(req: NextRequest) {
       } else if (simulationId) {
         response = getSimulationResponse(simulationId, message, history);
       } else if (isMock) {
-        const result = await getSmartMockResponseWithQuality(message, history, ctx, topicId);
+        const result = await getSmartMockResponseWithQuality(message, history, ctx, topicId, restrictCat);
         response = result.response;
         quality = result.quality;
       } else {
@@ -336,7 +340,7 @@ export async function POST(req: NextRequest) {
           });
           response = result.response;
         } catch {
-          const result = await getSmartMockResponseWithQuality(message, history, ctx, topicId);
+          const result = await getSmartMockResponseWithQuality(message, history, ctx, topicId, restrictCat);
           response = result.response;
           quality = result.quality;
         }
@@ -501,12 +505,12 @@ async function thinkAboutEmployee(ctx: AIContext | null): Promise<SessionStrateg
 }
 
 // ─── Greeting intelligent — adapté au profil ────────────────────
-async function buildSmartGreeting(ctx: AIContext | null, topicId?: string): Promise<string> {
+async function buildSmartGreeting(ctx: AIContext | null, topicId?: string, restrictCat?: string | null): Promise<string> {
   const strategy = await thinkAboutEmployee(ctx);
 
   // Première question tirée du banc réel (tout le contenu des manuels/quiz),
   // priorisée selon les points faibles de l'employé.
-  const firstQ = pickFirstQuestion(topicId, ctx?.weakSubjects);
+  const firstQ = pickFirstQuestion(topicId, ctx?.weakSubjects, restrictCat || undefined);
   if (firstQ) {
     strategy.firstQuestion = phraseQuestion(firstQ);
     if (topicId && topicId !== "all") strategy.focus = topicId;
@@ -632,7 +636,7 @@ async function getHintForCurrentQuestion(questionContext: string): Promise<strin
 
 // ─── Wrapper qui retourne la qualité avec la réponse ────────────
 async function getSmartMockResponseWithQuality(
-  message: string, history: any[], ctx: AIContext | null, topicId?: string
+  message: string, history: any[], ctx: AIContext | null, topicId?: string, restrictCat?: string | null
 ): Promise<{ response: string; quality: "excellent" | "average" | "bad" | null }> {
   // ─── Moteur intelligent : vraies questions du banc + évaluation + explication ──
   const turn = mockTrainerTurn({
@@ -640,6 +644,7 @@ async function getSmartMockResponseWithQuality(
     topicId,
     answer: message,
     weakSubjects: ctx?.weakSubjects || [],
+    restrictCat: restrictCat || undefined,
   });
   if (turn) return turn;
 

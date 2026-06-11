@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
+import { roleKbCategory } from "@/lib/roles";
 
 const STOP_WORDS = new Set([
   "le", "la", "les", "un", "une", "des", "de", "du", "au", "aux",
@@ -339,8 +340,11 @@ export async function POST(req: NextRequest) {
     if (!user) return NextResponse.json({ error: "Non authentifié" }, { status: 401 });
 
     const { data: employee } = await supabase
-      .from("employees").select("id").eq("auth_user_id", user.id).single();
+      .from("employees").select("id, role").eq("auth_user_id", user.id).single();
     if (!employee) return NextResponse.json({ error: "Employé introuvable" }, { status: 404 });
+
+    // Rôles caisse/piste : la Q&A reste limitée à la section du manuel de leur poste.
+    const onlyKb = roleKbCategory((employee as any).role);
 
     const body = await req.json();
 
@@ -394,10 +398,12 @@ export async function POST(req: NextRequest) {
         }
       }
 
-      // Charger le manuel
-      const { data: docs } = await supabaseAdmin
+      // Charger le manuel (limité à la section du poste pour caisse/piste)
+      let docsQuery = supabaseAdmin
         .from("knowledge_documents")
         .select("id, title, content, category");
+      if (onlyKb) docsQuery = docsQuery.eq("category", onlyKb);
+      const { data: docs } = await docsQuery;
 
       if (!docs || docs.length === 0) {
         return NextResponse.json({
