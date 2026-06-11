@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { CheckCircle2, Lightbulb, AlertTriangle, Timer } from "lucide-react";
+import { CheckCircle2, Lightbulb, AlertTriangle, Timer, Volume2, Pause, Play, Square } from "lucide-react";
 
 // Rendu interactif et agréable d'une formation (texte brut structuré) :
 // sections stylées, encadrés « À retenir » et « Exemple », avertissements,
@@ -103,6 +103,32 @@ function renderLines(lines: string[], variant: "check" | "dot" | "plain") {
   return blocks;
 }
 
+// Texte « lisible à voix haute » : on enlève les puces et on enchaîne les
+// lignes en phrases pour une lecture fluide.
+function speechChunks(content: string): string[] {
+  const text = content
+    .split("\n")
+    .map((l) => l.trim().replace(/^•\s?/, ""))
+    .filter(Boolean)
+    .join(". ")
+    .replace(/\.\s*\.+/g, ".");
+  // Découpe en morceaux courts (~220 car.) aux fins de phrase pour éviter
+  // que certains navigateurs coupent une lecture trop longue.
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  const chunks: string[] = [];
+  let buf = "";
+  for (const s of sentences) {
+    if ((buf + " " + s).length > 220) {
+      if (buf) chunks.push(buf);
+      buf = s;
+    } else {
+      buf = buf ? buf + " " + s : s;
+    }
+  }
+  if (buf) chunks.push(buf);
+  return chunks;
+}
+
 function nice(heading: string): string {
   // "À RETENIR" -> "À retenir" ; garde les autres tels quels
   if (/^a ?retenir/.test(noAccent(heading))) return "À retenir";
@@ -115,6 +141,46 @@ export function FormationContent({ content }: { content: string }) {
   const minutes = Math.max(1, Math.round(content.trim().split(/\s+/).length / 180));
   const rootRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+
+  // ─── Lecture à voix haute (synthèse vocale du navigateur, en français) ──
+  const [tts, setTts] = useState<"idle" | "playing" | "paused" | "off">("idle");
+  const ttsActive = useRef(false);
+  const ttsChunks = useRef<string[]>([]);
+
+  useEffect(() => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) setTts("off");
+    return () => {
+      try { window.speechSynthesis?.cancel(); } catch {}
+    };
+  }, []);
+
+  function speakFrom(i: number) {
+    if (!ttsActive.current) return;
+    const synth = window.speechSynthesis;
+    if (i >= ttsChunks.current.length) {
+      ttsActive.current = false;
+      setTts("idle");
+      return;
+    }
+    const u = new SpeechSynthesisUtterance(ttsChunks.current[i]);
+    u.lang = "fr-CA";
+    const v = synth.getVoices().find((o) => /^fr/i.test(o.lang));
+    if (v) u.voice = v;
+    u.onend = () => speakFrom(i + 1);
+    synth.speak(u);
+  }
+  function ttsStart() {
+    const synth = window.speechSynthesis;
+    synth.cancel();
+    ttsChunks.current = speechChunks(content);
+    if (ttsChunks.current.length === 0) return;
+    ttsActive.current = true;
+    setTts("playing");
+    speakFrom(0);
+  }
+  function ttsPause() { window.speechSynthesis.pause(); setTts("paused"); }
+  function ttsResume() { window.speechSynthesis.resume(); setTts("playing"); }
+  function ttsStop() { ttsActive.current = false; window.speechSynthesis.cancel(); setTts("idle"); }
 
   useEffect(() => {
     const el = rootRef.current;
@@ -156,12 +222,44 @@ export function FormationContent({ content }: { content: string }) {
       </div>
 
       <div className="p-5 sm:p-6">
-        {/* Méta : temps de lecture */}
-        <div className="mb-4 flex items-center gap-2 text-xs font-medium text-gray-500">
-          <span className="inline-flex items-center gap-1 rounded-md bg-orange-50 px-2.5 py-1 text-brand-700">
-            <Timer className="h-3.5 w-3.5" strokeWidth={2} /> ~{minutes} min de lecture
-          </span>
-          <span>{sections.filter((s) => s.heading).length} sections</span>
+        {/* Méta : temps de lecture + écouter */}
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
+          <div className="flex items-center gap-2 text-xs font-medium text-gray-500">
+            <span className="inline-flex items-center gap-1 rounded-md bg-orange-50 px-2.5 py-1 text-brand-700">
+              <Timer className="h-3.5 w-3.5" strokeWidth={2} /> ~{minutes} min de lecture
+            </span>
+            <span>{sections.filter((s) => s.heading).length} sections</span>
+          </div>
+
+          {tts !== "off" && (
+            <div className="flex items-center gap-2">
+              {tts === "idle" && (
+                <button onClick={ttsStart} className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-brand-700">
+                  <Volume2 className="h-4 w-4" strokeWidth={2} /> Écouter
+                </button>
+              )}
+              {tts === "playing" && (
+                <>
+                  <button onClick={ttsPause} className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 transition hover:bg-gray-50">
+                    <Pause className="h-4 w-4" strokeWidth={2} /> Pause
+                  </button>
+                  <button onClick={ttsStop} className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-500 transition hover:bg-gray-50">
+                    <Square className="h-3.5 w-3.5" strokeWidth={2} /> Arrêter
+                  </button>
+                </>
+              )}
+              {tts === "paused" && (
+                <>
+                  <button onClick={ttsResume} className="inline-flex items-center gap-1.5 rounded-lg bg-brand-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-brand-700">
+                    <Play className="h-4 w-4" strokeWidth={2} /> Reprendre
+                  </button>
+                  <button onClick={ttsStop} className="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-500 transition hover:bg-gray-50">
+                    <Square className="h-3.5 w-3.5" strokeWidth={2} /> Arrêter
+                  </button>
+                </>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="space-y-5">
