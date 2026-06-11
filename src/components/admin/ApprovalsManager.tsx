@@ -3,10 +3,17 @@
 import { useEffect, useState } from "react";
 import { CheckCircle2, Check } from "lucide-react";
 
+const ROLE_OPTIONS = [
+  { value: "employee", label: "Employé" },
+  { value: "caisse", label: "Caisse" },
+  { value: "piste", label: "Piste" },
+];
+
 export function ApprovalsManager() {
   const [pending, setPending] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [busy, setBusy] = useState<string | null>(null);
+  const [roleSel, setRoleSel] = useState<Record<string, string>>({});
 
   useEffect(() => { load(); }, []);
 
@@ -20,16 +27,38 @@ export function ApprovalsManager() {
     setLoading(false);
   }
 
-  async function act(id: string, action: "reactivate" | "deactivate", name: string) {
-    if (action === "deactivate" && !confirm(`Refuser et supprimer l'accès de ${name} ?`)) return;
-    setBusy(id);
+  // Accepter : active le compte, puis applique le rôle choisi (caisse/piste).
+  async function approve(emp: any) {
+    setBusy(emp.id);
     try {
       await fetch("/api/admin/employees", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ action, employeeId: id }),
+        body: JSON.stringify({ action: "reactivate", employeeId: emp.id }),
       });
-      setPending((prev) => prev.filter((p) => p.id !== id));
+      const role = roleSel[emp.id] || "employee";
+      if (role !== "employee") {
+        await fetch("/api/admin/employees", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ action: "changeRole", employeeId: emp.id, newRole: role }),
+        });
+      }
+      setPending((prev) => prev.filter((p) => p.id !== emp.id));
+    } catch {}
+    setBusy(null);
+  }
+
+  async function refuse(emp: any) {
+    if (!confirm(`Refuser et supprimer l'accès de ${emp.first_name} ${emp.last_name} ?`)) return;
+    setBusy(emp.id);
+    try {
+      await fetch("/api/admin/employees", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "deactivate", employeeId: emp.id }),
+      });
+      setPending((prev) => prev.filter((p) => p.id !== emp.id));
     } catch {}
     setBusy(null);
   }
@@ -68,18 +97,31 @@ export function ApprovalsManager() {
               {new Date(emp.created_at).toLocaleDateString("fr-CA")}
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap items-center gap-2">
+            <label className="flex items-center gap-1.5 text-xs text-gray-500">
+              Poste :
+              <select
+                value={roleSel[emp.id] || "employee"}
+                disabled={busy === emp.id}
+                onChange={(e) => setRoleSel((prev) => ({ ...prev, [emp.id]: e.target.value }))}
+                className="rounded-md border border-gray-200 bg-white px-2 py-1.5 text-xs font-medium text-gray-700 transition hover:border-gray-300 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100 disabled:opacity-50"
+              >
+                {ROLE_OPTIONS.map((o) => (
+                  <option key={o.value} value={o.value}>{o.label}</option>
+                ))}
+              </select>
+            </label>
             <button
               disabled={busy === emp.id}
-              onClick={() => act(emp.id, "reactivate", `${emp.first_name} ${emp.last_name}`)}
-              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-green-700 disabled:opacity-50 sm:flex-none"
+              onClick={() => approve(emp)}
+              className="flex items-center justify-center gap-1.5 rounded-lg bg-green-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-green-700 disabled:opacity-50"
             >
               <Check className="h-4 w-4" strokeWidth={2} /> Accepter
             </button>
             <button
               disabled={busy === emp.id}
-              onClick={() => act(emp.id, "deactivate", `${emp.first_name} ${emp.last_name}`)}
-              className="flex-1 rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:opacity-50 sm:flex-none"
+              onClick={() => refuse(emp)}
+              className="rounded-lg border border-gray-200 bg-white px-5 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50 disabled:opacity-50"
             >
               Refuser
             </button>

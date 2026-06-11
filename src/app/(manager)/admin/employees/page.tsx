@@ -2,6 +2,7 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { EmployeeTable } from "@/components/admin/EmployeeTable";
+import { roleLabelFr, roleBadgeClass } from "@/lib/roles";
 import { Crown, Code2 } from "lucide-react";
 
 export default async function EmployeesPage() {
@@ -89,17 +90,12 @@ export default async function EmployeesPage() {
                   <td className="whitespace-nowrap px-3 py-2 font-medium">{emp.first_name}</td>
                   <td className="whitespace-nowrap px-3 py-2">{emp.last_name}</td>
                   <td className="whitespace-nowrap px-3 py-2">
-                    <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${
-                      emp.role === "patron" ? "bg-amber-50 text-amber-600"
-                        : emp.role === "developpeur" ? "bg-cyan-50 text-cyan-600"
-                        : emp.role === "manager" ? "bg-gray-100 text-gray-600"
-                        : "bg-gray-100 text-gray-600"
-                    }`}>
+                    <span className={`inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium ${roleBadgeClass(emp.role)}`}>
                       {emp.role === "patron"
                         ? <><Crown className="h-3 w-3" strokeWidth={2} /> Patron</>
                         : emp.role === "developpeur"
                           ? <><Code2 className="h-3 w-3" strokeWidth={2} /> Dev</>
-                          : emp.role === "manager" ? "Gérant" : "Employé"}
+                          : roleLabelFr(emp.role)}
                     </span>
                   </td>
                   <td className="whitespace-nowrap px-3 py-2 font-mono">{emp.role === "patron" ? "****" : emp.phone_last4}</td>

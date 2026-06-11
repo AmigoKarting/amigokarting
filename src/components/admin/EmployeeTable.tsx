@@ -2,12 +2,21 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Crown, Code2 } from "lucide-react";
 import type { Employee, EmployeeMissingInfo } from "@/types/employee";
+import { roleBadgeClass } from "@/lib/roles";
 
 interface Props {
   employees: Employee[];
   missingInfo: EmployeeMissingInfo[];
 }
+
+const ROLE_OPTIONS = [
+  { value: "employee", label: "Employé" },
+  { value: "caisse", label: "Caisse" },
+  { value: "piste", label: "Piste" },
+  { value: "manager", label: "Gérant" },
+];
 
 export function EmployeeTable({ employees, missingInfo }: Props) {
   const router = useRouter();
@@ -17,12 +26,10 @@ export function EmployeeTable({ employees, missingInfo }: Props) {
     return missingInfo.find((m) => m.id === id);
   }
 
-  async function toggleRole(employeeId: string, currentRole: string) {
-    const newRole = currentRole === "manager" ? "employee" : "manager";
+  async function changeRole(employeeId: string, newRole: string) {
     const confirmMsg = newRole === "manager"
-      ? "Rendre cet employé gestionnaire ? Il aura accès à toutes les données."
-      : "Retirer les droits de gestionnaire à cet employé ?";
-
+      ? "Rendre cet employé gérant ? Il aura accès à l'espace de gestion."
+      : `Changer le rôle vers « ${ROLE_OPTIONS.find((o) => o.value === newRole)?.label} » ?`;
     if (!confirm(confirmMsg)) return;
 
     setLoadingId(employeeId);
@@ -32,13 +39,9 @@ export function EmployeeTable({ employees, missingInfo }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "changeRole", employeeId, newRole }),
       });
-
       const data = await res.json();
-      if (!res.ok) {
-        alert(data.error || "Erreur lors du changement de rôle.");
-      } else {
-        router.refresh();
-      }
+      if (!res.ok) alert(data.error || "Erreur lors du changement de rôle.");
+      else router.refresh();
     } catch {
       alert("Erreur de connexion.");
     }
@@ -55,13 +58,9 @@ export function EmployeeTable({ employees, missingInfo }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ action: "deactivate", employeeId }),
       });
-
       const data = await res.json();
-      if (!res.ok) {
-        alert(data.error || "Erreur.");
-      } else {
-        router.refresh();
-      }
+      if (!res.ok) alert(data.error || "Erreur.");
+      else router.refresh();
     } catch {
       alert("Erreur de connexion.");
     }
@@ -69,10 +68,10 @@ export function EmployeeTable({ employees, missingInfo }: Props) {
   }
 
   return (
-    <div className="overflow-x-auto rounded-xl bg-white shadow-sm">
+    <div className="overflow-x-auto rounded-xl border border-gray-200 bg-white shadow-sm">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
+          <tr className="border-b border-gray-200 bg-gray-50 text-left text-xs font-medium uppercase text-gray-500">
             <th className="px-4 py-3">Employé</th>
             <th className="px-4 py-3">Rôle</th>
             <th className="px-4 py-3">Téléphone</th>
@@ -87,35 +86,36 @@ export function EmployeeTable({ employees, missingInfo }: Props) {
           {employees.map((emp) => {
             const missing = getMissing(emp.id);
             const isLoading = loadingId === emp.id;
+            const isStaffLock = emp.role === "patron" || emp.role === "developpeur";
             return (
-              <tr key={emp.id} className="border-b last:border-0 hover:bg-gray-50">
+              <tr key={emp.id} className="border-b border-gray-100 last:border-0 hover:bg-gray-50">
                 {/* Nom */}
                 <td className="px-4 py-3">
-                  <Link href={`/admin/employees/${emp.id}`} className="font-medium text-orange-600 hover:underline">
+                  <Link href={`/admin/employees/${emp.id}`} className="font-medium text-brand-600 hover:underline">
                     {emp.first_name} {emp.last_name}
                   </Link>
                   <p className="text-xs text-gray-400">Code : {emp.role === "patron" ? "****" : emp.phone_last4}</p>
                 </td>
 
-                {/* Rôle avec bouton toggle */}
+                {/* Rôle : sélecteur (sauf patron/dev = verrouillé) */}
                 <td className="px-4 py-3">
-                {emp.role === "patron" ? (
-                    <span className={`rounded-full px-2.5 py-1 text-xs font-medium ${emp.role === "patron" ? "bg-yellow-100 text-yellow-700" : "bg-cyan-100 text-cyan-700"}`}>
-                      {emp.role === "patron" ? "👑 Patron" : "💻 Dev"}
+                  {isStaffLock ? (
+                    <span className={`inline-flex items-center gap-1 rounded-md px-2.5 py-1 text-xs font-medium ${roleBadgeClass(emp.role)}`}>
+                      {emp.role === "patron"
+                        ? <><Crown className="h-3 w-3" strokeWidth={2} /> Patron</>
+                        : <><Code2 className="h-3 w-3" strokeWidth={2} /> Dev</>}
                     </span>
                   ) : (
-                    <button
-                      onClick={() => toggleRole(emp.id, emp.role)}
+                    <select
+                      value={emp.role}
                       disabled={isLoading}
-                      className={`rounded-full px-2.5 py-1 text-xs font-medium transition hover:opacity-80 disabled:opacity-50 ${
-                        emp.role === "manager"
-                          ? "bg-purple-100 text-purple-700"
-                          : "bg-gray-100 text-gray-600"
-                      }`}
-                      title={emp.role === "manager" ? "Cliquer pour retirer les droits gérant" : "Cliquer pour rendre gérant"}
+                      onChange={(e) => changeRole(emp.id, e.target.value)}
+                      className="rounded-md border border-gray-200 bg-white px-2 py-1 text-xs font-medium text-gray-700 transition hover:border-gray-300 focus:border-brand-400 focus:outline-none focus:ring-2 focus:ring-orange-100 disabled:opacity-50"
                     >
-                      {emp.role === "manager" ? "Gérant" : "Employé"}
-                    </button>
+                      {ROLE_OPTIONS.map((o) => (
+                        <option key={o.value} value={o.value}>{o.label}</option>
+                      ))}
+                    </select>
                   )}
                 </td>
 
@@ -142,11 +142,11 @@ export function EmployeeTable({ employees, missingInfo }: Props) {
                 {/* Statut fiche */}
                 <td className="px-4 py-3">
                   {missing?.has_missing_info ? (
-                    <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700">
+                    <span className="rounded-md bg-red-50 px-2 py-0.5 text-xs font-medium text-red-600">
                       Incomplet
                     </span>
                   ) : (
-                    <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+                    <span className="rounded-md bg-green-50 px-2 py-0.5 text-xs font-medium text-green-600">
                       Complet
                     </span>
                   )}
@@ -157,7 +157,7 @@ export function EmployeeTable({ employees, missingInfo }: Props) {
                   <button
                     onClick={() => deactivateEmployee(emp.id, `${emp.first_name} ${emp.last_name}`)}
                     disabled={isLoading}
-                    className="text-xs text-red-400 transition hover:text-red-600 disabled:opacity-50"
+                    className="text-xs text-gray-400 transition hover:text-red-600 disabled:opacity-50"
                   >
                     Désactiver
                   </button>

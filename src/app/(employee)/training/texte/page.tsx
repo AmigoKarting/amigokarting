@@ -1,4 +1,6 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { getAuthEmployee } from "@/lib/supabase/middleware";
+import { roleCategory } from "@/lib/roles";
 import { ModuleCard } from "@/components/training/ModuleCard";
 import { CollapsibleCategory } from "@/components/training/CollapsibleCategory";
 import { TRAINING_CATEGORIES } from "@/lib/training";
@@ -7,6 +9,9 @@ import Link from "next/link";
 
 export default async function TrainingTextePage() {
   const supabase = createServerSupabaseClient();
+  const me: any = await getAuthEmployee();
+  // Formation ciblée : un rôle « caisse »/« piste » ne voit que sa catégorie.
+  const onlyCategory = roleCategory(me?.role);
 
   const { data: modules } = await supabase
     .from("training_modules")
@@ -19,10 +24,14 @@ export default async function TrainingTextePage() {
 
   // Liste des catégories : les catégories prédéfinies + toute autre trouvée
   const found = new Set(textModules.map((m) => m.category || "Autres"));
-  const categories = [
+  const allCategories = [
     ...TRAINING_CATEGORIES,
     ...[...found].filter((c) => !TRAINING_CATEGORIES.includes(c)),
   ];
+  // Si le rôle est rattaché à une catégorie précise, on n'affiche que celle-là.
+  const categories = onlyCategory
+    ? allCategories.filter((c) => c === onlyCategory)
+    : allCategories;
 
   const chapterCat: Record<string, string> = {};
   for (const m of textModules) {

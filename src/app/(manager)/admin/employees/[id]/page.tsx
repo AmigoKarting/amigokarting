@@ -1,6 +1,7 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { notFound } from "next/navigation";
-import { ChevronLeft, Crown } from "lucide-react";
+import { roleLabelFr, roleBadgeClass } from "@/lib/roles";
+import { ChevronLeft, Crown, Code2 } from "lucide-react";
 import Link from "next/link";
 
 export default async function EmployeeDetailPage({ params }: { params: { id: string } }) {
@@ -68,16 +69,12 @@ export default async function EmployeeDetailPage({ params }: { params: { id: str
             {employee.first_name} {employee.last_name}
           </h1>
           <div className="mt-1 flex items-center gap-2">
-            <span className={`inline-flex items-center gap-1 rounded-md px-2.5 py-0.5 text-xs font-medium ${
-              employee.role === "patron"
-                ? "bg-amber-50 text-amber-600"
-                : employee.role === "manager"
-                  ? "bg-gray-100 text-gray-600"
-                  : "bg-gray-100 text-gray-600"
-            }`}>
+            <span className={`inline-flex items-center gap-1 rounded-md px-2.5 py-0.5 text-xs font-medium ${roleBadgeClass(employee.role)}`}>
               {employee.role === "patron"
                 ? <><Crown className="h-3 w-3" strokeWidth={2} /> Patron</>
-                : employee.role === "manager" ? "Gérant" : "Employé"}
+                : employee.role === "developpeur"
+                  ? <><Code2 className="h-3 w-3" strokeWidth={2} /> Dev</>
+                  : roleLabelFr(employee.role)}
             </span>
             {missingFields.length > 0 ? (
               <span className="rounded-md bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-600">

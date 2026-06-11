@@ -8,7 +8,7 @@ export default async function AdminTrainingPage() {
     .from("employees")
     .select("id, first_name, last_name")
     .eq("is_active", true)
-    .eq("role", "employee");
+    .in("role", ["employee", "caisse", "piste"]);
 
   const { data: modules } = await supabase
     .from("training_modules")

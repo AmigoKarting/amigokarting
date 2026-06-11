@@ -39,7 +39,7 @@ export default async function ManagerHome() {
   let pendingCount = 0;
   try {
     const [{ count: a }, { count: p }] = await Promise.all([
-      supabaseAdmin.from("employees").select("*", { count: "exact", head: true }).eq("is_active", true).in("role", ["employee", "manager"]),
+      supabaseAdmin.from("employees").select("*", { count: "exact", head: true }).eq("is_active", true).in("role", ["employee", "manager", "caisse", "piste"]),
       supabaseAdmin.from("employees").select("*", { count: "exact", head: true }).eq("is_active", false),
     ]);
     activeCount = a || 0;

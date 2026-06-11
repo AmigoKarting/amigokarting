@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       .from("employees")
       .select("id, first_name, role")
       .eq("is_active", true)
-      .in("role", ["employee", "manager"]);
+      .in("role", ["employee", "manager", "caisse", "piste"]);
 
     for (const e of (allEmployees || [])) {
       const { data: activity } = await supabaseAdmin
@@ -63,7 +63,7 @@ export async function GET(req: NextRequest) {
       .from("employees")
       .select("id, first_name, last_name")
       .eq("is_active", true)
-      .in("role", ["employee", "manager"]);
+      .in("role", ["employee", "manager", "caisse", "piste"]);
 
     const evolutions = [];
     for (const e of (employees || [])) {

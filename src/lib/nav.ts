@@ -66,5 +66,7 @@ export function roleLabel(role: string | undefined | null): string | undefined {
   if (role === "developpeur") return "developpeur";
   if (role === "patron") return "patron";
   if (role === "manager") return "manager";
+  if (role === "caisse") return "caisse";
+  if (role === "piste") return "piste";
   return undefined;
 }

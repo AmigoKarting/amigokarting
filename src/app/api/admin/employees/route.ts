@@ -25,7 +25,7 @@ await requirePatron();
     if (action === "changeRole") {
       const { newRole } = body;
 
-      if (!["employee", "manager", "patron"].includes(newRole)) {
+      if (!["employee", "manager", "patron", "caisse", "piste"].includes(newRole)) {
         return NextResponse.json({ error: "Rôle invalide." }, { status: 400 });
       }
 
@@ -47,8 +47,9 @@ await requirePatron();
         return NextResponse.json({ error: "Le rôle du patron ne peut pas être modifié ici." }, { status: 403 });
       }
 
-      // Vérifier qu'on ne retire pas le dernier gérant/patron
-      if (newRole === "employee") {
+      // Vérifier qu'on ne retire pas le dernier gérant/patron (rétrograder un
+      // gérant/patron vers un rôle apprenant : employé, caisse ou piste)
+      if ((target?.role === "manager" || target?.role === "patron") && newRole !== "manager" && newRole !== "patron") {
         const { count } = await supabaseAdmin
           .from("employees")
           .select("*", { count: "exact", head: true })

@@ -40,7 +40,8 @@ export function Sidebar({ items, userName, role, onLogout }: SidebarProps) {
   }, [pathname]);
 
   const roleSuffix =
-    role === "patron" ? "Patron" : role === "manager" ? "Gérant" : role === "developpeur" ? "Dev" : "";
+    role === "patron" ? "Patron" : role === "manager" ? "Gérant" : role === "developpeur" ? "Dev"
+      : role === "caisse" ? "Caisse" : role === "piste" ? "Piste" : "";
 
   const sidebarContent = (
     <>

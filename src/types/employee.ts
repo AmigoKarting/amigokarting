@@ -15,7 +15,7 @@ export interface Employee {
   uniform_size_shirt: string | null;
   uniform_size_pants: string | null;
   uniform_size_shoes: string | null;
-  role: "employee" | "manager" | "patron";
+  role: "employee" | "manager" | "patron" | "developpeur" | "caisse" | "piste";
   is_active: boolean;
   created_at: string;
   updated_at: string;

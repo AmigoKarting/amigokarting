@@ -1,4 +1,5 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { roleLabelFr } from "@/lib/roles";
 import { Crown } from "lucide-react";
 import Link from "next/link";
 
@@ -8,7 +9,7 @@ export default async function ScoresPage() {
   const { data: scores } = await supabase
     .from("employee_global_score")
     .select("*")
-    .in("role", ["employee", "manager"])
+    .in("role", ["employee", "manager", "caisse", "piste"])
     .order("global_score", { ascending: false });
 
   function getScoreColor(score: number): string {
@@ -91,7 +92,7 @@ export default async function ScoresPage() {
                     <p className="flex items-center gap-1 text-xs text-gray-500">
                       {s.role === "patron"
                         ? <><Crown className="h-3.5 w-3.5" strokeWidth={2} /> Patron</>
-                        : s.role === "manager" ? "Gérant" : "Employé"}
+                        : roleLabelFr(s.role)}
                     </p>
                   </td>
 
