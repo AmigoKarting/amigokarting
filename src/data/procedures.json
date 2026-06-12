@@ -1,0 +1,269 @@
+[
+  {
+    "id": "accident-majeur-blesse",
+    "category": "piste",
+    "urgent": true,
+    "icon": "Siren",
+    "title": "Accident majeur / blessé",
+    "when": "Un accident avec un blessé ou un gros impact sur la piste",
+    "steps": [
+      "Fais un appel à tous sur les walkie-talkies pour arrêter la course.",
+      "Occupe-toi du blessé au mieux de tes connaissances (Guide pratique du secouriste) et réponds à toutes ses demandes.",
+      "Pose-lui les questions : « Es-tu correct? As-tu besoin de quelque chose? As-tu besoin d'une ambulance? »",
+      "Si une ambulance est nécessaire, demande au gérant de l'appeler.",
+      "Une fois la situation sous contrôle, renseigne-toi sur les causes, les circonstances et la faute selon le blessé.",
+      "Remplis le rapport d'accident et note tous les points qui peuvent prouver que la blessure n'est pas majeure.",
+      "Redonne le temps perdu aux pilotes sur la feuille de temps et mentionne-leur qu'on leur a remis le temps."
+    ]
+  },
+  {
+    "id": "courbe-nascar",
+    "category": "piste",
+    "urgent": true,
+    "icon": "Flag",
+    "title": "Client pris dans la courbe Nascar",
+    "when": "Un client est coincé dans la courbe Nascar (risque de carambolage)",
+    "steps": [
+      "ARRÊTE la course avec le drapeau rouge au lieu d'utiliser le jaune : le risque de carambolage est très élevé.",
+      "Demande à tes collègues d'arrêter les gens à l'autre bout.",
+      "Rends-toi à toute vitesse à ton point d'arrêt.",
+      "Place-toi à l'endroit précis et agite bien ton drapeau pour être visible de loin.",
+      "Une fois tout le monde arrêté, va porter assistance.",
+      "Ajoute le temps perdu aux pilotes sur la feuille de temps et mentionne-leur qu'on leur a remis le temps."
+    ]
+  },
+  {
+    "id": "client-blesse-par-autre-pilote",
+    "category": "piste",
+    "urgent": true,
+    "icon": "Shield",
+    "title": "Client blessé par un autre pilote",
+    "when": "Un client est blessé par le geste dangereux d'un autre pilote",
+    "steps": [
+      "Si le fautif est bien identifié, c'est une expulsion automatique.",
+      "Arrête le client fautif dans les puits, jamais à l'autre bout de la piste.",
+      "Explique la raison avec confiance et avec des faits, en ramenant la sécurité au premier plan.",
+      "Partage les faits avec tes collègues pour que personne ne le remette sur la piste; la première version entendue doit être la tienne, pas celle du client.",
+      "S'il ne comprend pas, laisse le superviseur ou le gérant s'en occuper."
+    ]
+  },
+  {
+    "id": "groupe-turbulent",
+    "category": "piste",
+    "urgent": true,
+    "icon": "Users",
+    "title": "Groupe turbulent / dangereux",
+    "when": "Un groupe conduit dangereusement et la sécurité est compromise",
+    "steps": [
+      "Arrête tout le monde et fais appel au superviseur.",
+      "Arrête tout le monde dans un endroit sécuritaire (ligne droite), bien visible de loin.",
+      "Explique ce qui est problématique avec des exemples de la vraie vie.",
+      "Donne un avertissement général (« last warning for all ») et demande s'ils ont des questions.",
+      "Repars les karts, sois très attentif et procède aux expulsions au besoin.",
+      "Ne coupe JAMAIS de temps aux clients non fautifs : ils ont droit à tout le temps payé."
+    ]
+  },
+  {
+    "id": "kart-brake-gas",
+    "category": "piste",
+    "urgent": true,
+    "icon": "AlertTriangle",
+    "title": "Kart en brake/gas",
+    "when": "Un client appuie sur le gaz et le frein en même temps (moteur qui force et fait plus de bruit)",
+    "steps": [
+      "N'essaie pas d'expliquer d'abord : pousse son pied de la pédale le plus vite possible.",
+      "Si le kart est arrêté et que le client appuie encore sur le gaz, cours pousser la pédale vers lui.",
+      "Explique après pourquoi c'est dangereux (ça endommage la transmission, environ 400 $, et use les freins).",
+      "Si le kart manque de frein ou montre une anomalie, retire-le et apporte-le au garage.",
+      "Inscris le kart sur la board du mécanicien : numéro, raison, tes initiales."
+    ]
+  },
+  {
+    "id": "ravitaillement-essence",
+    "category": "general",
+    "urgent": true,
+    "icon": "Flame",
+    "title": "Ravitaillement en essence",
+    "when": "Tu fais le plein d'un kart (essence extrêmement inflammable)",
+    "steps": [
+      "Fais le plein dans un endroit bien aéré, moteur à l'arrêt.",
+      "Ne fume pas et ne permets aucune flamme ni étincelle dans la zone de ravitaillement ou de stockage.",
+      "Ne remplis pas trop : l'essence ne doit pas dépasser la courbe du réservoir, et referme bien le bouchon.",
+      "Ne fais JAMAIS le ravitaillement quand des coureurs sont assis dans le kart ou présents.",
+      "Si du carburant est déversé, assure-toi que la zone est sèche avant de démarrer le moteur."
+    ]
+  },
+  {
+    "id": "kart-brise-en-course",
+    "category": "piste",
+    "urgent": false,
+    "icon": "Wrench",
+    "title": "Kart en panne / bris mécanique",
+    "when": "Un kart brise, devient plus lent ou son transpondeur lâche pendant la course",
+    "steps": [
+      "Arrête le pilote et offre-lui immédiatement un nouveau kart.",
+      "Apporte le kart problématique au garage.",
+      "Inscris-le sur la board du mécanicien : numéro du kart, raison, tes initiales.",
+      "Mets une pince bleue ou rouge sur le kart pour le repérer comme brisé.",
+      "Si ça prend plus de 1 minute à donner un nouveau kart, remets un certificat-cadeau de 10 minutes gratuit après sa course.",
+      "Si le client a manqué de gaz ou que son kart a brisé sans qu'il ait causé d'accident, donne-lui une course gratuite de 15 minutes."
+    ]
+  },
+  {
+    "id": "client-ne-sarrete-pas-drapeau-rouge",
+    "category": "piste",
+    "urgent": false,
+    "icon": "Flag",
+    "title": "Client qui ne s'arrête pas (drapeau rouge)",
+    "when": "Un pilote dangereux ne respecte pas tes avertissements au drapeau rouge",
+    "steps": [
+      "Donne tes avertissements dans une zone sécuritaire, hors de la ligne de course, jamais à la sortie d'une courbe.",
+      "Sois visible et pointe le client avec la main qui ne tient pas le drapeau.",
+      "Applique la règle des 3 tours : s'il ne s'arrête pas après 3 tours de drapeau rouge, vois le gérant.",
+      "Avec le gérant, mets une rangée de pneus dans la piste pour l'expulser à la 4e fois.",
+      "Partage les faits avec tes collègues pour que personne ne le remette sur la piste."
+    ]
+  },
+  {
+    "id": "casque-mal-ajuste",
+    "category": "piste",
+    "urgent": false,
+    "icon": "HelpCircle",
+    "title": "Casque inconfortable ou mal ajusté",
+    "when": "Avant de partir un kart, le casque d'un client semble inconfortable ou mal réglé",
+    "steps": [
+      "Dis au client de ne pas se gêner pour en demander un autre : tu peux lui en remettre un différent.",
+      "Vérifie que le casque est de la bonne taille : c'est TA responsabilité, pas celle du client.",
+      "Aide à attacher le casque au besoin; si tu n'es pas certain après une inspection visuelle, tire sur la sangle.",
+      "Assure-toi que le casque est DOT ou SNELL; protège-menton et lunettes obligatoires en Super-Kart.",
+      "Pour les cheveux longs (dépassant les épaules), fournis un élastique pour un chignon ou demande de les rentrer dans le chandail."
+    ]
+  },
+  {
+    "id": "client-mecontent-piste",
+    "category": "piste",
+    "urgent": false,
+    "icon": "Megaphone",
+    "title": "Client fâché sur la piste",
+    "when": "Un client est fâché ou agité dans les puits ou en bord de piste",
+    "steps": [
+      "Reste calme et réfléchi : le client va finir par miroiter ton attitude et se calmer.",
+      "Apporte des points rationnels et des exemples de la vraie vie.",
+      "Rappelle que tu agis pour sa sécurité et celle des autres.",
+      "Discute pour comprendre pourquoi il est insatisfait : même si on est en tort à seulement 10 %, on veut connaître la raison.",
+      "Rapporte tout client mécontent au superviseur, qui l'ajoutera à son rapport journalier."
+    ]
+  },
+  {
+    "id": "client-mecontent-caisse",
+    "category": "caisse",
+    "urgent": false,
+    "icon": "Megaphone",
+    "title": "Client mécontent à la caisse",
+    "when": "Un client se plaint ou est fâché à la caisse",
+    "steps": [
+      "Écoute, comprends, PUIS réponds : ne réponds jamais avant d'avoir compris la vraie préoccupation.",
+      "Compatis avec lui : « Je comprends votre frustration, laissez-moi vérifier la situation. »",
+      "Garde un ton calme et reste professionnel; ne réplique jamais sur le même ton et ne hausse jamais le ton.",
+      "Ton objectif est de RÉGLER la situation, pas de gagner l'argument; règle vite, car un problème qui traîne augmente la frustration.",
+      "Si la situation te dépasse ou si le client demande le responsable, demande l'aide du gérant.",
+      "Si un client devient agressif ou irrespectueux, ferme la fenêtre, mets-toi en sécurité et fais appel au gérant."
+    ]
+  },
+  {
+    "id": "remboursement-caisse",
+    "category": "caisse",
+    "urgent": false,
+    "icon": "Wallet",
+    "title": "Demande de remboursement",
+    "when": "Un client demande un remboursement",
+    "steps": [
+      "Vérifie que la raison est valable : la personne ne rentre pas dans le kart, l'enfant a peur et ne veut plus, ou les gens attendent depuis plus d'une heure.",
+      "Pour TOUTE autre raison, le remboursement doit être approuvé par le gérant.",
+      "Propose d'abord un certificat-cadeau qui double son temps pour sa prochaine visite : c'est presque toujours la meilleure solution.",
+      "Si tu rembourses, fais-le en argent comptant, peu importe le moyen de paiement utilisé au départ.",
+      "Inscris la raison du remboursement dans Apex et note-la sur les tickets concernés.",
+      "Reste calme et professionnel même si tu dois refuser; au besoin, demande l'aide du gérant."
+    ]
+  },
+  {
+    "id": "pluie-meteo",
+    "category": "caisse",
+    "urgent": false,
+    "icon": "CloudRain",
+    "title": "Il pleut / orage possible",
+    "when": "Il pleut ou un orage menace au moment de vendre des billets",
+    "steps": [
+      "Avant la vente, avertis le client que la piste sera mouillée et très glissante et qu'il devra adapter sa conduite.",
+      "Précise que la piste glissante n'est PAS une excuse pour perdre le contrôle.",
+      "Si un orage semble possible, avertis qu'on ne remboursera PAS s'il mouille, mais qu'un crédit de temps pourrait être attribué.",
+      "Vends les tickets seulement une fois que le client comprend et accepte ces conditions.",
+      "Si un groupe a réservé et qu'il pleut, rappelle-lui que les activités ont généralement lieu même sous la pluie.",
+      "Rappelle-toi : la pluie, des vêtements mouillés ou rouler moins vite ne donnent pas droit à un remboursement."
+    ]
+  },
+  {
+    "id": "ouverture-caisse",
+    "category": "caisse",
+    "urgent": false,
+    "icon": "Wallet",
+    "title": "Ouverture de la caisse",
+    "when": "Au début du quart, pour ouvrir la caisse dans l'ordre",
+    "steps": [
+      "Démarre l'ordinateur (code 8546).",
+      "Compte la caisse : elle doit être à 500 $ exactement.",
+      "Prends les messages et retourne les appels (code 64642#); si tu n'entends pas bien le numéro, appuie sur le 5.",
+      "Prends connaissance des réservations du jour.",
+      "Si la caisse n'est pas à 500 $, recompte d'abord; si l'écart persiste, mentionne-le au gérant et inscris-le sur le rapport du soir.",
+      "Tu peux commencer à faire payer jusqu'à 15 minutes avant l'ouverture, seulement si les étapes précédentes sont complétées."
+    ]
+  },
+  {
+    "id": "fermeture-caisse",
+    "category": "caisse",
+    "urgent": false,
+    "icon": "Wallet",
+    "title": "Fermeture de la caisse",
+    "when": "En fin de journée, quand il n'y a plus de clients",
+    "steps": [
+      "Compte la caisse : le montant en comptant n'inclut PAS le 500 $ de fonds; justifie bien les remboursements dans l'ordi et sur les tickets.",
+      "Demande au gérant de recompter la caisse.",
+      "Devant un manque ou un surplus, recompte d'abord; si l'écart persiste, note-le et explique-le dans le rapport, peu importe le montant.",
+      "Ramène le fonds à 500 $ pour le lendemain en mettant les plus grosses coupures dans les profits; avertis le gérant s'il manque de monnaie.",
+      "Imprime les rapports Interac et Apex et mets-les dans l'enveloppe.",
+      "Ne corrige jamais les chiffres directement et ne paie jamais de ta poche.",
+      "Termine toute la procédure avant de partir : l'erreur la plus grave est de quitter avec une caisse incorrecte."
+    ]
+  },
+  {
+    "id": "rapprochement-apex-interac",
+    "category": "caisse",
+    "urgent": false,
+    "icon": "Search",
+    "title": "Rapprochement Apex / Interac",
+    "when": "Avant la fermeture, pour régler le lot Interac et imprimer le rapport",
+    "steps": [
+      "Sur la machine Interac : Règlements, puis Régler, puis Régler le lot ouvert, puis Fait.",
+      "Attends le chargement, puis reviens à Règlements.",
+      "Clique Historique du lot, puis Détails à côté du rapport de la journée, puis imprime.",
+      "Assure-toi que le montant en caisse correspond aux rapports avant d'imprimer le rapport de caisse.",
+      "Si un écart demeure, recompte et vérifie les transactions (remboursement ou certificat mal inscrit) avant de finaliser."
+    ]
+  },
+  {
+    "id": "reservation-groupe",
+    "category": "caisse",
+    "urgent": false,
+    "icon": "Users",
+    "title": "Prendre une réservation de groupe",
+    "when": "Un client de 10 personnes ou plus veut réserver",
+    "steps": [
+      "Vérifie le délai : on accepte au minimum 3 jours d'avance; sinon c'est premier arrivé, premier servi.",
+      "Demande s'il s'agit d'adultes ou d'enfants pour proposer le bon type de kart, et clarifie : arriver ou courser à l'heure donnée (arriver 30 min avant le départ).",
+      "Partage les conditions avec le client AVANT de procéder, puis remplis TOUS les champs du formulaire (écris aussi le jour de la semaine et un numéro de cellulaire).",
+      "Prends le dépôt par carte au terminal Interac et agrafe la copie client du reçu à la feuille de réservation.",
+      "Entre la réservation dans le calendrier Apex : c'est l'étape à ne jamais oublier.",
+      "Place la feuille dans la chemise « Réservations à venir »."
+    ]
+  }
+]
