@@ -23,7 +23,7 @@ const { data: score }: any = await supabase
     if (s >= 80) return "Excellent ! Continue comme ça.";
     if (s >= 60) return "Bon travail, tu peux encore progresser.";
     if (s >= 40) return "Il reste du travail. Continue tes formations !";
-    return "Tu commences ! Regarde les vidéos et fais les quiz.";
+    return "Tu commences ! Lis les formations et fais les quiz pour progresser.";
   }
 
   const globalScore = Math.round(score?.global_score || 0);
@@ -64,7 +64,7 @@ const { data: score }: any = await supabase
             <span className="rounded-md bg-orange-50 px-2 py-0.5 text-[10px] font-medium text-brand-700">40% du score</span>
           </div>
           <p className="mt-2 text-2xl font-semibold text-gray-900">{score?.formation_pct || 0}%</p>
-          <p className="text-xs text-gray-500">{score?.completed_videos || 0}/{score?.total_videos || 0} vidéos complétées</p>
+          <p className="text-xs text-gray-500">{score?.completed_videos || 0}/{score?.total_videos || 0} quiz réussis</p>
           <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-100">
             <div className="h-full rounded-full bg-brand-600" style={{ width: `${score?.formation_pct || 0}%` }} />
           </div>
@@ -97,9 +97,9 @@ const { data: score }: any = await supabase
             {(score?.conv_avg_rating || 0) > 0 && ` · Note ${score?.conv_avg_rating}/10`}
           </p>
           <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-100">
-            <div className="h-full rounded-full bg-brand-600" style={{ width: `${Math.min((score?.conv_hours || 0) / 5 * 100, 100)}%` }} />
+            <div className="h-full rounded-full bg-brand-600" style={{ width: `${Math.min((score?.conv_hours || 0) / 2 * 100, 100)}%` }} />
           </div>
-          <p className="mt-1 text-[10px] text-gray-500">Objectif : 5 heures</p>
+          <p className="mt-1 text-[10px] text-gray-500">Objectif : 2 heures</p>
         </div>
 
         {/* Q&A (10%) */}
@@ -111,9 +111,9 @@ const { data: score }: any = await supabase
           <p className="mt-2 text-2xl font-semibold text-gray-900">{score?.qa_questions_asked || 0}</p>
           <p className="text-xs text-gray-500">questions posées sur le manuel</p>
           <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-gray-100">
-            <div className="h-full rounded-full bg-brand-600" style={{ width: `${Math.min((score?.qa_questions_asked || 0) / 20 * 100, 100)}%` }} />
+            <div className="h-full rounded-full bg-brand-600" style={{ width: `${Math.min((score?.qa_questions_asked || 0) / 10 * 100, 100)}%` }} />
           </div>
-          <p className="mt-1 text-[10px] text-gray-500">Objectif : 20 questions</p>
+          <p className="mt-1 text-[10px] text-gray-500">Objectif : 10 questions</p>
         </div>
       </div>
 
@@ -122,16 +122,16 @@ const { data: score }: any = await supabase
         <p className="text-sm font-semibold text-gray-900">Comment améliorer ta note ?</p>
         <ul className="mt-2 space-y-1.5 text-sm text-gray-700">
           {(score?.formation_pct || 0) < 100 && (
-            <li>• Complète les vidéos de formation ({score?.total_videos - score?.completed_videos} restante{(score?.total_videos - score?.completed_videos) > 1 ? "s" : ""})</li>
+            <li>• Réussis les quiz de formation ({score?.total_videos - score?.completed_videos} restant{(score?.total_videos - score?.completed_videos) > 1 ? "s" : ""})</li>
           )}
           {(score?.quiz_avg_score || 0) < 0.7 && (
             <li>• Repasse les quiz pour monter ta moyenne au-dessus de 70%</li>
           )}
-          {(score?.conv_hours || 0) < 5 && (
-            <li>• Fais plus de sessions de conversation IA ({(5 - (score?.conv_hours || 0)).toFixed(1)}h restantes)</li>
+          {(score?.conv_hours || 0) < 2 && (
+            <li>• Fais plus de sessions de conversation IA ({(2 - (score?.conv_hours || 0)).toFixed(1)}h restantes)</li>
           )}
-          {(score?.qa_questions_asked || 0) < 20 && (
-            <li>• Pose des questions dans le Q&A ({20 - (score?.qa_questions_asked || 0)} restantes)</li>
+          {(score?.qa_questions_asked || 0) < 10 && (
+            <li>• Pose des questions dans le Q&A ({10 - (score?.qa_questions_asked || 0)} restantes)</li>
           )}
           {globalScore >= 80 && <li>• Tu es excellent ! Continue à utiliser l'app pour rester à jour.</li>}
         </ul>

@@ -6,6 +6,7 @@ import {
   PlayCircle, Hand, Star, Wallet, Flag, Handshake, GraduationCap,
   Zap, Trophy, Cpu, CheckCircle2,
 } from "lucide-react";
+import { levelFromPoints } from "@/lib/gamification";
 
 interface ProgressData {
   level: { name: string; icon: string; color: string; score: number; nextLevel: string; pointsNeeded: number };
@@ -26,19 +27,6 @@ interface GamStats {
   daily_streak: number;
   by_category: Record<string, { total: number; passed: number }>;
   leaderboard: { name: string; points: number; rank: number; is_me: boolean }[];
-}
-
-const LEVEL_LABELS = ["Recrue", "Apprenti", "Régulier", "Pro", "Vétéran", "Expert", "Maître", "Légende"];
-const PTS_PER_LEVEL = 150;
-
-function levelFromPoints(p: number) {
-  const level = Math.floor(p / PTS_PER_LEVEL) + 1;
-  return {
-    level,
-    label: LEVEL_LABELS[Math.min(level - 1, LEVEL_LABELS.length - 1)],
-    pct: Math.round(((p % PTS_PER_LEVEL) / PTS_PER_LEVEL) * 100),
-    toNext: PTS_PER_LEVEL - (p % PTS_PER_LEVEL),
-  };
 }
 
 function medal(rank: number): string {

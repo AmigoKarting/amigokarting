@@ -45,12 +45,12 @@ const sections: {
   {
     id: "formation",
     Icon: GraduationCap,
-    title: "Formation (vidéos et quiz)",
+    title: "Formation et quiz",
     steps: [
       { num: "1", text: "Clique « Formation » dans le menu" },
-      { num: "2", text: "Choisis un module, puis un chapitre" },
-      { num: "3", text: "Regarde les vidéos dans l'ordre — tu ne peux pas avancer rapidement" },
-      { num: "4", text: "Quand toutes les vidéos d'un chapitre sont complétées, le quiz se débloque" },
+      { num: "2", text: "Choisis « Formation texte » (ou « Formation vidéo »)" },
+      { num: "3", text: "Ouvre un module et lis la formation (option « Écouter » pour te la faire lire)" },
+      { num: "4", text: "Fais le quiz à la fin du module pour le valider" },
       { num: "5", text: "Réponds aux questions du quiz — tu vois immédiatement si c'est correct" },
     ],
     tip: "Ta progression est sauvegardée automatiquement. Tu peux fermer l'app et revenir plus tard.",

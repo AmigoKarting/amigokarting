@@ -114,7 +114,7 @@ export default async function ScoresPage() {
                   {/* Formation */}
                   <td className="px-4 py-4 text-center">
                     <p className="font-medium">{s.formation_pct || 0}%</p>
-                    <p className="text-xs text-gray-400">{s.completed_videos}/{s.total_videos} vidéos</p>
+                    <p className="text-xs text-gray-400">{s.completed_videos}/{s.total_videos} quiz réussis</p>
                   </td>
 
                   {/* Quiz */}

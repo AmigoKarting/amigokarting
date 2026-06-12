@@ -26,11 +26,11 @@ const sections: {
     Icon: GraduationCap,
     title: "Comment faire ta formation",
     content: [
-      "1. Clique sur 'Formation' dans le menu",
-      "2. Choisis un module (ex: Sécurité de base)",
-      "3. Regarde chaque vidéo dans l'ordre — tu ne peux pas avancer rapidement",
+      "1. Clique sur « Formation » dans le menu",
+      "2. Choisis « Formation texte » (ou « Formation vidéo »)",
+      "3. Ouvre un module et lis la formation — tu peux te la faire lire avec « Écouter »",
       "4. Ta progression se sauvegarde automatiquement, tu peux fermer et revenir",
-      "5. Quand toutes les vidéos d'un chapitre sont terminées, le quiz se débloque",
+      "5. Fais le quiz à la fin du module pour le valider",
     ],
   },
   {

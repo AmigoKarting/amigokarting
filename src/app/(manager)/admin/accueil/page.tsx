@@ -2,6 +2,7 @@ import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
 import { AnnouncementBanner } from "@/components/announcements/AnnouncementBanner";
+import { DailyQuestion } from "@/components/training/DailyQuestion";
 import {
   Award, Flame, BarChart3, Users, TrendingUp, Megaphone, GraduationCap, Star,
   Lightbulb, ChevronRight, type LucideIcon,
@@ -95,6 +96,8 @@ export default async function ManagerHome() {
       {/* ─── 2 colonnes sur grand écran ─── */}
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2 lg:items-start">
         <div className="space-y-5">
+          <DailyQuestion />
+
           {/* Comptes en attente (patron/dev) */}
           {isPatron && pendingCount > 0 && (
             <Link

@@ -5,6 +5,7 @@ import { AnnouncementBanner } from "@/components/announcements/AnnouncementBanne
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
 import { PushToggle } from "@/components/PushToggle";
 import { DailyQuestion } from "@/components/training/DailyQuestion";
+import { levelFromPoints } from "@/lib/gamification";
 import {
   Award, Flame, Target, ChevronRight, Rocket, Trophy, Mic, GraduationCap,
   HelpCircle, TrendingUp, Star, Clock, Lightbulb, type LucideIcon,
@@ -37,11 +38,6 @@ export default async function DashboardPage() {
     globalScore = Math.round(gs?.global_score || 0);
   } catch {}
 
-  let level = { name: "Bronze", color: "#B45309" };
-  if (globalScore >= 85) level = { name: "Diamant", color: "#2563EB" };
-  else if (globalScore >= 65) level = { name: "Or", color: "#CA8A04" };
-  else if (globalScore >= 40) level = { name: "Argent", color: "#6B7280" };
-
   // ─── Stats de jeu (points, rang, série, badges, classement) ──
   let g: any = {};
   try {
@@ -49,6 +45,9 @@ export default async function DashboardPage() {
     g = data || {};
   } catch {}
   const points = g.points || 0;
+  // Niveau UNIQUE basé sur les points (même système que la page Progression)
+  const lvl = levelFromPoints(points);
+  const level = { name: lvl.label, color: lvl.color };
   const rank = g.rank || 0;
   const totalPlayers = g.total_players || 0;
   const streak = g.daily_streak || 0;
