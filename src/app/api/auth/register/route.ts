@@ -1,5 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import { sendToEmployee } from "@/lib/push";
+
+export const runtime = "nodejs";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -99,6 +102,24 @@ export async function POST(req: NextRequest) {
       .from("employees")
       .update({ auth_user_id: authUser.user.id })
       .eq("id", employee.id);
+
+    // Prévenir le patron / dev qu'un compte attend leur approbation.
+    try {
+      const { data: approvers } = await supabaseAdmin
+        .from("employees")
+        .select("id")
+        .eq("is_active", true)
+        .in("role", ["patron", "developpeur"]);
+      await Promise.all(
+        (approvers || []).map((a: any) =>
+          sendToEmployee(a.id, {
+            title: "Nouveau compte à approuver",
+            body: `${cleanFirst} ${cleanLast} attend ton approbation pour entrer dans l'app.`,
+            url: "/admin/approbations",
+          })
+        )
+      );
+    } catch {}
 
    return NextResponse.json({
       success: true,

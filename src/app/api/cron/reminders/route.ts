@@ -23,23 +23,47 @@ function hash(s: string): number {
 // Rappel quotidien (cron Vercel) : prévient les abonnés qui n'ont rien fait
 // aujourd'hui, avec un message qui varie selon l'employé et le jour.
 // La déduplication (last_reminded_at) empêche tout envoi multiple le même jour.
+async function markReminded(employeeId: string) {
+  await supabaseAdmin
+    .from("push_subscriptions")
+    .update({ last_reminded_at: new Date().toISOString() })
+    .eq("employee_id", employeeId);
+}
+
 export async function GET() {
   try {
+    let pushes = 0;
+    const weekday = new Date().toLocaleDateString("en-US", { timeZone: "America/Toronto", weekday: "short" });
+
+    // 1) Rappel « complète ta fiche » — une fois par semaine (le lundi).
+    if (weekday === "Mon") {
+      const { data: fiche } = await supabaseAdmin.rpc("fiche_reminder_targets");
+      for (const t of (fiche || []) as { employee_id: string }[]) {
+        const n = await sendToEmployee(t.employee_id, {
+          title: "Complète ta fiche",
+          body: "Il manque des infos sur ta fiche (téléphone, contact d'urgence…). Ça prend 1 minute.",
+          url: "/profile",
+        });
+        if (n > 0) {
+          await markReminded(t.employee_id);
+          pushes += n;
+        }
+      }
+    }
+
+    // 2) Rappels d'activité « viens faire tes trucs » (ceux pas déjà rappelés).
     const { data: targets } = await supabaseAdmin.rpc("push_reminder_targets");
     const dayNumber = Math.floor(Date.now() / 86_400_000);
-    let pushes = 0;
     for (const t of (targets || []) as { employee_id: string }[]) {
       const msg = MESSAGES[(hash(t.employee_id) + dayNumber) % MESSAGES.length];
       const n = await sendToEmployee(t.employee_id, msg);
       if (n > 0) {
-        await supabaseAdmin
-          .from("push_subscriptions")
-          .update({ last_reminded_at: new Date().toISOString() })
-          .eq("employee_id", t.employee_id);
+        await markReminded(t.employee_id);
         pushes += n;
       }
     }
-    return NextResponse.json({ reminded: (targets || []).length, pushes });
+
+    return NextResponse.json({ pushes });
   } catch (err) {
     console.error("Erreur cron reminders:", err);
     return NextResponse.json({ error: "Erreur" }, { status: 500 });

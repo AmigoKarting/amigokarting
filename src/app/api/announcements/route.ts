@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { createClient } from "@supabase/supabase-js";
+import { sendToEmployee } from "@/lib/push";
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -95,6 +99,23 @@ export async function POST(req: NextRequest) {
         .single();
 
       if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+
+      // Annonce URGENTE → notification push immédiate à tous les abonnés.
+      if ((priority || "normal") === "urgent") {
+        try {
+          const { data: subs } = await supabaseAdmin
+            .from("push_subscriptions")
+            .select("employee_id");
+          const ids = [...new Set((subs || []).map((s: any) => s.employee_id))];
+          const c = content.trim();
+          const short = c.length > 120 ? c.slice(0, 120) + "…" : c;
+          await Promise.all(
+            ids.map((id) =>
+              sendToEmployee(id, { title: `Annonce : ${title.trim()}`, body: short, url: "/dashboard" })
+            )
+          );
+        } catch {}
+      }
 
       return NextResponse.json({ success: true, announcement });
     }
