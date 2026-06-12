@@ -3,6 +3,7 @@ import { supabaseAdmin } from "@/lib/supabase/admin";
 import { AnnouncementPopup } from "@/components/announcements/AnnouncementPopup";
 import { AnnouncementBanner } from "@/components/announcements/AnnouncementBanner";
 import { DailyQuestion } from "@/components/training/DailyQuestion";
+import { levelFromPoints } from "@/lib/gamification";
 import {
   Award, Flame, BarChart3, Users, TrendingUp, Megaphone, GraduationCap, Star,
   Lightbulb, ChevronRight, type LucideIcon,
@@ -30,10 +31,7 @@ export default async function ManagerHome() {
   const quizzesPassed = g.quizzes_passed || 0;
   const quizzesTotal = g.quizzes_total || 0;
 
-  let level = { name: "Bronze", color: "#B45309" };
-  if (points >= 1000) level = { name: "Diamant", color: "#2563EB" };
-  else if (points >= 500) level = { name: "Or", color: "#CA8A04" };
-  else if (points >= 200) level = { name: "Argent", color: "#6B7280" };
+  const level = levelFromPoints(points);
 
   // ─── Aperçu équipe ────────────────────────────────────
   let activeCount = 0;
@@ -73,7 +71,7 @@ export default async function ManagerHome() {
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <span className="inline-flex items-center gap-1.5 rounded-md border border-gray-200 bg-white px-2.5 py-1 text-sm text-gray-700">
             <Award className="h-4 w-4" strokeWidth={2} style={{ color: level.color }} />
-            <span className="font-medium">{level.name}</span>
+            <span className="font-medium">{level.label}</span>
           </span>
           <span className="inline-flex items-center gap-1.5 rounded-md border border-gray-200 bg-white px-2.5 py-1 text-sm text-gray-700">
             <span className="font-semibold text-gray-900">{points}</span> pts

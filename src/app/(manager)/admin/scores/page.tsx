@@ -1,12 +1,16 @@
-import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { supabaseAdmin } from "@/lib/supabase/admin";
+import { getAuthEmployee } from "@/lib/supabase/middleware";
 import { roleLabelFr } from "@/lib/roles";
 import { Crown } from "lucide-react";
 import Link from "next/link";
 
-export default async function ScoresPage() {
-  const supabase = createServerSupabaseClient();
+export const dynamic = "force-dynamic";
 
-  const { data: scores } = await supabase
+export default async function ScoresPage() {
+  const me: any = await getAuthEmployee();
+  if (!me || !["manager", "patron", "developpeur"].includes(me.role)) return null;
+
+  const { data: scores } = await supabaseAdmin
     .from("employee_global_score")
     .select("*")
     .in("role", ["employee", "manager", "caisse", "piste"])
