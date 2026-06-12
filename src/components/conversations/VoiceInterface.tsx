@@ -429,7 +429,7 @@ export function VoiceInterface({ topicId, simulationId }: { topicId?: string; si
           )}
 
           {/* Zone de saisie */}
-          <div className="border-t border-gray-100 px-4 py-3">
+          <div className="pb-safe border-t border-gray-100 px-4 pt-3">
             <div className="flex items-end gap-2">
              <button onClick={() => { stopMic(); setPhase("rating"); }} disabled={phase === "connecting" || phase === "processing"} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-red-500 text-white transition hover:bg-red-600 disabled:opacity-50" aria-label="Terminer">
                 <X className="h-4 w-4" strokeWidth={2.5} />

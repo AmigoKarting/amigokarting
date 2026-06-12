@@ -50,3 +50,15 @@
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-in-up, .animate-pop-in { animation: none; }
 }
+
+/* ─── Confort mobile / ressenti « app native » ─── */
+/* Pas de rebond élastique ni de pull-to-refresh accidentel */
+html, body {
+  overscroll-behavior-y: none;
+}
+
+/* Dégage la zone « home indicator » (bas) pour les éléments collés en bas
+   (saisie Q&A / conversation). La barre de statut opaque gère déjà le haut. */
+.pb-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}

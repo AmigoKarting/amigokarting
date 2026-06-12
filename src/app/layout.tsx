@@ -10,7 +10,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#EA580C",
+  viewportFit: "cover", // contenu jusqu'aux bords (gère le notch via safe-area)
+  themeColor: "#ffffff", // app claire → barre de statut/chrome blanche
 };
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export const metadata: Metadata = {
   description: "Formation et gestion des employés d'Amigo Karting",
   appleWebApp: {
     capable: true,
-    statusBarStyle: "black-translucent",
+    statusBarStyle: "default", // app claire : barre de statut sombre, pas de chevauchement
     title: "Amigo Karting",
   },
   formatDetection: { telephone: false },
@@ -93,8 +94,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           window.addEventListener('load', function() {
             setTimeout(function() {
               var s = document.getElementById('splash');
-              if (s) { s.style.opacity = '0'; setTimeout(function() { s.remove(); }, 800); }
-            }, 6000);
+              if (s) { s.style.opacity = '0'; setTimeout(function() { s.remove(); }, 500); }
+            }, 1800);
           });
         `}} />
         {children}

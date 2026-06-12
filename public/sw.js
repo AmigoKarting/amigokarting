@@ -1,4 +1,4 @@
-const CACHE_NAME = "amigo-karting-v3";
+const CACHE_NAME = "amigo-karting-v4";
 
 // Pages à mettre en cache pour un chargement rapide
 const PRECACHE = [
