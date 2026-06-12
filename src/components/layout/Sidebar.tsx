@@ -1,8 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { clsx } from "clsx";
+import { useMenuStore } from "@/stores/menuStore";
 import {
   Home, User, Star, GraduationCap, MessageCircle, HelpCircle, Clock,
   TrendingUp, BookOpen, LifeBuoy, LayoutDashboard, Users, BarChart3,
@@ -33,7 +34,8 @@ interface SidebarProps {
 
 export function Sidebar({ items, userName, role, onLogout }: SidebarProps) {
   const pathname = usePathname();
-  const [open, setOpen] = useState(false);
+  const open = useMenuStore((s) => s.open);
+  const setOpen = useMenuStore((s) => s.setOpen);
 
   useEffect(() => {
     setOpen(false);
@@ -96,14 +98,6 @@ export function Sidebar({ items, userName, role, onLogout }: SidebarProps) {
 
   return (
     <>
-      <button
-        onClick={() => setOpen(true)}
-        className="fixed left-4 top-4 z-40 flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 bg-white text-gray-700 shadow-sm lg:hidden"
-        aria-label="Ouvrir le menu"
-      >
-        <Menu className="h-5 w-5" strokeWidth={2} />
-      </button>
-
       {open && (
         <div className="fixed inset-0 z-40 bg-black/40 lg:hidden" onClick={() => setOpen(false)} />
       )}

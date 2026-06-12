@@ -68,6 +68,27 @@ export function navForRole(role: string | undefined | null): NavItem[] {
   return managerBaseNav.filter((item) => !item.patronOnly);
 }
 
+// Barre d'onglets du bas (mobile) : 4 destinations clés + un bouton « Menu »
+// ajouté par le composant. Une seule tape pour se déplacer.
+export const employeeBottomNav: NavItem[] = [
+  { label: "Accueil", href: "/dashboard", icon: "Home" },
+  { label: "Formation", href: "/training", icon: "GraduationCap" },
+  { label: "Parler", href: "/conversations", icon: "MessageCircle" },
+  { label: "Progrès", href: "/progression", icon: "TrendingUp" },
+];
+
+export const managerBottomNav: NavItem[] = [
+  { label: "Accueil", href: "/admin/accueil", icon: "Home" },
+  { label: "Tableau", href: "/admin", icon: "LayoutDashboard" },
+  { label: "Employés", href: "/admin/employees", icon: "Users" },
+  { label: "Notes", href: "/admin/scores", icon: "BarChart" },
+];
+
+export function bottomNavForRole(role: string | undefined | null): NavItem[] {
+  const isStaff = role === "manager" || role === "patron" || role === "developpeur";
+  return isStaff ? managerBottomNav : employeeBottomNav;
+}
+
 export function roleLabel(role: string | undefined | null): string | undefined {
   if (role === "developpeur") return "developpeur";
   if (role === "patron") return "patron";
