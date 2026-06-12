@@ -30,13 +30,43 @@ async function markReminded(employeeId: string) {
     .eq("employee_id", employeeId);
 }
 
+// Réglages configurables depuis Paramètres (app_config).
+async function getConfig() {
+  const { data } = await supabaseAdmin
+    .from("app_config")
+    .select("key, value")
+    .in("key", ["reminder_enabled", "reminder_hour", "reminder_days", "fiche_reminder_day"]);
+  const m = Object.fromEntries((data || []).map((r: any) => [r.key, r.value]));
+  return {
+    enabled: (m.reminder_enabled ?? "true") === "true",
+    hour: parseInt(m.reminder_hour ?? "18", 10),
+    days: (m.reminder_days ?? "Mon,Tue,Wed,Thu,Fri,Sat,Sun").split(",").filter(Boolean),
+    ficheDay: m.fiche_reminder_day ?? "Mon",
+  };
+}
+
 export async function GET() {
   try {
-    let pushes = 0;
-    const weekday = new Date().toLocaleDateString("en-US", { timeZone: "America/Toronto", weekday: "short" });
+    const cfg = await getConfig();
+    if (!cfg.enabled) return NextResponse.json({ skipped: "disabled" });
 
-    // 1) Rappel « complète ta fiche » — une fois par semaine (le lundi).
-    if (weekday === "Mon") {
+    const tz = "America/Toronto";
+    const torontoHour = parseInt(
+      new Date().toLocaleString("en-US", { timeZone: tz, hour: "2-digit", hour12: false }),
+      10
+    );
+    const weekday = new Date().toLocaleDateString("en-US", { timeZone: tz, weekday: "short" });
+
+    // Pas encore l'heure d'envoi (la dédup last_reminded_at évite tout doublon
+    // si le cron tourne aussi aux heures suivantes).
+    if (isNaN(torontoHour) || torontoHour < cfg.hour) {
+      return NextResponse.json({ skipped: "not yet", torontoHour });
+    }
+
+    let pushes = 0;
+
+    // Rappel « complète ta fiche » — le jour configuré.
+    if (weekday === cfg.ficheDay) {
       const { data: fiche } = await supabaseAdmin.rpc("fiche_reminder_targets");
       for (const t of (fiche || []) as { employee_id: string }[]) {
         const n = await sendToEmployee(t.employee_id, {
@@ -44,26 +74,22 @@ export async function GET() {
           body: "Il manque des infos sur ta fiche (téléphone, contact d'urgence…). Ça prend 1 minute.",
           url: "/profile",
         });
-        if (n > 0) {
-          await markReminded(t.employee_id);
-          pushes += n;
-        }
+        if (n > 0) { await markReminded(t.employee_id); pushes += n; }
       }
     }
 
-    // 2) Rappels d'activité « viens faire tes trucs » (ceux pas déjà rappelés).
-    const { data: targets } = await supabaseAdmin.rpc("push_reminder_targets");
-    const dayNumber = Math.floor(Date.now() / 86_400_000);
-    for (const t of (targets || []) as { employee_id: string }[]) {
-      const msg = MESSAGES[(hash(t.employee_id) + dayNumber) % MESSAGES.length];
-      const n = await sendToEmployee(t.employee_id, msg);
-      if (n > 0) {
-        await markReminded(t.employee_id);
-        pushes += n;
+    // Rappel d'activité — les jours configurés.
+    if (cfg.days.includes(weekday)) {
+      const { data: targets } = await supabaseAdmin.rpc("push_reminder_targets");
+      const dayNumber = Math.floor(Date.now() / 86_400_000);
+      for (const t of (targets || []) as { employee_id: string }[]) {
+        const msg = MESSAGES[(hash(t.employee_id) + dayNumber) % MESSAGES.length];
+        const n = await sendToEmployee(t.employee_id, msg);
+        if (n > 0) { await markReminded(t.employee_id); pushes += n; }
       }
     }
 
-    return NextResponse.json({ pushes });
+    return NextResponse.json({ pushes, torontoHour, weekday });
   } catch (err) {
     console.error("Erreur cron reminders:", err);
     return NextResponse.json({ error: "Erreur" }, { status: 500 });
