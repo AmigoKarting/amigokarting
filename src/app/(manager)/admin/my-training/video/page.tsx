@@ -90,8 +90,9 @@ export default async function ManagerTrainingVideoPage() {
                             const done = completedIds.has(vid.id);
                             const watchLog = watchLogs?.find((w) => w.video_id === vid.id);
                             return (
-                              <div
+                              <Link
                                 key={vid.id}
+                                href={`/training/${mod.id}/${ch.id}`}
                                 className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-gray-50"
                               >
                                 {done ? (
@@ -115,7 +116,7 @@ export default async function ManagerTrainingVideoPage() {
                                 <span className="text-xs text-gray-400">
                                   {Math.floor(vid.duration_sec / 60)}:{String(vid.duration_sec % 60).padStart(2, "0")}
                                 </span>
-                              </div>
+                              </Link>
                             );
                           })}
                       </div>
