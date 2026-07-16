@@ -1,10 +1,16 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { getAuthEmployee } from "@/lib/supabase/middleware";
+import { roleCategory } from "@/lib/roles";
 import { ModuleCard } from "@/components/training/ModuleCard";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
 export default async function TrainingVideoPage() {
   const supabase = createServerSupabaseClient();
+  const me: any = await getAuthEmployee();
+  // Formation ciblée (comme la formation texte) : un rôle « caisse »/« piste »
+  // ne voit que les vidéos de sa catégorie ; gérant/patron/dev voient tout.
+  const onlyCategory = roleCategory(me?.role);
 
   const { data: modules } = await supabase
     .from("training_modules")
@@ -13,7 +19,9 @@ export default async function TrainingVideoPage() {
     .neq("content_type", "text")
     .order("sort_order");
 
-  const videoModules = modules || [];
+  const videoModules = (modules || []).filter(
+    (m: any) => !onlyCategory || m.category === onlyCategory
+  );
 
   return (
     <div className="space-y-6">
