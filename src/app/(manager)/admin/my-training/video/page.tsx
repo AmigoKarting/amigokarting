@@ -92,7 +92,7 @@ export default async function ManagerTrainingVideoPage() {
                             return (
                               <Link
                                 key={vid.id}
-                                href={`/training/${mod.id}/${ch.id}`}
+                                href={`/training/${mod.id}/${ch.id}#video-${vid.id}`}
                                 className="flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-gray-50"
                               >
                                 {done ? (
@@ -112,6 +112,11 @@ export default async function ManagerTrainingVideoPage() {
                                 )}
                                 <span className={`flex-1 text-sm ${done ? "text-gray-400 line-through" : "text-gray-800"}`}>
                                   {vid.title}
+                                  {!done && (watchLog?.watched_sec || 0) > 0 && (
+                                    <span className="ml-2 text-xs font-medium text-brand-600">
+                                      rendu à {Math.floor((watchLog!.watched_sec || 0) / 60)}:{String((watchLog!.watched_sec || 0) % 60).padStart(2, "0")}
+                                    </span>
+                                  )}
                                 </span>
                                 <span className="text-xs text-gray-400">
                                   {Math.floor(vid.duration_sec / 60)}:{String(vid.duration_sec % 60).padStart(2, "0")}

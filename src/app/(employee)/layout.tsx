@@ -13,7 +13,15 @@ export default function EmployeeLayout({ children }: { children: React.ReactNode
   const mainRef = useRef<HTMLElement>(null);
 
   // Remonter en haut à chaque changement de page (navigation agréable).
+  // Sauf si l'URL contient une ancre (ex.: #video-xxx) : on va à l'ancre.
   useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      const t = setTimeout(() => {
+        document.getElementById(hash.slice(1))?.scrollIntoView({ block: "start" });
+      }, 150);
+      return () => clearTimeout(t);
+    }
     mainRef.current?.scrollTo({ top: 0 });
   }, [pathname]);
 

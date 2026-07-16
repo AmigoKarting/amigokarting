@@ -65,16 +65,33 @@ export default async function ChapterPage({
           ?.sort((a: any, b: any) => a.sort_order - b.sort_order)
           .map((video: any) => {
             const log = watchLogs?.find((w: any) => w.video_id === video.id);
+            const resumeSec = Math.max(log?.max_position || 0, log?.watched_sec || 0);
             return (
-              <div key={video.id} className="space-y-2">
-                <h3 className="font-medium">{video.title}</h3>
+              // id = cible d'ancre (#video-xxx) pour arriver directement sur la bonne partie
+              <div key={video.id} id={`video-${video.id}`} className="scroll-mt-24 space-y-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h3 className="font-medium">{video.title}</h3>
+                  {log?.completed ? (
+                    <span className="rounded-md bg-green-100 px-2 py-0.5 text-xs font-medium text-green-700">
+                      Complétée
+                    </span>
+                  ) : resumeSec > 0 ? (
+                    <span className="rounded-md bg-orange-50 px-2 py-0.5 text-xs font-medium text-brand-700">
+                      Rendu à {Math.floor(resumeSec / 60)}:{String(resumeSec % 60).padStart(2, "0")} — reprend où tu étais
+                    </span>
+                  ) : null}
+                </div>
                 {video.description && (
                   <p className="text-sm text-gray-500">{video.description}</p>
                 )}
                 <VideoPlayer
                   videoUrl={video.video_url}
                   videoId={video.id}
-                  initialProgress={log?.watched_sec || 0}
+                  videoTitle={video.title}
+                  durationSec={video.duration_sec}
+                  initialWatchedSec={log?.watched_sec || 0}
+                  initialMaxPosition={log?.max_position || 0}
+                  initialCompleted={!!log?.completed}
                 />
               </div>
             );
