@@ -2,11 +2,15 @@ import Link from "next/link";
 import type { TrainingModule } from "@/types/training";
 
 export function ModuleCard({ module }: { module: TrainingModule }) {
-  const chapterCount = module.chapters?.length || 0;
+  // La requête Supabase renvoie `training_chapters`/`training_videos` —
+  // on gère les deux formes pour que les compteurs soient justes.
+  const chapters: any[] = (module as any).training_chapters ?? module.chapters ?? [];
+  const chapterCount = chapters.length;
   const isText = module.content_type === "text";
-  const videoCount = module.chapters?.reduce(
-    (acc, ch) => acc + (ch.videos?.length || 0), 0
-  ) || 0;
+  const videoCount = chapters.reduce(
+    (acc: number, ch: any) => acc + ((ch.training_videos ?? ch.videos)?.length || 0),
+    0
+  );
 
   return (
     <Link href={`/training/${module.id}`}>
