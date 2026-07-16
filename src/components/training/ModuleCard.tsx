@@ -43,7 +43,7 @@ export function ModuleCard({
               <span className={`font-medium ${progress.done === progress.total ? "text-green-600" : "text-gray-600"}`}>
                 {progress.done === progress.total
                   ? "Toutes les vidéos complétées"
-                  : `${progress.done}/${progress.total} vidéo${progress.total > 1 ? "s" : ""} complétée${progress.done > 1 ? "s" : ""}`}
+                  : `${progress.done}/${progress.total} vidéo${progress.total > 1 ? "s" : ""} complétée${progress.total > 1 ? "s" : ""}`}
               </span>
               {progress.resume && (
                 <span className="font-medium text-brand-600">{progress.resume}</span>
