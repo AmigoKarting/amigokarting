@@ -23,6 +23,42 @@ export default async function TrainingVideoPage() {
     (m: any) => !onlyCategory || m.category === onlyCategory
   );
 
+  // Progression de l'employé : vidéos complétées + où il est rendu.
+  const { data: logs } = await supabase
+    .from("video_watch_log")
+    .select("video_id, completed, watched_sec, max_position, updated_at")
+    .eq("employee_id", me?.id);
+
+  function progressFor(mod: any) {
+    const videos = (mod.training_chapters || []).flatMap(
+      (ch: any) => ch.training_videos || []
+    );
+    if (videos.length === 0) return undefined;
+    const byId = new Map((logs || []).map((l: any) => [l.video_id, l]));
+    const done = videos.filter((v: any) => byId.get(v.id)?.completed).length;
+    // La vidéo en cours la plus récente (pas terminée, mais commencée)
+    const started = videos
+      .map((v: any) => ({ v, log: byId.get(v.id) }))
+      .filter(
+        (x: any) =>
+          x.log && !x.log.completed &&
+          Math.max(x.log.max_position || 0, x.log.watched_sec || 0) > 0
+      )
+      .sort(
+        (a: any, b: any) =>
+          new Date(b.log.updated_at).getTime() - new Date(a.log.updated_at).getTime()
+      )[0];
+    let resume: string | undefined;
+    if (started) {
+      const sec = Math.max(started.log.max_position || 0, started.log.watched_sec || 0);
+      const partie = started.v.title.includes("—")
+        ? started.v.title.split("—").pop()!.trim()
+        : started.v.title;
+      resume = `${partie} · rendu à ${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
+    }
+    return { done, total: videos.length, resume };
+  }
+
   return (
     <div className="space-y-6">
       <div>
@@ -37,8 +73,8 @@ export default async function TrainingVideoPage() {
 
       {videoModules.length > 0 ? (
         <div className="grid gap-4 sm:grid-cols-2">
-          {videoModules.map((module) => (
-            <ModuleCard key={module.id} module={module} />
+          {videoModules.map((module: any) => (
+            <ModuleCard key={module.id} module={module} progress={progressFor(module)} />
           ))}
         </div>
       ) : (

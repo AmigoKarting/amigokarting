@@ -1,7 +1,15 @@
 import Link from "next/link";
 import type { TrainingModule } from "@/types/training";
 
-export function ModuleCard({ module }: { module: TrainingModule }) {
+type ModuleProgress = { done: number; total: number; resume?: string };
+
+export function ModuleCard({
+  module,
+  progress,
+}: {
+  module: TrainingModule;
+  progress?: ModuleProgress;
+}) {
   // La requête Supabase renvoie `training_chapters`/`training_videos` —
   // on gère les deux formes pour que les compteurs soient justes.
   const chapters: any[] = (module as any).training_chapters ?? module.chapters ?? [];
@@ -27,6 +35,28 @@ export function ModuleCard({ module }: { module: TrainingModule }) {
             <span>{videoCount} vidéo{videoCount > 1 ? "s" : ""}</span>
           )}
         </div>
+
+        {/* Progression de l'employé : complétées + où il est rendu */}
+        {progress && progress.total > 0 && (
+          <div className="mt-3">
+            <div className="flex flex-wrap items-center justify-between gap-1 text-xs">
+              <span className={`font-medium ${progress.done === progress.total ? "text-green-600" : "text-gray-600"}`}>
+                {progress.done === progress.total
+                  ? "Toutes les vidéos complétées"
+                  : `${progress.done}/${progress.total} vidéo${progress.total > 1 ? "s" : ""} complétée${progress.done > 1 ? "s" : ""}`}
+              </span>
+              {progress.resume && (
+                <span className="font-medium text-brand-600">{progress.resume}</span>
+              )}
+            </div>
+            <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-gray-100">
+              <div
+                className={`h-full rounded-full ${progress.done === progress.total ? "bg-green-500" : "bg-brand-600"}`}
+                style={{ width: `${Math.round((progress.done / progress.total) * 100)}%` }}
+              />
+            </div>
+          </div>
+        )}
       </div>
     </Link>
   );
